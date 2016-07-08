@@ -64,9 +64,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
         TpresupuestoArticulos = new javax.swing.JTable();
-        CSpresupuestoRangoDesde = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
-        CSpresupuestoRangoHasta = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -219,8 +217,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         });
         SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
 
-        CSpresupuestoRangoDesde.setMinSelectableDate(new java.util.Date(-62135755134000L));
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("desde");
@@ -259,12 +255,9 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                             .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(54, 54, 54)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(36, 36, 36)))
                         .addGap(18, 18, 18)
                         .addComponent(BpresupuestoBuscar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -290,11 +283,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel4))
                                 .addGap(31, 31, 31)
                                 .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -389,8 +379,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JButton BpresupuestoEditar;
     private javax.swing.JButton BpresupuestoEliminar;
     private javax.swing.JButton BpresupuestoNuevo;
-    private com.toedter.calendar.JDateChooser CSpresupuestoRangoDesde;
-    private com.toedter.calendar.JDateChooser CSpresupuestoRangoHasta;
     private javax.swing.JScrollPane SPpresupuesto;
     private javax.swing.JScrollPane SPpresupuestoArticulos;
     private javax.swing.JTextField TFpresupuestoCodigo;
@@ -573,7 +561,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             try{
                 valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
             }catch (NumberFormatException e){
-                System.out.println("no se pudo determinar el codigo presupuesto");
+                System.out.println("No se pudo determinar el codigo presupuesto");
             }
             if(valorCelda != 0){
                 DefaultTableModel dtmPresupuesto = (DefaultTableModel) Tpresupuesto.getModel();
@@ -600,7 +588,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                       
                       
                 }else{
-                   System.out.println("no se modifico nada");
+                   System.out.println("No se realizaron modificaciones");
                 }
             }
          }
