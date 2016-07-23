@@ -66,6 +66,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         TpresupuestoArticulos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        CSpresupuestoRangoDesde = new com.toedter.calendar.JDateChooser();
+        CSpresupuestoRangoHasta = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de presupuestos");
@@ -225,6 +227,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("hasta");
 
+        CSpresupuestoRangoDesde.setName("CSpresupuestoRangoDesde"); // NOI18N
+
+        CSpresupuestoRangoHasta.setName("CSpresupuestoRangoHasta"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,9 +261,13 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                             .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(57, 57, 57)))
                         .addGap(18, 18, 18)
                         .addComponent(BpresupuestoBuscar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -280,19 +290,26 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel3))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(31, 31, 31)
                                 .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addComponent(BpresupuestoBuscar))))
                     .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
+
+        CSpresupuestoRangoDesde.getAccessibleContext().setAccessibleName("CSpresupuestoRangoDesde");
+        CSpresupuestoRangoHasta.getAccessibleContext().setAccessibleName("CSpresupuestoRangoHasta");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -379,6 +396,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JButton BpresupuestoEditar;
     private javax.swing.JButton BpresupuestoEliminar;
     private javax.swing.JButton BpresupuestoNuevo;
+    private com.toedter.calendar.JDateChooser CSpresupuestoRangoDesde;
+    private com.toedter.calendar.JDateChooser CSpresupuestoRangoHasta;
     private javax.swing.JScrollPane SPpresupuesto;
     private javax.swing.JScrollPane SPpresupuestoArticulos;
     private javax.swing.JTextField TFpresupuestoCodigo;
