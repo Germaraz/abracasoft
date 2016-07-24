@@ -6,6 +6,7 @@
 //DROPBOX
 package pantallas;
 
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import negocio.UsuarioNegocio;
@@ -20,15 +21,12 @@ public class LogIn extends javax.swing.JFrame {
      * Creates new form LogIn
      */
     public LogIn() {
-        
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        try{
-            setIconImage(new ImageIcon(getClass().getResource("../images/logop.png")).getImage());
-        }catch (Exception e){
-            
-        }
+        setIconImage(new ImageIcon(getClass().getResource("../images/logop.png")).getImage());
+        setLocationRelativeTo(null);
+        getRootPane().setDefaultButton(BlogIn);
         //new gestores.AbraBackUp().CrearBackup();
         //new gestores.AbraBackUp().RestaurarBackup("24 de junio de 2014");
     }
@@ -148,7 +146,7 @@ public class LogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TFloginUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFloginUsuarioActionPerformed
-        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_TFloginUsuarioActionPerformed
 
@@ -158,13 +156,12 @@ public class LogIn extends javax.swing.JFrame {
 
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
 
-        if (validar()!=true){
+        if (validar() != true) {
 
-            
-        }else{
+        } else {
             ingresar(TFloginUsuario.getText(), Integer.parseInt(TFloginPass.getText()));
         }
-        
+
         this.dispose();
 
     }//GEN-LAST:event_BlogInActionPerformed
@@ -200,7 +197,6 @@ public class LogIn extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LogIn().setVisible(true);
-                
             }
         });
     }
@@ -215,8 +211,8 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    
-    private boolean validar(){
+
+    private boolean validar() {
         boolean estado = false;
         if (TFloginUsuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No ha ingresado su nombre de usuario");
@@ -224,26 +220,24 @@ public class LogIn extends javax.swing.JFrame {
         } else if (TFloginPass.getText().length() < 4 || TFloginPass.getText().length() > 12) {
             JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 4 y 12 caracteres");
             TFloginPass.requestFocus();
-        }else{
-            estado=true;
+        } else {
+            estado = true;
         }
         return estado;
     }
-    
-    private int ingresar(String usuario, int pass){
+
+    private int ingresar(String usuario, int pass) {
         int idUsuario = UsuarioNegocio.LogIn(usuario, pass);
-        
-        if (idUsuario != 0){
+        if (idUsuario != 0) {
             //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
             MenuDeOpcionesEmpleado ventana = new MenuDeOpcionesEmpleado();
             ventana.setVisible(true);
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
         }
-        
-            
+
         return idUsuario;
     }
-    
+
 }
