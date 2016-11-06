@@ -32,7 +32,7 @@ public class Conexion {
             }
             try {
 
-                conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/abracasoftdb", "root", "admin");
+                conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/abracasoftdb", "root", "root");
                 
             } catch (SQLException e) {
 

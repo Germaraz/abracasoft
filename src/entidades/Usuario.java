@@ -71,7 +71,7 @@ public class Usuario extends Privilegio {
         PassUsuario = passUsuario;
     }
 
-    public static int altaDeUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException {
+    public static int altaDeUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException, Exception {
        int resultado = GestorUsuario.altaUsuarioEnBD(usuario, privilegios);
        return resultado;
     }
@@ -101,4 +101,6 @@ public class Usuario extends Privilegio {
         }
         return ok;
     }
+    
+ 
 }

@@ -38,15 +38,21 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton3 = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        jButton5 = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        Caja = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Empleado");
         setAutoRequestFocus(false);
         setExtendedState(MenuDeOpcionesEmpleado.MAXIMIZED_BOTH);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setBorderPainted(false);
         jToolBar1.setOpaque(false);
 
@@ -87,6 +93,32 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton3);
+        jToolBar1.add(jSeparator3);
+
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton5.setText("Gestión de usuarios");
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton5);
+        jToolBar1.add(jSeparator4);
+
+        Caja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Caja.setText("Caja");
+        Caja.setFocusable(false);
+        Caja.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Caja.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Caja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CajaActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(Caja);
 
         jScrollPane1.setOpaque(false);
 
@@ -101,29 +133,40 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton6.setText("VENTA");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap())
+                        .addGap(0, 931, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
                 .addContainerGap())
@@ -133,7 +176,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +225,12 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             case "Gestion Presupuesto":
                 señalPresu = 0;
                 break;
+            case "Gestion Usuarios":
+                señalUsu = 0;
+                break;
+            case "Operaciones Diarias":
+                señalOpDia = 0;
+                break;
             default:
                 break;
             }
@@ -188,6 +239,36 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        GestionDeUsuarios gestionusuarios = new GestionDeUsuarios();
+        
+        if (señalUsu == 0) {
+            jTabbedPane1.addTab("Gestion Usuarios", gestionusuarios.getContentPane());
+           señalUsu = 1;
+        }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void CajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CajaActionPerformed
+        // TODO add your handling code here:
+        MenuDeOperacionesDiarias menuopdiarias = new MenuDeOperacionesDiarias();
+        
+        if (señalOpDia == 0) {
+            jTabbedPane1.addTab("Operaciones Diarias", menuopdiarias.getContentPane());
+           señalOpDia = 1;
+        }
+    }//GEN-LAST:event_CajaActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        //new VentasEmpleado().setVisible(true);
+        VentasEmpleado nuevaventa = new  VentasEmpleado();
+        if (señalVenta == 0) {
+            jTabbedPane1.addTab("Nueva Venta", nuevaventa.getContentPane());
+           señalVenta = 1;
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,18 +307,26 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    javax.swing.JButton Caja;
     javax.swing.JButton jButton1;
     javax.swing.JButton jButton2;
     javax.swing.JButton jButton3;
     javax.swing.JButton jButton4;
+    javax.swing.JButton jButton5;
+    javax.swing.JButton jButton6;
     javax.swing.JPanel jPanel1;
     javax.swing.JScrollPane jScrollPane1;
     javax.swing.JToolBar.Separator jSeparator1;
     javax.swing.JToolBar.Separator jSeparator2;
+    javax.swing.JToolBar.Separator jSeparator3;
+    javax.swing.JToolBar.Separator jSeparator4;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
     private int señalProd = 0;
     private int señalClie = 0;
     private int señalPresu = 0;
+    private int señalUsu = 0;
+    private int señalOpDia = 0;
+    private int señalVenta = 0;
 }

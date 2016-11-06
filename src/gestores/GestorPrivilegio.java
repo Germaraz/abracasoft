@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class GestorPrivilegio {
 
-    boolean AltaPrivilegioDeUsuarioEnBD(int idusuario, int idprivilegios) {
+    boolean AltaPrivilegioDeUsuarioEnBD(int idusuario, int idprivilegios) throws Exception {
         boolean resultado;
         String sql = "INSERT INTO relation_582 (IDUSU,IDPRIVILEGIO) VALUES(?,?)";
         try {
