@@ -5,7 +5,10 @@
  */
 package pantallas;
 
+import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -205,7 +208,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MenuDeGestionDeProductos gestionproducto = new MenuDeGestionDeProductos();
         if (señalProd == 0) {
-            jTabbedPane1.addTab("Gestion Producto", gestionproducto.getContentPane());
+            jTabbedPane1.addTab("Gestión de productos", gestionproducto.getContentPane());
            señalProd = 1;
         }
         
@@ -214,7 +217,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MenuGestionCliente gestioncliente = new MenuGestionCliente();
         if (señalClie == 0) {
-            jTabbedPane1.addTab("Gestion Cliente", gestioncliente.getContentPane());
+            jTabbedPane1.addTab("Gestión de clientes", gestioncliente.getContentPane());
            señalClie = 1;
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -222,7 +225,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         GestionPresupuesto gestionpresupuesto = new GestionPresupuesto();
         if (señalPresu == 0) {
-            jTabbedPane1.addTab("Gestion Presupuesto", gestionpresupuesto.getContentPane());
+            jTabbedPane1.addTab("Gestión de presupuestos", gestionpresupuesto.getContentPane());
            señalPresu = 1;
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -231,19 +234,19 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         try{
             String nomTab = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
             switch (nomTab) {
-            case "Gestion Cliente":
+            case "Gestión de clientes":
                 señalClie = 0;
                 break;
-            case "Gestion Producto":
+            case "Gestión de productos":
                 señalProd = 0;
                 break;
-            case "Gestion Presupuesto":
+            case "Gestión de presupuestos":
                 señalPresu = 0;
                 break;
-            case "Gestion Usuarios":
+            case "Gestión de usuarios":
                 señalUsu = 0;
                 break;
-            case "Operaciones Diarias":
+            case "Caja":
                 señalOpDia = 0;
                 break;
             default:
@@ -259,7 +262,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         GestionDeUsuarios gestionusuarios = new GestionDeUsuarios();
         
         if (señalUsu == 0) {
-            jTabbedPane1.addTab("Gestion Usuarios", gestionusuarios.getContentPane());
+            jTabbedPane1.addTab("Gestión de usuarios", gestionusuarios.getContentPane());
            señalUsu = 1;
         }
         
@@ -280,7 +283,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         //new VentasEmpleado().setVisible(true);
         VentasEmpleado nuevaventa = new  VentasEmpleado();
         if (señalVenta == 0) {
-            jTabbedPane1.addTab("Nueva Venta", nuevaventa.getContentPane());
+            jTabbedPane1.addTab("Nueva venta", nuevaventa.getContentPane());
            señalVenta = 1;
         }
     }//GEN-LAST:event_jButton6ActionPerformed
