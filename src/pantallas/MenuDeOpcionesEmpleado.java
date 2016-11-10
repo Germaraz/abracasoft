@@ -16,6 +16,7 @@ import static sun.security.util.Debug.Help;
 import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyAdapter;
+import javax.swing.JOptionPane;
 import static jdk.nashorn.internal.objects.NativeArray.map;
 import static jdk.nashorn.internal.objects.NativeDebug.map;
 
@@ -37,6 +38,18 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setAlwaysOnTop(true);
         this.setResizable(false); 
+    }
+    
+    public void cerrar(){
+        setLocationRelativeTo(null);
+        Object [] opciones ={"Aceptar","Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane,"¿Desea salir de OSG?","Saliendo de OSG",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+            if (eleccion == JOptionPane.YES_OPTION){
+                System.exit(0);
+            }else{
+            }
     }
     
 
@@ -63,16 +76,21 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         Caja = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jButton4 = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
         btnVenta = new javax.swing.JButton();
         btnAyuda = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OSG");
         setAlwaysOnTop(true);
         setAutoRequestFocus(false);
         setExtendedState(MenuDeOpcionesEmpleado.MAXIMIZED_BOTH);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jToolBar1.setFloatable(false);
         jToolBar1.setBorderPainted(false);
@@ -151,10 +169,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(jTabbedPane1);
 
-        jButton4.setText("Cerrar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setText("Cerrar");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -188,7 +206,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAyuda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
+                        .addComponent(btnExit)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -202,7 +220,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btnExit)
                     .addComponent(btnAyuda))
                 .addContainerGap())
         );
@@ -246,7 +264,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         try{
             String nomTab = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
             switch (nomTab) {
@@ -273,9 +291,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             }
             jTabbedPane1.removeTabAt(jTabbedPane1.getSelectedIndex());
         }catch (ArrayIndexOutOfBoundsException e){
-            System.exit(0);
+            cerrar();
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         GestionDeUsuarios gestionusuarios = new GestionDeUsuarios();
@@ -311,6 +329,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             Help help = new Help();
             help.setVisible(true);
     }//GEN-LAST:event_btnAyudaActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        cerrar();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -352,11 +374,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton Caja;
     javax.swing.JButton btnAyuda;
+    javax.swing.JButton btnExit;
     javax.swing.JButton btnVenta;
     javax.swing.JButton jButton1;
     javax.swing.JButton jButton2;
     javax.swing.JButton jButton3;
-    javax.swing.JButton jButton4;
     javax.swing.JButton jButton5;
     javax.swing.JPanel jPanel1;
     javax.swing.JScrollPane jScrollPane1;
