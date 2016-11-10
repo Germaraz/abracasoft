@@ -24,7 +24,7 @@ public class LogIn extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("../images/logop.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("../images/osg512.png")).getImage());
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(BlogIn);
         //new gestores.AbraBackUp().CrearBackup();
@@ -50,11 +50,11 @@ public class LogIn extends javax.swing.JFrame {
         TFloginPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("AbracaSoft");
+        setTitle("OSG");
         setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Bienvenido a Abracasoft");
+        jLabel1.setText("Bienvenido a OSG");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Usuario:");

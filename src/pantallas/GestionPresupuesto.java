@@ -51,26 +51,71 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        BpresupuestoEditar = new javax.swing.JButton();
+        BpresupuestoNuevo = new javax.swing.JButton();
+        CSpresupuestoRangoHasta = new com.toedter.calendar.JDateChooser();
+        CSpresupuestoRangoDesde = new com.toedter.calendar.JDateChooser();
+        TFpresupuestoCodigo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         SPpresupuesto = new javax.swing.JScrollPane();
         Tpresupuesto = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        TFpresupuestoCodigo = new javax.swing.JTextField();
-        BpresupuestoNuevo = new javax.swing.JButton();
-        BpresupuestoEditar = new javax.swing.JButton();
-        BpresupuestoEliminar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        BpresupuestoBuscar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
         TpresupuestoArticulos = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        CSpresupuestoRangoDesde = new com.toedter.calendar.JDateChooser();
-        CSpresupuestoRangoHasta = new com.toedter.calendar.JDateChooser();
+        BpresupuestoEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        BpresupuestoBuscar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de presupuestos");
+
+        BpresupuestoEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BpresupuestoEditar.setText("Editar presupuesto");
+        BpresupuestoEditar.setMaximumSize(new java.awt.Dimension(41, 41));
+        BpresupuestoEditar.setMinimumSize(new java.awt.Dimension(41, 41));
+        BpresupuestoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BpresupuestoEditarActionPerformed(evt);
+            }
+        });
+
+        BpresupuestoNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BpresupuestoNuevo.setText("Nuevo presupuesto");
+        BpresupuestoNuevo.setMaximumSize(new java.awt.Dimension(41, 41));
+        BpresupuestoNuevo.setMinimumSize(new java.awt.Dimension(41, 41));
+        BpresupuestoNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BpresupuestoNuevoActionPerformed(evt);
+            }
+        });
+
+        CSpresupuestoRangoHasta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        CSpresupuestoRangoHasta.setMinimumSize(new java.awt.Dimension(27, 25));
+        CSpresupuestoRangoHasta.setName("CSpresupuestoRangoHasta"); // NOI18N
+        CSpresupuestoRangoHasta.setPreferredSize(new java.awt.Dimension(87, 18));
+
+        CSpresupuestoRangoDesde.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        CSpresupuestoRangoDesde.setMinimumSize(new java.awt.Dimension(27, 25));
+        CSpresupuestoRangoDesde.setName("CSpresupuestoRangoDesde"); // NOI18N
+
+        TFpresupuestoCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TFpresupuestoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TFpresupuestoCodigoMouseClicked(evt);
+            }
+        });
+        TFpresupuestoCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFpresupuestoCodigoKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Código");
 
         Tpresupuesto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Tpresupuesto.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,75 +170,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             Tpresupuesto.getColumnModel().getColumn(4).setMaxWidth(110);
         }
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Rango");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Código");
-
-        TFpresupuestoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TFpresupuestoCodigoMouseClicked(evt);
-            }
-        });
-        TFpresupuestoCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFpresupuestoCodigoKeyTyped(evt);
-            }
-        });
-
-        BpresupuestoNuevo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        BpresupuestoNuevo.setText("+");
-        BpresupuestoNuevo.setMaximumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoNuevo.setMinimumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoNuevoActionPerformed(evt);
-            }
-        });
-
-        BpresupuestoEditar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        BpresupuestoEditar.setText("/");
-        BpresupuestoEditar.setMaximumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEditar.setMinimumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoEditarActionPerformed(evt);
-            }
-        });
-
-        BpresupuestoEliminar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        BpresupuestoEliminar.setText("-");
-        BpresupuestoEliminar.setMaximumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEliminar.setMinimumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoEliminarActionPerformed(evt);
-            }
-        });
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton1.setText("?");
-        jButton1.setMaximumSize(new java.awt.Dimension(41, 41));
-        jButton1.setMinimumSize(new java.awt.Dimension(41, 41));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        BpresupuestoBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        BpresupuestoBuscar.setText("Buscar");
-        BpresupuestoBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoBuscarActionPerformed(evt);
-            }
-        });
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
         TpresupuestoArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -219,105 +195,141 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         });
         SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("desde");
+        BpresupuestoEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BpresupuestoEliminar.setText("Eliminar presupuesto");
+        BpresupuestoEliminar.setMaximumSize(new java.awt.Dimension(41, 41));
+        BpresupuestoEliminar.setMinimumSize(new java.awt.Dimension(41, 41));
+        BpresupuestoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BpresupuestoEliminarActionPerformed(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("hasta");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Rango");
 
-        CSpresupuestoRangoDesde.setName("CSpresupuestoRangoDesde"); // NOI18N
+        BpresupuestoBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        BpresupuestoBuscar.setText("Buscar");
+        BpresupuestoBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BpresupuestoBuscarActionPerformed(evt);
+            }
+        });
 
-        CSpresupuestoRangoHasta.setName("CSpresupuestoRangoHasta"); // NOI18N
+        jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("←|");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setText("|→");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BpresupuestoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BpresupuestoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BpresupuestoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(40, 40, 40)
+                                .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BpresupuestoBuscar)
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel1)
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
+                                .addGap(0, 167, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(SPpresupuestoArticulos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BpresupuestoBuscar)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1))))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                    .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BpresupuestoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BpresupuestoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BpresupuestoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        CSpresupuestoRangoHasta.getAccessibleContext().setAccessibleName("CSpresupuestoRangoHasta");
+        CSpresupuestoRangoDesde.getAccessibleContext().setAccessibleName("CSpresupuestoRangoDesde");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BpresupuestoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BpresupuestoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BpresupuestoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(57, 57, 57)))
-                        .addGap(18, 18, 18)
-                        .addComponent(BpresupuestoBuscar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BpresupuestoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BpresupuestoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BpresupuestoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel3))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(BpresupuestoBuscar))))
-                    .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        CSpresupuestoRangoDesde.getAccessibleContext().setAccessibleName("CSpresupuestoRangoDesde");
-        CSpresupuestoRangoHasta.getAccessibleContext().setAccessibleName("CSpresupuestoRangoHasta");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TFpresupuestoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoMouseClicked
-        // TODO add your handling code here:
-        TFpresupuestoCodigo.setBackground(Color.white);
-    }//GEN-LAST:event_TFpresupuestoCodigoMouseClicked
+    private void BpresupuestoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoBuscarActionPerformed
+        busqueda();
+    }//GEN-LAST:event_BpresupuestoBuscarActionPerformed
+
+    private void BpresupuestoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEliminarActionPerformed
+        eliminarPresupuesto();
+    }//GEN-LAST:event_BpresupuestoEliminarActionPerformed
+
+    private void TpresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TpresupuestoKeyReleased
+        presupuestoProducto();        // TODO add your handling code here:
+    }//GEN-LAST:event_TpresupuestoKeyReleased
+
+    private void TpresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TpresupuestoMouseClicked
+        presupuestoProducto();
+    }//GEN-LAST:event_TpresupuestoMouseClicked
 
     private void TFpresupuestoCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoKeyTyped
         char car = evt.getKeyChar();
@@ -325,6 +337,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_TFpresupuestoCodigoKeyTyped
+
+    private void TFpresupuestoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoMouseClicked
+        // TODO add your handling code here:
+        TFpresupuestoCodigo.setBackground(Color.white);
+    }//GEN-LAST:event_TFpresupuestoCodigoMouseClicked
 
     private void BpresupuestoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoNuevoActionPerformed
         // TODO add your handling code here:
@@ -335,26 +352,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         //modificarPresupuesto();
         abrirPresupuesto();
     }//GEN-LAST:event_BpresupuestoEditarActionPerformed
-
-    private void BpresupuestoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoBuscarActionPerformed
-        busqueda();
-    }//GEN-LAST:event_BpresupuestoBuscarActionPerformed
-
-    private void TpresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TpresupuestoKeyReleased
-        presupuestoProducto();        // TODO add your handling code here:
-    }//GEN-LAST:event_TpresupuestoKeyReleased
-
-    private void TpresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TpresupuestoMouseClicked
-        presupuestoProducto();
-    }//GEN-LAST:event_TpresupuestoMouseClicked
-
-    private void BpresupuestoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEliminarActionPerformed
-        eliminarPresupuesto();
-    }//GEN-LAST:event_BpresupuestoEliminarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        abrirAyuda();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,11 +400,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private javax.swing.JTextField TFpresupuestoCodigo;
     private javax.swing.JTable Tpresupuesto;
     private javax.swing.JTable TpresupuestoArticulos;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 

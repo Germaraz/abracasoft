@@ -6,6 +6,14 @@
 
 package pantallas;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Ema
@@ -16,6 +24,9 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
      * Creates new form MenuDeOpcionesAdministrador
      */
     public MenuDeOpcionesAdministrador() {
+        AparienciaPantalla apa = new AparienciaPantalla();
+        setLocationRelativeTo(null);
+        apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
     }
 
@@ -29,44 +40,69 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         CerrarSesionAdministrador = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        GestionDeUsuarioAministrador = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        GestionDeUsuarioAministrador = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu de Opciones del Administrador");
+        setTitle("Administración del sistema - OSG");
         setExtendedState(MenuDeOpcionesAdministrador.MAXIMIZED_BOTH);
+        setLocation(new java.awt.Point(0, 0));
+        setResizable(false);
+        setSize(new java.awt.Dimension(631, 300));
 
-        CerrarSesionAdministrador.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        CerrarSesionAdministrador.setText("Cerrar Sesion");
+        CerrarSesionAdministrador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        CerrarSesionAdministrador.setText("Salir");
+        CerrarSesionAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CerrarSesionAdministradorActionPerformed(evt);
+            }
+        });
 
-        GestionDeUsuarioAministrador.setText("Gestion de Usuarios");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/OSG512.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setDefaultCapable(false);
+        jButton1.setFocusable(false);
 
-        jMenuItem1.setText("Alta Usuario");
-        GestionDeUsuarioAministrador.add(jMenuItem1);
+        jMenu2.setText("Backup");
 
-        jMenuItem2.setText("Modificar Privilegios");
-        GestionDeUsuarioAministrador.add(jMenuItem2);
-
-        jMenuItem3.setText("Eliminar Usuario");
-        GestionDeUsuarioAministrador.add(jMenuItem3);
-
-        jMenuBar1.add(GestionDeUsuarioAministrador);
-
-        jMenu2.setText("BackUp");
-
-        jMenuItem4.setText("Hacer BackUp");
+        jMenuItem4.setText("Crear backup...");
         jMenu2.add(jMenuItem4);
 
-        jMenuItem5.setText("Abrir BackUp");
+        jMenuItem5.setText("Restaurar backup");
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
+
+        GestionDeUsuarioAministrador.setText("Gestión de usuarios");
+
+        jMenuItem1.setText("Crear usuario");
+        GestionDeUsuarioAministrador.add(jMenuItem1);
+
+        jMenuItem3.setText("Eliminar usuario");
+        GestionDeUsuarioAministrador.add(jMenuItem3);
+
+        jMenuItem2.setText("Edición de privilegios");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        GestionDeUsuarioAministrador.add(jMenuItem2);
+
+        jMenuBar1.add(GestionDeUsuarioAministrador);
+
+        jMenu1.setText("Auditoria del sistema");
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -74,21 +110,36 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(467, Short.MAX_VALUE)
-                .addComponent(CerrarSesionAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(457, 457, 457)
+                        .addComponent(CerrarSesionAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(CerrarSesionAdministrador)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CerrarSesionAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionAdministradorActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_CerrarSesionAdministradorActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,10 +175,42 @@ public class MenuDeOpcionesAdministrador extends javax.swing.JFrame {
             }
         });
     }
+    
+    public class JBackGroundImageClass extends JFrame
+{
+  Image img;
+  private final JPanel JPanel;
+
+  public JBackGroundImageClass()
+  {
+    setLayout (new BorderLayout ());    
+    setBounds(22,33,400, 400);
+    setVisible(true);
+
+    img = Toolkit.getDefaultToolkit().createImage("../images/osg512.png");    
+    JPanel = new JPanel()
+    {
+      public void paintComponent(Graphics g)
+      {img = Toolkit.getDefaultToolkit().createImage("../images/osg512.png");
+        g.drawImage(img, 0, 0, null);
+      }
+    };
+
+    this.add("North" , JPanel);
+    JPanel.setSize(400, 400);
+    JPanel.setBackground(Color.red);
+    JPanel.setVisible(true);
+
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CerrarSesionAdministrador;
     private javax.swing.JMenu GestionDeUsuarioAministrador;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
