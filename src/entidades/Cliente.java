@@ -5,132 +5,105 @@
  */
 package entidades;
 
+import java.util.Date;
+
 /**
  *
- * @author Ema
+ * @author ema_s
  */
 public class Cliente {
+    private int idCliente;
+    private int dniCliente;
+    private String nombreCliente;
+    private String apellidoCliente;
+    private String direccionCliente;
+    private String mailCliente;
+    private int telefonoCliente;
+    private Date fechaAltaCliente;
+    private Date fechaBajaCliente;
+    private Localidad localidad;
 
-    private String NombreCliente;
-    private String ProvinciaCliente;
-    private String LocalidadCliente;
-    private String DireccionCliente;
-    private int CodigoPostalCliente;
-    private int TelefonoCliente;
-    private int DniCuilCuit;
-    private String Esatdo;
-    private int IdCliente;
+    public Cliente() {
+    }
 
     public int getIdCliente() {
-        return IdCliente;
+        return idCliente;
     }
 
-    public void setIdCliente(int IdCliente) {
-        this.IdCliente = IdCliente;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public int getDniCuilCuit() {
-        return DniCuilCuit;
+    public int getDniCliente() {
+        return dniCliente;
     }
 
-    public String getEsatdo() {
-        return Esatdo;
-    }
-
-    public void setEsatdo(String Esatdo) {
-        this.Esatdo = Esatdo;
-    }
-
-    public void setDniCuilCuit(int DniCuilCuit) {
-        this.DniCuilCuit = DniCuilCuit;
-    }
-    private String MailCliente;
-
-    public Cliente(int idCliente, String nombreCliente, String provinciaCliente,
-            String localidadCliente, String direccionCliente,
-            int codigoPostalCliente, int telefonoCliente, int dniCuilCuit, String mailCliente) {
-        super();
-        IdCliente = idCliente;
-        NombreCliente = nombreCliente;
-        ProvinciaCliente = provinciaCliente;
-        LocalidadCliente = localidadCliente;
-        DireccionCliente = direccionCliente;
-        CodigoPostalCliente = codigoPostalCliente;
-        TelefonoCliente = telefonoCliente;
-        DniCuilCuit = dniCuilCuit;
-        MailCliente = mailCliente;
-    }
-    
-        public Cliente(int idCliente, String nombreCliente, String direccionCliente,
-            int codigoPostalCliente, int telefonoCliente, int dniCuilCuit, String mailCliente) {
-        super();
-        IdCliente = idCliente;
-        NombreCliente = nombreCliente;
-        DireccionCliente = direccionCliente;
-        CodigoPostalCliente = codigoPostalCliente;
-        TelefonoCliente = telefonoCliente;
-        DniCuilCuit = dniCuilCuit;
-        MailCliente = mailCliente;
+    public void setDniCliente(int dniCliente) {
+        this.dniCliente = dniCliente;
     }
 
     public String getNombreCliente() {
-        return NombreCliente;
+        return nombreCliente;
     }
 
     public void setNombreCliente(String nombreCliente) {
-        NombreCliente = nombreCliente;
+        this.nombreCliente = nombreCliente;
     }
 
-    public String getProvinciaCliente() {
-        return ProvinciaCliente;
+    public String getApellidoCliente() {
+        return apellidoCliente;
     }
 
-    public void setProvinciaCliente(String provinciaCliente) {
-        ProvinciaCliente = provinciaCliente;
-    }
-
-    public String getLocalidadCliente() {
-        return LocalidadCliente;
-    }
-
-    public void setLocalidadCliente(String localidadCliente) {
-        LocalidadCliente = localidadCliente;
+    public void setApellidoCliente(String apellidoCliente) {
+        this.apellidoCliente = apellidoCliente;
     }
 
     public String getDireccionCliente() {
-        return DireccionCliente;
+        return direccionCliente;
     }
 
     public void setDireccionCliente(String direccionCliente) {
-        DireccionCliente = direccionCliente;
-    }
-
-    public int getCodigoPostalCliente() {
-        return CodigoPostalCliente;
-    }
-
-    public void setCodigoPostalCliente(int codigoPostalCliente) {
-        CodigoPostalCliente = codigoPostalCliente;
-    }
-
-    public int getTelefonoCliente() {
-        return TelefonoCliente;
-    }
-
-    public void setTelefonoCliente(int telefonoCliente) {
-        TelefonoCliente = telefonoCliente;
+        this.direccionCliente = direccionCliente;
     }
 
     public String getMailCliente() {
-        return MailCliente;
+        return mailCliente;
     }
 
     public void setMailCliente(String mailCliente) {
-        MailCliente = mailCliente;
-    }
-    
-    public String toString() {
-        return NombreCliente;
+        this.mailCliente = mailCliente;
     }
 
+    public int getTelefonoCliente() {
+        return telefonoCliente;
+    }
+
+    public void setTelefonoCliente(int telefonoCliente) {
+        this.telefonoCliente = telefonoCliente;
+    }
+
+    public Date getFechaAltaCliente() {
+        return fechaAltaCliente;
+    }
+
+    public void setFechaAltaCliente(Date fechaAltaCliente) {
+        this.fechaAltaCliente = fechaAltaCliente;
+    }
+
+    public Date getFechaBajaCliente() {
+        return fechaBajaCliente;
+    }
+
+    public void setFechaBajaCliente(Date fechaBajaCliente) {
+        this.fechaBajaCliente = fechaBajaCliente;
+    }
+
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+    
 }

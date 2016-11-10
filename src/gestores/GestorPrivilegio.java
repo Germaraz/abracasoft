@@ -6,6 +6,8 @@
 package gestores;
 
 import entidades.Privilegio;
+import entidades.Rol;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,41 +17,54 @@ import java.util.ArrayList;
  *
  * @author Ema
  */
-public class GestorPrivilegio {
+public class GestorPrivilegio extends PoolDeConexiones {
 
-    boolean AltaPrivilegioDeUsuarioEnBD(int idusuario, int idprivilegios) throws Exception {
-        boolean resultado;
-        String sql = "INSERT INTO relation_582 (IDUSU,IDPRIVILEGIO) VALUES(?,?)";
-        try {
-            PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
-            pst.setInt(1, idusuario);
-            pst.setInt(2, idprivilegios);
-            resultado = pst.execute(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.print(e.toString());
-            resultado = false;
-        }
-        return resultado;
+    public GestorPrivilegio() throws Exception {
+        this.pedirConexion();
     }
 
-    public static ArrayList<Privilegio> listarPrivilegiosDB() {
-
-        ArrayList<Privilegio> listaPrivilegio = new ArrayList<Privilegio>();
-        String sql = "SELECT * FROM privilegio";
+    public ArrayList<Privilegio> listarPrivilegios() throws Exception {
+        ArrayList<Privilegio> listaPrivilegio = null;
+        String sql = "SELECT * FROM habilidad WHERE habilidad.FECHABAJA IS NULL";
         try {
-            PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
-            ResultSet resultSet = pst.executeQuery();
-
-            while (resultSet.next()) {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
                 Privilegio privilegio = new Privilegio();
-                privilegio.setID(resultSet.getInt("IDPRIVILEGIO"));
-                privilegio.setDescripcionDePrivilegio(resultSet.getString("DESCPRIVILEGIO"));
+                privilegio.setIdPrivilegio(resultado.getInt("IDHABILIDAD"));
+                privilegio.setPrivilegio(resultado.getString("HABILIDAD"));
+                privilegio.setFechaAltaPrivilegio(resultado.getDate("FECHAALTA"));
                 listaPrivilegio.add(privilegio);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.print(e.toString());
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return listaPrivilegio;
+    }
+    
+    public ArrayList<Privilegio> obtenerPrivilegios(Rol rol) throws Exception{
+        ArrayList<Privilegio> listaPrivilegio = null;
+        String sql = "SELECT rol_habilidad.habilidad_IDHABILIDAD, habilidad.HABILIDAD, habilidad.FECHAALTA "
+                + "FROM rol_habilidad "
+                + "WHERE rol_habilidad.habilidad_IDHABILIDAD = habilidad.IDHABILIDAD "
+                + "AND rol_habilidad.rol_IDROL = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, rol.getIdRol());
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                Privilegio privilegio = new Privilegio();
+                privilegio.setIdPrivilegio(resultado.getInt("IDHABILIDAD"));
+                privilegio.setPrivilegio(resultado.getString("HABILIDAD"));
+                privilegio.setFechaAltaPrivilegio(resultado.getDate("FECHAALTA"));
+                listaPrivilegio.add(privilegio);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
         }
         return listaPrivilegio;
     }

@@ -13,5 +13,72 @@ import java.util.Date;
  */
 public class Compra {
 
-    private Date FechaCompra;
+    private int idCompra;
+    private Date fechaCompra;
+    private float montoCompra;
+    private float ivaCompra;
+    private Date fechaBajaCompra;
+    private Usuario usuario;
+    private Proveedor proveedor;
+
+    public Compra() {
+    }
+
+    public int getIdCompra() {
+        return idCompra;
+    }
+
+    public void setIdCompra(int idCompra) {
+        this.idCompra = idCompra;
+    }
+
+    public Date getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public float getMontoCompra() {
+        return montoCompra;
+    }
+
+    public void setMontoCompra(float montoCompra) {
+        this.montoCompra = montoCompra;
+    }
+
+    public float getIvaCompra() {
+        return ivaCompra;
+    }
+
+    public void setIvaCompra(float ivaCompra) {
+        this.ivaCompra = ivaCompra;
+    }
+
+    public Date getFechaBajaCompra() {
+        return fechaBajaCompra;
+    }
+
+    public void setFechaBajaCompra(Date fechaBajaCompra) {
+        this.fechaBajaCompra = fechaBajaCompra;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+    
+    
 }

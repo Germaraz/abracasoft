@@ -5,86 +5,133 @@
  */
 package entidades;
 
+import java.util.Date;
+
 /**
  *
- * @author Ema
+ * @author ema_s
  */
 public class Producto {
+   private int idProducto;
+   private int codigoBarra;
+   private String nombreProducto;
+   private String descripcionProducto;
+   private Date fechaVencimientoProducto;
+   private float precioUnitario;
+   private int stock;
+   private Date fechaAltaProducto;
+   private Date fechaBajaProducto;
+   private Compra compra;
+   private Venta venta;
+   private Promocion promocion;
+   private Reserva reserva;
 
-    private long CodigoDeProducto;
-    private String NombreProducto;
-    private float PrecioUnitario;
-    private float PrecioContado;
-    private float PrecioDebito;
-    private float PrecioCredito;
-
-    public float getPrecioContado() {
-        return PrecioContado;
+    public Producto() {
     }
 
-    public void setPrecioContado(float PrecioContado) {
-        this.PrecioContado = PrecioContado;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public float getPrecioDebito() {
-        return PrecioDebito;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
-    public void setPrecioDebito(float PrecioDebito) {
-        this.PrecioDebito = PrecioDebito;
+    public int getCodigoBarra() {
+        return codigoBarra;
     }
 
-    public float getPrecioCredito() {
-        return PrecioCredito;
-    }
-
-    public void setPrecioCredito(float PrecioCredito) {
-        this.PrecioCredito = PrecioCredito;
-    }
-    private int StockProducto;
-
-    public Producto(long codigoDeProducto, String nombreProducto, float precioContado, float precioDebito, float precioCredito, int stockProducto) {
-        this.CodigoDeProducto = codigoDeProducto;
-        this.NombreProducto = nombreProducto;
-        this.PrecioContado = precioContado;
-        this.PrecioDebito = precioDebito;
-        this.PrecioCredito = precioCredito;
-        this.StockProducto = stockProducto;
-    }
-
-    public long getCodigoDeProducto() {
-        return CodigoDeProducto;
-    }
-
-    public void setCodigoDeProducto(int CodigoDeProducto) {
-        this.CodigoDeProducto = CodigoDeProducto;
+    public void setCodigoBarra(int codigoBarra) {
+        this.codigoBarra = codigoBarra;
     }
 
     public String getNombreProducto() {
-        return NombreProducto;
+        return nombreProducto;
     }
 
     public void setNombreProducto(String nombreProducto) {
-        NombreProducto = nombreProducto;
+        this.nombreProducto = nombreProducto;
+    }
+
+    public String getDescripcionProducto() {
+        return descripcionProducto;
+    }
+
+    public void setDescripcionProducto(String descripcionProducto) {
+        this.descripcionProducto = descripcionProducto;
+    }
+
+    public Date getFechaVencimientoProducto() {
+        return fechaVencimientoProducto;
+    }
+
+    public void setFechaVencimientoProducto(Date fechaVencimientoProducto) {
+        this.fechaVencimientoProducto = fechaVencimientoProducto;
     }
 
     public float getPrecioUnitario() {
-        return PrecioUnitario;
+        return precioUnitario;
     }
 
-    public void setPrecioUnitario(int precioUnitario) {
-        PrecioUnitario = precioUnitario;
+    public void setPrecioUnitario(float precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 
-    public int getStockProducto() {
-        return StockProducto;
+    public int getStock() {
+        return stock;
     }
 
-    public void setStockProducto(int stockProducto) {
-        StockProducto = stockProducto;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
-    
-    public String toString() {
-        return NombreProducto;
+
+    public Date getFechaAltaProducto() {
+        return fechaAltaProducto;
     }
+
+    public void setFechaAltaProducto(Date fechaAltaProducto) {
+        this.fechaAltaProducto = fechaAltaProducto;
+    }
+
+    public Date getFechaBajaProducto() {
+        return fechaBajaProducto;
+    }
+
+    public void setFechaBajaProducto(Date fechaBajaProducto) {
+        this.fechaBajaProducto = fechaBajaProducto;
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+    }
+
+    public Promocion getPromocion() {
+        return promocion;
+    }
+
+    public void setPromocion(Promocion promocion) {
+        this.promocion = promocion;
+    }
+
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
+    }
+   
+   
 }

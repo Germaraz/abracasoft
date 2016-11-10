@@ -28,8 +28,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -39,24 +39,37 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="SalirjButton" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="EmailjTextField" min="-2" pref="271" max="-2" attributes="0"/>
+                      <EmptySpace pref="76" max="32767" attributes="0"/>
+                      <Component id="NombreDeUsuariojTextField" min="-2" pref="271" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="UsuariojLabel" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="NombreDeUsuariojTextField1" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
-                                  <Component id="ContraseniajTextField2" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
-                                  <Component id="PassjLabel" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ContraseniajTextField3" min="-2" pref="271" max="-2" attributes="0"/>
-                                  <Component id="RepitaPassjLabel" min="-2" pref="180" max="-2" attributes="0"/>
-                              </Group>
+                          <Component id="UsuariojLabel2" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="ApellidojTextField" alignment="0" min="-2" pref="271" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="ContraseniajPasswordField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="PassjLabel" alignment="0" pref="180" max="32767" attributes="0"/>
                           </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="UsuariojLabel3" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="UsuariojLabel1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="NombrejTextField" min="-2" pref="271" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="RContraseniajPasswordField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="RepitaPassjLabel" alignment="0" pref="180" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="TipoUsuariojLabel" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="TipoDeUsuariojComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="PrivilegiosjLabel" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="TipoUsuariojLabel" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="TipoDeUsuariojComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -69,28 +82,44 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="UsuariojLabel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="UsuariojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="UsuariojLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="NombreDeUsuariojTextField1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="NombrejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ApellidojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="UsuariojLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="UsuariojLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="EmailjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="NombreDeUsuariojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="PassjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="RepitaPassjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ContraseniajTextField2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="ContraseniajTextField3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="ContraseniajPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="RContraseniajPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="TipoUsuariojLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="TipoDeUsuariojComboBox1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="TipoDeUsuariojComboBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="PrivilegiosjLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="342" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="273" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="Bayuda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="SalirjButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -105,10 +134,10 @@
     <Component class="javax.swing.JLabel" name="UsuariojLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="2"/>
-        <Property name="text" type="java.lang.String" value="Nombre"/>
+        <Property name="text" type="java.lang.String" value="Apellido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="NombreDeUsuariojTextField1">
+    <Component class="javax.swing.JTextField" name="EmailjTextField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="14" style="1"/>
@@ -121,31 +150,11 @@
         <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="ContraseniajTextField2">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="12" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ContraseniajTextField2KeyTyped"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="RepitaPassjLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" value="Repetir contrase&#xf1;a"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="ContraseniajTextField3">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="12" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ContraseniajTextField3KeyTyped"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="TipoUsuariojLabel">
       <Properties>
@@ -153,18 +162,15 @@
         <Property name="text" type="java.lang.String" value="Tipo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="TipoDeUsuariojComboBox1">
+    <Component class="javax.swing.JComboBox" name="TipoDeUsuariojComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Due&#xf1;o"/>
-            <StringItem index="1" value="Administrador"/>
-            <StringItem index="2" value="Empleado"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="TipoDeUsuariojComboBox1ItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="TipoDeUsuariojComboBoxItemStateChanged"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TipoDeUsuariojComboBoxActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="PrivilegiosjLabel">
@@ -180,7 +186,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="PrivilegiosjTable">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -191,7 +197,7 @@
               <Table columnCount="3" rowCount="0">
                 <Column editable="false" title="Codigo" type="java.lang.String"/>
                 <Column editable="false" title="Descripci&#xf3;n" type="java.lang.String"/>
-                <Column editable="true" title="Selecci&#xf3;n" type="java.lang.Boolean"/>
+                <Column editable="false" title="Fecha de alta" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -240,6 +246,52 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ayuda"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="UsuariojLabel1">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="text" type="java.lang.String" value="Nombre"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="NombrejTextField">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="1"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="UsuariojLabel2">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="text" type="java.lang.String" value="Email"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="UsuariojLabel3">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="text" type="java.lang.String" value="Nombre de usuario"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="ApellidojTextField">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="1"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="NombreDeUsuariojTextField">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="1"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="ContraseniajPasswordField">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ContraseniajPasswordFieldActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="RContraseniajPasswordField">
     </Component>
   </SubComponents>
 </Form>

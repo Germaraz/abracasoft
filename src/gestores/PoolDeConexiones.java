@@ -19,26 +19,21 @@ import org.apache.commons.dbcp.BasicDataSource;
  */
 public class PoolDeConexiones {
 
-    private static Connection conexion = null;
+    protected Connection conexion = null;
 
-    public static Connection pedirConexion() throws Exception {
-
+    protected void pedirConexion() throws Exception {
         if (conexion == null) {
             try {
-    
-            BasicDataSource basicDataSource = new BasicDataSource();
-            basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            basicDataSource.setUrl("jdbc:mysql://localhost:3306/abracasoftdb");
-            basicDataSource.setUsername("root");
-            basicDataSource.setPassword("root");
-            
-
-            conexion = basicDataSource.getConnection();
+                BasicDataSource basicDataSource = new BasicDataSource();
+                basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                basicDataSource.setUrl("jdbc:mysql://localhost:3306/abracasoftdb");
+                basicDataSource.setUsername("root");
+                basicDataSource.setPassword("root");
+                conexion = basicDataSource.getConnection();
             } catch (SQLException e) {
                 throw new Exception(e.getMessage());
             }
         }
-        return conexion;
     }
-    
+
 }

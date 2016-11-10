@@ -5,35 +5,70 @@
  */
 package entidades;
 
+import java.util.Date;
+
 /**
  *
- * @author Ema
+ * @author ema_s
  */
 public class Proveedor {
 
-    private int CuitProveedor;
-    private String RazonSocialProveedor;
+    private int idProveedor;
+    private int cuit;
+    private String razonSocial;
+    private String nombreFantasia;
+    private Date fechaAltaProveedor;
+    private Date fechaBajaProveedor;
 
-    public Proveedor(int cuitProveedor, String razonSocialProveedor) {
-        super();
-        CuitProveedor = cuitProveedor;
-        RazonSocialProveedor = razonSocialProveedor;
+    public Proveedor() {
     }
 
-    public int getCuitProveedor() {
-        return CuitProveedor;
+    public int getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setCuitProveedor(int cuitProveedor) {
-        CuitProveedor = cuitProveedor;
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
-    public String getRazonSocialProveedor() {
-        return RazonSocialProveedor;
+    public int getCuit() {
+        return cuit;
     }
 
-    public void setRazonSocialProveedor(String razonSocialProveedor) {
-        RazonSocialProveedor = razonSocialProveedor;
+    public void setCuit(int cuit) {
+        this.cuit = cuit;
+    }
+
+    public String getRazonSocial() {
+        return razonSocial;
+    }
+
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
+    }
+
+    public String getNombreFantasia() {
+        return nombreFantasia;
+    }
+
+    public void setNombreFantasia(String nombreFantasia) {
+        this.nombreFantasia = nombreFantasia;
+    }
+
+    public Date getFechaAltaProveedor() {
+        return fechaAltaProveedor;
+    }
+
+    public void setFechaAltaProveedor(Date fechaAltaProveedor) {
+        this.fechaAltaProveedor = fechaAltaProveedor;
+    }
+
+    public Date getFechaBajaProveedor() {
+        return fechaBajaProveedor;
+    }
+
+    public void setFechaBajaProveedor(Date fechaBajaProveedor) {
+        this.fechaBajaProveedor = fechaBajaProveedor;
     }
 
 }

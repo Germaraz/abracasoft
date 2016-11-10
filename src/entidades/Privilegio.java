@@ -5,71 +5,56 @@
  */
 package entidades;
 
-import java.sql.SQLException;
+import gestores.GestorPrivilegio;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Date;
 
 /**
  *
- * @author Ema
+ * @author ema_s
  */
 public class Privilegio {
-
-    int ID;
-    String DescripcionDePrivilegio;
-
-    public Privilegio(int ID, String DescripcionDePrivilegio) {
-        this.ID = ID;
-        this.DescripcionDePrivilegio = DescripcionDePrivilegio;
-    }
+    private int idPrivilegio;
+    private String privilegio;
+    private Date fechaAltaPrivilegio;
+    private Date fechaBajaPrivilegio;
 
     public Privilegio() {
-        
+    }
+
+    public int getIdPrivilegio() {
+        return idPrivilegio;
+    }
+
+    public void setIdPrivilegio(int idPrivilegio) {
+        this.idPrivilegio = idPrivilegio;
+    }
+
+    public String getPrivilegio() {
+        return privilegio;
+    }
+
+    public void setPrivilegio(String privilegio) {
+        this.privilegio = privilegio;
+    }
+
+    public Date getFechaAltaPrivilegio() {
+        return fechaAltaPrivilegio;
+    }
+
+    public void setFechaAltaPrivilegio(Date fechaAltaPrivilegio) {
+        this.fechaAltaPrivilegio = fechaAltaPrivilegio;
+    }
+
+    public Date getFechaBajaPrivilegio() {
+        return fechaBajaPrivilegio;
+    }
+
+    public void setFechaBajaPrivilegio(Date fechaBajaPrivilegio) {
+        this.fechaBajaPrivilegio = fechaBajaPrivilegio;
     }
     
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + this.ID;
-        hash = 31 * hash + Objects.hashCode(this.DescripcionDePrivilegio);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Privilegio other = (Privilegio) obj;
-        if (this.ID != other.ID) {
-            return false;
-        }
-        if (!Objects.equals(this.DescripcionDePrivilegio, other.DescripcionDePrivilegio)) {
-            return false;
-        }
-        return true;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public String getDescripcionDePrivilegio() {
-        return DescripcionDePrivilegio;
-    }
-
-    public void setDescripcionDePrivilegio(String DescripcionDePrivilegio) {
-        this.DescripcionDePrivilegio = DescripcionDePrivilegio;
-    }
-    
-    public ArrayList<Privilegio> listarPrivilegios() throws SQLException{
-        return gestores.GestorPrivilegio.listarPrivilegiosDB();
-    }
+    public ArrayList<Privilegio> obtenerPrivilegios(Rol rol) throws Exception{
+        return new GestorPrivilegio().obtenerPrivilegios(rol);
+    } 
 }

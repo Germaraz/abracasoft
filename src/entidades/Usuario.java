@@ -5,102 +5,125 @@
  */
 package entidades;
 
-import gestores.AbraBackUp;
 import gestores.GestorUsuario;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Date;
 
 /**
  *
- * @author Ema
+ * @author ema_s
  */
-public class Usuario extends Privilegio {
-
-    String NombreUsuario;
-    int PassUsuario;
-
-    public Usuario(String NombreUsuario, int PassUsuario, int ID, String DescripcionDePrivilegio) {
-        super(ID, DescripcionDePrivilegio);
-        this.NombreUsuario = NombreUsuario;
-        this.PassUsuario = PassUsuario;
-    }
+public class Usuario {
+    private int idUsuario;
+    private String apellido;
+    private String nombre;
+    private String nombreUsuario;
+    private String email;
+    private String passUsuario;
+    private Date fechaCreacion;
+    private Date fechaBajaUsuario;
+    private Rol rol;
 
     public Usuario() {
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.NombreUsuario);
-        hash = 53 * hash + this.PassUsuario;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.NombreUsuario, other.NombreUsuario)) {
-            return false;
-        }
-        if (this.PassUsuario != other.PassUsuario) {
-            return false;
-        }
-        return true;
-    }
-
-    public String getNombreUsuario() {
-        return NombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        NombreUsuario = nombreUsuario;
-    }
-
-    public int getPassUsuario() {
-        return PassUsuario;
-    }
-
-    public void setPassUsuario(int passUsuario) {
-        PassUsuario = passUsuario;
-    }
-
-    public static int altaDeUsuario(Usuario usuario, ArrayList<Privilegio> privilegios) throws SQLException, Exception {
-       int resultado = GestorUsuario.altaUsuarioEnBD(usuario, privilegios);
-       return resultado;
-    }
-
-    public static void BajaDeUsuario(Usuario usuario) {
-        gestores.GestorUsuario.BajaUsuarioEnBD(usuario);
-    }
-
-    public static void ModificarUsuario(Usuario usuario) {
-        gestores.GestorUsuario.ModificarUsuarioEnBD(usuario);
-    }
-
-    public static int LogIn(String nombreDeUsuario, int pass) {
-        int idUsuario;
-        idUsuario = gestores.GestorUsuario.logIn(nombreDeUsuario, pass);
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public static boolean backUp() {
-        boolean ok;
-        AbraBackUp backUpData = new AbraBackUp();
-    //    ok = backUpData.CrearBackup("localhost", "3306", "root", "password", "abracasoftDB", "c:/abracasoftDB.sql");
-        if(new AbraBackUp().CrearBackup()){
-            ok = true;
-        }else{
-            ok = false;
-        }
-        return ok;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassUsuario() {
+        return passUsuario;
+    }
+
+    public void setPassUsuario(String passUsuario) {
+        this.passUsuario = passUsuario;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Date getFechaBajaUsuario() {
+        return fechaBajaUsuario;
+    }
+
+    public void setFechaBajaUsuario(Date fechaBajaUsuario) {
+        this.fechaBajaUsuario = fechaBajaUsuario;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
     
- 
+    public boolean altaUsuario(Usuario usuario) throws Exception{
+        return new GestorUsuario().altaUsuario(usuario);
+    }
+    
+    public boolean bajaUsuario(Usuario usuario) throws Exception{
+        return new GestorUsuario().darDeBajaUsuario(usuario);
+    }
+    
+    public int modificarUsuario(Usuario usuario) throws Exception{
+        return new GestorUsuario().modificarUsuario(usuario);
+    }
+    
+    public ArrayList<Usuario> obtenerUsuarios() throws Exception{
+        return new GestorUsuario().listarUsuarios();
+    }
+    
+    public Usuario login(Usuario usuario) throws Exception{
+        return new GestorUsuario().login(usuario);
+    }
+    
+    public Usuario obtenerUsuarioPorApellidoyNombre(String apellidoYnombre) throws Exception{
+        return new GestorUsuario().obtenerUsuarioPorApellidoyNombre(apellidoYnombre);
+    }
+    
+    public Usuario obtenerUsuarioPorNombreUsuario(String nombreUsuario) throws Exception{
+        return new GestorUsuario().obtenerUsuarioPorNombreUsuario(nombreUsuario);
+    }
 }
