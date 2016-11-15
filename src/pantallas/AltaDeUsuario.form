@@ -53,6 +53,9 @@
                               <Component id="ContraseniajPasswordField" alignment="0" max="32767" attributes="0"/>
                               <Component id="PassjLabel" alignment="0" pref="180" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="TipoUsuariojLabel" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="TipoDeUsuariojComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="PrivilegiosjLabel" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -63,15 +66,8 @@
                               <Component id="RContraseniajPasswordField" alignment="0" max="32767" attributes="0"/>
                               <Component id="RepitaPassjLabel" alignment="0" pref="180" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="UsuarioIDjTextField" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="TipoUsuariojLabel" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="TipoDeUsuariojComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="PrivilegiosjLabel" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -101,7 +97,7 @@
                   <Component id="EmailjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="NombreDeUsuariojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="PassjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="RepitaPassjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -112,7 +108,10 @@
                   <Component id="RContraseniajPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="TipoUsuariojLabel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="TipoUsuariojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="UsuarioIDjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="TipoDeUsuariojComboBox" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -292,6 +291,12 @@
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="RContraseniajPasswordField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="UsuarioIDjTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

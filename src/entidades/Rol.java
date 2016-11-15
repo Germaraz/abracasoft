@@ -54,12 +54,16 @@ public class Rol {
     public void setFechaBajaRol(Date fechaBajaRol) {
         this.fechaBajaRol = fechaBajaRol;
     }
-    
-    public ArrayList<Rol> obtenerRoles() throws Exception{
+
+    public ArrayList<Rol> obtenerRoles() throws Exception {
         return new GestorRol().listarRoles();
     }
-    
-    public Rol obtenerRolPorNombre(String nombreRol) throws Exception{
+
+    public Rol obtenerRolPorNombre(String nombreRol) throws Exception {
         return new GestorRol().obtenerRolPorNombre(nombreRol);
+    }
+
+    public Rol obtenerRol(int idRol) throws Exception {
+        return new GestorRol().obtenerRol(idRol);
     }
 }

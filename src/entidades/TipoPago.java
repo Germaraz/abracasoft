@@ -5,6 +5,7 @@
  */
 package entidades;
 
+import gestores.GestorTipoPago;
 import java.util.Date;
 
 /**
@@ -60,6 +61,10 @@ public class TipoPago {
 
     public void setFechaBajaTipoPago(Date fechaBajaTipoPago) {
         this.fechaBajaTipoPago = fechaBajaTipoPago;
+    }
+
+    public TipoPago obtenerTipoPago(int idTipoPago) throws Exception {
+        return new GestorTipoPago().obtenerTipoPago(idTipoPago);
     }
 
 }

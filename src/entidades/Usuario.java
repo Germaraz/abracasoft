@@ -14,6 +14,7 @@ import java.util.Date;
  * @author ema_s
  */
 public class Usuario {
+
     private int idUsuario;
     private String apellido;
     private String nombre;
@@ -98,32 +99,36 @@ public class Usuario {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
-    public boolean altaUsuario(Usuario usuario) throws Exception{
+
+    public int altaUsuario(Usuario usuario) throws Exception {
         return new GestorUsuario().altaUsuario(usuario);
     }
-    
-    public boolean bajaUsuario(Usuario usuario) throws Exception{
+
+    public int bajaUsuario(Usuario usuario) throws Exception {
         return new GestorUsuario().darDeBajaUsuario(usuario);
     }
-    
-    public int modificarUsuario(Usuario usuario) throws Exception{
+
+    public int modificarUsuario(Usuario usuario) throws Exception {
         return new GestorUsuario().modificarUsuario(usuario);
     }
-    
-    public ArrayList<Usuario> obtenerUsuarios() throws Exception{
+
+    public ArrayList<Usuario> obtenerUsuarios() throws Exception {
         return new GestorUsuario().listarUsuarios();
     }
-    
-    public Usuario login(Usuario usuario) throws Exception{
+
+    public Usuario login(Usuario usuario) throws Exception {
         return new GestorUsuario().login(usuario);
     }
-    
-    public Usuario obtenerUsuarioPorApellidoyNombre(String apellidoYnombre) throws Exception{
+
+    public Usuario obtenerUsuarioPorApellidoyNombre(String apellidoYnombre) throws Exception {
         return new GestorUsuario().obtenerUsuarioPorApellidoyNombre(apellidoYnombre);
     }
-    
-    public Usuario obtenerUsuarioPorNombreUsuario(String nombreUsuario) throws Exception{
+
+    public Usuario obtenerUsuarioPorNombreUsuario(String nombreUsuario) throws Exception {
         return new GestorUsuario().obtenerUsuarioPorNombreUsuario(nombreUsuario);
+    }
+
+    public Usuario obtenerUsuario(int idUsuario) throws Exception {
+        return new GestorUsuario().obtenerUsuario(idUsuario);
     }
 }

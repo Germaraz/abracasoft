@@ -3,57 +3,100 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gestores;
 
 import entidades.Pago;
+import entidades.TipoPago;
+import entidades.Venta;
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
- * @author pablo
+ * @author ema_s
  */
-public class GestorPago {
-    public static ArrayList<Pago> cuentaPagoCliente(int idCliente){
-        ArrayList<Pago> cuentaPagoCliente = new ArrayList();
-        
-        String sql1 = "SELECT MONTOPAGO, FECHAPAGO From pago where pago.idcliente = ? order by fechapago desc";
+public class GestorPago extends PoolDeConexiones {
 
-        try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
-            pst.setInt(1, idCliente);
-            ResultSet resultSet = pst.executeQuery();
-
-           while (resultSet.next()) {
-               Pago pagoCliente = new Pago();
-                pagoCliente.setPagoCliente(resultSet.getFloat("MONTOPAGO"));
-                pagoCliente.setFechaPagoCliente(resultSet.getDate("FECHAPAGO"));
-                cuentaPagoCliente.add(pagoCliente);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            System.out.println("no se pudo buscar CuentaPagoCliente");
-        }
-        return cuentaPagoCliente;
+    public GestorPago() throws Exception {
+        this.pedirConexion();
     }
-    
-    public static boolean ingresarPago(int codCli, float pagoRealizado, int tipoPago){
-        boolean ok = false;
-        String sql = "insert into pago (IDCLIENTE,MONTOPAGO, FECHAPAGO, TIPOPAGO) values (?,?,now(),?)";
-        
+
+    public int altaPago(Pago pago) throws Exception {
+        int resultado = 0;
+        String sql = "INSERT INTO pago (MONTOPAGO, FECHAPAGO, venta_IDVENTA, tipo_pago_IDTIPOPAGO) VALUES (?,?,?,?)";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
-            pst.setInt(1, codCli);
-            pst.setFloat(2, pagoRealizado);
-            pst.setInt(3, tipoPago);
-            pst.executeUpdate();
-            ok=true;
-        } catch (SQLException e) {
-            System.out.println("No se pudo registrar el pago");
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setFloat(1, pago.getMontoPago());
+            pst.setDate(2, (Date) pago.getFechaPago());
+            pst.setInt(3, pago.getVenta().getIdVenta());
+            pst.setInt(4, pago.getTipoPago().getIdTipoPago());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
         }
-        return ok;
+        return resultado;
+    }
+
+    public int modificarPago(Pago pago) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE pago SET MONTOPAGO = ?, FECHAPAGO = ?, tipo_pago_IDTIPOPAGO = ? WHERE pago.IDPAGO = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setFloat(1, pago.getMontoPago());
+            pst.setDate(2, (Date) pago.getFechaPago());
+            pst.setInt(3, pago.getTipoPago().getIdTipoPago());
+            pst.setInt(4, pago.getIdPago());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    public int darDeBajaPago(Pago pago) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE pago FECHABAJA = ? WHERE pago.IDPAGO = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setDate(1, (Date) pago.getFechaBajaPago());
+            pst.setInt(2, pago.getIdPago());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    public Pago obtenerPago(int idPago) throws Exception {
+        Pago pago = new Pago();
+        String sql = "SELECT * FROM pago WHERE pago.FECHABAJA IS NULL AND pago.IDPAGO = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idPago);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                pago.setIdPago(idPago);
+                pago.setMontoPago(resultado.getFloat("MONTOPAGO"));
+                pago.setFechaPago(resultado.getDate("FECHAPAGO"));
+                pago.setTipoPago(new TipoPago().obtenerTipoPago(resultado.getInt("tipo_pago_IDTIPOPAGO")));
+                pago.setVenta(new Venta().obtenerVenta(resultado.getInt("venta_IDVENTA")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return pago;
     }
 }

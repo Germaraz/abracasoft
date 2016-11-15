@@ -6,10 +6,10 @@
 //DROPBOX
 package pantallas;
 
+import entidades.Usuario;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import negocio.UsuarioNegocio;
 
 /**
  *
@@ -155,15 +155,10 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_BexitActionPerformed
 
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
-
-        if (validar() != true) {
-
-        } else {
-            ingresar(TFloginUsuario.getText(), Integer.parseInt(TFloginPass.getText()));
+        if (validar()) {
+            ingresar(TFloginUsuario.getText(), new String(TFloginPass.getPassword()));
         }
-
         this.dispose();
-
     }//GEN-LAST:event_BlogInActionPerformed
 
     /**
@@ -226,18 +221,18 @@ public class LogIn extends javax.swing.JFrame {
         return estado;
     }
 
-    private int ingresar(String usuario, int pass) {
-        int idUsuario = UsuarioNegocio.LogIn(usuario, pass);
-        if (idUsuario != 0) {
-            //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
-            MenuDeOpcionesEmpleado ventana = new MenuDeOpcionesEmpleado();
-            ventana.setVisible(true);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
+    private void ingresar(String nombreUsuario, String pass) {
+        Usuario usuario = new Usuario();
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setPassUsuario(pass);
+        try {
+            usuario = usuario.login(usuario);
+            if (usuario != null) {
+                MenuDeOpcionesEmpleado pantaPrincipal = new MenuDeOpcionesEmpleado();
+                //Verificar el rol y los permisos
+                
+            }
+        } catch (Exception e) {
         }
-
-        return idUsuario;
     }
-
 }

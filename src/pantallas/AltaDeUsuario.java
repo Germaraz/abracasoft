@@ -8,10 +8,10 @@ package pantallas;
 import entidades.Privilegio;
 import entidades.Rol;
 import entidades.Usuario;
+import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,8 +30,8 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         agregarRolesACombo();
-        agregarPrivilegiosATabla();
         ApellidojTextField.requestFocus();
+        UsuarioIDjTextField.setVisible(false);
     }
 
     /**
@@ -63,6 +63,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         NombreDeUsuariojTextField = new javax.swing.JTextField();
         ContraseniajPasswordField = new javax.swing.JPasswordField();
         RContraseniajPasswordField = new javax.swing.JPasswordField();
+        UsuarioIDjTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar un nuevo usuario");
@@ -171,6 +172,9 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             }
         });
 
+        UsuarioIDjTextField.setEditable(false);
+        UsuarioIDjTextField.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,7 +200,10 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                             .addComponent(ApellidojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(ContraseniajPasswordField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(PassjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
+                                .addComponent(PassjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                            .addComponent(TipoUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TipoDeUsuariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PrivilegiosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(UsuariojLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,13 +211,8 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                             .addComponent(NombrejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(RContraseniajPasswordField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(RepitaPassjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TipoUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TipoDeUsuariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PrivilegiosjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(RepitaPassjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                            .addComponent(UsuarioIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -232,7 +234,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EmailjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreDeUsuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PassjLabel)
                     .addComponent(RepitaPassjLabel))
@@ -241,7 +243,9 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                     .addComponent(ContraseniajPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RContraseniajPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(TipoUsuariojLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TipoUsuariojLabel)
+                    .addComponent(UsuarioIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(TipoDeUsuariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -258,52 +262,16 @@ public class AltaDeUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//Metodo que capta cuando el jComboBox cambia de estado 
-    private void TipoDeUsuariojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoDeUsuariojComboBoxItemStateChanged
-        //Obtiene el item seleccionado del jComboBox, lo pasa a String y pregunta
-        //si es igual a la palabra "Administrador" lo mismo hace para ver si es "Empleado"
-        if (TipoDeUsuariojComboBox.getSelectedItem().toString().equals("Administrador")) {
-            for (int i = 0; i < PrivilegiosjTable.getRowCount(); i++) {
-                //Convierte el indice de la fila a un modelo de tabla editable
-                PrivilegiosjTable.convertRowIndexToModel(i);
-                //Pregunta si el valor de la celda es igual a "Gestion de Usuarios"
-                //o a "BackUp"
-                if (PrivilegiosjTable.getModel().getValueAt(i, 1).equals("Gestion de Usuarios")
-                        | PrivilegiosjTable.getModel().getValueAt(i, 1).equals("BackUp")) {
-                    // Le asigna "True" como valor de la celda
-                    PrivilegiosjTable.getModel().setValueAt(true, i, 2);
-                } else {
-                    // Si no asigna "False", lo mismo realiza para empleado
-                    PrivilegiosjTable.getModel().setValueAt(false, i, 2);
-                }
-            }
-        } else if (TipoDeUsuariojComboBox.getSelectedItem().toString().equals("Empleado")) {
-            for (int i = 0; i < PrivilegiosjTable.getRowCount(); i++) {
-                PrivilegiosjTable.convertRowIndexToModel(i);
-                if (PrivilegiosjTable.getModel().getValueAt(i, 1).equals("Gestion de Presupuestos")
-                        | PrivilegiosjTable.getModel().getValueAt(i, 1).equals("Operaciones Diarias")) {
-                    PrivilegiosjTable.getModel().setValueAt(true, i, 2);
-                } else {
-                    PrivilegiosjTable.getModel().setValueAt(false, i, 2);
-                }
-            }
-            //si dueño es lo que se selecciona asigna true a todas las celdas exepto a BackUp
-        } else {
-            for (int i = 0; i < PrivilegiosjTable.getRowCount(); i++) {
-                PrivilegiosjTable.convertRowIndexToModel(i);
-                if (PrivilegiosjTable.getModel().getValueAt(i, 1).equals("BackUp")) {
-                    PrivilegiosjTable.getModel().setValueAt(false, i, 2);
-                } else {
-                    PrivilegiosjTable.getModel().setValueAt(true, i, 2);
-                }
 
-            }
+    private void TipoDeUsuariojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoDeUsuariojComboBoxItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            agregarPrivilegiosATabla();
         }
     }//GEN-LAST:event_TipoDeUsuariojComboBoxItemStateChanged
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
-        boolean resultado = false;
+        int resultado = 0;
         Usuario usuario = new Usuario();
         try {
             if (validar()) {
@@ -313,12 +281,18 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 usuario.setNombreUsuario(NombreDeUsuariojTextField.getText());
                 usuario.setPassUsuario(new String(ContraseniajPasswordField.getPassword()));
                 usuario.setRol(new Rol().obtenerRolPorNombre(TipoDeUsuariojComboBox.getSelectedItem().toString()));
-                resultado = usuario.altaUsuario(usuario);
-            }
-            if (resultado) {
-                JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente");
-            }else{
-                JOptionPane.showMessageDialog(null, "El usuario no pudo guardarse");
+                if (UsuarioIDjTextField.getText().isEmpty()) {
+                    resultado = usuario.altaUsuario(usuario);
+                } else {
+                    usuario.setIdUsuario(Integer.parseInt(UsuarioIDjTextField.getText()));
+                    resultado = usuario.modificarUsuario(usuario);
+                }
+                if (resultado == 1) {
+                    JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El usuario no pudo guardarse");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
@@ -395,6 +369,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     private javax.swing.JButton SalirjButton;
     private javax.swing.JComboBox TipoDeUsuariojComboBox;
     private javax.swing.JLabel TipoUsuariojLabel;
+    private javax.swing.JTextField UsuarioIDjTextField;
     private javax.swing.JLabel UsuariojLabel;
     private javax.swing.JLabel UsuariojLabel1;
     private javax.swing.JLabel UsuariojLabel2;
@@ -406,8 +381,12 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         Rol rol = new Rol();
         try {
             ArrayList<Rol> roles = rol.obtenerRoles();
-            for (int i = 0; i < roles.size(); i++) {
-                TipoDeUsuariojComboBox.addItem(roles.get(i).getRol());
+            if (!roles.isEmpty()) {
+                for (int i = 0; i < roles.size(); i++) {
+                    TipoDeUsuariojComboBox.addItem(roles.get(i).getRol());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al obtener los roles");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -416,12 +395,16 @@ public class AltaDeUsuario extends javax.swing.JFrame {
 
     private void agregarPrivilegiosATabla() {
         DefaultTableModel tabla = (DefaultTableModel) PrivilegiosjTable.getModel();
+        int filas = tabla.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            tabla.removeRow(i);
+        }
         try {
             Rol rol = new Rol().obtenerRolPorNombre(TipoDeUsuariojComboBox.getSelectedItem().toString());
             if (rol != null) {
                 ArrayList<Privilegio> privilegios = new Privilegio().obtenerPrivilegios(rol);
                 Object[] columnas = new Object[3];
-                if (privilegios != null) {
+                if (!privilegios.isEmpty()) {
                     for (int i = 0; i < privilegios.size(); i++) {
                         columnas[0] = privilegios.get(i).getIdPrivilegio();
                         columnas[1] = privilegios.get(i).getPrivilegio();
@@ -462,7 +445,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 4 y 12 caracteres");
             ContraseniajPasswordField.requestFocus();
             valido = false;
-        } else if (!Arrays.equals(RContraseniajPasswordField.getPassword(), RContraseniajPasswordField.getPassword())) {
+        } else if (!Arrays.equals(ContraseniajPasswordField.getPassword(), RContraseniajPasswordField.getPassword())) {
             JOptionPane.showMessageDialog(null, "Las contraseñas tienen que ser iguales");
             RContraseniajPasswordField.requestFocus();
             valido = false;

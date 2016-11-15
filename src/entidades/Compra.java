@@ -5,6 +5,7 @@
  */
 package entidades;
 
+import gestores.GestorCompra;
 import java.util.Date;
 
 /**
@@ -79,6 +80,9 @@ public class Compra {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
-    
-    
+
+    public Compra obtenerCompra(int idCompra) throws Exception {
+        return new GestorCompra().obtenerCompra(idCompra);
+    }
+
 }

@@ -12,13 +12,13 @@ import java.util.Date;
  * @author ema_s
  */
 public class Movimiento {
+
     private int idMovimiento;
     private String descripcionMovimiento;
     private float montoMovimiento;
     private Date fechaMovimiento;
     private Date fechaBajaMovimiento;
     private Caja caja;
-    private CuentaContable cuentaContable;
     private Venta venta;
     private Compra compra;
     private Gasto gasto;
@@ -97,13 +97,4 @@ public class Movimiento {
     public void setGasto(Gasto gasto) {
         this.gasto = gasto;
     }
-
-    public CuentaContable getCuentaContable() {
-        return cuentaContable;
-    }
-
-    public void setCuentaContable(CuentaContable cuentaContable) {
-        this.cuentaContable = cuentaContable;
-    }
-    
 }

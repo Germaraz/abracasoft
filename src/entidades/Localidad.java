@@ -5,11 +5,14 @@
  */
 package entidades;
 
+import gestores.GestorLocalidad;
+
 /**
  *
  * @author ema_s
  */
 public class Localidad {
+
     private int idLocalidad;
     private String nombreLocalidad;
     private int codigoPosta;
@@ -49,6 +52,9 @@ public class Localidad {
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
-    
-    
+
+    public Localidad obtenerLocalidad(int idLocalidad) throws Exception {
+        return new GestorLocalidad().obtenerLocalidad(idLocalidad);
+    }
+
 }

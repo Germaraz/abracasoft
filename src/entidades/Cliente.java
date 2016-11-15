@@ -5,6 +5,8 @@
  */
 package entidades;
 
+import gestores.GestorCliente;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Date;
  * @author ema_s
  */
 public class Cliente {
+
     private int idCliente;
     private int dniCliente;
     private String nombreCliente;
@@ -105,5 +108,32 @@ public class Cliente {
     public void setLocalidad(Localidad localidad) {
         this.localidad = localidad;
     }
-    
+
+    public int altaCliente(Cliente cliente) throws Exception {
+        return new GestorCliente().altaCliente(cliente);
+    }
+
+    public int modificarCliente(Cliente cliente) throws Exception {
+        return new GestorCliente().modificarCliente(cliente);
+    }
+
+    public int darDeBajaCliente(Cliente cliente) throws Exception {
+        return new GestorCliente().darDeBajaCliente(cliente);
+    }
+
+    public ArrayList<Cliente> listarClientes() throws Exception {
+        return new GestorCliente().listarClientes();
+    }
+
+    public Cliente obtenerCliente(int dni) throws Exception {
+        return new GestorCliente().obtenerClientePorDoc(dni);
+    }
+
+    public Cliente obtenerCliente(String apellidoNombre) throws Exception {
+        return new GestorCliente().obtenerCliente(apellidoNombre);
+    }
+
+    public Cliente obtenerClientePorId(int idCliente) throws Exception {
+        return new GestorCliente().obtenerClientePorId(idCliente);
+    }
 }

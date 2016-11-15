@@ -24,7 +24,7 @@ public class GestorPrivilegio extends PoolDeConexiones {
     }
 
     public ArrayList<Privilegio> listarPrivilegios() throws Exception {
-        ArrayList<Privilegio> listaPrivilegio = null;
+        ArrayList<Privilegio> listaPrivilegio = new ArrayList<>();
         String sql = "SELECT * FROM habilidad WHERE habilidad.FECHABAJA IS NULL";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -43,13 +43,13 @@ public class GestorPrivilegio extends PoolDeConexiones {
         }
         return listaPrivilegio;
     }
-    
-    public ArrayList<Privilegio> obtenerPrivilegios(Rol rol) throws Exception{
-        ArrayList<Privilegio> listaPrivilegio = null;
-        String sql = "SELECT rol_habilidad.habilidad_IDHABILIDAD, habilidad.HABILIDAD, habilidad.FECHAALTA "
+
+    public ArrayList<Privilegio> obtenerPrivilegios(Rol rol) throws Exception {
+        ArrayList<Privilegio> listaPrivilegio = new ArrayList<>();
+        String sql = "SELECT rol_habilidad.IDHABILIDAD, habilidad.HABILIDAD, habilidad.FECHAALTA "
                 + "FROM rol_habilidad "
-                + "WHERE rol_habilidad.habilidad_IDHABILIDAD = habilidad.IDHABILIDAD "
-                + "AND rol_habilidad.rol_IDROL = ?";
+                + "INNER JOIN habilidad ON rol_habilidad.IDHABILIDAD = habilidad.IDHABILIDAD "
+                + "WHERE rol_habilidad.IDROL = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);

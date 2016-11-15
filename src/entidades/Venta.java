@@ -87,6 +87,10 @@ public class Venta {
     public void setFactura(Factura factura) {
         this.factura = factura;
     }
+
+    public Venta obtenerVenta(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

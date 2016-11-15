@@ -5,10 +5,48 @@
  */
 package entidades;
 
+import gestores.GestorPromocion;
+import java.util.Date;
+
 /**
  *
  * @author ema_s
  */
 public class Promocion {
+    private int idPromocion;
+    private String descripPromo;
+    private Date fechaVencimientoPromo;
 
+    public Promocion() {
+    }
+
+    public int getIdPromocion() {
+        return idPromocion;
+    }
+
+    public void setIdPromocion(int idPromocion) {
+        this.idPromocion = idPromocion;
+    }
+
+    public String getDescripPromo() {
+        return descripPromo;
+    }
+
+    public void setDescripPromo(String descripPromo) {
+        this.descripPromo = descripPromo;
+    }
+
+    public Date getFechaVencimientoPromo() {
+        return fechaVencimientoPromo;
+    }
+
+    public void setFechaVencimientoPromo(Date fechaVencimientoPromo) {
+        this.fechaVencimientoPromo = fechaVencimientoPromo;
+    }
+
+    public Promocion obtenerPromocion(int idPromocion) throws Exception {
+        return new GestorPromocion().obtenerPromocion(idPromocion);
+    }
+    
+    
 }

@@ -23,27 +23,29 @@ public class GestorRol extends PoolDeConexiones {
     }
 
     public ArrayList<Rol> listarRoles() throws Exception {
-        ArrayList<Rol> roles = null;
-        Rol rol = new Rol();
+        ArrayList<Rol> roles = new ArrayList<>();
         String sql = "SELECT * FROM rol WHERE rol.FECHABAJA IS NULL";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
+                Rol rol = new Rol();
                 rol.setIdRol(resultado.getInt("IDROL"));
                 rol.setRol(resultado.getString("ROL"));
                 rol.setFechaAltaRol(resultado.getDate("FECHAALTA"));
                 roles.add(rol);
             }
+
         } catch (Exception e) {
             conexion.rollback();
+            throw new Exception(e.getMessage());
         }
         return roles;
     }
-    
-    public Rol obtenerRolPorNombre(String nombreRol) throws SQLException{
-        Rol rol = null;
+
+    public Rol obtenerRolPorNombre(String nombreRol) throws Exception {
+        Rol rol = new Rol();
         String sql = "SELECT * FROM rol WHERE rol.FECHABAJA IS NULL AND rol.ROL = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -57,6 +59,27 @@ public class GestorRol extends PoolDeConexiones {
             }
         } catch (Exception e) {
             conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return rol;
+    }
+
+    public Rol obtenerRol(int idRol) throws Exception {
+        Rol rol = new Rol();
+        String sql = "SELECT * FROM rol WHERE rol.FECHABAJA IS NULL AND rol.IDROL = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idRol);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                rol.setIdRol(idRol);
+                rol.setRol(resultado.getString("ROL"));
+                rol.setFechaAltaRol(resultado.getDate("FECHAALTA"));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
         }
         return rol;
     }

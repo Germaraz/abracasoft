@@ -5,11 +5,14 @@
  */
 package entidades;
 
+import gestores.GestorProvincia;
+
 /**
  *
  * @author ema_s
  */
 public class Provincia {
+
     private int idProvincia;
     private String nombreProvincia;
 
@@ -31,6 +34,9 @@ public class Provincia {
     public void setNombreProvincia(String nombreProvincia) {
         this.nombreProvincia = nombreProvincia;
     }
-    
-    
+
+    public Provincia obtenerProvincia(int idProvincia) throws Exception {
+        return new GestorProvincia().obtenerProvincia(idProvincia);
+    }
+
 }
