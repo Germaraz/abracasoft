@@ -12,19 +12,26 @@ import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import static sun.security.ssl.Debug.Help;
-import static sun.security.util.Debug.Help;
+//import static sun.security.util.Debug.Help;
 import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyAdapter;
 import javax.swing.JOptionPane;
 import static jdk.nashorn.internal.objects.NativeArray.map;
 import static jdk.nashorn.internal.objects.NativeDebug.map;
+import help.pruebaHelp;
+import java.io.File;
+import java.net.URL;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 
 /**
  *
  * @author Ema
  */
 public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
+
+    private Object principal;
 
     /**
      * Creates new form MenuDeOpcionesEmpleado
@@ -74,6 +81,8 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         Caja = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        Caja1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         btnExit = new javax.swing.JButton();
@@ -81,7 +90,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         btnAyuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("OSG");
+        setTitle("OSG - Otro Sistema de Gestión");
         setAlwaysOnTop(true);
         setAutoRequestFocus(false);
         setExtendedState(MenuDeOpcionesEmpleado.MAXIMIZED_BOTH);
@@ -97,7 +106,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.setOpaque(false);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Gestión de productos");
+        jButton1.setText("Productos");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -110,7 +119,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Gestión de clientes");
+        jButton2.setText("Clientes");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -123,7 +132,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator2);
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Gestión de presupuestos");
+        jButton3.setText("Presupuestos");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -136,7 +145,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator3);
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setText("Gestión de usuarios");
+        jButton5.setText("Usuarios");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -159,6 +168,19 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(Caja);
+        jToolBar1.add(jSeparator5);
+
+        Caja1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Caja1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/config25.png"))); // NOI18N
+        Caja1.setFocusable(false);
+        Caja1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Caja1.setPreferredSize(new java.awt.Dimension(31, 31));
+        Caja1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Caja1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(Caja1);
 
         jScrollPane1.setOpaque(false);
 
@@ -199,25 +221,29 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAyuda)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnExit)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAyuda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExit)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                     .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
@@ -326,13 +352,39 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVentaActionPerformed
 
     private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
-            Help help = new Help();
-            help.setVisible(true);
+            ponLaAyuda();
+            
     }//GEN-LAST:event_btnAyudaActionPerformed
+    
+    private void ponLaAyuda() {
+		try {
+			// Carga el fichero de ayuda
+			File fichero = new File("help/help_set.hs");
+			URL hsURL = fichero.toURI().toURL();
 
+			// Crea el HelpSet y el HelpBroker
+			HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+			HelpBroker hb = helpset.createHelpBroker();
+
+			// Pone ayuda a item de menu al pulsarlo y a F1 en ventana
+			// principal y secundaria.
+			hb.enableHelpOnButton(btnAyuda, "aplicacion", helpset);
+			hb.enableHelpKey(getRootPane(),"",helpset);
+        //(principal.getContentPane(), "ventana_principal", helpset);
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cerrar();
     }//GEN-LAST:event_formWindowClosing
+
+    private void Caja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Caja1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Caja1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -373,6 +425,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton Caja;
+    javax.swing.JButton Caja1;
     javax.swing.JButton btnAyuda;
     javax.swing.JButton btnExit;
     javax.swing.JButton btnVenta;
@@ -386,6 +439,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     javax.swing.JToolBar.Separator jSeparator2;
     javax.swing.JToolBar.Separator jSeparator3;
     javax.swing.JToolBar.Separator jSeparator4;
+    javax.swing.JToolBar.Separator jSeparator5;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
