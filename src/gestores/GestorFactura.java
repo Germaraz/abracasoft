@@ -5,7 +5,6 @@
  */
 package gestores;
 
-import com.sun.xml.internal.bind.v2.util.FatalAdapter;
 import entidades.Factura;
 import java.sql.Connection;
 import java.sql.Date;

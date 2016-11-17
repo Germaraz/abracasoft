@@ -7,7 +7,9 @@
 package pantallas;
 
 import entidades.Usuario;
+import entidades.Privilegio;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -220,7 +222,7 @@ public class LogIn extends javax.swing.JFrame {
         }
         return estado;
     }
-
+    
     private void ingresar(String nombreUsuario, String pass) {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
@@ -230,9 +232,36 @@ public class LogIn extends javax.swing.JFrame {
             if (usuario != null) {
                 MenuDeOpcionesEmpleado pantaPrincipal = new MenuDeOpcionesEmpleado();
                 //Verificar el rol y los permisos
-                
+                ArrayList<Privilegio> privilegios = new Privilegio().obtenerPrivilegios(usuario.getRol());
+                for (int i = 0; i < privilegios.size(); i++) {
+                    switch (privilegios.get(i).getPrivilegio()) {
+                        case "GESTION USUARIOS":
+                            pantaPrincipal.btnGUsuarios.setVisible(true);
+                            break;
+                        case "GESTION CLIENTES":
+                            pantaPrincipal.btnGClientes.setVisible(true);
+                            break;
+                        case "GESTION PRODUCTOS":
+                            pantaPrincipal.btnGProductos.setVisible(true);
+                            break;
+                        case "CAJA":
+                            pantaPrincipal.btnCaja.setVisible(true);
+                            break;
+                        case "GESTION PRESUPUESTOS":
+                            pantaPrincipal.btnGPresupuestos.setVisible(true);
+                            break;
+                        case "VENTA":
+                            pantaPrincipal.btnVenta.setVisible(true);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "EL USUARIO NO EXISTE");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }
