@@ -31,6 +31,8 @@ public class AltaProducto extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("../images/osg512.png")).getImage());
     }
 
     /**
@@ -91,16 +93,6 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         TFmontoComisionProd = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jPanel4 = new javax.swing.JPanel();
-        BquitarImagenProd = new javax.swing.JButton();
-        BagregarImagenProd1 = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        BagregarSustitutoProd = new javax.swing.JButton();
-        BquitarSustitutoProd = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel16 = new javax.swing.JLabel();
@@ -115,6 +107,7 @@ public class AltaProducto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar un nuevo producto");
+        setAlwaysOnTop(true);
         setResizable(false);
 
         jLabel1.setText("Código del producto");
@@ -470,129 +463,6 @@ public class AltaProducto extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Comisiones", jPanel2);
 
-        BquitarImagenProd.setText("-");
-        BquitarImagenProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BquitarImagenProdActionPerformed(evt);
-            }
-        });
-
-        BagregarImagenProd1.setText("+");
-        BagregarImagenProd1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BagregarImagenProd1ActionPerformed(evt);
-            }
-        });
-
-        jEditorPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane4.setViewportView(jEditorPane1);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 557, Short.MAX_VALUE)
-                        .addComponent(BquitarImagenProd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BagregarImagenProd1))
-                    .addComponent(jScrollPane4))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BagregarImagenProd1)
-                    .addComponent(BquitarImagenProd))
-                .addContainerGap(173, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Imagen", jPanel4);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Codigo", "Descripción"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(jTable1);
-
-        BagregarSustitutoProd.setText("+");
-
-        BquitarSustitutoProd.setText("-");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BquitarSustitutoProd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BagregarSustitutoProd)))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BquitarSustitutoProd)
-                    .addComponent(BagregarSustitutoProd))
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Sustitutos", jPanel5);
-
         jCheckBox1.setText("Activar promoción");
 
         jLabel16.setText("Precio de venta en promoción");
@@ -710,19 +580,9 @@ public class AltaProducto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BcancelarAltaProdActionPerformed
 
-    private void TFporcentajeUtilidad1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1KeyTyped
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_TFporcentajeUtilidad1KeyTyped
-
-    private void TFporcentajeUtilidad2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad2KeyTyped
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_TFporcentajeUtilidad2KeyTyped
+    private void BayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BayudaActionPerformed
+        abrirAyuda();
+    }//GEN-LAST:event_BayudaActionPerformed
 
     private void TFporcentajeUtilidad3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad3KeyTyped
         char car = evt.getKeyChar();
@@ -731,21 +591,52 @@ public class AltaProducto extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_TFporcentajeUtilidad3KeyTyped
 
-    private void TFporcentajeUtilidad1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1FocusLost
+    private void TFporcentajeUtilidad3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad3FocusLost
         calcularImporte();
-    }//GEN-LAST:event_TFporcentajeUtilidad1FocusLost
+    }//GEN-LAST:event_TFporcentajeUtilidad3FocusLost
+
+    private void TFporcentajeUtilidad2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad2KeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_TFporcentajeUtilidad2KeyTyped
 
     private void TFporcentajeUtilidad2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad2FocusLost
         calcularImporte();
     }//GEN-LAST:event_TFporcentajeUtilidad2FocusLost
 
-    private void TFporcentajeUtilidad3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad3FocusLost
+    private void TFporcentajeUtilidad1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1KeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_TFporcentajeUtilidad1KeyTyped
+
+    private void TFporcentajeUtilidad1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFporcentajeUtilidad1FocusLost
         calcularImporte();
-    }//GEN-LAST:event_TFporcentajeUtilidad3FocusLost
+    }//GEN-LAST:event_TFporcentajeUtilidad1FocusLost
+
+    private void TFDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDescuentoKeyTyped
+        char car = evt.getKeyChar();
+        if (((car < '0') || (car > '9')) && (car != KeyEvent.VK_BACK_SPACE) && (car != '.')) {
+            evt.consume();
+        }
+        if (car == '.' && TFDescuento.getText().contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFDescuentoKeyTyped
 
     private void TFDescuentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFDescuentoFocusLost
         calcularImporte();
     }//GEN-LAST:event_TFDescuentoFocusLost
+
+    private void TFstockProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFstockProductoKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TFstockProductoKeyTyped
 
     private void TFidProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFidProductoKeyTyped
         char car = evt.getKeyChar();
@@ -766,36 +657,6 @@ public class AltaProducto extends javax.swing.JFrame {
             TFidProducto.requestFocus();
         }
     }//GEN-LAST:event_TFidProductoFocusLost
-
-    private void BagregarImagenProd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BagregarImagenProd1ActionPerformed
-        agregarImagen();
-    }//GEN-LAST:event_BagregarImagenProd1ActionPerformed
-
-    private void BquitarImagenProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BquitarImagenProdActionPerformed
-        jEditorPane1.removeAll();
-        jEditorPane1.repaint();
-    }//GEN-LAST:event_BquitarImagenProdActionPerformed
-
-    private void TFDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDescuentoKeyTyped
-        char car = evt.getKeyChar();
-        if (((car < '0') || (car > '9')) && (car != KeyEvent.VK_BACK_SPACE) && (car != '.')) {
-            evt.consume();
-        }
-        if (car == '.' && TFDescuento.getText().contains(".")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_TFDescuentoKeyTyped
-
-    private void TFstockProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFstockProductoKeyTyped
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_TFstockProductoKeyTyped
-
-    private void BayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BayudaActionPerformed
-        abrirAyuda();
-    }//GEN-LAST:event_BayudaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -834,14 +695,10 @@ public class AltaProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BagregarImagenProd1;
-    private javax.swing.JButton BagregarSustitutoProd;
     private javax.swing.JButton Bayuda;
     private javax.swing.JButton BcancelarAltaProd;
     private javax.swing.JButton BguardarAltaProd;
     private javax.swing.JButton BimprimirCodigo;
-    private javax.swing.JButton BquitarImagenProd;
-    private javax.swing.JButton BquitarSustitutoProd;
     private javax.swing.JComboBox CBseleccionProveedor;
     private javax.swing.JComboBox CBseleccionRubro;
     private javax.swing.JRadioButton RBcomisionRegistroVendedor;
@@ -866,7 +723,6 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -893,15 +749,10 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private com.toedter.calendar.JDateChooser promocionDesde;
     private com.toedter.calendar.JDateChooser promocionHasta;
     // End of variables declaration//GEN-END:variables
@@ -1045,8 +896,8 @@ public class AltaProducto extends javax.swing.JFrame {
                 etiqueta.setIcon(icono);
                 this.repaint();
                 /**/
-                jEditorPane1.removeAll();
-                jEditorPane1.add(etiqueta);
+                //jEditorPane1.removeAll();
+                //jEditorPane1.add(etiqueta);
                 if(archivoelegido.exists()){
                     System.out.println("bien");
                 }else{

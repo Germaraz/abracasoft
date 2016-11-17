@@ -303,7 +303,8 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
 
     private void BproductoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoNuevoActionPerformed
         // TODO add your handling code here:
-        new AltaProducto().setVisible(true);
+        AltaProducto altaproducto = new AltaProducto();
+        altaproducto.setVisible(true);
     }//GEN-LAST:event_BproductoNuevoActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
