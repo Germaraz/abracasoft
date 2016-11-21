@@ -5,21 +5,9 @@
  */
 package pantallas;
 
-import help.Help;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JTabbedPane;
-import javax.swing.UIManager;
-import static sun.security.ssl.Debug.Help;
-//import static sun.security.util.Debug.Help;
-import javax.swing.InputMap;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyAdapter;
 import javax.swing.JOptionPane;
-import static jdk.nashorn.internal.objects.NativeArray.map;
-import static jdk.nashorn.internal.objects.NativeDebug.map;
-import help.pruebaHelp;
 import java.io.File;
 import java.net.URL;
 import javax.help.HelpBroker;
@@ -37,14 +25,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
      * Creates new form MenuDeOpcionesEmpleado
      */
     public MenuDeOpcionesEmpleado() {
-        AparienciaPantalla apa = new AparienciaPantalla();
-        apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         btnVenta.setMnemonic(KeyEvent.VK_V);
         setIconImage(new ImageIcon(getClass().getResource("../images/osg512.png")).getImage());
-        this.setExtendedState(MAXIMIZED_BOTH);
-        this.setAlwaysOnTop(true);
-        this.setResizable(false); 
+        AparienciaPantalla apa = new AparienciaPantalla();
+        apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
     }
     
     public void cerrar(){
@@ -59,8 +44,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             }
     }
     
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,12 +60,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton3 = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        jButton5 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         Caja = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
-        Caja1 = new javax.swing.JButton();
+        OtrosAccesos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         btnExit = new javax.swing.JButton();
@@ -91,10 +72,8 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OSG - Otro Sistema de Gestión");
-        setAlwaysOnTop(true);
         setAutoRequestFocus(false);
-        setExtendedState(MenuDeOpcionesEmpleado.MAXIMIZED_BOTH);
-        setResizable(false);
+        setExtendedState(6);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -106,10 +85,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.setOpaque(false);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/productos25.png"))); // NOI18N
         jButton1.setText("Productos");
         jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -119,10 +98,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clientes30.png"))); // NOI18N
         jButton2.setText("Clientes");
         jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -132,36 +111,23 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator2);
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/presupuesto25.png"))); // NOI18N
         jButton3.setText("Presupuestos");
         jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
         jToolBar1.add(jButton3);
-        jToolBar1.add(jSeparator3);
-
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setText("Usuarios");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton5);
         jToolBar1.add(jSeparator4);
 
         Caja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Caja30.png"))); // NOI18N
         Caja.setText("Caja");
         Caja.setFocusable(false);
-        Caja.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Caja.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Caja.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         Caja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CajaActionPerformed(evt);
@@ -170,17 +136,18 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(Caja);
         jToolBar1.add(jSeparator5);
 
-        Caja1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Caja1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/config25.png"))); // NOI18N
-        Caja1.setFocusable(false);
-        Caja1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Caja1.setPreferredSize(new java.awt.Dimension(31, 31));
-        Caja1.addActionListener(new java.awt.event.ActionListener() {
+        OtrosAccesos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        OtrosAccesos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/config25.png"))); // NOI18N
+        OtrosAccesos.setText("Otros accesos");
+        OtrosAccesos.setFocusable(false);
+        OtrosAccesos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        OtrosAccesos.setPreferredSize(new java.awt.Dimension(31, 31));
+        OtrosAccesos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Caja1ActionPerformed(evt);
+                OtrosAccesosActionPerformed(evt);
             }
         });
-        jToolBar1.add(Caja1);
+        jToolBar1.add(OtrosAccesos);
 
         jScrollPane1.setOpaque(false);
 
@@ -199,7 +166,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         });
 
         btnVenta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/venta25.png"))); // NOI18N
         btnVenta.setText("VENTA");
+        btnVenta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         btnVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVentaActionPerformed(evt);
@@ -221,29 +190,25 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAyuda)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnExit)))
-                        .addContainerGap())
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(btnVenta))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())))
+                        .addComponent(btnAyuda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExit))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
@@ -303,8 +268,8 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             case "Gestión de presupuestos":
                 señalPresu = 0;
                 break;
-            case "Gestión de usuarios":
-                señalUsu = 0;
+            case "Otros accesos":
+                señalOac = 0;
                 break;
             case "Caja":
                 señalOpDia = 0;
@@ -321,16 +286,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        GestionDeUsuarios gestionusuarios = new GestionDeUsuarios();
-        
-        if (señalUsu == 0) {
-            jTabbedPane1.addTab("Gestión de usuarios", gestionusuarios.getContentPane());
-           señalUsu = 1;
-        }
-        
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void CajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CajaActionPerformed
         // TODO add your handling code here:
         MenuDeOperacionesDiarias menuopdiarias = new MenuDeOperacionesDiarias();
@@ -342,9 +297,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_CajaActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-        // TODO add your handling code here:
-        //new VentasEmpleado().setVisible(true);
-        VentasEmpleado nuevaventa = new  VentasEmpleado();
+        VentaEmpleado nuevaventa = new  VentaEmpleado();
         if (señalVenta == 0) {
             jTabbedPane1.addTab("Nueva venta", nuevaventa.getContentPane());
            señalVenta = 1;
@@ -382,9 +335,14 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         cerrar();
     }//GEN-LAST:event_formWindowClosing
 
-    private void Caja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Caja1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Caja1ActionPerformed
+    private void OtrosAccesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OtrosAccesosActionPerformed
+        Config config = new Config();
+        
+        if (señalOac == 0) {
+            jTabbedPane1.addTab("Otros accesos", config.getContentPane());
+           señalOac = 1;
+        }
+    }//GEN-LAST:event_OtrosAccesosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -425,19 +383,17 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton Caja;
-    javax.swing.JButton Caja1;
+    javax.swing.JButton OtrosAccesos;
     javax.swing.JButton btnAyuda;
     javax.swing.JButton btnExit;
     javax.swing.JButton btnVenta;
     javax.swing.JButton jButton1;
     javax.swing.JButton jButton2;
     javax.swing.JButton jButton3;
-    javax.swing.JButton jButton5;
     javax.swing.JPanel jPanel1;
     javax.swing.JScrollPane jScrollPane1;
     javax.swing.JToolBar.Separator jSeparator1;
     javax.swing.JToolBar.Separator jSeparator2;
-    javax.swing.JToolBar.Separator jSeparator3;
     javax.swing.JToolBar.Separator jSeparator4;
     javax.swing.JToolBar.Separator jSeparator5;
     javax.swing.JTabbedPane jTabbedPane1;
@@ -446,7 +402,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private int señalProd = 0;
     private int señalClie = 0;
     private int señalPresu = 0;
-    private int señalUsu = 0;
+    private int señalOac = 0;
     private int señalOpDia = 0;
     private int señalVenta = 0;
 }

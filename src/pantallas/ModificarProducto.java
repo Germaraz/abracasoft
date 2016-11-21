@@ -6,26 +6,14 @@
 package pantallas;
 
 import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
-import java.awt.Desktop;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.event.KeyEvent;
-import java.io.*;
-import static java.lang.Float.parseFloat;
-import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
-import java.net.URL;
-import javax.help.HelpBroker;
-import javax.help.HelpSet;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import net.sourceforge.jbarcodebean.BarcodeException;
 import net.sourceforge.jbarcodebean.JBarcodeBean;
 import net.sourceforge.jbarcodebean.model.Interleaved25;
 
@@ -33,12 +21,12 @@ import net.sourceforge.jbarcodebean.model.Interleaved25;
  *
  * @author German
  */
-public class AltaProducto extends javax.swing.JFrame {
+public class ModificarProducto extends javax.swing.JFrame {
 
     /**
      * Creates new form AltaProducto
      */
-    public AltaProducto() {
+    public ModificarProducto() {
 
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -68,6 +56,13 @@ public class AltaProducto extends javax.swing.JFrame {
         TFDescuento = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel36 = new javax.swing.JLabel();
+        TFprecioPromoProd1 = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        promocionDesde1 = new com.toedter.calendar.JDateChooser();
+        jLabel38 = new javax.swing.JLabel();
+        promocionHasta1 = new com.toedter.calendar.JDateChooser();
         btnAyuda = new javax.swing.JButton();
         BguardarAltaProd = new javax.swing.JButton();
         BcancelarAltaProd = new javax.swing.JButton();
@@ -75,10 +70,14 @@ public class AltaProducto extends javax.swing.JFrame {
         TAdescripcion = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
         jTextField1 = new javax.swing.JTextField();
+        jLabel39 = new javax.swing.JLabel();
+        unidadesExistentes = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Agregar un nuevo producto");
+        setTitle("Editar producto - OSG");
         setAlwaysOnTop(true);
         setResizable(false);
 
@@ -98,7 +97,7 @@ public class AltaProducto extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Stock ");
+        jLabel5.setText("Stock (en existencia");
 
         TFstockProducto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TFstockProducto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -141,6 +140,25 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel35.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel35.setText("No Incluir el IVA, el mismo será calculado en la venta");
 
+        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jCheckBox2.setText("Activar promoción");
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel36.setText("Porcentaje de descuento sobre el valor final del producto");
+
+        TFprecioPromoProd1.setEditable(false);
+        TFprecioPromoProd1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel37.setText("desde");
+
+        promocionDesde1.setEnabled(false);
+
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel38.setText("hasta");
+
+        promocionHasta1.setEnabled(false);
+
         btnAyuda.setText("Ayuda");
 
         BguardarAltaProd.setText("Guardar");
@@ -172,6 +190,23 @@ public class AltaProducto extends javax.swing.JFrame {
             }
         });
 
+        jLabel39.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel39.setText("Validez");
+
+        unidadesExistentes.setEditable(false);
+        unidadesExistentes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        unidadesExistentes.setBorder(null);
+        unidadesExistentes.setFocusable(false);
+        unidadesExistentes.setOpaque(false);
+        unidadesExistentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unidadesExistentesActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("unidades)");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -190,19 +225,44 @@ public class AltaProducto extends javax.swing.JFrame {
                         .addComponent(jSeparator1)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5)
-                            .addComponent(TFstockProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TAdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(350, 350, 350)
+                                .addComponent(BimprimirCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(unidadesExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel3))
+                                .addComponent(TFstockProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TAdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jCheckBox2)
+                                        .addComponent(jLabel36))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(TFprecioPromoProd1)
+                                    .addGap(49, 49, 49))))
                         .addGap(28, 28, 28))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(350, 350, 350)
-                        .addComponent(BimprimirCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                        .addGap(28, 28, 28))
+                        .addComponent(jSeparator3)
+                        .addContainerGap())
                     .addComponent(jSeparator2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel37)
+                                .addGap(18, 18, 18)
+                                .addComponent(promocionDesde1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel38)
+                                .addGap(18, 18, 18)
+                                .addComponent(promocionHasta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,7 +280,7 @@ public class AltaProducto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,8 +313,27 @@ public class AltaProducto extends javax.swing.JFrame {
                 .addComponent(jLabel35)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addGap(1, 1, 1)
+                .addComponent(jCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(TFprecioPromoProd1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel39)
+                    .addComponent(promocionHasta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(promocionDesde1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel37)
+                        .addComponent(jLabel38)))
+                .addGap(11, 11, 11)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(unidadesExistentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(TFstockProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -316,7 +395,7 @@ public class AltaProducto extends javax.swing.JFrame {
         try {
             ImageIO.write(bufferedImage, "png", file);
         } catch (IOException ex) {
-            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModificarProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -375,6 +454,10 @@ public class AltaProducto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BimprimirCodigoActionPerformed
 
+    private void unidadesExistentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadesExistentesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_unidadesExistentesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -393,20 +476,21 @@ public class AltaProducto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AltaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AltaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AltaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AltaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AltaProducto().setVisible(true);
+                new ModificarProducto().setVisible(true);
             }
         });
     }
@@ -419,19 +503,30 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JTextField TFDescuento;
     private javax.swing.JTextField TFidProducto;
     private javax.swing.JTextField TFnombreProd;
+    private javax.swing.JTextField TFprecioPromoProd1;
     private javax.swing.JTextField TFstockProducto;
     private javax.swing.JButton btnAyuda;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField1;
+    private com.toedter.calendar.JDateChooser promocionDesde1;
+    private com.toedter.calendar.JDateChooser promocionHasta1;
+    private javax.swing.JTextField unidadesExistentes;
     // End of variables declaration//GEN-END:variables
 
     

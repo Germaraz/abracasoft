@@ -20,10 +20,6 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtImporte" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtResultado" min="-2" max="-2" attributes="0"/>
@@ -32,18 +28,26 @@
                               <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="intResultado" max="32767" attributes="0"/>
-                                  <Component id="intPago" alignment="0" max="32767" attributes="0"/>
                                   <Component id="bCalcular" alignment="1" pref="90" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="MontoAPagar" min="-2" pref="93" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtImporte" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="intPago" min="-2" pref="90" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="MontoAPagar" min="-2" pref="93" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="72" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="152" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -62,11 +66,12 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="MontoAPagar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" pref="23" max="32767" attributes="0"/>
-              <Component id="txtImporte" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="intPago" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace type="separate" pref="20" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtImporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="intPago" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
               <Component id="txtResultado" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Component id="intResultado" min="-2" max="-2" attributes="0"/>
@@ -82,7 +87,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="txtImporte">
       <Properties>
-        <Property name="text" type="java.lang.String" value="pideIngresoDeImporte"/>
+        <Property name="text" type="java.lang.String" value="El cliente paga con"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="intPago">
@@ -110,7 +115,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="El importe a pagar por el cliente es de:"/>
+        <Property name="text" type="java.lang.String" value="El  importe a pagar es"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="MontoAPagar">
