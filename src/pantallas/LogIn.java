@@ -6,7 +6,8 @@
 //DROPBOX
 package pantallas;
 
-import java.awt.event.KeyEvent;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import negocio.UsuarioNegocio;
@@ -24,7 +25,7 @@ public class LogIn extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("../images/osg512.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(BlogIn);
         //new gestores.AbraBackUp().CrearBackup();
@@ -239,5 +240,6 @@ public class LogIn extends javax.swing.JFrame {
 
         return idUsuario;
     }
+    
 
 }

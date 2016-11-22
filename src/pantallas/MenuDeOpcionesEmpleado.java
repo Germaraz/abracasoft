@@ -25,11 +25,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
      * Creates new form MenuDeOpcionesEmpleado
      */
     public MenuDeOpcionesEmpleado() {
-        initComponents();
-        btnVenta.setMnemonic(KeyEvent.VK_V);
-        setIconImage(new ImageIcon(getClass().getResource("../images/osg512.png")).getImage());
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        initComponents();
+        btnVenta.setMnemonic(KeyEvent.VK_V);
+        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
     }
     
     public void cerrar(){
@@ -85,7 +85,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.setOpaque(false);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/productos25.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clientes30.png"))); // NOI18N
         jButton1.setText("Productos");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -98,7 +98,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clientes30.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clientes30.png"))); // NOI18N
         jButton2.setText("Clientes");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -124,7 +124,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator4);
 
         Caja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Caja30.png"))); // NOI18N
+        Caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/caja30.png"))); // NOI18N
         Caja.setText("Caja");
         Caja.setFocusable(false);
         Caja.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -305,6 +305,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVentaActionPerformed
 
     private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
+            setLocationRelativeTo(null);
             ponLaAyuda();
             
     }//GEN-LAST:event_btnAyudaActionPerformed
@@ -318,6 +319,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 			// Crea el HelpSet y el HelpBroker
 			HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
 			HelpBroker hb = helpset.createHelpBroker();
+                        
 
 			// Pone ayuda a item de menu al pulsarlo y a F1 en ventana
 			// principal y secundaria.
@@ -405,4 +407,5 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private int señalOac = 0;
     private int señalOpDia = 0;
     private int señalVenta = 0;
+    
 }

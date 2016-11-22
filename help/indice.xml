@@ -5,5 +5,11 @@
 <index version="1.0">
         <indexitem text="Bienvenido a OSG"    target="aplicacion"/>
         <indexitem text="Ventana principal"    target="ventana_principal"/>
-        <indexitem text="Ventana secundaria"    target="ventana_secundaria"/>
+        <indexitem text="Gestion de productos"    target="gestion_productos"/>
+        <indexitem text="Gestion de clientes"    target="gestion_clientes"/>
+        <indexitem text="Gestion de presupuestos"    target="gestion_presupuestos"/>
+        <indexitem text="Gestion de caja"    target="caja"/>
+        <indexitem text="Otros accesos"    target="otros_accesos"/>
+        <indexitem text="Gestion de clientes"    target="gestion_clientes"/>
+        <indexitem text="Venta"    target="venta"/>
 </index>
