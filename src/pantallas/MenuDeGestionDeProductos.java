@@ -7,17 +7,9 @@ package pantallas;
 
 import gestores.GestorProducto;
 import java.awt.Color;
-import java.awt.Desktop;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import static java.lang.Float.parseFloat;
-import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 
 /**
  *
@@ -86,7 +78,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         });
 
         BproductoEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BproductoEditar.setText("Guardar cambios a producto");
+        BproductoEditar.setText("Editar producto seleccionado");
         BproductoEditar.setMaximumSize(new java.awt.Dimension(41, 41));
         BproductoEditar.setMinimumSize(new java.awt.Dimension(41, 41));
         BproductoEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,14 +126,14 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Producto", "Descripción", "Stock", "Precio contado", "Precio débito", "Precio crédito"
+                "Producto", "Descripción", "Stock", "Precio venta", "% ganancia", "Vencimiento", "Promocion"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Short.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Short.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -316,7 +308,8 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_BproductoEliminarActionPerformed
 
     private void BproductoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoEditarActionPerformed
-        modificarProducto();
+        ModificarProducto modprod = new ModificarProducto();
+        modprod.setVisible(true);
     }//GEN-LAST:event_BproductoEditarActionPerformed
 
     /**
@@ -419,10 +412,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     private void borrarProducto() {
         if(jTable1.getSelectedRows().length > 0 ) {
             long valorCelda = 0;
+            setLocationRelativeTo(null);
             try{
                 valorCelda = parseLong(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
             }catch (NumberFormatException e){
-                System.out.println("no se pudo determinar el codigo de barra");
+                System.out.println("No se pudo determinar el codigo de barra");
             }
             if(valorCelda != 0){
                 DefaultTableModel tcliente = (DefaultTableModel) jTable1.getModel();
@@ -439,76 +433,12 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto");
                     }
                 }else{
-                   System.out.println("no se elimino nada");
+                   System.out.println("No se realizaron cambios");
                 }
             }
          }
     }
     
-    private void abrirAyuda(){
-        try {
-            //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Producto.pdf");
-            //Desktop.getDesktop().open(file);
-            if (Desktop.isDesktopSupported()) {
-            File file = new File("Ayuda_Gestion_Producto.pdf");
-            if (!file.exists()) {
-                InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Ayuda_Gestion_Producto.pdf");
-                OutputStream outputStream = new FileOutputStream(file);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, length);
-                }
-                outputStream.close();
-                inputStream.close();
-            }
-            Desktop.getDesktop().open(file);
-            }
-            
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
-        }
-    }
-
-    private void modificarProducto() {
-        if(jTable1.getSelectedRows().length > 0 ) {
-            long valorCelda = 0;
-            try{
-                valorCelda = parseLong(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
-            }catch (NumberFormatException e){
-                System.out.println("no se pudo determinar el codigo de barra");
-            }
-            if(valorCelda != 0){
-                DefaultTableModel dtmProducto = (DefaultTableModel) jTable1.getModel();
-                int confirmado = JOptionPane.showConfirmDialog(BproductoEditar, 
-                    "¿Confirma que desea modificar el producto cuyo codigo de barra es: " + 
-                    jTable1.getValueAt(jTable1.getSelectedRow(),0).toString() + " ?");
-
-                if (JOptionPane.OK_OPTION == confirmado){
-                      try{
-                        String descripcion = jTable1.getValueAt(jTable1.getSelectedRow(),1).toString();
-                        int stock = parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),2).toString());
-                        float pcontado = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),3).toString());
-                        float pdebito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString());
-                        float pcredito = parseFloat(jTable1.getValueAt(jTable1.getSelectedRow(),5).toString());
-                        
-                        if (GestorProducto.modificarProducto(valorCelda, descripcion, stock, pcontado, pdebito, pcredito)==true){
-                            JOptionPane.showMessageDialog(null, "El producto fue modificado");
-                            borrarRenglones();
-                            buscarMientrasEscribe();
-                        }else{
-                            JOptionPane.showMessageDialog(null, "No se pudo modificar el producto");
-                        }
-                    }catch (NumberFormatException e){
-                        JOptionPane.showMessageDialog(null, "Los campos no pueden ser nulos");
-                    }
-                }else{
-                   System.out.println("no se modifico nada");
-                }
-            }
-         }
-    }
 
     private void buscarPorCodigo(long numero) {
         if (numero != 0) {

@@ -6,12 +6,11 @@
 //DROPBOX
 package pantallas;
 
-import entidades.Usuario;
-import entidades.Privilegio;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import negocio.UsuarioNegocio;
 
 /**
  *
@@ -26,7 +25,7 @@ public class LogIn extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("../images/osg512.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(BlogIn);
         //new gestores.AbraBackUp().CrearBackup();
@@ -157,10 +156,15 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_BexitActionPerformed
 
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
-        if (validar()) {
-            ingresar(TFloginUsuario.getText(), new String(TFloginPass.getPassword()));
+
+        if (validar() != true) {
+
+        } else {
+            ingresar(TFloginUsuario.getText(), Integer.parseInt(TFloginPass.getText()));
         }
+
         this.dispose();
+
     }//GEN-LAST:event_BlogInActionPerformed
 
     /**
@@ -222,46 +226,20 @@ public class LogIn extends javax.swing.JFrame {
         }
         return estado;
     }
-    
-    private void ingresar(String nombreUsuario, String pass) {
-        Usuario usuario = new Usuario();
-        usuario.setNombreUsuario(nombreUsuario);
-        usuario.setPassUsuario(pass);
-        try {
-            usuario = usuario.login(usuario);
-            if (usuario != null) {
-                MenuDeOpcionesEmpleado pantaPrincipal = new MenuDeOpcionesEmpleado();
-                //Verificar el rol y los permisos
-                ArrayList<Privilegio> privilegios = new Privilegio().obtenerPrivilegios(usuario.getRol());
-                for (int i = 0; i < privilegios.size(); i++) {
-                    switch (privilegios.get(i).getPrivilegio()) {
-                        case "GESTION USUARIOS":
-                            pantaPrincipal.btnGUsuarios.setVisible(true);
-                            break;
-                        case "GESTION CLIENTES":
-                            pantaPrincipal.btnGClientes.setVisible(true);
-                            break;
-                        case "GESTION PRODUCTOS":
-                            pantaPrincipal.btnGProductos.setVisible(true);
-                            break;
-                        case "CAJA":
-                            pantaPrincipal.btnCaja.setVisible(true);
-                            break;
-                        case "GESTION PRESUPUESTOS":
-                            pantaPrincipal.btnGPresupuestos.setVisible(true);
-                            break;
-                        case "VENTA":
-                            pantaPrincipal.btnVenta.setVisible(true);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "EL USUARIO NO EXISTE");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+
+    private int ingresar(String usuario, int pass) {
+        int idUsuario = UsuarioNegocio.LogIn(usuario, pass);
+        if (idUsuario != 0) {
+            //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
+            MenuDeOpcionesEmpleado ventana = new MenuDeOpcionesEmpleado();
+            ventana.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
         }
+
+        return idUsuario;
     }
+    
+
 }
