@@ -71,7 +71,7 @@ public class GestorCompra extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) compra.getFechaBajaCompra());
+            pst.setDate(1, new Date(compra.getFechaBajaCompra().getTime()));
             pst.setInt(2, compra.getIdCompra());
             resultado = pst.executeUpdate();
             conexion.commit();

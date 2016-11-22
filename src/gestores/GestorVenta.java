@@ -75,7 +75,7 @@ public class GestorVenta extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) venta.getFechaBajaVenta());
+            pst.setDate(1, new Date(venta.getFechaBajaVenta().getTime()));
             pst.setInt(2, venta.getIdVenta());
             resultado = pst.executeUpdate();
             conexion.commit();

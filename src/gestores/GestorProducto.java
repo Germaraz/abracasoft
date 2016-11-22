@@ -87,7 +87,7 @@ public class GestorProducto extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) producto.getFechaBajaProducto());
+            pst.setDate(1, new Date(producto.getFechaBajaProducto().getTime()));
             pst.setInt(2, producto.getIdProducto());
             resultado = pst.executeUpdate();
             conexion.commit();

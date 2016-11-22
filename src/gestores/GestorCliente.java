@@ -19,11 +19,11 @@ import java.util.ArrayList;
  * @author ema_s
  */
 public class GestorCliente extends PoolDeConexiones {
-    
+
     public GestorCliente() throws Exception {
         this.pedirConexion();
     }
-    
+
     public int altaCliente(Cliente cliente) throws Exception {
         int resultado = 0;
         String sql = "INSERT INTO cliente (DNI_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, DIRECCION_CLIENTE, "
@@ -46,7 +46,7 @@ public class GestorCliente extends PoolDeConexiones {
         }
         return resultado;
     }
-    
+
     public int modificarCliente(Cliente cliente) throws Exception {
         int resultado = 0;
         String sql = "UPDATE cliente SET DNI_CLIENTE = ?, NOMBRE_CLIENTE = ?, APELLIDO_CLIENTE = ?, "
@@ -70,14 +70,14 @@ public class GestorCliente extends PoolDeConexiones {
         }
         return resultado;
     }
-    
+
     public int darDeBajaCliente(Cliente cliente) throws Exception {
         int resultado = 0;
         String sql = "UPDATE cliente SET FECHABAJA = ? WHERE IDCLIENTE = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) cliente.getFechaBajaCliente());
+            pst.setDate(1, new Date(cliente.getFechaBajaCliente().getTime()));
             pst.setInt(2, cliente.getIdCliente());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -87,7 +87,7 @@ public class GestorCliente extends PoolDeConexiones {
         }
         return resultado;
     }
-    
+
     public ArrayList<Cliente> listarClientes() throws Exception {
         ArrayList<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM cliente WHERE FECHABAJA IS NULL";
@@ -114,7 +114,7 @@ public class GestorCliente extends PoolDeConexiones {
         }
         return clientes;
     }
-    
+
     public Cliente obtenerClientePorDoc(int dni) throws Exception {
         Cliente cliente = new Cliente();
         String sql = "SELECT * FROM cliente WHERE cliente.FECHABAJA IS NULL AND cliente.DNI_CLIENTE = ?";
@@ -140,7 +140,7 @@ public class GestorCliente extends PoolDeConexiones {
         }
         return cliente;
     }
-    
+
     public Cliente obtenerCliente(String apellidoNombre) throws Exception {
         Cliente cliente = new Cliente();
         String sql = "SELECT * FROM cliente WHERE cliente.FECHABAJA IS NULL "
@@ -167,7 +167,7 @@ public class GestorCliente extends PoolDeConexiones {
         }
         return cliente;
     }
-    
+
     public Cliente obtenerClientePorId(int idCliente) throws Exception {
         Cliente cliente = new Cliente();
         String sql = "SELECT * FROM cliente WHERE cliente.FECHABAJA IS NULL AND cliente.IDCLIENTE = ?";

@@ -74,7 +74,7 @@ public class GestorUsuario extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) usuario.getFechaBajaUsuario());
+            pst.setDate(1, new Date(usuario.getFechaBajaUsuario().getTime()));
             pst.setInt(2, usuario.getIdUsuario());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -226,7 +226,7 @@ public class GestorUsuario extends PoolDeConexiones {
                 usuario.setApellido(resultado.getString("APELLIDO"));
                 usuario.setNombre(resultado.getString("NOMBRE"));
                 usuario.setNombreUsuario(resultado.getString("NOMBREUSUARIO"));
-                usuario.setPassUsuario(resultado.getString("PASS"));
+                usuario.setPassUsuario(resultado.getString("PASSUSUARIO"));
                 usuario.setEmail(resultado.getString("EMAIL"));
                 usuario.setFechaCreacion(resultado.getDate("FECHACREACION"));
                 usuario.setRol(new Rol().obtenerRol(resultado.getInt("rol_IDROL")));

@@ -65,7 +65,7 @@ public class GestorTipoPago extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) tipoPago.getFechaBajaTipoPago());
+            pst.setDate(1, new Date(tipoPago.getFechaBajaTipoPago().getTime()));
             pst.setInt(2, tipoPago.getIdTipoPago());
             resultado = pst.executeUpdate();
             conexion.commit();

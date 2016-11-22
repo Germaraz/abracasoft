@@ -63,7 +63,7 @@ public class GestorFactura extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) factura.getFechaBajaFactura());
+            pst.setDate(1, new Date(factura.getFechaBajaFactura().getTime()));
             pst.setInt(2, factura.getIdFactura());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -86,6 +86,7 @@ public class GestorFactura extends PoolDeConexiones {
             while (resultado.next()) {
                 factura.setIdFactura(idFactura);
                 factura.setTipoFactura(resultado.getString("TIPOFACTURA"));
+                factura.setPorcIVA(resultado.getInt("PORCIVA"));
                 factura.setFechaFactura(resultado.getDate("FECHAFACTURA"));
             }
         } catch (Exception e) {

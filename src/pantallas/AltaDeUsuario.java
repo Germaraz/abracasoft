@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Ema
  */
 public class AltaDeUsuario extends javax.swing.JFrame {
-
+    private String titulo;
     /**
      * Creates new form AltaDeUsuario
      */
-    public AltaDeUsuario() {
-
+    public AltaDeUsuario(String titulo) {
+        this.setTitle(titulo);
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -66,7 +66,6 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         UsuarioIDjTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Agregar un nuevo usuario");
         setExtendedState(AltaDeUsuario.MAXIMIZED_BOTH);
         setResizable(false);
 
@@ -289,6 +288,8 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 }
                 if (resultado == 1) {
                     JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente");
+                    GestionDeUsuarios panta = new GestionDeUsuarios();
+                    panta.setVisible(true);
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "El usuario no pudo guardarse");
@@ -302,6 +303,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
 
     private void SalirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirjButtonActionPerformed
         // TODO add your handling code here:
+        new GestionDeUsuarios().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_SalirjButtonActionPerformed
 
@@ -348,28 +350,28 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AltaDeUsuario().setVisible(true);
+                new AltaDeUsuario("Agregar nuevo usuario").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ApellidojTextField;
+    protected javax.swing.JTextField ApellidojTextField;
     private javax.swing.JButton Bayuda;
-    private javax.swing.JPasswordField ContraseniajPasswordField;
-    private javax.swing.JTextField EmailjTextField;
+    protected javax.swing.JPasswordField ContraseniajPasswordField;
+    protected javax.swing.JTextField EmailjTextField;
     private javax.swing.JButton GuardarjButton;
-    private javax.swing.JTextField NombreDeUsuariojTextField;
-    private javax.swing.JTextField NombrejTextField;
+    protected javax.swing.JTextField NombreDeUsuariojTextField;
+    protected javax.swing.JTextField NombrejTextField;
     private javax.swing.JLabel PassjLabel;
     private javax.swing.JLabel PrivilegiosjLabel;
     private javax.swing.JTable PrivilegiosjTable;
-    private javax.swing.JPasswordField RContraseniajPasswordField;
+    protected javax.swing.JPasswordField RContraseniajPasswordField;
     private javax.swing.JLabel RepitaPassjLabel;
     private javax.swing.JButton SalirjButton;
-    private javax.swing.JComboBox TipoDeUsuariojComboBox;
+    protected javax.swing.JComboBox TipoDeUsuariojComboBox;
     private javax.swing.JLabel TipoUsuariojLabel;
-    private javax.swing.JTextField UsuarioIDjTextField;
+    protected javax.swing.JTextField UsuarioIDjTextField;
     private javax.swing.JLabel UsuariojLabel;
     private javax.swing.JLabel UsuariojLabel1;
     private javax.swing.JLabel UsuariojLabel2;
