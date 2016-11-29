@@ -59,6 +59,8 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
+        proveedores = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         jButton3 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         Caja = new javax.swing.JButton();
@@ -109,6 +111,19 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton2);
         jToolBar1.add(jSeparator2);
+
+        proveedores.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/proveedor30.png"))); // NOI18N
+        proveedores.setText("Proveedores");
+        proveedores.setFocusable(false);
+        proveedores.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        proveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proveedoresActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(proveedores);
+        jToolBar1.add(jSeparator3);
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/presupuesto25.png"))); // NOI18N
@@ -262,6 +277,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             case "Gestión de clientes":
                 señalClie = 0;
                 break;
+            case "Gestión proveedores":
+                señalProv = 0;
+                break;
             case "Gestión de productos":
                 señalProd = 0;
                 break;
@@ -342,6 +360,14 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OtrosAccesosActionPerformed
 
+    private void proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proveedoresActionPerformed
+        MenuGestionProveedor gestProv = new MenuGestionProveedor();
+        if (señalProv == 0) {
+            jTabbedPane1.addTab("Gestion de proveedores", gestProv.getContentPane());
+           señalProv = 1;
+        }
+    }//GEN-LAST:event_proveedoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -392,10 +418,12 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     javax.swing.JScrollPane jScrollPane1;
     javax.swing.JToolBar.Separator jSeparator1;
     javax.swing.JToolBar.Separator jSeparator2;
+    javax.swing.JToolBar.Separator jSeparator3;
     javax.swing.JToolBar.Separator jSeparator4;
     javax.swing.JToolBar.Separator jSeparator5;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JToolBar jToolBar1;
+    javax.swing.JButton proveedores;
     // End of variables declaration//GEN-END:variables
     private int señalProd = 0;
     private int señalClie = 0;
@@ -403,5 +431,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private int señalOac = 0;
     private int señalOpDia = 0;
     private int señalVenta = 0;
+    private int señalProv = 0;
     
 }
