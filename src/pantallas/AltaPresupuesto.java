@@ -349,7 +349,6 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_descripcionProductoCaretUpdate
 
     private void jbClienteCasualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbClienteCasualActionPerformed
-
         nombreCliente.setText("");
         listaCliente.removeAllItems();
     }//GEN-LAST:event_jbClienteCasualActionPerformed
@@ -394,7 +393,11 @@ public class AltaPresupuesto extends javax.swing.JFrame {
     }//GEN-LAST:event_ayudaActionPerformed
 
     private void guardarPesupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPesupActionPerformed
-
+        if (validar()==true){
+            if (crearPresupuesto()!=0){
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_guardarPesupActionPerformed
 
     private void BeliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeliminarProductoActionPerformed
@@ -501,6 +504,16 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
     }
 
+    private boolean validar() {
+        boolean validar = true;
+        DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
+        if (tabla.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay ningún renglón");
+            validar = false;
+        }
+        return validar;
+    }
+    
     private void actualizarTotal() {
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
         float suma = 0;
@@ -576,6 +589,8 @@ public class AltaPresupuesto extends javax.swing.JFrame {
         }
     return status;
     }
+    
+    
     
     private void imprimir(ArrayList<String> renglonPresupuesto, String total, int nuPresup){
         

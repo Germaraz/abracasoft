@@ -32,7 +32,6 @@ public class ModificarProducto extends javax.swing.JFrame {
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(getClass().getResource("../images/osg512.png")).getImage());
     }
 
     /**

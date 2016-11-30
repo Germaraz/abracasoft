@@ -11,6 +11,9 @@ import entidades.Producto;
 import gestores.GestorCliente;
 import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
@@ -75,7 +78,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
         descripcionAgregar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
-        guardarPesup = new javax.swing.JButton();
+        guardarPresup = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
@@ -211,11 +214,11 @@ public class VentaEmpleado extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Producto");
 
-        guardarPesup.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        guardarPesup.setText("Presupuesto");
-        guardarPesup.addActionListener(new java.awt.event.ActionListener() {
+        guardarPresup.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        guardarPresup.setText("Presupuesto");
+        guardarPresup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarPesupActionPerformed(evt);
+                guardarPresupActionPerformed(evt);
             }
         });
 
@@ -291,7 +294,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(guardarPesup)
+                        .addComponent(guardarPresup)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -338,15 +341,16 @@ public class VentaEmpleado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(guardarPesup)
-                        .addComponent(jButton1)))
+                        .addComponent(guardarPresup)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel2)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(precioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -410,9 +414,13 @@ public class VentaEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listaClienteItemStateChanged
 
-    private void guardarPesupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPesupActionPerformed
-
-    }//GEN-LAST:event_guardarPesupActionPerformed
+    private void guardarPresupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPresupActionPerformed
+        try {
+            detalleProducto.print();
+        } catch (PrinterException ex) { 
+            
+        }
+    }//GEN-LAST:event_guardarPresupActionPerformed
 
     private void BeliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeliminarProductoActionPerformed
         eliminarItemProducto();
@@ -462,7 +470,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton descripcionAgregar;
     private javax.swing.JTextField descripcionProducto;
     private javax.swing.JTable detalleProducto;
-    private javax.swing.JButton guardarPesup;
+    private javax.swing.JButton guardarPresup;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
