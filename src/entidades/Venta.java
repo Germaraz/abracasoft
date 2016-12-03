@@ -20,7 +20,8 @@ public class Venta {
     private Usuario usuario;
     private Cliente cliente;
     private Factura factura;
-
+    private Producto producto;
+    
     public Venta() {
     }
 
@@ -86,6 +87,14 @@ public class Venta {
 
     public void setFactura(Factura factura) {
         this.factura = factura;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public Venta obtenerVenta(int aInt) {

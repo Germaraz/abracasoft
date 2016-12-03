@@ -6,8 +6,10 @@
 package gestores;
 
 import entidades.Compra;
+import entidades.Producto;
 import entidades.Proveedor;
 import entidades.Usuario;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -26,8 +28,8 @@ public class GestorCompra extends PoolDeConexiones {
 
     public int altaCompra(Compra compra) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO compra (FECHACOMPRA, MONTO, IVA, usuario_IDUSUARIO, proveedor_IDPROVEEDOR) "
-                + "VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO compra (FECHACOMPRA, MONTO, IVA, usuario_IDUSUARIO, proveedor_IDPROVEEDOR, "
+                + "producto_IDPRODUCTO) VALUES (?,?,?,?,?,?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
@@ -36,6 +38,8 @@ public class GestorCompra extends PoolDeConexiones {
             pst.setFloat(3, compra.getIvaCompra());
             pst.setInt(4, compra.getUsuario().getIdUsuario());
             pst.setInt(5, compra.getProveedor().getIdProveedor());
+            Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
+            pst.setArray(6, productos);
         } catch (Exception e) {
             conexion.rollback();
             throw new Exception(e.getMessage());
@@ -46,7 +50,7 @@ public class GestorCompra extends PoolDeConexiones {
     public int modificarCompra(Compra compra) throws Exception {
         int resultado = 0;
         String sql = "UPDATE compra SET FECHACOMPRA = ?, MONTO = ?, IVA = ?, usuario_IDUSUARIO = ?, "
-                + "proveedor_IDPROVEEDOR = ? WHERE compra.IDCOMPRA = ?";
+                + "proveedor_IDPROVEEDOR = ?, producto_IDPRODUCTO = ? WHERE compra.IDCOMPRA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
@@ -55,7 +59,9 @@ public class GestorCompra extends PoolDeConexiones {
             pst.setFloat(3, compra.getIvaCompra());
             pst.setInt(4, compra.getUsuario().getIdUsuario());
             pst.setInt(5, compra.getProveedor().getIdProveedor());
-            pst.setInt(6, compra.getIdCompra());
+            Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
+            pst.setArray(6, productos);
+            pst.setInt(7, compra.getIdCompra());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -84,6 +90,7 @@ public class GestorCompra extends PoolDeConexiones {
 
     public Compra obtenerCompra(int idCompra) throws Exception {
         Compra compra = new Compra();
+        ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL AND compra.IDCOMPRA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -95,9 +102,11 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setFechaCompra(resultado.getDate("FECHACOMPRA"));
                 compra.setMontoCompra(resultado.getFloat("MONTO"));
                 compra.setIvaCompra(resultado.getFloat("IVA"));
-                compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario.IDUSUARIO")));
-                compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor.IDPROVEEDOR")));
+                compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
+                compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
+                productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));
             }
+            compra.setProductos(productos);
         } catch (Exception e) {
             conexion.rollback();
             throw new Exception(e.getMessage());
@@ -107,6 +116,7 @@ public class GestorCompra extends PoolDeConexiones {
 
     ArrayList<Compra> listarCompras(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
         ArrayList<Compra> compras = new ArrayList<>();
+        ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL "
                 + "AND (compra.FECHACOMPRA BETWEEN ? AND ?)";
         try {
@@ -123,6 +133,8 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setIvaCompra(resultado.getFloat("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
+                productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));
+                compra.setProductos(productos);
                 compras.add(compra);
             }
         } catch (Exception e) {

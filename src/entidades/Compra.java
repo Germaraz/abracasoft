@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorCompra;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -21,6 +22,7 @@ public class Compra {
     private Date fechaBajaCompra;
     private Usuario usuario;
     private Proveedor proveedor;
+    private ArrayList<Producto> productos;
 
     public Compra() {
     }
@@ -81,6 +83,14 @@ public class Compra {
         this.proveedor = proveedor;
     }
 
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+    
     public Compra obtenerCompra(int idCompra) throws Exception {
         return new GestorCompra().obtenerCompra(idCompra);
     }

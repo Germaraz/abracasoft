@@ -17,9 +17,13 @@ public class Proveedor {
     private int cuit;
     private String razonSocial;
     private String nombreFantasia;
+    private String direccionProveedor;
+    private int telefonoCliente;
+    private String mailProveedor;
     private Date fechaAltaProveedor;
     private Date fechaBajaProveedor;
-
+    private Localidad localidad;
+    
     public Proveedor() {
     }
 
@@ -55,6 +59,30 @@ public class Proveedor {
         this.nombreFantasia = nombreFantasia;
     }
 
+    public String getDireccionProveedor() {
+        return direccionProveedor;
+    }
+
+    public void setDireccionProveedor(String direccionProveedor) {
+        this.direccionProveedor = direccionProveedor;
+    }
+
+    public int getTelefonoCliente() {
+        return telefonoCliente;
+    }
+
+    public void setTelefonoCliente(int telefonoCliente) {
+        this.telefonoCliente = telefonoCliente;
+    }
+
+    public String getMailProveedor() {
+        return mailProveedor;
+    }
+
+    public void setMailProveedor(String mailProveedor) {
+        this.mailProveedor = mailProveedor;
+    }
+
     public Date getFechaAltaProveedor() {
         return fechaAltaProveedor;
     }
@@ -69,6 +97,14 @@ public class Proveedor {
 
     public void setFechaBajaProveedor(Date fechaBajaProveedor) {
         this.fechaBajaProveedor = fechaBajaProveedor;
+    }
+
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
     }
 
     public Proveedor obtenerProveedor(int aInt) {

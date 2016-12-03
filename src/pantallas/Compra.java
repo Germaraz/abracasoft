@@ -33,12 +33,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author German
  */
-public class VentaEmpleado extends javax.swing.JFrame {
+public class Compra extends javax.swing.JFrame {
 
     /**
      * Creates new form AltaPresupuesto
      */
-    public VentaEmpleado() {
+    public Compra() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -61,8 +61,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
         detalleProducto = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         precioTotal = new javax.swing.JTextField();
-        listaCliente = new javax.swing.JComboBox();
-        nombreCliente = new javax.swing.JTextField();
+        ProveedorjTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         codigoBarra = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -129,23 +128,16 @@ public class VentaEmpleado extends javax.swing.JFrame {
         precioTotal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         precioTotal.setBorder(null);
 
-        listaCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        listaCliente.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                listaClienteItemStateChanged(evt);
-            }
-        });
-
-        nombreCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nombreCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.lightGray));
-        nombreCliente.addCaretListener(new javax.swing.event.CaretListener() {
+        ProveedorjTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ProveedorjTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.lightGray));
+        ProveedorjTextField.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                nombreClienteCaretUpdate(evt);
+                ProveedorjTextFieldCaretUpdate(evt);
             }
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setText("Cliente");
+        jLabel7.setText("Proveedor");
 
         codigoBarra.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         codigoBarra.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -180,7 +172,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
         jLabel10.setText("x");
 
         jbClienteCasual.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jbClienteCasual.setText("Cliente casual");
+        jbClienteCasual.setText("Nuevo Proveedor");
         jbClienteCasual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbClienteCasualActionPerformed(evt);
@@ -272,14 +264,12 @@ public class VentaEmpleado extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(descripcionAgregar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(31, 31, 31)
-                                .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(listaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ProveedorjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jbClienteCasual)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 278, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(31, 31, 31)
@@ -302,8 +292,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ProveedorjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbClienteCasual))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,7 +366,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
 
     private void jbClienteCasualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbClienteCasualActionPerformed
 
-        nombreCliente.setText("");
+        ProveedorjTextField.setText("");
         listaCliente.removeAllItems();
     }//GEN-LAST:event_jbClienteCasualActionPerformed
 
@@ -401,15 +390,9 @@ public class VentaEmpleado extends javax.swing.JFrame {
         listaProducto.removeAllItems();
     }//GEN-LAST:event_codigoBarraFocusGained
 
-    private void nombreClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_nombreClienteCaretUpdate
+    private void ProveedorjTextFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_ProveedorjTextFieldCaretUpdate
         buscarMientrasEscribe();
-    }//GEN-LAST:event_nombreClienteCaretUpdate
-
-    private void listaClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_listaClienteItemStateChanged
-        if (listaCliente.getSelectedItem()!=null){
-            Cliente c = (Cliente) listaCliente.getSelectedItem();
-        }
-    }//GEN-LAST:event_listaClienteItemStateChanged
+    }//GEN-LAST:event_ProveedorjTextFieldCaretUpdate
 
     private void guardarPesupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPesupActionPerformed
 
@@ -437,27 +420,30 @@ public class VentaEmpleado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentaEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentaEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentaEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentaEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentaEmpleado().setVisible(true);
+                new Compra().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BeliminarProducto;
+    private javax.swing.JTextField ProveedorjTextField;
     private javax.swing.JTextField cantidadRenglon;
     private javax.swing.JTextField codigoBarra;
     private javax.swing.JButton descripcionAgregar;
@@ -481,9 +467,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbClienteCasual;
-    private javax.swing.JComboBox listaCliente;
     private javax.swing.JComboBox listaProducto;
-    private javax.swing.JTextField nombreCliente;
     private javax.swing.JTextField precioTotal;
     private javax.swing.JTextField precioTotal1;
     // End of variables declaration//GEN-END:variables
@@ -509,7 +493,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
     }
 
     private void buscarMientrasEscribe() {
-        paraBuscar = nombreCliente.getText();
+        paraBuscar = ProveedorjTextField.getText();
         if (GestorCliente.ConsultaPorDescripcion(paraBuscar).size() != 0) {
             listaCliente.removeAllItems();
             for (int i = 0; i < GestorCliente.ConsultaPorDescripcion(paraBuscar).size(); i++) {

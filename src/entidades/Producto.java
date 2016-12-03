@@ -18,13 +18,10 @@ public class Producto {
    private String descripcionProducto;
    private Date fechaVencimientoProducto;
    private float precioUnitario;
+   private int alicuota;
    private int stock;
    private Date fechaAltaProducto;
    private Date fechaBajaProducto;
-   private Compra compra;
-   private Venta venta;
-   private Promocion promocion;
-   private Reserva reserva;
 
     public Producto() {
     }
@@ -77,6 +74,14 @@ public class Producto {
         this.precioUnitario = precioUnitario;
     }
 
+    public int getAlicuota() {
+        return alicuota;
+    }
+
+    public void setAlicuota(int alicuota) {
+        this.alicuota = alicuota;
+    }
+
     public int getStock() {
         return stock;
     }
@@ -99,39 +104,9 @@ public class Producto {
 
     public void setFechaBajaProducto(Date fechaBajaProducto) {
         this.fechaBajaProducto = fechaBajaProducto;
-    }
+    }   
 
-    public Compra getCompra() {
-        return compra;
+    public Producto obtenerProducto(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-    }
-
-    public Venta getVenta() {
-        return venta;
-    }
-
-    public void setVenta(Venta venta) {
-        this.venta = venta;
-    }
-
-    public Promocion getPromocion() {
-        return promocion;
-    }
-
-    public void setPromocion(Promocion promocion) {
-        this.promocion = promocion;
-    }
-
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-   
-   
 }

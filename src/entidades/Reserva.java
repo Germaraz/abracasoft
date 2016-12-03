@@ -12,11 +12,13 @@ import java.util.Date;
  * @author ema_s
  */
 public class Reserva {
+
     private int idReserva;
     private Date fechaReserva;
     private Date fechaBaja;
     private boolean vencida;
     private Cliente cliente;
+    private Producto producto;
 
     public Reserva() {
     }
@@ -61,9 +63,16 @@ public class Reserva {
         this.cliente = cliente;
     }
 
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
     public Reserva obtenerReserva(int aInt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

@@ -16,6 +16,7 @@ public class Promocion {
     private int idPromocion;
     private String descripPromo;
     private Date fechaVencimientoPromo;
+    private Producto producto;
 
     public Promocion() {
     }
@@ -44,6 +45,14 @@ public class Promocion {
         this.fechaVencimientoPromo = fechaVencimientoPromo;
     }
 
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+    
     public Promocion obtenerPromocion(int idPromocion) throws Exception {
         return new GestorPromocion().obtenerPromocion(idPromocion);
     }
