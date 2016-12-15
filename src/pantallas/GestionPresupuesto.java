@@ -55,6 +55,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        SPpresupuestoArticulos = new javax.swing.JScrollPane();
+        TpresupuestoArticulos = new javax.swing.JTable();
         BpresupuestoEditar = new javax.swing.JButton();
         BpresupuestoNuevo = new javax.swing.JButton();
         CSpresupuestoRangoHasta = new com.toedter.calendar.JDateChooser();
@@ -63,8 +65,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         SPpresupuesto = new javax.swing.JScrollPane();
         Tpresupuesto = new javax.swing.JTable();
-        SPpresupuestoArticulos = new javax.swing.JScrollPane();
-        TpresupuestoArticulos = new javax.swing.JTable();
         BpresupuestoEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         BpresupuestoBuscar = new javax.swing.JButton();
@@ -75,8 +75,33 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de presupuestos");
 
+        TpresupuestoArticulos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Producto", "Cantidad", "Precio unitario"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
+
         BpresupuestoEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BpresupuestoEditar.setText("Editar presupuesto");
+        BpresupuestoEditar.setText("Editar compra");
         BpresupuestoEditar.setMaximumSize(new java.awt.Dimension(41, 41));
         BpresupuestoEditar.setMinimumSize(new java.awt.Dimension(41, 41));
         BpresupuestoEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +111,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         });
 
         BpresupuestoNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BpresupuestoNuevo.setText("Nuevo presupuesto");
+        BpresupuestoNuevo.setText("Nueva compra");
         BpresupuestoNuevo.setMaximumSize(new java.awt.Dimension(41, 41));
         BpresupuestoNuevo.setMinimumSize(new java.awt.Dimension(41, 41));
         BpresupuestoNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -126,14 +151,14 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Cliente", "Vendedor", "Código venta", "Válido hasta"
+                "Código", "Usuario", "Proveedor", "Factura", "Fecha de compra", "Monto s/ IVA", "Monto c/ IVA"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -165,41 +190,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             Tpresupuesto.getColumnModel().getColumn(2).setMinWidth(70);
             Tpresupuesto.getColumnModel().getColumn(2).setPreferredWidth(80);
             Tpresupuesto.getColumnModel().getColumn(2).setMaxWidth(90);
-            Tpresupuesto.getColumnModel().getColumn(3).setMinWidth(80);
-            Tpresupuesto.getColumnModel().getColumn(3).setPreferredWidth(90);
-            Tpresupuesto.getColumnModel().getColumn(3).setMaxWidth(100);
-            Tpresupuesto.getColumnModel().getColumn(4).setMinWidth(90);
-            Tpresupuesto.getColumnModel().getColumn(4).setPreferredWidth(100);
-            Tpresupuesto.getColumnModel().getColumn(4).setMaxWidth(110);
         }
 
-        TpresupuestoArticulos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Producto", "Cantidad", "Subtotal"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
-
         BpresupuestoEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BpresupuestoEliminar.setText("Eliminar presupuesto");
+        BpresupuestoEliminar.setText("Dar de baja compra");
         BpresupuestoEliminar.setMaximumSize(new java.awt.Dimension(41, 41));
         BpresupuestoEliminar.setMinimumSize(new java.awt.Dimension(41, 41));
         BpresupuestoEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -261,14 +255,16 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                         .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -287,9 +283,12 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                         .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
-                    .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BpresupuestoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,10 +319,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         busqueda();
     }//GEN-LAST:event_BpresupuestoBuscarActionPerformed
 
-    private void BpresupuestoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEliminarActionPerformed
-        eliminarPresupuesto();
-    }//GEN-LAST:event_BpresupuestoEliminarActionPerformed
-
     private void TpresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TpresupuestoKeyReleased
         presupuestoProducto();        // TODO add your handling code here:
     }//GEN-LAST:event_TpresupuestoKeyReleased
@@ -344,16 +339,6 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         TFpresupuestoCodigo.setBackground(Color.white);
     }//GEN-LAST:event_TFpresupuestoCodigoMouseClicked
 
-    private void BpresupuestoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoNuevoActionPerformed
-        // TODO add your handling code here:
-        new AltaPresupuesto().setVisible(true);
-    }//GEN-LAST:event_BpresupuestoNuevoActionPerformed
-
-    private void BpresupuestoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEditarActionPerformed
-        //modificarPresupuesto();
-        abrirPresupuesto();
-    }//GEN-LAST:event_BpresupuestoEditarActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             TpresupuestoArticulos.print();
@@ -361,6 +346,20 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             Logger.getLogger(GestionPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BpresupuestoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEliminarActionPerformed
+        eliminarPresupuesto();
+    }//GEN-LAST:event_BpresupuestoEliminarActionPerformed
+
+    private void BpresupuestoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEditarActionPerformed
+        //modificarPresupuesto();
+        abrirPresupuesto();
+    }//GEN-LAST:event_BpresupuestoEditarActionPerformed
+
+    private void BpresupuestoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoNuevoActionPerformed
+        // TODO add your handling code here:
+        new AltaPresupuesto().setVisible(true);
+    }//GEN-LAST:event_BpresupuestoNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -505,6 +504,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
          }
     }
 
+    
     private void eliminarPresupuesto() {
         //¿Será conveniente que también borre el listado de "Productos relacionado con el Presupuesto"?
         
@@ -580,6 +580,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         }
     }
 
+    /**
     private void modificarPresupuesto() {
         if(Tpresupuesto.getSelectedRows().length > 0 ) {
             int valorCelda = 0;
@@ -618,6 +619,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             }
          }
     }
+    **/
 
     private void abrirPresupuesto() {
         AltaPresupuesto apa = new AltaPresupuesto();
