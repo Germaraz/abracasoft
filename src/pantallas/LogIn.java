@@ -6,11 +6,13 @@
 //DROPBOX
 package pantallas;
 
+import entidades.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import negocio.UsuarioNegocio;
 
 /**
  *
@@ -156,15 +158,12 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_BexitActionPerformed
 
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
-
-        if (validar() != true) {
-
-        } else {
-            ingresar(TFloginUsuario.getText(), Integer.parseInt(TFloginPass.getText()));
+        if (validar()) {
+            Usuario usuario = new Usuario();
+            usuario.setNombreUsuario(TFloginUsuario.getText());
+            usuario.setPassUsuario(TFloginPass.getPassword().toString());
+            this.dispose();
         }
-
-        this.dispose();
-
     }//GEN-LAST:event_BlogInActionPerformed
 
     /**
@@ -227,19 +226,20 @@ public class LogIn extends javax.swing.JFrame {
         return estado;
     }
 
-    private int ingresar(String usuario, int pass) {
-        int idUsuario = UsuarioNegocio.LogIn(usuario, pass);
-        if (idUsuario != 0) {
-            //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
-            MenuDeOpcionesEmpleado ventana = new MenuDeOpcionesEmpleado();
-            ventana.setVisible(true);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
+    private Usuario ingresar(Usuario usuario) {
+        try {
+            usuario = new Usuario().login(usuario);
+            if (usuario != null) {
+                //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
+                MenuDeOpcionesEmpleado ventana = new MenuDeOpcionesEmpleado();
+                ventana.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return idUsuario;
+        return usuario;
     }
-    
 
 }

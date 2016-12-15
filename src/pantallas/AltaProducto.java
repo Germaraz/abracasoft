@@ -5,27 +5,14 @@
  */
 package pantallas;
 
-import gestores.GestorProducto; // Las pantallas se comunican con la logica de negocio no les interesa como llegan los datos 
-import java.awt.Desktop;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.event.KeyEvent;
-import java.io.*;
-import static java.lang.Float.parseFloat;
-import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
-import java.net.URL;
-import javax.help.HelpBroker;
-import javax.help.HelpSet;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import net.sourceforge.jbarcodebean.BarcodeException;
 import net.sourceforge.jbarcodebean.JBarcodeBean;
 import net.sourceforge.jbarcodebean.model.Interleaved25;
 
@@ -38,8 +25,8 @@ public class AltaProducto extends javax.swing.JFrame {
     /**
      * Creates new form AltaProducto
      */
-    public AltaProducto() {
-
+    public AltaProducto(String titulo) {
+        this.setTitle(titulo);
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -57,11 +44,11 @@ public class AltaProducto extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        TFidProducto = new javax.swing.JTextField();
+        CodigoProductoJTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         TFstockProducto = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        TFnombreProd = new javax.swing.JTextField();
+        NombreProdJTextField = new javax.swing.JTextField();
         BimprimirCodigo = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         TFDescuento = new javax.swing.JTextField();
@@ -84,15 +71,10 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Código de barra");
 
-        TFidProducto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TFidProducto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                TFidProductoFocusLost(evt);
-            }
-        });
-        TFidProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+        CodigoProductoJTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        CodigoProductoJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFidProductoKeyTyped(evt);
+                CodigoProductoJTextFieldKeyTyped(evt);
             }
         });
 
@@ -109,7 +91,7 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Nombre");
 
-        TFnombreProd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        NombreProdJTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         BimprimirCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         BimprimirCodigo.setText("Imprimir codigo de barra");
@@ -160,11 +142,6 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel2.setText("Descripcion");
 
         TAdescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TAdescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                TAdescripcionFocusLost(evt);
-            }
-        });
         TAdescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TAdescripcionKeyTyped(evt);
@@ -189,12 +166,6 @@ public class AltaProducto extends javax.swing.JFrame {
                         .addComponent(jSeparator1)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5)
-                            .addComponent(TFstockProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TAdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(350, 350, 350)
                         .addComponent(BimprimirCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
@@ -202,14 +173,17 @@ public class AltaProducto extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(TFstockProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TAdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TFidProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(CodigoProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(32, 32, 32)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TFnombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(NombreProdJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel25)
                                 .addGap(18, 18, 18)
@@ -219,7 +193,7 @@ public class AltaProducto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,11 +203,11 @@ public class AltaProducto extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TFidProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CodigoProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TFnombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(NombreProdJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
@@ -282,13 +256,59 @@ public class AltaProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BguardarAltaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BguardarAltaProdActionPerformed
+    private void DescProdJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescProdJTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DescProdJTextFieldKeyTyped
 
-    }//GEN-LAST:event_BguardarAltaProdActionPerformed
+    private void DescProdJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescProdJTextFieldFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DescProdJTextFieldFocusLost
 
     private void BcancelarAltaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcancelarAltaProdActionPerformed
         this.dispose();
     }//GEN-LAST:event_BcancelarAltaProdActionPerformed
+
+    private void BguardarAltaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BguardarAltaProdActionPerformed
+
+    }//GEN-LAST:event_BguardarAltaProdActionPerformed
+
+    private void PrecioUnitJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrecioUnitJTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PrecioUnitJTextFieldKeyTyped
+
+    private void PrecioUnitJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PrecioUnitJTextFieldFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PrecioUnitJTextFieldFocusLost
+
+    private void BimprimirCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BimprimirCodigoActionPerformed
+        TestBarCode();
+        setLocationRelativeTo(null);
+        Object[] opciones = {"Aceptar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "Codigo de barra guardado", "",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {;
+        } else {
+        }
+    }//GEN-LAST:event_BimprimirCodigoActionPerformed
+
+    private void StockjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_StockjTextFieldKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_StockjTextFieldKeyTyped
+
+    private void CodigoProductoJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoProductoJTextFieldKeyTyped
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_CodigoProductoJTextFieldKeyTyped
+
+    private void CodigoProductoJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CodigoProductoJTextFieldFocusLost
+
+    }//GEN-LAST:event_CodigoProductoJTextFieldFocusLost
 
     private void TestBarCode() {
 
@@ -299,17 +319,17 @@ public class AltaProducto extends javax.swing.JFrame {
         //barcode.setCodeType(new Code39());
 
         // nuestro valor a codificar y algunas configuraciones mas
-        barcode.setCode(TFidProducto.getText());
+        barcode.setCode(CodigoProductoJTextField.getText());
         barcode.setCheckDigit(true);
 
         BufferedImage bufferedImage = barcode.draw(new BufferedImage(400, 400, BufferedImage.TYPE_INT_RGB));
 
         // guardar en disco como png
         String nombre;
-        if (TFnombreProd.getText() == "") {
+        if (NombreProdJTextField.getText() == "") {
             nombre = "forro";
         } else {
-            nombre = TFnombreProd.getText();
+            nombre = NombreProdJTextField.getText();
         }
         File file = new File("codigoBarra_" + nombre + ".png");
         try {
@@ -318,61 +338,6 @@ public class AltaProducto extends javax.swing.JFrame {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private void TFstockProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFstockProductoKeyTyped
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_TFstockProductoKeyTyped
-
-    private void TFidProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFidProductoKeyTyped
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_TFidProductoKeyTyped
-
-    private void TFidProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFidProductoFocusLost
-        long evitaError = 0;
-        try {
-            evitaError = GestorProducto.ConsultaProducto(parseLong(TFidProducto.getText())).getCodigoDeProducto();
-        } catch (NumberFormatException e) {
-            evitaError = 0;
-        }
-        if (evitaError != 0) {
-            JOptionPane.showMessageDialog(null, "El producto ya existe: " + GestorProducto.ConsultaProducto(parseLong(TFidProducto.getText())).getNombreProducto());
-            TFidProducto.requestFocus();
-        }
-    }//GEN-LAST:event_TFidProductoFocusLost
-
-    private void TFDescuentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TFDescuentoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFDescuentoFocusLost
-
-    private void TFDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDescuentoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFDescuentoKeyTyped
-
-    private void TAdescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TAdescripcionFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TAdescripcionFocusLost
-
-    private void TAdescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TAdescripcionKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TAdescripcionKeyTyped
-
-    private void BimprimirCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BimprimirCodigoActionPerformed
-        TestBarCode();
-        setLocationRelativeTo(null);
-        Object[] opciones = {"Aceptar"};
-        int eleccion = JOptionPane.showOptionDialog(rootPane, "Codigo de barra guardado", "",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
-        if (eleccion == JOptionPane.YES_OPTION) {;
-        } else {
-        }
-    }//GEN-LAST:event_BimprimirCodigoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -405,7 +370,7 @@ public class AltaProducto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AltaProducto().setVisible(true);
+                new AltaProducto("").setVisible(true);
             }
         });
     }
@@ -414,10 +379,10 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JButton BcancelarAltaProd;
     private javax.swing.JButton BguardarAltaProd;
     private javax.swing.JButton BimprimirCodigo;
+    private javax.swing.JTextField CodigoProductoJTextField;
+    private javax.swing.JTextField NombreProdJTextField;
     private javax.swing.JTextField TAdescripcion;
     private javax.swing.JTextField TFDescuento;
-    private javax.swing.JTextField TFidProducto;
-    private javax.swing.JTextField TFnombreProd;
     private javax.swing.JTextField TFstockProducto;
     private javax.swing.JButton btnAyuda;
     private javax.swing.JLabel jLabel1;

@@ -7,9 +7,7 @@
 package pantallas;
 
 import com.toedter.calendar.JDateChooser;
-import entidades.Presupuesto;
 import gestores.GestorCliente;
-import gestores.GestorPresupuesto;
 import gestores.GestorProducto;
 import java.awt.Color;
 import java.awt.Desktop;

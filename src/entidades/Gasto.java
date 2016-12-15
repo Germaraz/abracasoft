@@ -9,43 +9,67 @@ import java.util.Date;
 
 /**
  *
- * @author Ema
+ * @author ema_s
  */
 public class Gasto {
+    private int idGasto;
+    private String descripcionGasto;
+    private Date fechaGasto;
+    private float montoGasto;
+    private Date fechaBajaGasto;
+    private Usuario usuario;
 
-    private String DescripcionGasto;
-    private Date FechaGasto;
-    private float MontoGasto;
+    public Gasto() {
+    }
 
-    public Gasto(String descripcionGasto, Date fechaGasto, float montoGasto) {
-        super();
-        DescripcionGasto = descripcionGasto;
-        FechaGasto = fechaGasto;
-        MontoGasto = montoGasto;
+    public int getIdGasto() {
+        return idGasto;
+    }
+
+    public void setIdGasto(int idGasto) {
+        this.idGasto = idGasto;
     }
 
     public String getDescripcionGasto() {
-        return DescripcionGasto;
+        return descripcionGasto;
     }
 
     public void setDescripcionGasto(String descripcionGasto) {
-        DescripcionGasto = descripcionGasto;
+        this.descripcionGasto = descripcionGasto;
     }
 
     public Date getFechaGasto() {
-        return FechaGasto;
+        return fechaGasto;
     }
 
     public void setFechaGasto(Date fechaGasto) {
-        FechaGasto = fechaGasto;
+        this.fechaGasto = fechaGasto;
     }
 
     public float getMontoGasto() {
-        return MontoGasto;
+        return montoGasto;
     }
 
     public void setMontoGasto(float montoGasto) {
-        MontoGasto = montoGasto;
+        this.montoGasto = montoGasto;
     }
 
+    public Date getFechaBajaGasto() {
+        return fechaBajaGasto;
+    }
+
+    public void setFechaBajaGasto(Date fechaBajaGasto) {
+        this.fechaBajaGasto = fechaBajaGasto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
+    
 }

@@ -3,63 +3,138 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gestores;
 
+import entidades.Cliente;
+import entidades.Factura;
+import entidades.Usuario;
 import entidades.Venta;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  *
- * @author pablo
+ * @author ema_s
  */
-public class GestorVenta {
-    public static ArrayList<Venta> cuentaVentaCliente(int idCliente){
-    ArrayList<Venta> cuentaVentaCliente = new ArrayList();
+public class GestorVenta extends PoolDeConexiones {
 
-    String sql1 = "SELECT montoventa, fechaventa FROM venta,presupuesto WHERE venta.idpresupuesto = "
-            + "presupuesto.idpresupuesto and presupuesto.idcliente = ? order by fechaventa desc";
-
-    try {
-        PreparedStatement pst = Conexion.conectar().prepareStatement(sql1);
-        pst.setInt(1, idCliente);
-        ResultSet resultSet = pst.executeQuery();
-
-       while (resultSet.next()) {
-            Venta ventaCliente = new Venta(resultSet.getDate("FECHAVENTA"),
-                    resultSet.getFloat("MONTOVENTA"));
-            cuentaVentaCliente.add(ventaCliente);
-        }
-    } catch (SQLException e) {
-        System.out.println(e);
-        System.out.println("no se pudo buscar VentasClientes");
+    public GestorVenta() throws Exception {
+        this.pedirConexion();
     }
-    return cuentaVentaCliente;
-}
 
-    public static int registrarVenta(int idPresupuesto, float montoTotal){
-        int codigoVenta = 0;
-        String sql = "insert into venta (IDPRESUPUESTO,FECHAVENTA,MONTOVENTA) values (?,now(),?)";
-        String sql2 = "SELECT max(IDVENTA) as idVenta FROM venta";
-
+    int altaVenta(Venta venta) throws Exception {
+        int resultado = 0;
+        String sql = "INSERT INTO venta (FECHAVENTA, MONTOVENTA, IVA, usuario_IDUSUARIO, cliente_IDCLIENTE, "
+                + "factura_IDFACTURA) VALUES (?,?,?,?,?,?)";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
-            pst.setInt(1, idPresupuesto);
-            pst.setFloat(2, montoTotal);
-            pst.executeUpdate();
-
-            pst = Conexion.conectar().prepareStatement(sql2);
-            ResultSet resultado = pst.executeQuery();
-            if (resultado.next()) {
-                codigoVenta = resultado.getInt("idVenta");
-            }
-        } catch (SQLException e) {
-            System.out.println("No se pudo registrar la venta");
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setDate(1, (Date) venta.getFechaVenta());
+            pst.setFloat(2, venta.getMontoVenta());
+            pst.setFloat(3, venta.getIvaVenta());
+            pst.setInt(4, venta.getUsuario().getIdUsuario());
+            pst.setInt(5, venta.getCliente().getIdCliente());
+            pst.setInt(6, venta.getFactura().getIdFactura());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
         }
+        return resultado;
+    }
 
-        return codigoVenta;
+    int modificaVenta(Venta venta) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE venta SET FECHAVENTA = ?, MONTOVENTA = ?, IVA = ?, usuario_IDUSUARIO = ?, "
+                + "cliente_IDCLIENTE = ?, factura_IDFACTURA = ? WHERE venta.IDVENTA = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setDate(1, (Date) venta.getFechaVenta());
+            pst.setFloat(2, venta.getMontoVenta());
+            pst.setFloat(3, venta.getIvaVenta());
+            pst.setInt(4, venta.getUsuario().getIdUsuario());
+            pst.setInt(5, venta.getCliente().getIdCliente());
+            pst.setInt(6, venta.getFactura().getIdFactura());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    int darDeBajaVenta(Venta venta) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE venta SET FECHABAJA = ? WHERE venta.IDVENTA = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setDate(1, new Date(venta.getFechaBajaVenta().getTime()));
+            pst.setInt(2, venta.getIdVenta());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    Venta obtenerVenta(int idVenta) throws Exception {
+        Venta venta = new Venta();
+        String sql = "SELECT * FROM venta WHERE venta.IDVENTA = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idVenta);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                venta.setIdVenta(idVenta);
+                venta.setFechaVenta(resultado.getDate("FECHAVENTA"));
+                venta.setMontoVenta(resultado.getFloat("MONTOVENTA"));
+                venta.setIvaVenta(resultado.getFloat("IVA"));
+                venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
+                venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
+                venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return venta;
+    }
+
+    public ArrayList<Venta> listarVentas(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
+        ArrayList<Venta> ventas = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE venta.FECHABAJA IS NULL "
+                + "AND (venta.FECHAVENTA BETWEEN ? AND ?)";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setDate(1, (Date) fechaDesde);
+            pst.setDate(2, (Date) fechaHasta);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(resultado.getInt("IDVENTA"));
+                venta.setFechaVenta(resultado.getDate("FECHAVENTA"));
+                venta.setMontoVenta(resultado.getFloat("MONTOVENTA"));
+                venta.setIvaVenta(resultado.getFloat("IVA"));
+                venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
+                venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
+                venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
+                ventas.add(venta);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return ventas;
     }
 }

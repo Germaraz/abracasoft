@@ -7,7 +7,6 @@ package gestores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 //import org.apache.commons.dbcp.BasicDataSource; 
 
@@ -19,26 +18,24 @@ import org.apache.commons.dbcp.BasicDataSource;
  */
 public class PoolDeConexiones {
 
-    private static Connection conexion = null;
+    protected Connection conexion = null;
 
-    public static Connection pedirConexion() throws Exception {
-
+    protected void pedirConexion() throws Exception {
         if (conexion == null) {
             try {
-    
-            BasicDataSource basicDataSource = new BasicDataSource();
-            basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            basicDataSource.setUrl("jdbc:mysql://localhost:3306/abracasoftdb");
-            basicDataSource.setUsername("root");
-            basicDataSource.setPassword("root");
-            
-
-            conexion = basicDataSource.getConnection();
+                BasicDataSource basicDataSource = new BasicDataSource();
+                basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                basicDataSource.setUrl("jdbc:mysql://localhost:3306/osg");
+                basicDataSource.setUsername("root");
+                basicDataSource.setPassword("root");
+                basicDataSource.setMaxActive(20);
+                basicDataSource.setMaxIdle(2);
+                conexion = basicDataSource.getConnection();
+                conexion.setAutoCommit(false);
             } catch (SQLException e) {
                 throw new Exception(e.getMessage());
             }
         }
-        return conexion;
     }
-    
+
 }

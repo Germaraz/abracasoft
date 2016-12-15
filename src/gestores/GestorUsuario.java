@@ -5,123 +5,237 @@
  */
 package gestores;
 
-import entidades.Privilegio;
+import entidades.Rol;
 import entidades.Usuario;
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JFrame;
 
 /**
- * Esta clase gestiona la comunicación del sistema con la base de datos desde la
- * parte del usuario.
  *
- * @author Ema
- * @since 1.0
+ * @author ema_s
  */
-public class GestorUsuario {
-    /*
-     * Se crea un atributo estatico que guarda la fecha actual tomada del sistema. 
-     */
+public class GestorUsuario extends PoolDeConexiones {
 
-    static Date fecha = new Date();
+    public GestorUsuario() throws Exception {
+        this.pedirConexion();
+    }
 
-    /*
-     * Este metodo recibe un usuario (Usuario usuario) y los IDPrivilegio (int[] idprivilegio) y guarda el usuario en la 
-     tabla usuario de la base de datos, llama al metodo consultarIDUsuario() que devuelve el ID del usuario creado, llama
-     crea una instancia de la clase privilegio y llama al metodo AltaPrivilegioDeUsuarioEnBD(int ID, Privilegio privilegio).
-     El metodo devuelve un int(entre 1 y 0) confirmando si se guardo el usuario con los privilegios.
-     */
-    public static int altaUsuarioEnBD(Usuario usuario, ArrayList<Privilegio> privilegios) throws Exception {
-        int usuarioGuardado = 0;
+    public int altaUsuario(Usuario usuario) throws Exception {
         int resultado = 0;
-        int ID = 0;
-        GestorPrivilegio privilegio = new GestorPrivilegio();
-        String sql = "INSERT INTO usuario (NOMUSUARIO,PASSUSUARIO,FECHACREACION)"
-                + "VALUES(?,?,?)";
+        String sql = "INSERT INTO usuario (APELLIDO, NOMBRE, NOMBREUSUARIO, EMAIL, PASSUSUARIO, rol_IDROL) "
+                + "VALUES (?,?,?,?,?,?)";
         try {
-            PreparedStatement pst = PoolDeConexiones.pedirConexion().prepareStatement(sql);
-            pst.setString(1, usuario.getNombreUsuario());
-            pst.setInt(2, usuario.getPassUsuario());
-            pst.setDate(3, new java.sql.Date(fecha.getTime()));
-            usuarioGuardado = pst.executeUpdate();
-            if (usuarioGuardado == 1) {
-                ID = consultarIDUsuario(pst);
-            }
-            if (ID != 0) {
-                boolean guardoLosPrivilegios = false;
-                for (int i = 0; i < privilegios.toArray().length; i++) {
-                    guardoLosPrivilegios = privilegio.AltaPrivilegioDeUsuarioEnBD(ID, privilegios.get(i).getID());
-                }
-                if (guardoLosPrivilegios) {
-                    resultado = 1;
-                }else{
-                    resultado = 0;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.print(e.toString());
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, usuario.getApellido());
+            pst.setString(2, usuario.getNombre());
+            pst.setString(3, usuario.getNombreUsuario());
+            pst.setString(4, usuario.getEmail());
+            pst.setString(5, usuario.getPassUsuario());
+            pst.setInt(6, usuario.getRol().getIdRol());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
         }
         return resultado;
     }
 
-    public static void ModificarUsuarioEnBD(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void BajaUsuarioEnBD(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /*
-     * Este metodo recibe 1 String y 1 Interger, compara esos 2 datos con los que se encuentran en la base de datos en
-     la tabla usuario. Si son iguales retorna el IDUsuario que es un Integer.
-     */
-    public static int logIn(String usuario, int pass) {
-        int idUsuario = 0;
-
-        String sql = "SELECT IDUSU FROM usuario WHERE NOMUSUARIO = ? and PASSUSUARIO = ?";
+    public int modificarUsuario(Usuario usuario) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE usuario SET APELLIDO = ?, NOMBRE = ?, NOMBREUSUARIO = ?, "
+                + "EMAIL = ?, PASSUSUARIO = ?, rol_IDROL = ? WHERE IDUSUARIO = ?";
         try {
-            PreparedStatement pst = Conexion.conectar().prepareStatement(sql);
-            pst.setString(1, usuario);
-            pst.setInt(2, pass);
-            ResultSet resultado = pst.executeQuery();
-            if (resultado.next()) { //cuando la consulta no da vacia pasa por acá
-                idUsuario = resultado.getInt("IDUSU");
-                return idUsuario;
-            } else { //si la consulta SQL no encuentra resultados devuelve 0
-                return idUsuario;
-            }
-
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, usuario.getApellido());
+            pst.setString(2, usuario.getNombre());
+            pst.setString(3, usuario.getNombreUsuario());
+            pst.setString(4, usuario.getEmail());
+            pst.setString(5, usuario.getPassUsuario());
+            pst.setInt(6, usuario.getRol().getIdRol());
+            pst.setInt(7, usuario.getIdUsuario());
+            resultado = pst.executeUpdate();
+            conexion.commit();
         } catch (Exception e) {
-            return idUsuario;
+            conexion.rollback();
+            throw new Exception(e.getMessage());
         }
+        return resultado;
     }
 
-    /*
-     * Este metodo consulta el ID del usuario recientemente creado y lo retorna, no recibe parametros.
-     */
-    private static int consultarIDUsuario(PreparedStatement pst) {
-        int ID;
-        String sql = "SELECT max(idusu) as id FROM usuario";
+    public int darDeBajaUsuario(Usuario usuario) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE usuario SET FECHABAJA = ? WHERE IDUSUARIO = ?";
         try {
-            ResultSet resultado = pst.executeQuery(sql);
-            if (resultado.next()) {
-                ID = resultado.getInt("id");
-            } else {
-                ID = 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.toString());
-            ID = 0;
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setDate(1, new Date(usuario.getFechaBajaUsuario().getTime()));
+            pst.setInt(2, usuario.getIdUsuario());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
         }
-        return ID;
+        return resultado;
     }
-    
-    
+
+    public ArrayList<Usuario> listarUsuarios() throws Exception {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT * FROM usuario WHERE FECHABAJA IS NULL";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
+                usuario.setApellido(resultado.getString("APELLIDO"));
+                usuario.setNombre(resultado.getString("NOMBRE"));
+                usuario.setNombreUsuario(resultado.getString("NOMBREUSUARIO"));
+                usuario.setPassUsuario(resultado.getString("PASSUSUARIO"));
+                usuario.setEmail(resultado.getString("EMAIL"));
+                usuario.setFechaCreacion(resultado.getDate("FECHACREACION"));
+                usuario.setRol(new Rol().obtenerRol(resultado.getInt("rol_IDROL")));
+                usuarios.add(usuario);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return usuarios;
+    }
+
+    public Usuario login(Usuario usuario) throws Exception {
+        Usuario usuario1 = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE NOMBREUSUARIO = ? AND PASSUSUARIO = ? AND FECHABAJA IS NULL";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, usuario.getNombreUsuario());
+            pst.setString(2, usuario.getPassUsuario());
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                usuario1.setIdUsuario(resultado.getInt("IDUSUARIO"));
+                usuario1.setApellido(resultado.getString("APELLIDO"));
+                usuario1.setNombre(resultado.getString("NOMBRE"));
+                usuario1.setNombreUsuario(resultado.getString("NOMBREUSUARIO"));
+                usuario1.setPassUsuario(resultado.getString("PASSUSUARIO"));
+                usuario1.setEmail(resultado.getString("EMAIL"));
+                usuario1.setFechaCreacion(resultado.getDate("FECHACREACION"));
+                usuario1.setRol(new Rol().obtenerRol(resultado.getInt("rol_IDROL")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return usuario1;
+    }
+
+    public Usuario obtenerUsuarioPorApellidoyNombre(String apellidoYNombre) throws Exception {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE TRIM(CONCAT(APELLIDO,NOMBRE)) LIKE '?%'";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, apellidoYNombre.trim());
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
+                usuario.setApellido(resultado.getString("APELLIDO"));
+                usuario.setNombre(resultado.getString("NOMBRE"));
+                usuario.setNombreUsuario(resultado.getString("NOMBREUSUARIO"));
+                usuario.setPassUsuario(resultado.getString("PASSUSUARIO"));
+                usuario.setEmail(resultado.getString("EMAIL"));
+                usuario.setFechaCreacion(resultado.getDate("FECHACREACION"));
+                usuario.setRol(new Rol().obtenerRol(resultado.getInt("rol_IDROL")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return usuario;
+    }
+
+    public Usuario obtenerUsuarioPorNombreUsuario(String nombreUsuario) throws Exception {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE usuario.FECHABAJA IS NULL "
+                + "AND TRIM(usuario.NOMBREUSUARIO) LIKE '?%'";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, nombreUsuario.trim());
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
+                usuario.setApellido(resultado.getString("APELLIDO"));
+                usuario.setNombre(resultado.getString("NOMBRE"));
+                usuario.setNombreUsuario(resultado.getString("NOMBREUSUARIO"));
+                usuario.setPassUsuario(resultado.getString("PASSUSUARIO"));
+                usuario.setEmail(resultado.getString("EMAIL"));
+                usuario.setFechaCreacion(resultado.getDate("FECHACREACION"));
+                usuario.setRol(new Rol().obtenerRol(resultado.getInt("rol_IDROL")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return usuario;
+    }
+
+    public ArrayList<Usuario> listarUsuariosDadosDeBaja() throws Exception {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT * FROM usuario WHERE FECHABAJA IS NOT NULL";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
+                usuario.setApellido(resultado.getString("APELLIDO"));
+                usuario.setNombre(resultado.getString("NOMBRE"));
+                usuario.setNombreUsuario(resultado.getString("NOMBREUSUARIO"));
+                usuario.setPassUsuario(resultado.getString("PASSUSUARIO"));
+                usuario.setEmail(resultado.getString("EMAIL"));
+                usuario.setFechaCreacion(resultado.getDate("FECHACREACION"));
+                usuario.setRol(new Rol().obtenerRol(resultado.getInt("rol_IDROL")));
+                usuarios.add(usuario);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return usuarios;
+    }
+
+    public Usuario obtenerUsuario(int idUsuario) throws Exception {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE usuario.FECHABAJA IS NULL AND usuario.IDUSUARIO = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idUsuario);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                usuario.setIdUsuario(idUsuario);
+                usuario.setApellido(resultado.getString("APELLIDO"));
+                usuario.setNombre(resultado.getString("NOMBRE"));
+                usuario.setNombreUsuario(resultado.getString("NOMBREUSUARIO"));
+                usuario.setPassUsuario(resultado.getString("PASSUSUARIO"));
+                usuario.setEmail(resultado.getString("EMAIL"));
+                usuario.setFechaCreacion(resultado.getDate("FECHACREACION"));
+                usuario.setRol(new Rol().obtenerRol(resultado.getInt("rol_IDROL")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return usuario;
+    }
 }

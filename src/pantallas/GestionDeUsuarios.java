@@ -8,8 +8,13 @@ package pantallas;
 import entidades.Usuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -27,6 +32,7 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        cargarTablaUsuarios();
     }
 
     /**
@@ -42,14 +48,15 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
         comboFiltro = new javax.swing.JComboBox<>();
         txtFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaListado = new javax.swing.JTable();
+        tablaUsuarios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        NuevoUsuariojButton = new javax.swing.JButton();
+        DarDeBajajButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion Usuarios");
 
-        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Usuario" }));
+        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Nombre y Apellido" }));
         comboFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboFiltroActionPerformed(evt);
@@ -67,22 +74,19 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
             }
         });
 
-        tablaListado.setModel(new javax.swing.table.DefaultTableModel(
+        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Usuario", "Nombre", "Fecha de alta", "Fecha de baja", "¿Baja?"
+                "ID", "Usuario", "Nombre y Apellido", "Rol", "Email", "Fecha de alta", "¿Baja?"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, false, false, true
+                false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -93,24 +97,33 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaListado);
-        if (tablaListado.getColumnModel().getColumnCount() > 0) {
-            tablaListado.getColumnModel().getColumn(0).setResizable(false);
-            tablaListado.getColumnModel().getColumn(3).setResizable(false);
-            tablaListado.getColumnModel().getColumn(4).setResizable(false);
-            tablaListado.getColumnModel().getColumn(5).setResizable(false);
+        tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuariosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaUsuarios);
+        if (tablaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(5).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jLabel1.setText("Buscar por:");
 
-        jButton3.setText("Nuevo usuario");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        NuevoUsuariojButton.setText("Nuevo usuario");
+        NuevoUsuariojButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                NuevoUsuariojButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Dar de baja usuario/s seleccionado/s");
+        DarDeBajajButton.setText("Dar de baja usuario/s seleccionado/s");
+        DarDeBajajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DarDeBajajButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,20 +132,18 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4)))
-                        .addGap(0, 0, 0)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(NuevoUsuariojButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(DarDeBajajButton)
+                        .addGap(0, 368, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -142,13 +153,12 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(NuevoUsuariojButton)
+                        .addComponent(DarDeBajajButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -156,7 +166,9 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,14 +196,70 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
                 filtro();
             }
         });
-        trsFiltro = new TableRowSorter(tablaListado.getModel());
-        tablaListado.setRowSorter(trsFiltro);
+        trsFiltro = new TableRowSorter(tablaUsuarios.getModel());
+        tablaUsuarios.setRowSorter(trsFiltro);
     }//GEN-LAST:event_txtFiltroKeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void NuevoUsuariojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoUsuariojButtonActionPerformed
         // TODO add your handling code here:
-        new AltaDeUsuario().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        new AltaDeUsuario("Agregar Nuevo Usuario").setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_NuevoUsuariojButtonActionPerformed
+
+    private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            JTable table = (JTable) evt.getSource();
+            int row = table.getSelectedRow();
+            int idUsuarioSeleccionado = (int) table.getValueAt(row, 0);
+            try {
+                Usuario usuario = new Usuario().obtenerUsuario(idUsuarioSeleccionado);
+                AltaDeUsuario modUsuario = new AltaDeUsuario("Modificar Usuario");
+                modUsuario.UsuarioIDjTextField.setText(Integer.toString(usuario.getIdUsuario()));
+                modUsuario.ApellidojTextField.setText(usuario.getApellido());
+                modUsuario.NombrejTextField.setText(usuario.getNombre());
+                modUsuario.NombreDeUsuariojTextField.setText(usuario.getNombreUsuario());
+                modUsuario.EmailjTextField.setText(usuario.getEmail());
+                modUsuario.ContraseniajPasswordField.setText(usuario.getPassUsuario());
+                modUsuario.RContraseniajPasswordField.setText(usuario.getPassUsuario());
+                modUsuario.TipoDeUsuariojComboBox.setSelectedIndex(usuario.getRol().getIdRol() - 1);
+                modUsuario.ContraseniajPasswordField.setEnabled(false);
+                modUsuario.RContraseniajPasswordField.setEnabled(false);
+                modUsuario.setVisible(true);
+                this.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_tablaUsuariosMouseClicked
+
+    private void DarDeBajajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarDeBajajButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tabla = (DefaultTableModel) tablaUsuarios.getModel();
+        int usuarios = 0;
+        int banderas = 0;
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            Boolean darDeBaja = (Boolean) tabla.getValueAt(i, 6);
+            if (darDeBaja != null) {
+                usuarios++;
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario((int) tabla.getValueAt(i, 0));
+                usuario.setFechaBajaUsuario(new Date());
+                try {
+                    if (usuario.bajaUsuario(usuario) != 0) {
+                        banderas++;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+            }
+        }
+        if (banderas == usuarios) {
+            JOptionPane.showMessageDialog(null, "Se han dado de baja " + banderas + " usuarios");
+            this.dispose();
+            new GestionDeUsuarios().setVisible(true);
+        }
+    }//GEN-LAST:event_DarDeBajajButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,32 +297,46 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DarDeBajajButton;
+    private javax.swing.JButton NuevoUsuariojButton;
     private javax.swing.JComboBox<String> comboFiltro;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaListado;
+    private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 private void filtro() {
         int columnaABuscar = 0;
-        if (comboFiltro.getSelectedItem() == "Codigo") {
-            columnaABuscar = 0;
-        }
-        if (comboFiltro.getSelectedItem().toString() == "Nombre") {
+        if ("Usuario".equals(comboFiltro.getSelectedItem().toString())) {
             columnaABuscar = 1;
         }
-        if (comboFiltro.getSelectedItem() == "DNI") {
+        if ("Nombre y Apellido".equals(comboFiltro.getSelectedItem().toString())) {
             columnaABuscar = 2;
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), columnaABuscar));
     }
-/**
-private ArrayList<Usuario> listarUsuarios(){
-    ArrayList<Usuarios> usuarios = new Usuario().
-}
-**/
 
+    private void cargarTablaUsuarios() {
+        DefaultTableModel tablaUsuario = (DefaultTableModel) tablaUsuarios.getModel();
+        Object[] columnas = new Object[6];
+        try {
+            ArrayList<Usuario> usuarios = new Usuario().obtenerUsuarios();
+            if (!usuarios.isEmpty()) {
+                for (int i = 0; i < usuarios.size(); i++) {
+                    columnas[0] = usuarios.get(i).getIdUsuario();
+                    columnas[1] = usuarios.get(i).getNombreUsuario();
+                    columnas[2] = usuarios.get(i).getNombre() + " " + usuarios.get(i).getApellido();
+                    columnas[3] = usuarios.get(i).getRol().getRol();
+                    columnas[4] = usuarios.get(i).getEmail();
+                    columnas[5] = new SimpleDateFormat("dd-MM-yyyy").format(usuarios.get(i).getFechaCreacion());
+                    tablaUsuario.addRow(columnas);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar los usuarios");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
 }
