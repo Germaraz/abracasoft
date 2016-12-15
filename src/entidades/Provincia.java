@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorProvincia;
+import java.util.ArrayList;
 
 /**
  *
@@ -37,6 +38,10 @@ public class Provincia {
 
     public Provincia obtenerProvincia(int idProvincia) throws Exception {
         return new GestorProvincia().obtenerProvincia(idProvincia);
+    }
+    
+    public ArrayList<Provincia> listarProvincias() throws Exception{
+        return new GestorProvincia().listarProvincias();
     }
 
 }

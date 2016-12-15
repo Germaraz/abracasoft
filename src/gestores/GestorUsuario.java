@@ -164,7 +164,8 @@ public class GestorUsuario extends PoolDeConexiones {
 
     public Usuario obtenerUsuarioPorNombreUsuario(String nombreUsuario) throws Exception {
         Usuario usuario = new Usuario();
-        String sql = "SELECT * FROM usuario WHERE TRIM(nombreUsuario) LIKE '?%'";
+        String sql = "SELECT * FROM usuario WHERE usuario.FECHABAJA IS NULL "
+                + "AND TRIM(usuario.NOMBREUSUARIO) LIKE '?%'";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);

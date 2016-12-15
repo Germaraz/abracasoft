@@ -40,6 +40,8 @@ public class GestorCompra extends PoolDeConexiones {
             pst.setInt(5, compra.getProveedor().getIdProveedor());
             Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
             pst.setArray(6, productos);
+            resultado = pst.executeUpdate();
+            conexion.commit();
         } catch (Exception e) {
             conexion.rollback();
             throw new Exception(e.getMessage());
@@ -71,7 +73,7 @@ public class GestorCompra extends PoolDeConexiones {
         return resultado;
     }
 
-    int darDeBajaCompra(Compra compra) throws Exception {
+    public int darDeBajaCompra(Compra compra) throws Exception {
         int resultado = 0;
         String sql = "UPDATE compra SET FECHABAJA = ? WHERE compra.IDCOMPRA = ?";
         try {

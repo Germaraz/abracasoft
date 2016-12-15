@@ -90,7 +90,19 @@ public class Compra {
     public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
     }
-    
+
+    public int altaCompra(Compra compra) throws Exception {
+        return new GestorCompra().altaCompra(compra);
+    }
+
+    public int modificarCompra(Compra compra) throws Exception {
+        return new GestorCompra().modificarCompra(compra);
+    }
+
+    public int darDeBajaCompra(Compra compra) throws Exception {
+        return new GestorCompra().darDeBajaCompra(compra);
+    }
+
     public Compra obtenerCompra(int idCompra) throws Exception {
         return new GestorCompra().obtenerCompra(idCompra);
     }

@@ -17,7 +17,6 @@ public class Factura {
     private int idFactura;
     private String tipoFactura;
     private int porcIVA;
-    private Date fechaFactura;
     private Date fechaBajaFactura;
 
     public Factura() {
@@ -45,14 +44,6 @@ public class Factura {
 
     public void setPorcIVA(int porcIVA) {
         this.porcIVA = porcIVA;
-    }
-
-    public Date getFechaFactura() {
-        return fechaFactura;
-    }
-
-    public void setFechaFactura(Date fechaFactura) {
-        this.fechaFactura = fechaFactura;
     }
 
     public Date getFechaBajaFactura() {

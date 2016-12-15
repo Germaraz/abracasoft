@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pantallas;
 
+import entidades.Localidad;
+import entidades.Proveedor;
+import entidades.Provincia;
 import java.awt.Desktop;
+import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +33,8 @@ public class AltaProveedor extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        this.cargarProvincias();
+        ProveedorIDjTextField.setVisible(false);
     }
 
     /**
@@ -42,26 +47,27 @@ public class AltaProveedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        BProveNombre = new javax.swing.JTextField();
+        RazonSocialjTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        BclienteDireccion = new javax.swing.JTextField();
+        DireccionjTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        BclienteEmail = new javax.swing.JTextField();
+        EmailjTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        BclienteCP = new javax.swing.JTextField();
+        CodPostjTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        BclienteTelefono = new javax.swing.JTextField();
+        TelefonojTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        BclienteCUIT = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        CUITjTextField = new javax.swing.JTextField();
+        CancelarjButton = new javax.swing.JButton();
+        GuardarjButton = new javax.swing.JButton();
+        AyudajButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        BclienteID = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ProvinciasjComboBox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        LocalidadesjComboBox = new javax.swing.JComboBox<>();
+        NombreFantasiajTextField = new javax.swing.JTextField();
+        ProveedorIDjTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar nuevo cliente");
@@ -74,66 +80,69 @@ public class AltaProveedor extends javax.swing.JFrame {
 
         jLabel4.setText("Código postal");
 
-        BclienteCP.setEditable(false);
-        BclienteCP.addKeyListener(new java.awt.event.KeyAdapter() {
+        CodPostjTextField.setEditable(false);
+        CodPostjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                BclienteCPKeyTyped(evt);
+                CodPostjTextFieldKeyTyped(evt);
             }
         });
 
         jLabel5.setText("Telefono");
 
-        BclienteTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+        TelefonojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                BclienteTelefonoKeyTyped(evt);
+                TelefonojTextFieldKeyTyped(evt);
             }
         });
 
         jLabel6.setText("CUIT");
 
-        BclienteCUIT.addKeyListener(new java.awt.event.KeyAdapter() {
+        CUITjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                BclienteCUITKeyTyped(evt);
+                CUITjTextFieldKeyTyped(evt);
             }
         });
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CancelarjButton.setText("Cancelar");
+        CancelarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CancelarjButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Guardar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        GuardarjButton.setText("Guardar");
+        GuardarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                GuardarjButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Ayuda");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        AyudajButton.setText("Ayuda");
+        AyudajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                AyudajButtonActionPerformed(evt);
             }
         });
 
-        jLabel9.setText("ID");
-
-        BclienteID.setEditable(false);
-        BclienteID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                BclienteIDKeyTyped(evt);
-            }
-        });
+        jLabel9.setText("Nombre de fantasia");
 
         jLabel7.setText("Provincia");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buenos Aires", "Capital Federal", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucumán" }));
+        ProvinciasjComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ProvinciasjComboBoxItemStateChanged(evt);
+            }
+        });
 
         jLabel10.setText("Localidad");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        LocalidadesjComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                LocalidadesjComboBoxItemStateChanged(evt);
+            }
+        });
+
+        ProveedorIDjTextField.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,51 +151,50 @@ public class AltaProveedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BclienteID, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(56, 56, 56)
-                        .addComponent(BclienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TelefonojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(56, 56, 56)
-                        .addComponent(BclienteEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(EmailjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                         .addGap(56, 56, 56)
-                        .addComponent(BclienteCP, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CodPostjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ProvinciasjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(BclienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(DireccionjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
-                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(LocalidadesjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CUITjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
-                                .addGap(56, 56, 56)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BProveNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BclienteCUIT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(RazonSocialjTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                            .addComponent(NombreFantasiajTextField)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(AyudajButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GuardarjButton)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ProveedorIDjTextField)
+                            .addComponent(CancelarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -194,89 +202,134 @@ public class AltaProveedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(BclienteID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(BclienteCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CUITjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(BProveNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RazonSocialjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(NombreFantasiajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ProvinciasjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LocalidadesjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(BclienteCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CodPostjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(BclienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DireccionjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(BclienteEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EmailjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(BclienteTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TelefonojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap())
+                    .addComponent(CancelarjButton)
+                    .addComponent(GuardarjButton)
+                    .addComponent(AyudajButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProveedorIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CancelarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarjButtonActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CancelarjButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        agregarCliente();
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void BclienteCUITKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BclienteCUITKeyTyped
+    private void CUITjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CUITjTextFieldKeyTyped
         char car = evt.getKeyChar();
         if ((car < '0' || car > '9')) {
             evt.consume();
         }
-    }//GEN-LAST:event_BclienteCUITKeyTyped
+    }//GEN-LAST:event_CUITjTextFieldKeyTyped
 
-    private void BclienteCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BclienteCPKeyTyped
+    private void CodPostjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodPostjTextFieldKeyTyped
         char car = evt.getKeyChar();
         if ((car < '0' || car > '9')) {
             evt.consume();
         }
-    }//GEN-LAST:event_BclienteCPKeyTyped
+    }//GEN-LAST:event_CodPostjTextFieldKeyTyped
 
-    private void BclienteTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BclienteTelefonoKeyTyped
+    private void TelefonojTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TelefonojTextFieldKeyTyped
         char car = evt.getKeyChar();
         if ((car < '0' || car > '9')) {
             evt.consume();
         }// TODO add your handling code here:
-    }//GEN-LAST:event_BclienteTelefonoKeyTyped
+    }//GEN-LAST:event_TelefonojTextFieldKeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void AyudajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AyudajButtonActionPerformed
         abrirAyuda();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_AyudajButtonActionPerformed
 
-    private void BclienteIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BclienteIDKeyTyped
+    private void ProvinciasjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProvinciasjComboBoxItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_BclienteIDKeyTyped
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.cargarLocalidad();
+        }
+    }//GEN-LAST:event_ProvinciasjComboBoxItemStateChanged
+
+    private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
+        // TODO add your handling code here:
+        int resultado = 0;
+        Proveedor proveedor = new Proveedor();
+        if (validar()) {
+            try {
+                proveedor.setCuit(Integer.parseInt(CUITjTextField.getText()));
+                proveedor.setRazonSocial(RazonSocialjTextField.getText());
+                proveedor.setNombreFantasia(NombreFantasiajTextField.getText());
+                proveedor.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
+                proveedor.setDireccionProveedor(DireccionjTextField.getText());
+                proveedor.setMailProveedor(EmailjTextField.getText());
+                proveedor.setTelefonoProveedor(Integer.parseInt(TelefonojTextField.getText()));
+                if (ProveedorIDjTextField.getText().isEmpty()) {
+                    resultado = proveedor.altaProveedor(proveedor);
+                } else {
+                    resultado = proveedor.modificarProveedor(proveedor);
+                }
+                if (resultado == 1) {
+                    JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
+                    GestionDeUsuarios panta = new GestionDeUsuarios();
+                    panta.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El proveedor no pudo guardarse");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_GuardarjButtonActionPerformed
+
+    private void LocalidadesjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_LocalidadesjComboBoxItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            try {
+                Localidad localidad = new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString());
+                CodPostjTextField.setText(Integer.toString(localidad.getCodigoPosta()));
+            } catch (Exception ex) {
+                Logger.getLogger(AltaProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_LocalidadesjComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -315,18 +368,19 @@ public class AltaProveedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BProveNombre;
-    private javax.swing.JTextField BclienteCP;
-    private javax.swing.JTextField BclienteCUIT;
-    private javax.swing.JTextField BclienteDireccion;
-    private javax.swing.JTextField BclienteEmail;
-    private javax.swing.JTextField BclienteID;
-    private javax.swing.JTextField BclienteTelefono;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton AyudajButton;
+    private javax.swing.JTextField CUITjTextField;
+    private javax.swing.JButton CancelarjButton;
+    private javax.swing.JTextField CodPostjTextField;
+    private javax.swing.JTextField DireccionjTextField;
+    private javax.swing.JTextField EmailjTextField;
+    private javax.swing.JButton GuardarjButton;
+    private javax.swing.JComboBox<String> LocalidadesjComboBox;
+    private javax.swing.JTextField NombreFantasiajTextField;
+    private javax.swing.JTextField ProveedorIDjTextField;
+    private javax.swing.JComboBox<String> ProvinciasjComboBox;
+    private javax.swing.JTextField RazonSocialjTextField;
+    private javax.swing.JTextField TelefonojTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -338,55 +392,101 @@ public class AltaProveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 
-    private void agregarCliente() {
-        int dniCuitCuil = 0;
-        int codPostal = 3100;
-        int tel = 0;
-        try {
-            dniCuitCuil= parseInt(BclienteCUIT.getText());
-        }catch (NumberFormatException e){
-        }
-        try {
-            codPostal = parseInt(BclienteCP.getText());
-        }catch (NumberFormatException e){
-        }
-        try {
-            tel = parseInt(BclienteTelefono.getText());
-        }catch (NumberFormatException e){
-        }
-        String nombre = BProveNombre.getText();
-        String direccion = BclienteDireccion.getText();
-        String mail = BclienteEmail.getText();
-        if (gestores.GestorCliente.agregarCliente(nombre, direccion, codPostal, tel, dniCuitCuil, mail)){
-            JOptionPane.showMessageDialog(null, "Cliente Agregado");
-        }else{
-            JOptionPane.showMessageDialog(null, "No se ha podido agregar el cliente");
-        }
-    }
-    private void abrirAyuda(){
+    private void abrirAyuda() {
         try {
             //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Agregar_Cliente.pdf");
             //Desktop.getDesktop().open(file);
-            
+
             if (Desktop.isDesktopSupported()) {
-            File file = new File("Ayuda_Agregar_Cliente.pdf");
-            if (!file.exists()) {
-                InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Ayuda_Agregar_Cliente.pdf");
-                OutputStream outputStream = new FileOutputStream(file);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, length);
+                File file = new File("Ayuda_Agregar_Cliente.pdf");
+                if (!file.exists()) {
+                    InputStream inputStream = ClassLoader.getSystemClassLoader()
+                            .getResourceAsStream("ayuda/Ayuda_Agregar_Cliente.pdf");
+                    OutputStream outputStream = new FileOutputStream(file);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, length);
+                    }
+                    outputStream.close();
+                    inputStream.close();
                 }
-                outputStream.close();
-                inputStream.close();
+                Desktop.getDesktop().open(file);
             }
-            Desktop.getDesktop().open(file);
-            }
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
         }
+    }
+
+    private void cargarProvincias() {
+        ArrayList<Provincia> provincias = new ArrayList<>();
+        try {
+            provincias = new Provincia().listarProvincias();
+            if (!provincias.isEmpty()) {
+                for (int i = 0; i < provincias.size(); i++) {
+                    ProvinciasjComboBox.addItem(provincias.get(i).getNombreProvincia());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar las provincias");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void cargarLocalidad() {
+        ArrayList<Localidad> localidades = new ArrayList<Localidad>();
+        int idprovincia;
+        try {
+            if (ProvinciasjComboBox.getItemCount() != 0) {
+                if (ProvinciasjComboBox.getSelectedIndex() == 0) {
+                    idprovincia = 1;
+                } else {
+                    idprovincia = ProvinciasjComboBox.getSelectedIndex();
+                }
+                localidades = new Localidad().listarLocalidades(idprovincia);
+                if (!localidades.isEmpty()) {
+                    LocalidadesjComboBox.removeAllItems();
+                    for (int i = 0; i < localidades.size(); i++) {
+                        LocalidadesjComboBox.addItem(localidades.get(i).getNombreLocalidad());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No existen localidades para la provincia seleccionada");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private boolean validar() {
+        boolean valido = true;
+        if (CUITjTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No ha ingresado un CUIT");
+            CUITjTextField.requestFocus();
+            valido = false;
+        } else if (CUITjTextField.getText().length() != 11) {
+            JOptionPane.showMessageDialog(null, "El CUIT debe contener 11 numeros");
+            CUITjTextField.requestFocus();
+            valido = false;
+        } else if (RazonSocialjTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No ha ingresado la razon social del proveedor");
+            RazonSocialjTextField.requestFocus();
+            valido = false;
+        } else if (NombreFantasiajTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No ha ingresado el nombre de fantasia del proveedor");
+            NombreFantasiajTextField.requestFocus();
+            valido = false;
+        } else if (DireccionjTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una dirección");
+            DireccionjTextField.requestFocus();
+            valido = false;
+        } else if (TelefonojTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un telefono de contacto");
+            TelefonojTextField.requestFocus();
+            valido = false;
+        }
+        return valido;
     }
 }

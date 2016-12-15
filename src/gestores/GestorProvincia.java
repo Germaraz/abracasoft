@@ -9,7 +9,7 @@ import entidades.Provincia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -38,6 +38,29 @@ public class GestorProvincia extends PoolDeConexiones {
             conexion.rollback();
             throw new Exception(e.getMessage());
         }
+        conexion.close();
         return provincia;
+    }
+
+    public ArrayList<Provincia> listarProvincias() throws Exception {
+        ArrayList<Provincia> provincias = new ArrayList<>();
+        String sql = "SELECT * FROM provincia WHERE provincia.FECHABAJA IS NULL ORDER BY provincia.NOMBRE_PROVINCIA ASC";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            ResultSet resultado = pst.executeQuery();
+            conexion.commit();
+            while (resultado.next()) {
+                Provincia provincia = new Provincia();
+                provincia.setIdProvincia(resultado.getInt("IDPROVINCIA"));
+                provincia.setNombreProvincia(resultado.getString("NOMBRE_PROVINCIA"));
+                provincias.add(provincia);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        conexion.close();
+        return provincias;
     }
 }

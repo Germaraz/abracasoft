@@ -116,6 +116,32 @@ public class GestorProducto extends PoolDeConexiones {
         return producto;
     }
 
+    public Producto obtenerProductoCodBarra(String codigobarra) throws Exception {
+        Producto producto = new Producto();
+        String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL AND producto.CODIGOBARRA = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, codigobarra);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
+                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
+                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCT"));
+                producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
+                producto.setPrecioUnitario(resultado.getFloat("PRECIOUNITARIO"));
+                producto.setAlicuota(resultado.getInt("ALICUOTA"));
+                producto.setStock(resultado.getInt("STOCK"));
+                producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return producto;
+    }
+
     public ArrayList<Producto> listarProductos() throws Exception {
         ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL";

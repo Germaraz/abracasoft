@@ -5,6 +5,8 @@
  */
 package entidades;
 
+import gestores.GestorProveedor;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,12 +20,12 @@ public class Proveedor {
     private String razonSocial;
     private String nombreFantasia;
     private String direccionProveedor;
-    private int telefonoCliente;
+    private int telefonoProveedor;
     private String mailProveedor;
     private Date fechaAltaProveedor;
     private Date fechaBajaProveedor;
     private Localidad localidad;
-    
+
     public Proveedor() {
     }
 
@@ -67,12 +69,12 @@ public class Proveedor {
         this.direccionProveedor = direccionProveedor;
     }
 
-    public int getTelefonoCliente() {
-        return telefonoCliente;
+    public int getTelefonoProveedor() {
+        return telefonoProveedor;
     }
 
-    public void setTelefonoCliente(int telefonoCliente) {
-        this.telefonoCliente = telefonoCliente;
+    public void setTelefonoProveedor(int telefonoProveedor) {
+        this.telefonoProveedor = telefonoProveedor;
     }
 
     public String getMailProveedor() {
@@ -107,8 +109,35 @@ public class Proveedor {
         this.localidad = localidad;
     }
 
-    public Proveedor obtenerProveedor(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int altaProveedor(Proveedor proveedor) throws Exception {
+        return new GestorProveedor().altaProveedor(proveedor);
     }
 
+    public int modificarProveedor(Proveedor proveedor) throws Exception {
+        return new GestorProveedor().modificarProveedor(proveedor);
+    }
+
+    public int darDeBajaProveedor(Proveedor proveedor) throws Exception {
+        return new GestorProveedor().darDeBajaProveedor(proveedor);
+    }
+
+    public Proveedor obtenerProveedor(int idProveedor) throws Exception {
+        return new GestorProveedor().obtenerProveedor(idProveedor);
+    }
+
+    public Proveedor obtenerProveedor(String nombrefantasia) throws Exception {
+        return new GestorProveedor().obtenerProveedor(nombrefantasia);
+    }
+
+    public ArrayList<Proveedor> obtenerProveedores() throws Exception {
+        return new GestorProveedor().obtenerProveedores();
+    }
+
+    public ArrayList<Proveedor> obtenerProveedoresRazonSocial(String razonSocial) throws Exception {
+        return new GestorProveedor().obtenerProveedoresPorRazonSocial(razonSocial);
+    }
+
+    public ArrayList<Proveedor> obtenerProveedoresNombreFantasia(String nombrefantasia) throws Exception {
+        return new GestorProveedor().obtenerProveedoresPorNombreFantasia(nombrefantasia);
+    }
 }

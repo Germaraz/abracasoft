@@ -28,6 +28,8 @@ public class PoolDeConexiones {
                 basicDataSource.setUrl("jdbc:mysql://localhost:3306/osg");
                 basicDataSource.setUsername("root");
                 basicDataSource.setPassword("root");
+                basicDataSource.setMaxActive(20);
+                basicDataSource.setMaxIdle(2);
                 conexion = basicDataSource.getConnection();
                 conexion.setAutoCommit(false);
             } catch (SQLException e) {

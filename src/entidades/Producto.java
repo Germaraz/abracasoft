@@ -5,6 +5,7 @@
  */
 package entidades;
 
+import gestores.GestorProducto;
 import java.util.Date;
 
 /**
@@ -12,16 +13,17 @@ import java.util.Date;
  * @author ema_s
  */
 public class Producto {
-   private int idProducto;
-   private int codigoBarra;
-   private String nombreProducto;
-   private String descripcionProducto;
-   private Date fechaVencimientoProducto;
-   private float precioUnitario;
-   private int alicuota;
-   private int stock;
-   private Date fechaAltaProducto;
-   private Date fechaBajaProducto;
+
+    private int idProducto;
+    private int codigoBarra;
+    private String nombreProducto;
+    private String descripcionProducto;
+    private Date fechaVencimientoProducto;
+    private float precioUnitario;
+    private int alicuota;
+    private int stock;
+    private Date fechaAltaProducto;
+    private Date fechaBajaProducto;
 
     public Producto() {
     }
@@ -104,9 +106,13 @@ public class Producto {
 
     public void setFechaBajaProducto(Date fechaBajaProducto) {
         this.fechaBajaProducto = fechaBajaProducto;
-    }   
+    }
 
-    public Producto obtenerProducto(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Producto obtenerProducto(int idProducto) throws Exception {
+        return new GestorProducto().obtenerProducto(idProducto);
+    }
+
+    public Producto obtenerProductoCodBarra(String codigobarra) throws Exception {
+        return new GestorProducto().obtenerProductoCodBarra(codigobarra);
     }
 }

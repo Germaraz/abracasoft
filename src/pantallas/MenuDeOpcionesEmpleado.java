@@ -5,6 +5,7 @@
  */
 package pantallas;
 
+import entidades.Usuario;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ import javax.help.HelpSet;
 public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
     private Object principal;
+    Usuario usuario;
 
     /**
      * Creates new form MenuDeOpcionesEmpleado

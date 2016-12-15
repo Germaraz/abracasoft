@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorLocalidad;
+import java.util.ArrayList;
 
 /**
  *
@@ -57,4 +58,11 @@ public class Localidad {
         return new GestorLocalidad().obtenerLocalidad(idLocalidad);
     }
 
+    public Localidad obtenerLocalidad(String nombreLocalidad) throws Exception {
+        return new GestorLocalidad().obtenerLocalidad(nombreLocalidad);
+    }
+
+    public ArrayList<Localidad> listarLocalidades(int idProvincia) throws Exception {
+        return new GestorLocalidad().listarLocalidades(idProvincia);
+    }
 }
