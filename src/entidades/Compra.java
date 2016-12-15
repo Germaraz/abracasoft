@@ -107,4 +107,8 @@ public class Compra {
         return new GestorCompra().obtenerCompra(idCompra);
     }
 
+    public ArrayList<Compra> listaCompras(Date fechaDesde, Date fechaHasta) throws Exception {
+        return new GestorCompra().listarCompras(fechaDesde, fechaHasta);
+    }
+
 }

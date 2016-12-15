@@ -116,7 +116,7 @@ public class GestorCompra extends PoolDeConexiones {
         return compra;
     }
 
-    ArrayList<Compra> listarCompras(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
+    public ArrayList<Compra> listarCompras(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
         ArrayList<Compra> compras = new ArrayList<>();
         ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL "

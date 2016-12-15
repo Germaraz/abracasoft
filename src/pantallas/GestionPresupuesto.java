@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pantallas;
 
 import com.toedter.calendar.JDateChooser;
+import entidades.Compra;
+import entidades.Producto;
+import entidades.Usuario;
 import gestores.GestorCliente;
 import gestores.GestorProducto;
 import java.awt.Color;
@@ -33,6 +35,8 @@ import static javax.xml.bind.DatatypeConverter.parseDate;
  * @author German
  */
 public class GestionPresupuesto extends javax.swing.JFrame {
+    
+    ArrayList<Producto> productos = new ArrayList<>();
 
     /**
      * Creates new form GestionPresupuesto
@@ -41,6 +45,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        this.agregarComprasTabla();
     }
 
     /**
@@ -54,26 +59,24 @@ public class GestionPresupuesto extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
-        TpresupuestoArticulos = new javax.swing.JTable();
-        BpresupuestoEditar = new javax.swing.JButton();
-        BpresupuestoNuevo = new javax.swing.JButton();
-        CSpresupuestoRangoHasta = new com.toedter.calendar.JDateChooser();
-        CSpresupuestoRangoDesde = new com.toedter.calendar.JDateChooser();
-        TFpresupuestoCodigo = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        DetalleComprasjTable = new javax.swing.JTable();
+        EditarComprajButton = new javax.swing.JButton();
+        NuevaComprajButton = new javax.swing.JButton();
+        HastajCalendar = new com.toedter.calendar.JDateChooser();
+        DesdejCalendar = new com.toedter.calendar.JDateChooser();
         SPpresupuesto = new javax.swing.JScrollPane();
-        Tpresupuesto = new javax.swing.JTable();
-        BpresupuestoEliminar = new javax.swing.JButton();
+        ComprasjTable = new javax.swing.JTable();
+        BajaComprajButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        BpresupuestoBuscar = new javax.swing.JButton();
+        BuscarjButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        ImprimirDetallejButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de presupuestos");
 
-        TpresupuestoArticulos.setModel(new javax.swing.table.DefaultTableModel(
+        DetalleComprasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -96,67 +99,51 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        SPpresupuestoArticulos.setViewportView(TpresupuestoArticulos);
+        SPpresupuestoArticulos.setViewportView(DetalleComprasjTable);
 
-        BpresupuestoEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BpresupuestoEditar.setText("Editar compra");
-        BpresupuestoEditar.setMaximumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEditar.setMinimumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEditar.addActionListener(new java.awt.event.ActionListener() {
+        EditarComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        EditarComprajButton.setText("Editar compra");
+        EditarComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        EditarComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        EditarComprajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoEditarActionPerformed(evt);
+                EditarComprajButtonActionPerformed(evt);
             }
         });
 
-        BpresupuestoNuevo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BpresupuestoNuevo.setText("Nueva compra");
-        BpresupuestoNuevo.setMaximumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoNuevo.setMinimumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoNuevo.addActionListener(new java.awt.event.ActionListener() {
+        NuevaComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        NuevaComprajButton.setText("Nueva compra");
+        NuevaComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        NuevaComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        NuevaComprajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoNuevoActionPerformed(evt);
+                NuevaComprajButtonActionPerformed(evt);
             }
         });
 
-        CSpresupuestoRangoHasta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        CSpresupuestoRangoHasta.setMinimumSize(new java.awt.Dimension(27, 25));
-        CSpresupuestoRangoHasta.setName("CSpresupuestoRangoHasta"); // NOI18N
-        CSpresupuestoRangoHasta.setPreferredSize(new java.awt.Dimension(87, 18));
+        HastajCalendar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        HastajCalendar.setMinimumSize(new java.awt.Dimension(27, 25));
+        HastajCalendar.setName("HastajCalendar"); // NOI18N
+        HastajCalendar.setPreferredSize(new java.awt.Dimension(87, 18));
 
-        CSpresupuestoRangoDesde.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        CSpresupuestoRangoDesde.setMinimumSize(new java.awt.Dimension(27, 25));
-        CSpresupuestoRangoDesde.setName("CSpresupuestoRangoDesde"); // NOI18N
+        DesdejCalendar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        DesdejCalendar.setMinimumSize(new java.awt.Dimension(27, 25));
+        DesdejCalendar.setName("DesdejCalendar"); // NOI18N
 
-        TFpresupuestoCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TFpresupuestoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TFpresupuestoCodigoMouseClicked(evt);
-            }
-        });
-        TFpresupuestoCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFpresupuestoCodigoKeyTyped(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Código");
-
-        Tpresupuesto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Tpresupuesto.setModel(new javax.swing.table.DefaultTableModel(
+        ComprasjTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ComprasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Usuario", "Proveedor", "Factura", "Fecha de compra", "Monto s/ IVA", "Monto c/ IVA"
+                "Código", "Usuario", "Proveedor", "Fecha de compra", "Monto s/ IVA", "Monto c/ IVA"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true
+                false, false, false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -167,36 +154,36 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        Tpresupuesto.setColumnSelectionAllowed(true);
-        Tpresupuesto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Tpresupuesto.addMouseListener(new java.awt.event.MouseAdapter() {
+        ComprasjTable.setColumnSelectionAllowed(true);
+        ComprasjTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ComprasjTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TpresupuestoMouseClicked(evt);
+                ComprasjTableMouseClicked(evt);
             }
         });
-        Tpresupuesto.addKeyListener(new java.awt.event.KeyAdapter() {
+        ComprasjTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                TpresupuestoKeyReleased(evt);
+                ComprasjTableKeyReleased(evt);
             }
         });
-        SPpresupuesto.setViewportView(Tpresupuesto);
-        Tpresupuesto.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        if (Tpresupuesto.getColumnModel().getColumnCount() > 0) {
-            Tpresupuesto.getColumnModel().getColumn(0).setMinWidth(70);
-            Tpresupuesto.getColumnModel().getColumn(0).setPreferredWidth(80);
-            Tpresupuesto.getColumnModel().getColumn(0).setMaxWidth(90);
-            Tpresupuesto.getColumnModel().getColumn(2).setMinWidth(70);
-            Tpresupuesto.getColumnModel().getColumn(2).setPreferredWidth(80);
-            Tpresupuesto.getColumnModel().getColumn(2).setMaxWidth(90);
+        SPpresupuesto.setViewportView(ComprasjTable);
+        ComprasjTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (ComprasjTable.getColumnModel().getColumnCount() > 0) {
+            ComprasjTable.getColumnModel().getColumn(0).setMinWidth(70);
+            ComprasjTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+            ComprasjTable.getColumnModel().getColumn(0).setMaxWidth(90);
+            ComprasjTable.getColumnModel().getColumn(2).setMinWidth(70);
+            ComprasjTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+            ComprasjTable.getColumnModel().getColumn(2).setMaxWidth(90);
         }
 
-        BpresupuestoEliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BpresupuestoEliminar.setText("Dar de baja compra");
-        BpresupuestoEliminar.setMaximumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEliminar.setMinimumSize(new java.awt.Dimension(41, 41));
-        BpresupuestoEliminar.addActionListener(new java.awt.event.ActionListener() {
+        BajaComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BajaComprajButton.setText("Dar de baja compra");
+        BajaComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        BajaComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        BajaComprajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoEliminarActionPerformed(evt);
+                BajaComprajButtonActionPerformed(evt);
             }
         });
 
@@ -204,11 +191,11 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Desde");
 
-        BpresupuestoBuscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BpresupuestoBuscar.setText("Buscar");
-        BpresupuestoBuscar.addActionListener(new java.awt.event.ActionListener() {
+        BuscarjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BuscarjButton.setText("Buscar");
+        BuscarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BpresupuestoBuscarActionPerformed(evt);
+                BuscarjButtonActionPerformed(evt);
             }
         });
 
@@ -219,10 +206,10 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Hasta");
 
-        jButton1.setText("Imprimir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ImprimirDetallejButton.setText("Imprimir");
+        ImprimirDetallejButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ImprimirDetallejButtonActionPerformed(evt);
             }
         });
 
@@ -234,54 +221,45 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BpresupuestoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(BpresupuestoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(EditarComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(BpresupuestoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BajaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(ImprimirDetallejButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BpresupuestoBuscar)
-                        .addGap(70, 70, 70)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DesdejCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(HastajCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BuscarjButton)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
+                        .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TFpresupuestoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BpresupuestoBuscar)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(CSpresupuestoRangoDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(CSpresupuestoRangoHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DesdejCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(HastajCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BuscarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                    .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,15 +267,15 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BpresupuestoNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BpresupuestoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BpresupuestoEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditarComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BajaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ImprimirDetallejButton))
                 .addContainerGap())
         );
 
-        CSpresupuestoRangoHasta.getAccessibleContext().setAccessibleName("CSpresupuestoRangoHasta");
-        CSpresupuestoRangoDesde.getAccessibleContext().setAccessibleName("CSpresupuestoRangoDesde");
+        HastajCalendar.getAccessibleContext().setAccessibleName("CSpresupuestoRangoHasta");
+        DesdejCalendar.getAccessibleContext().setAccessibleName("CSpresupuestoRangoDesde");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -313,51 +291,39 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BpresupuestoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoBuscarActionPerformed
-        busqueda();
-    }//GEN-LAST:event_BpresupuestoBuscarActionPerformed
+    private void BuscarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarjButtonActionPerformed
+        //busqueda();
+    }//GEN-LAST:event_BuscarjButtonActionPerformed
 
-    private void TpresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TpresupuestoKeyReleased
-        presupuestoProducto();        // TODO add your handling code here:
-    }//GEN-LAST:event_TpresupuestoKeyReleased
+    private void ComprasjTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ComprasjTableKeyReleased
+        //presupuestoProducto();
+    }//GEN-LAST:event_ComprasjTableKeyReleased
 
-    private void TpresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TpresupuestoMouseClicked
-        presupuestoProducto();
-    }//GEN-LAST:event_TpresupuestoMouseClicked
+    private void ComprasjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComprasjTableMouseClicked
+        //presupuestoProducto();
+    }//GEN-LAST:event_ComprasjTableMouseClicked
 
-    private void TFpresupuestoCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoKeyTyped
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_TFpresupuestoCodigoKeyTyped
-
-    private void TFpresupuestoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFpresupuestoCodigoMouseClicked
-        // TODO add your handling code here:
-        TFpresupuestoCodigo.setBackground(Color.white);
-    }//GEN-LAST:event_TFpresupuestoCodigoMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ImprimirDetallejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirDetallejButtonActionPerformed
         try {
-            TpresupuestoArticulos.print();
+            DetalleComprasjTable.print();
         } catch (PrinterException ex) {
             Logger.getLogger(GestionPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
 
-    private void BpresupuestoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEliminarActionPerformed
-        eliminarPresupuesto();
-    }//GEN-LAST:event_BpresupuestoEliminarActionPerformed
+    private void BajaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaComprajButtonActionPerformed
+        //eliminarPresupuesto();
+    }//GEN-LAST:event_BajaComprajButtonActionPerformed
 
-    private void BpresupuestoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoEditarActionPerformed
+    private void EditarComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarComprajButtonActionPerformed
         //modificarPresupuesto();
-        abrirPresupuesto();
-    }//GEN-LAST:event_BpresupuestoEditarActionPerformed
+        //abrirPresupuesto();
+    }//GEN-LAST:event_EditarComprajButtonActionPerformed
 
-    private void BpresupuestoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpresupuestoNuevoActionPerformed
+    private void NuevaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaComprajButtonActionPerformed
         // TODO add your handling code here:
         new AltaPresupuesto().setVisible(true);
-    }//GEN-LAST:event_BpresupuestoNuevoActionPerformed
+    }//GEN-LAST:event_NuevaComprajButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,20 +361,18 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BpresupuestoBuscar;
-    private javax.swing.JButton BpresupuestoEditar;
-    private javax.swing.JButton BpresupuestoEliminar;
-    private javax.swing.JButton BpresupuestoNuevo;
-    private com.toedter.calendar.JDateChooser CSpresupuestoRangoDesde;
-    private com.toedter.calendar.JDateChooser CSpresupuestoRangoHasta;
+    private javax.swing.JButton BajaComprajButton;
+    private javax.swing.JButton BuscarjButton;
+    private javax.swing.JTable ComprasjTable;
+    private com.toedter.calendar.JDateChooser DesdejCalendar;
+    private javax.swing.JTable DetalleComprasjTable;
+    private javax.swing.JButton EditarComprajButton;
+    private com.toedter.calendar.JDateChooser HastajCalendar;
+    private javax.swing.JButton ImprimirDetallejButton;
+    private javax.swing.JButton NuevaComprajButton;
     private javax.swing.JScrollPane SPpresupuesto;
     private javax.swing.JScrollPane SPpresupuestoArticulos;
-    private javax.swing.JTextField TFpresupuestoCodigo;
-    private javax.swing.JTable Tpresupuesto;
-    private javax.swing.JTable TpresupuestoArticulos;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
@@ -417,211 +381,47 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     private void borrarRenglones(int jpanel) {
         int a;
         DefaultTableModel tabla;
-        if (jpanel == 1){
-            tabla = (DefaultTableModel) Tpresupuesto.getModel();
-            a = Tpresupuesto.getRowCount() - 1;
-        }else{
-            tabla = (DefaultTableModel) TpresupuestoArticulos.getModel();
-            a = TpresupuestoArticulos.getRowCount() - 1;
+        if (jpanel == 1) {
+            tabla = (DefaultTableModel) ComprasjTable.getModel();
+            a = ComprasjTable.getRowCount() - 1;
+        } else {
+            tabla = (DefaultTableModel) DetalleComprasjTable.getModel();
+            a = DetalleComprasjTable.getRowCount() - 1;
         }
         for (int i = a; i >= 0; i--) {
             tabla.removeRow(i); //se van borrando para que solo muestre el producto que se buscó
         }
     }
-    
-    private void buscarPorFecha() {
-        String fechaDesde = "";
-        String fechaHasta = "";
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+    private void agregarComprasTabla() {
+        DefaultTableModel tabla = (DefaultTableModel) ComprasjTable.getModel();
+        ArrayList<Compra> compras = new ArrayList<>();
+        Object[] columnas = new Object[6];
         try {
-            fechaDesde = formato.format(CSpresupuestoRangoDesde.getDate()); 
-            fechaHasta = formato.format(CSpresupuestoRangoHasta.getDate());
-        }catch (NullPointerException e){
-            JOptionPane.showMessageDialog(null,"Seleccione el rango de fecha a buscar");
-        }
-        
-        if (fechaDesde != "" && fechaHasta != ""){
-            agregarProductoATabla(gestores.GestorPresupuesto.buscarPresupuesto(fechaDesde, fechaHasta));
-        }
-        
-    }
-    
-    private void buscarPorCodigo() {
-        int codigo = 0;
-        
-        try {
-            codigo = parseInt(TFpresupuestoCodigo.getText());
-        }catch (NumberFormatException e){
-            System.out.println("No se puede convertir el codigo de barra");
-        }
-
-        if (codigo!=0){
-            agregarProductoATabla(gestores.GestorPresupuesto.buscarPresupuesto(codigo));
-        }
-
-    }
-
-    private void agregarProductoATabla(ArrayList<Presupuesto> buscarPorFecha) {
-        DefaultTableModel tabla = (DefaultTableModel) Tpresupuesto.getModel();
-        for (int i = 0; i < buscarPorFecha.size(); i++) {
-            String nombreCliente = "";
-            try{
-                nombreCliente = GestorCliente.ConsultaPorDescripcion(buscarPorFecha.get(i).getIdCliente()).get(0).getNombreCliente();
-            }catch (IndexOutOfBoundsException e){
-                nombreCliente = valueOf(buscarPorFecha.get(i).getIdCliente());
-            }
-            
-            if (nombreCliente.equalsIgnoreCase("0")){
-                nombreCliente = "-";
-            }
-            
-            Object[] fila = { buscarPorFecha.get(i).getIdPresupuesto(),
-                nombreCliente,
-                buscarPorFecha.get(i).getIdVendedor(),
-                buscarPorFecha.get(i).getRelVenta(),
-                buscarPorFecha.get(i).getVigenciaDePresupuesto()
-            };
-            tabla.addRow(fila);
-        }
-    }  
-
-    private void presupuestoProducto() {
-        if(Tpresupuesto.getSelectedRows().length > 0 ) {
-            int valorCelda = 0;
-            try{
-                valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
-            }catch (NumberFormatException e){ 
-            }
-            borrarRenglones(2);
-            if(valorCelda != 0){
-                DefaultTableModel tarticulos = (DefaultTableModel) TpresupuestoArticulos.getModel();
-                for (int i = 0; i < GestorProducto.presupuestoProducto(valorCelda).size(); i++) {
-                    tarticulos.addRow((Object[]) GestorProducto.presupuestoProducto(valorCelda).get(i));
-                }  
-            }
-         }
-    }
-
-    
-    private void eliminarPresupuesto() {
-        //¿Será conveniente que también borre el listado de "Productos relacionado con el Presupuesto"?
-        
-        if(Tpresupuesto.getSelectedRows().length > 0 ) {
-            int valorCelda = 0;
-            try{
-                valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
-            }catch (NumberFormatException e){
-                System.out.println("no se pudo determinar el codigo del presupuesto");
-            }
-            if(valorCelda != 0){
-                DefaultTableModel tpresupuesto = (DefaultTableModel) Tpresupuesto.getModel();
-                int confirmado = JOptionPane.showConfirmDialog(BpresupuestoEliminar, 
-                    "¿Confirma que desea borrar el presupuesto: " + 
-                    Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString() + " ?");
-
-                if (JOptionPane.OK_OPTION == confirmado){
-                    if (GestorPresupuesto.eliminarPresupuesto(valorCelda)==true){
-                        JOptionPane.showMessageDialog(null, "El presupuesto fue eliminado");
-                        borrarRenglones(1);
-                        busqueda();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "No se pudo eliminar el presupuesto");
-                    }
-                }else{
-                   System.out.println("no se elimino nada");
+            compras = new Compra().listaCompras(DesdejCalendar.getDate(), HastajCalendar.getDate());
+            if (compras.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Aun no se han realizado compras, puedes comenzar desde el boton 'Nueva compra'");
+            } else {
+                for (int i = 0; i < compras.size(); i++) {
+                    columnas[0] = compras.get(i).getIdCompra();
+                    columnas[1] = compras.get(i).getUsuario().getNombreUsuario();
+                    columnas[2] = compras.get(i).getProveedor().getNombreFantasia();
+                    columnas[3] = new SimpleDateFormat("dd-MM-yyyy").format(compras.get(i).getFechaCompra().getTime());
+                    columnas[4] = compras.get(i).getMontoCompra();
+                    float compra = compras.get(i).getMontoCompra();
+                    float iva = compras.get(i).getIvaCompra() + 1;
+                    float total = compra * iva;
+                    columnas[5] = total;
+                    tabla.addRow(columnas);
                 }
             }
-         }
-        
-    }
-
-    private void busqueda() {
-        String validador = "";
-        borrarRenglones(1);
-        try {
-            validador = CSpresupuestoRangoDesde.getDate().toString() + CSpresupuestoRangoHasta.getDate().toString();
-        }catch (NullPointerException e){
-            System.out.println("fechas vacias");
-        }
-        
-        if (validador == ""){
-            buscarPorCodigo();
-        }else{
-            buscarPorFecha();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     
-    private void abrirAyuda(){
-        try {
-            //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Presupuesto.pdf");
-            //Desktop.getDesktop().open(file);
-            
-            if (Desktop.isDesktopSupported()) {
-            File file = new File("Ayuda_Gestion_Presupuesto.pdf");
-            if (!file.exists()) {
-                InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Ayuda_Gestion_Presupuesto.pdf");
-                OutputStream outputStream = new FileOutputStream(file);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, length);
-                }
-                outputStream.close();
-                inputStream.close();
-            }
-            Desktop.getDesktop().open(file);
-            }
-            
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
-        }
+    private void agregarDetalleCompra() {
+        
     }
 
-    /**
-    private void modificarPresupuesto() {
-        if(Tpresupuesto.getSelectedRows().length > 0 ) {
-            int valorCelda = 0;
-            try{
-                valorCelda = parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString());
-            }catch (NumberFormatException e){
-                System.out.println("No se pudo determinar el codigo presupuesto");
-            }
-            if(valorCelda != 0){
-                DefaultTableModel dtmPresupuesto = (DefaultTableModel) Tpresupuesto.getModel();
-                int confirmado = JOptionPane.showConfirmDialog(BpresupuestoEditar, 
-                    "¿Confirma que desea modificar el presupuesto seleccionado?");
-
-                if (JOptionPane.OK_OPTION == confirmado){
-
-                      try{
-                        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
-                        String nuevaVigencia = Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),4).toString();
-                        Date fecha = formatoDelTexto.parse(nuevaVigencia);
-                        
-                        if (GestorPresupuesto.modificarPresupuesto(nuevaVigencia, valorCelda)==true){
-                            JOptionPane.showMessageDialog(null, "El presupuesto fue modificado");
-                        }else{
-                            JOptionPane.showMessageDialog(null, "No se pudo modificar el presupuesto");
-                        }
-                    }catch (NumberFormatException e){
-                        JOptionPane.showMessageDialog(null, "Los campos no pueden ser nulos");
-                    }catch (ParseException e) {
-                        JOptionPane.showMessageDialog(null, "La fecha ingresada no es válida");
-                    }
-                      
-                      
-                }else{
-                   System.out.println("No se realizaron modificaciones");
-                }
-            }
-         }
-    }
-    **/
-
-    private void abrirPresupuesto() {
-        AltaPresupuesto apa = new AltaPresupuesto();
-        //apa.cargarPresupuesto(GestorPresupuesto.buscarPresupuesto(parseInt(Tpresupuesto.getValueAt(Tpresupuesto.getSelectedRow(),0).toString())).get(0));
-        apa.setVisible(true);
-    }
 }
