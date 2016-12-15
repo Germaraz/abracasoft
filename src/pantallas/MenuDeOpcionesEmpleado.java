@@ -21,7 +21,6 @@ import javax.help.HelpSet;
  */
 public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
-
     /**
      * Creates new form MenuDeOpcionesEmpleado
      */
@@ -32,19 +31,19 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         JBNNuevaVenta.setMnemonic(KeyEvent.VK_V);
         setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
     }
-    
-    public void cerrar(){
+
+    public void cerrar() {
         setLocationRelativeTo(null);
-        Object [] opciones ={"Aceptar","Cancelar"};
-        int eleccion = JOptionPane.showOptionDialog(rootPane,"¿Desea salir de OSG?","Saliendo de OSG",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
-            if (eleccion == JOptionPane.YES_OPTION){
-                System.exit(0);
-            }else{
-            }
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "¿Desea salir de OSG?", "Saliendo de OSG",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else {
+        }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +57,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         JBProductos = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        JBIngresos = new javax.swing.JButton();
+        ComprajButton = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         JBVentas = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JToolBar.Separator();
@@ -75,6 +74,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         JBNNuevaVenta = new javax.swing.JButton();
         btnAyuda = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        NombreUsuariojLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        FechajLabel = new javax.swing.JLabel();
+        UsuarioIDjLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OSG - Otro Sistema de Gestión");
@@ -103,18 +106,18 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(JBProductos);
         jToolBar1.add(jSeparator1);
 
-        JBIngresos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        JBIngresos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comprasin30.png"))); // NOI18N
-        JBIngresos.setText("Ingresos");
-        JBIngresos.setFocusable(false);
-        JBIngresos.setHideActionText(true);
-        JBIngresos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        JBIngresos.addActionListener(new java.awt.event.ActionListener() {
+        ComprajButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ComprajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comprasin30.png"))); // NOI18N
+        ComprajButton.setText("Compras");
+        ComprajButton.setFocusable(false);
+        ComprajButton.setHideActionText(true);
+        ComprajButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ComprajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBIngresosActionPerformed(evt);
+                ComprajButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(JBIngresos);
+        jToolBar1.add(ComprajButton);
         jToolBar1.add(jSeparator4);
 
         JBVentas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -215,9 +218,15 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Ultimo ingreso: " + fec + " - Usuario registrado: PONER USUARIO (ID: PONER ID)");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Usuario: ");
+
+        NombreUsuariojLabel.setText("jLabel2");
+
+        jLabel3.setText("Ultimo Ingreso:");
+
+        FechajLabel.setText("jLabel4");
+
+        UsuarioIDjLabel.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -233,8 +242,16 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAyuda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(FechajLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(NombreUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UsuarioIDjLabel)
+                        .addGap(171, 171, 171)
                         .addComponent(btnExit))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -252,7 +269,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
                     .addComponent(btnAyuda)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(NombreUsuariojLabel)
+                    .addComponent(jLabel3)
+                    .addComponent(FechajLabel)
+                    .addComponent(UsuarioIDjLabel))
                 .addContainerGap())
         );
 
@@ -274,49 +295,49 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         MenuDeGestionDeProductos gestionproducto = new MenuDeGestionDeProductos();
         if (señalProd == 0) {
             jTabbedPane1.addTab("Gestión de productos", gestionproducto.getContentPane());
-           señalProd = 1;
+            señalProd = 1;
         }
-        
+
     }//GEN-LAST:event_JBProductosActionPerformed
 
     private void JBClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBClientesActionPerformed
         MenuGestionCliente gestioncliente = new MenuGestionCliente();
         if (señalClie == 0) {
             jTabbedPane1.addTab("Gestión de clientes", gestioncliente.getContentPane());
-           señalClie = 1;
+            señalClie = 1;
         }
     }//GEN-LAST:event_JBClientesActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        try{
+        try {
             String nomTab = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
             switch (nomTab) {
-            case "Gestión de clientes":
-                señalClie = 0;
-                break;
-            case "Gestión proveedores":
-                señalProv = 0;
-                break;
-            case "Gestión de productos":
-                señalProd = 0;
-                break;
-            case "Gestión de presupuestos":
-                señalPresu = 0;
-                break;
-            case "Otros accesos":
-                señalOac = 0;
-                break;
-            case "Caja":
-                señalOpDia = 0;
-                break;
-            case "Nueva venta":
-                señalVenta = 0;
-                break;
-            default:
-                break;
+                case "Gestión de clientes":
+                    señalClie = 0;
+                    break;
+                case "Gestión proveedores":
+                    señalProv = 0;
+                    break;
+                case "Gestión de productos":
+                    señalProd = 0;
+                    break;
+                case "Gestion Compras":
+                    señalCompra = 0;
+                    break;
+                case "Otros accesos":
+                    señalOac = 0;
+                    break;
+                case "Caja":
+                    señalOpDia = 0;
+                    break;
+                case "Nueva venta":
+                    señalVenta = 0;
+                    break;
+                default:
+                    break;
             }
             jTabbedPane1.removeTabAt(jTabbedPane1.getSelectedIndex());
-        }catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             cerrar();
         }
     }//GEN-LAST:event_btnExitActionPerformed
@@ -324,26 +345,26 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void JBCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajaActionPerformed
         // TODO add your handling code here:
         MenuDeOperacionesDiarias menuopdiarias = new MenuDeOperacionesDiarias();
-        
+
         if (señalOpDia == 0) {
             jTabbedPane1.addTab("Caja", menuopdiarias.getContentPane());
-           señalOpDia = 1;
+            señalOpDia = 1;
         }
     }//GEN-LAST:event_JBCajaActionPerformed
 
     private void JBNNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNNuevaVentaActionPerformed
-        VentaEmpleado nuevaventa = new  VentaEmpleado();
+        VentaEmpleado nuevaventa = new VentaEmpleado();
         if (señalVenta == 0) {
             jTabbedPane1.addTab("Nueva venta", nuevaventa.getContentPane());
-           señalVenta = 1;
+            señalVenta = 1;
         }
     }//GEN-LAST:event_JBNNuevaVentaActionPerformed
 
     private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
-            ponLaAyuda();
-            
+        ponLaAyuda();
+
     }//GEN-LAST:event_btnAyudaActionPerformed
-    
+
     private void ponLaAyuda() {
         try {
             // Carga el fichero de ayuda
@@ -357,23 +378,23 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             // Pone ayuda a item de menu al pulsarlo y a F1 en ventana
             // principal y secundaria.
             hb.enableHelpOnButton(btnAyuda, "aplicacion", helpset);
-            hb.enableHelpKey(getRootPane(),"",helpset);
+            hb.enableHelpKey(getRootPane(), "", helpset);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-}
-    
+    }
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         cerrar();
     }//GEN-LAST:event_formWindowClosing
 
     private void JBOtrosAccesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBOtrosAccesosActionPerformed
         Config config = new Config();
-        
+
         if (señalOac == 0) {
             jTabbedPane1.addTab("Otros accesos", config.getContentPane());
-           señalOac = 1;
+            señalOac = 1;
         }
     }//GEN-LAST:event_JBOtrosAccesosActionPerformed
 
@@ -381,13 +402,18 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         MenuGestionProveedor gestProv = new MenuGestionProveedor();
         if (señalProv == 0) {
             jTabbedPane1.addTab("Gestion de proveedores", gestProv.getContentPane());
-           señalProv = 1;
+            señalProv = 1;
         }
     }//GEN-LAST:event_JBProveedoresActionPerformed
 
-    private void JBIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBIngresosActionPerformed
+    private void ComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprajButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JBIngresosActionPerformed
+        GestionDeCompras gesComp = new GestionDeCompras();
+        gesComp.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+        if (señalCompra == 0) {
+            jTabbedPane1.addTab("Gestion Compra", gesComp.getContentPane());
+        }
+    }//GEN-LAST:event_ComprajButtonActionPerformed
 
     private void JBVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBVentasActionPerformed
         // TODO add your handling code here:
@@ -425,23 +451,27 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             @Override
             public void run() {
                 new MenuDeOpcionesEmpleado().setVisible(true);
-                
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    javax.swing.JButton ComprajButton;
+    javax.swing.JLabel FechajLabel;
     javax.swing.JButton JBCaja;
     javax.swing.JButton JBClientes;
-    javax.swing.JButton JBIngresos;
     javax.swing.JButton JBNNuevaVenta;
     javax.swing.JButton JBOtrosAccesos;
     javax.swing.JButton JBProductos;
     javax.swing.JButton JBProveedores;
     javax.swing.JButton JBVentas;
+    javax.swing.JLabel NombreUsuariojLabel;
+    javax.swing.JLabel UsuarioIDjLabel;
     javax.swing.JButton btnAyuda;
     javax.swing.JButton btnExit;
     javax.swing.JLabel jLabel1;
+    javax.swing.JLabel jLabel3;
     javax.swing.JPanel jPanel1;
     javax.swing.JScrollPane jScrollPane1;
     javax.swing.JToolBar.Separator jSeparator1;
@@ -455,14 +485,14 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private int señalProd = 0;
     private int señalClie = 0;
-    private int señalPresu = 0;
     private int señalOac = 0;
     private int señalOpDia = 0;
     private int señalVenta = 0;
+    private int señalCompra = 0;
     private int señalProv = 0;
-    
-    Calendar Cal= Calendar.getInstance();
-    String fec= Cal.get(Cal.DATE)+"/"+(Cal.get(Cal.MONTH)+1)+"/"+Cal.get(Cal.YEAR
-    )+" "+Cal.get(Cal.HOUR_OF_DAY)+":"+Cal.get(Cal.MINUTE)+":"+Cal.get(Cal.SECOND);
-    
+
+    Calendar Cal = Calendar.getInstance();
+    String fec = Cal.get(Cal.DATE) + "/" + (Cal.get(Cal.MONTH) + 1) + "/" + Cal.get(Cal.YEAR
+    ) + " " + Cal.get(Cal.HOUR_OF_DAY) + ":" + Cal.get(Cal.MINUTE) + ":" + Cal.get(Cal.SECOND);
+
 }

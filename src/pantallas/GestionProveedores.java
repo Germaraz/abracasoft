@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pantallas;
 
 import gestores.GestorCliente;
@@ -35,7 +34,6 @@ import javax.swing.table.TableRowSorter;
  * @author German
  */
 public class GestionProveedores extends javax.swing.JFrame {
-    
 
     /**
      * Creates new form GestinonCliente
@@ -44,7 +42,6 @@ public class GestionProveedores extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        buscarMientrasEscribe();
     }
 
     /**
@@ -75,11 +72,6 @@ public class GestionProveedores extends javax.swing.JFrame {
 
         DarBajajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DarBajajButton.setText("Dar de baja proveedor/es seleccionados");
-        DarBajajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DarBajajButtonActionPerformed(evt);
-            }
-        });
 
         ProveedoresjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,16 +94,6 @@ public class GestionProveedores extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
-            }
-        });
-        ProveedoresjTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProveedoresjTableMouseClicked(evt);
-            }
-        });
-        ProveedoresjTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ProveedoresjTableKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(ProveedoresjTable);
@@ -150,19 +132,9 @@ public class GestionProveedores extends javax.swing.JFrame {
 
         PagoComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         PagoComprajButton.setText("Agregar pago");
-        PagoComprajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PagoComprajButtonActionPerformed(evt);
-            }
-        });
 
         NuevoProveedorjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         NuevoProveedorjButton.setText("Nuevo Proveedor");
-        NuevoProveedorjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NuevoProveedorjButtonActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Buscar por:");
 
@@ -170,17 +142,6 @@ public class GestionProveedores extends javax.swing.JFrame {
         comboFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboFiltroActionPerformed(evt);
-            }
-        });
-
-        txtFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFiltroActionPerformed(evt);
-            }
-        });
-        txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFiltroKeyTyped(evt);
             }
         });
 
@@ -233,50 +194,9 @@ public class GestionProveedores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NuevoProveedorjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoProveedorjButtonActionPerformed
-        // TODO add your handling code here:
-        new AltaCliente().setVisible(true);
-    }//GEN-LAST:event_NuevoProveedorjButtonActionPerformed
-
-    private void DarBajajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarBajajButtonActionPerformed
-        eliminarCliente();
-    }//GEN-LAST:event_DarBajajButtonActionPerformed
-
-    private void ProveedoresjTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ProveedoresjTableKeyReleased
-        clienteVentaPago();
-        saldoCliente();
-    }//GEN-LAST:event_ProveedoresjTableKeyReleased
-
-    private void ProveedoresjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProveedoresjTableMouseClicked
-        clienteVentaPago();
-        saldoCliente();
-    }//GEN-LAST:event_ProveedoresjTableMouseClicked
-
-    private void PagoComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagoComprajButtonActionPerformed
-        agregarPagoCliente();
-    }//GEN-LAST:event_PagoComprajButtonActionPerformed
-
     private void comboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboFiltroActionPerformed
-
-    private void txtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFiltroActionPerformed
-
-    private void txtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyTyped
-        // TODO add your handling code here:
-        txtFiltro.addKeyListener(new KeyAdapter() {
-            public void keyReleased(final KeyEvent e) {
-                String cadena = (txtFiltro.getText());
-                txtFiltro.setText(cadena);
-                repaint();
-                filtro();
-            }
-        });
-        trsFiltro = new TableRowSorter(tablaUsuarios.getModel());
-        tablaUsuarios.setRowSorter(trsFiltro);
-    }//GEN-LAST:event_txtFiltroKeyTyped
 
     /**
      * @param args the command line arguments
@@ -327,36 +247,14 @@ public class GestionProveedores extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
-    private String paraBuscar="";
-            
-            
 
-    private void buscarMientrasEscribe() {
-        paraBuscar = TFbusquedaCliente.getText();
-        DefaultTableModel tabla = (DefaultTableModel) ProveedoresjTable.getModel();
-        if (GestorCliente.ConsultaPorDescripcion(paraBuscar).size() != 0) {
-            for (int i = 0; i < GestorCliente.ConsultaPorDescripcion(paraBuscar).size(); i++) {
-                Object[] fila = {GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getIdCliente(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getNombreCliente(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDireccionCliente(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getMailCliente(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getCodigoPostalCliente(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getTelefonoCliente(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getDniCuilCuit(),
-                    GestorCliente.ConsultaPorDescripcion(paraBuscar).get(i).getEsatdo(),
-                };
-                tabla.addRow(fila);
-            }
-        }
-    }
-    
-    private void borrarRenglones(int jpanel){
+    private void borrarRenglones(int jpanel) {
         int a;
         DefaultTableModel tabla;
-        if (jpanel == 1){
+        if (jpanel == 1) {
             tabla = (DefaultTableModel) ProveedoresjTable.getModel();
             a = ProveedoresjTable.getRowCount() - 1;
-        }else{
+        } else {
             tabla = (DefaultTableModel) ComprasjTable.getModel();
             a = ComprasjTable.getRowCount() - 1;
         }
@@ -365,230 +263,50 @@ public class GestionProveedores extends javax.swing.JFrame {
         }
     }
 
-    private void eliminarCliente() {
-        if(ProveedoresjTable.getSelectedRows().length > 0 ) {
-            int valorCelda = 0;
-            try{
-                valorCelda = parseInt(ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),0).toString());
-            }catch (NumberFormatException e){
-                System.out.println("no se pudo determinar el ID del cliente");
-            }
-            if(valorCelda != 0){
-                DefaultTableModel tcliente = (DefaultTableModel) ProveedoresjTable.getModel();
-                int confirmado = JOptionPane.showConfirmDialog(DarBajajButton, 
-                    "¿Confirma que desea borrar el cliente: " + 
-                    ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),1).toString() + " ?");
-
-                if (JOptionPane.OK_OPTION == confirmado){
-                    if (GestorCliente.eliminarCliente(valorCelda)==true){
-                        JOptionPane.showMessageDialog(null, "El cliente fue eliminado");
-                        borrarRenglones(1);
-                        buscarMientrasEscribe();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "No se pudo eliminar el cliente");
-                    }
-                }else{
-                   System.out.println("no se elimino nada");
-                }
-            }
-         }
-    }
-    
-    private void clienteVentaPago() {
-        if(ProveedoresjTable.getSelectedRows().length > 0 ) {
-            int valorCelda = 0;
-            try{
-                valorCelda = parseInt(ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),0).toString());
-            }catch (NumberFormatException e){ 
-            }
-            borrarRenglones(2);
-            if(valorCelda != 0){
-                DefaultTableModel cliVenPag = (DefaultTableModel) ComprasjTable.getModel();
-                for (int i = 0; i < GestorVenta.cuentaVentaCliente(valorCelda).size(); i++) {
-                    Object [] fila = {
-                        GestorVenta.cuentaVentaCliente(valorCelda).get(i).getMontoPagoVenta(),
-                        "",
-                        GestorVenta.cuentaVentaCliente(valorCelda).get(i).getFechaDeVenta()
-                    };
-                    cliVenPag.addRow(fila);
-                }
-                for (int i = 0; i < GestorPago.cuentaPagoCliente(valorCelda).size(); i++)  {
-                    Object [] fila2 = {
-                        "",
-                        GestorPago.cuentaPagoCliente(valorCelda).get(i).getPagoCliente(),
-                        GestorPago.cuentaPagoCliente(valorCelda).get(i).getFechaPagoCliente()
-                    };
-                    cliVenPag.addRow(fila2);
-                    TableRowSorter<TableModel> ordenar = new TableRowSorter<TableModel>(cliVenPag);
-                    ordenar.toggleSortOrder(1);
-                    ordenar.toggleSortOrder(1);
-                    ordenar.toggleSortOrder(2);
-                    ordenar.toggleSortOrder(2); // esto tiene que estar dos veces para que lo ordene de mayor a menor
-                    ComprasjTable.setRowSorter(ordenar);
-                }
-            }
-        }
-    }
-    
-    private void saldoCliente(){
-        float ventas = 0;
-        float pagos = 0;
-        
-        DefaultTableModel cliVenPag = (DefaultTableModel) ComprasjTable.getModel();
-        
-        if (cliVenPag.getRowCount()!=0){
-            for (int i = 0; i< cliVenPag.getRowCount(); i++){
-                try {
-                    ventas += parseFloat(cliVenPag.getValueAt(i, 0).toString());
-                }catch (NumberFormatException e){
-                }
-                try {
-                    pagos += parseFloat(cliVenPag.getValueAt(i, 1).toString());
-                }catch (NumberFormatException e){
-                }
-            }
-        }
-        float total=((ventas-pagos)*-1);
-        if (total<0) {
-            saldoCliente.setForeground(Color.RED);
-        
-        }else{
-            saldoCliente.setForeground(Color.BLACK);
-        }
-        saldoCliente.setText("SALDO: "+valueOf((ventas-pagos)*-1));
-    }
-    
-    private void abrirAyuda(){
+    private void abrirAyuda() {
         try {
             //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Clientes.pdf");
             //Desktop.getDesktop().open(file);
-            
+
             if (Desktop.isDesktopSupported()) {
-            File file = new File("Ayuda_Gestion_Cliente.pdf");
-            if (!file.exists()) {
-                InputStream inputStream = ClassLoader.getSystemClassLoader()
-                                    .getResourceAsStream("ayuda/Ayuda_Gestion_Cliente.pdf");
-                OutputStream outputStream = new FileOutputStream(file);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, length);
+                File file = new File("Ayuda_Gestion_Cliente.pdf");
+                if (!file.exists()) {
+                    InputStream inputStream = ClassLoader.getSystemClassLoader()
+                            .getResourceAsStream("ayuda/Ayuda_Gestion_Cliente.pdf");
+                    OutputStream outputStream = new FileOutputStream(file);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, length);
+                    }
+                    outputStream.close();
+                    inputStream.close();
                 }
-                outputStream.close();
-                inputStream.close();
+                Desktop.getDesktop().open(file);
             }
-            Desktop.getDesktop().open(file);
-            }
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
         }
     }
 
-    private void modificarCliente() {
-        if(ProveedoresjTable.getSelectedRows().length > 0 ) {
-            int valorCelda = 0;
-            try{
-                valorCelda = parseInt(ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),0).toString());
-            }catch (NumberFormatException e){
-                System.out.println("no se pudo determinar el codigo de cliente");
-            }
-            if(valorCelda != 0){
-                DefaultTableModel dtmCliente = (DefaultTableModel) ProveedoresjTable.getModel();
-                int confirmado = JOptionPane.showConfirmDialog(BclienteEditar, 
-                    "¿Confirma que desea modificar los datos del cliente seleccionado?");
-
-                if (JOptionPane.OK_OPTION == confirmado){
-
-                    try{
-                        String nombre = ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),1).toString();
-                        String direccion = ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),2).toString();
-                        String email = ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),3).toString();
-                        int cp = parseInt(ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),4).toString());
-                        int tel = parseInt(ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),5).toString());
-                        int dni= parseInt(ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),6).toString());
-                        
-                        if (GestorCliente.modificarCliente(valorCelda, nombre, direccion, email, cp, tel, dni)==true){
-                            JOptionPane.showMessageDialog(null, "El cliente fue modificado");
-                            borrarRenglones(1);
-                            buscarMientrasEscribe();
-                        }else{
-                            JOptionPane.showMessageDialog(null, "No se pudo modificar el cliente");
-                        }
-                    }catch (NumberFormatException e){
-                        JOptionPane.showMessageDialog(null, "Los campos no pueden ser nulos");
-                    }
-                }else{
-                   System.out.println("no se modifico nada");
-                }
-            }
-         }
-    }
-
-    private void agregarPagoCliente() {
-        DefaultTableModel tabla = (DefaultTableModel) ProveedoresjTable.getModel();
-        if (tabla.getRowCount()!=0){
-            int idCliente=0;
-            try{
-                idCliente=parseInt(ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),0).toString());
-            }catch (ArrayIndexOutOfBoundsException e){
-                JOptionPane.showMessageDialog(jScrollPane2, "Seleccione un cliente");
-            }
-            if (idCliente!=0){
-                String result = "";
-                float cuota = 0;
-                result = JOptionPane.showInputDialog(jScrollPane2, "Ingrese importe abonado");
-                try{
-                    cuota=parseFloat(result);
-                }catch (NumberFormatException e){
-                }catch (NullPointerException e){
-                }
-
-                if (cuota!=0){
-                    try{
-                        if(GestorPago.ingresarPago(idCliente, cuota, 1)){
-                            float montoNuevo = (parseFloat(saldoCliente.getText().substring(7))*-1)-cuota;
-                            String textoMonto=valueOf(montoNuevo).substring(0, valueOf(montoNuevo).indexOf(".")+2);
-                            try{
-                                textoMonto=valueOf(montoNuevo).substring(0, valueOf(montoNuevo).indexOf(".")+3);
-                            }catch(StringIndexOutOfBoundsException e){
-                            }
-                            String textoPago = 
-                                    "------------------------------\n\r" +
-                                    "Se ha reducido la cta cte de: \n\r" +
-                                    ProveedoresjTable.getValueAt(ProveedoresjTable.getSelectedRow(),1).toString() +
-                                    "\n\ren $ " + valueOf(cuota) + " resta pagar: " + 
-                                    textoMonto;
-
-                            imprimirPago(textoPago);
-                        }
-                    }catch (NullPointerException e){
-                        System.out.println("No hay cliente seleccionado");
-                    }
-                }
-            }
-        }
-        clienteVentaPago();
-        saldoCliente();
-    }
-    
-    private boolean imprimirPago(String textoPago){
+    private boolean imprimirPago(String textoPago) {
         boolean impresion = false;
         DocFlavor byar = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-        
+
         PrintService impresoraDefa = PrintServiceLookup.lookupDefaultPrintService();
         DocPrintJob trabajoImpresora = impresoraDefa.createPrintJob();
-        
+
         String detalle = textoPago;
-        
-        String mostrar = detalle.replaceAll("á","a").replaceAll("é", "e")
+
+        String mostrar = detalle.replaceAll("á", "a").replaceAll("é", "e")
                 .replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u")
                 .replaceAll("ü", "u").replaceAll("ñ", "n");
-                
+
         byte[] bytes = mostrar.getBytes();
-        
+
         Doc doc = new SimpleDoc(bytes, byar, null);
-        
+
         try {
             trabajoImpresora.print(doc, null);
             impresion = true;

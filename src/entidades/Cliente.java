@@ -17,8 +17,10 @@ public class Cliente {
 
     private int idCliente;
     private int dniCliente;
+    private String sexo;
     private String nombreCliente;
     private String apellidoCliente;
+    private Date fechaNacimiento;
     private String direccionCliente;
     private String mailCliente;
     private int telefonoCliente;
@@ -45,6 +47,14 @@ public class Cliente {
         this.dniCliente = dniCliente;
     }
 
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
     public String getNombreCliente() {
         return nombreCliente;
     }
@@ -59,6 +69,14 @@ public class Cliente {
 
     public void setApellidoCliente(String apellidoCliente) {
         this.apellidoCliente = apellidoCliente;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getDireccionCliente() {

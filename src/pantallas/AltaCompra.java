@@ -6,6 +6,7 @@
 package pantallas;
 
 import entidades.Compra;
+import entidades.Factura;
 import entidades.Producto;
 import entidades.Proveedor;
 import entidades.Usuario;
@@ -23,17 +24,16 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author German
  */
 public class AltaCompra extends javax.swing.JFrame {
-    
+
     private Producto producto;
-    private final Usuario usuario;
-    
-    public AltaCompra(Usuario usuario) {
+    int idUsuario;
+
+    public AltaCompra() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         buscarProveedor();
         ProveedorjComboBox.requestFocus();
-        this.usuario = usuario;
     }
 
     /**
@@ -65,14 +65,16 @@ public class AltaCompra extends javax.swing.JFrame {
         generarFacturajButton = new javax.swing.JButton();
         GuardarjButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        TipoFacturajComboBox = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        totaljTextField = new javax.swing.JTextField();
+        IVAjTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         CUITjTextField = new javax.swing.JTextField();
         ProveedorjComboBox = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         CompraIDjTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        SubtotaljTextField = new javax.swing.JTextField();
+        totaljTextField = new javax.swing.JTextField();
 
         jRadioButton3.setText("jRadioButton3");
 
@@ -185,11 +187,12 @@ public class AltaCompra extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Tipo de Factura");
-
-        totaljTextField.setEditable(false);
-        totaljTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        IVAjTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        IVAjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                IVAjTextFieldKeyTyped(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("CUIT");
@@ -207,6 +210,24 @@ public class AltaCompra extends javax.swing.JFrame {
         jButton2.setText("Ayuda");
 
         CompraIDjTextField.setEditable(false);
+        CompraIDjTextField.setVisible(false);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("IVA");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Subtotal");
+
+        SubtotaljTextField.setEditable(false);
+        SubtotaljTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        totaljTextField.setEditable(false);
+        totaljTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        totaljTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                totaljTextFieldMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -215,27 +236,32 @@ public class AltaCompra extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(eliminarProductoTablajButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(totaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(TipoFacturajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(116, 116, 116)
                         .addComponent(generarFacturajButton)
                         .addGap(18, 18, 18)
                         .addComponent(GuardarjButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CompraIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ProveedorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CUITjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(NuevoProvjButton))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(18, 18, 18)
@@ -251,21 +277,22 @@ public class AltaCompra extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(cantidadjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(agregarProdjButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ProveedorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CUITjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(NuevoProvjButton)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(agregarProdjButton)))
+                        .addGap(0, 164, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(CompraIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(eliminarProductoTablajButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SubtotaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(IVAjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(10, 10, 10)
+                        .addComponent(totaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -299,22 +326,23 @@ public class AltaCompra extends javax.swing.JFrame {
                             .addComponent(DescripcionjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(eliminarProductoTablajButton)
-                    .addComponent(totaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(generarFacturajButton)
-                        .addComponent(GuardarjButton)
-                        .addComponent(TipoFacturajComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2)))
+                    .addComponent(IVAjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(SubtotaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(totaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eliminarProductoTablajButton))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generarFacturajButton)
+                    .addComponent(GuardarjButton)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -384,11 +412,10 @@ public class AltaCompra extends javax.swing.JFrame {
         Compra compra = new Compra();
         ArrayList<Producto> productos = new ArrayList<>();
         try {
-            compra.setUsuario(this.usuario);
-            compra.setMontoCompra(Float.parseFloat(totaljTextField.getText()));
+            compra.setUsuario(new Usuario().obtenerUsuario(this.idUsuario));
+            compra.setMontoCompra(Float.parseFloat(SubtotaljTextField.getText()));
             compra.setProveedor(new Proveedor().obtenerProveedor(ProveedorjComboBox.getSelectedItem().toString()));
-            Field field = TipoFacturajComboBox.getSelectedItem().getClass().getField("porcIVA");
-            compra.setIvaCompra(field.getFloat(TipoFacturajComboBox.getSelectedItem()));
+            compra.setIvaCompra(Float.parseFloat(IVAjTextField.getText()));
             DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
             for (int i = 0; i < tabla.getRowCount(); i++) {
                 String codigobarra = tabla.getValueAt(i, 0).toString();
@@ -410,6 +437,31 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
+
+    private void totaljTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_totaljTextFieldMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) {
+            float IVA;
+            float subtotal;
+            if (!IVAjTextField.getText().isEmpty() && !SubtotaljTextField.getText().isEmpty()) {
+                IVA = Float.parseFloat(IVAjTextField.getText());
+                subtotal = Float.parseFloat(SubtotaljTextField.getText());
+            } else {
+                IVA = 0;
+                subtotal = 0;
+            }
+            float total = subtotal + IVA;
+            totaljTextField.setText(Float.toString(total));
+        }
+    }//GEN-LAST:event_totaljTextFieldMouseClicked
+
+    private void IVAjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IVAjTextFieldKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_IVAjTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -448,24 +500,24 @@ public class AltaCompra extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Usuario usuario = new MenuDeOpcionesEmpleado().usuario;
-                new AltaCompra(usuario).setVisible(true);
+                new AltaCompra().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CUITjTextField;
-    private javax.swing.JTextField CompraIDjTextField;
+    protected javax.swing.JTextField CUITjTextField;
+    protected javax.swing.JTextField CompraIDjTextField;
     private javax.swing.JComboBox DescripcionjComboBox;
     private javax.swing.JButton GuardarjButton;
+    protected javax.swing.JTextField IVAjTextField;
     private javax.swing.JButton NuevoProvjButton;
-    private javax.swing.JComboBox<String> ProveedorjComboBox;
-    private javax.swing.JComboBox<String> TipoFacturajComboBox;
+    protected javax.swing.JComboBox<String> ProveedorjComboBox;
+    protected javax.swing.JTextField SubtotaljTextField;
     private javax.swing.JButton agregarProdjButton;
     private javax.swing.JTextField cantidadjTextField;
     private javax.swing.JTextField codigoBarrajTextField;
-    private javax.swing.JTable detalleComprajTable;
+    protected javax.swing.JTable detalleComprajTable;
     private javax.swing.JButton eliminarProductoTablajButton;
     private javax.swing.JButton generarFacturajButton;
     private javax.swing.JButton jButton2;
@@ -473,7 +525,8 @@ public class AltaCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -482,7 +535,7 @@ public class AltaCompra extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField totaljTextField;
+    protected javax.swing.JTextField totaljTextField;
     // End of variables declaration//GEN-END:variables
 
     private void buscarProveedor() {
@@ -501,7 +554,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void buscarProducto(String codigoBarra) {
         try {
             producto = new Producto().obtenerProductoCodBarra(codigoBarra);
@@ -510,7 +563,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void cargarProductoATabla() {
         DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
         if (!DescripcionjComboBox.getSelectedItem().toString().isEmpty()) {
@@ -520,24 +573,24 @@ public class AltaCompra extends javax.swing.JFrame {
             columnas[2] = Integer.parseInt(cantidadjTextField.getText());
             columnas[3] = producto.getPrecioUnitario();
             tabla.addRow(columnas);
-            float total = Float.parseFloat(totaljTextField.getText()) + producto.getPrecioUnitario();
-            totaljTextField.setText(Float.toString(total));
+            float subtotal = Float.parseFloat(SubtotaljTextField.getText()) + producto.getPrecioUnitario();
+            SubtotaljTextField.setText(Float.toString(subtotal));
         } else {
             JOptionPane.showMessageDialog(null, "Debe buscar un producto primero");
         }
     }
-    
+
     private void eliminarItemProducto() {
         DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
-        if (tabla.getRowCount() != 0) {
-            float precio = (float) tabla.getValueAt(detalleComprajTable.getSelectedRow(), 3);
-            float total = Float.parseFloat(totaljTextField.getText()) - precio;
-            totaljTextField.setText(Float.toString(total));
-            try {
+        try {
+            if (tabla.getRowCount() != 0) {
+                float precio = (float) tabla.getValueAt(detalleComprajTable.getSelectedRow(), 3);
+                float total = Float.parseFloat(IVAjTextField.getText()) - precio;
+                IVAjTextField.setText(Float.toString(total));
                 tabla.removeRow(detalleComprajTable.getSelectedRow());
-            } catch (ArrayIndexOutOfBoundsException e) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar el producto a eliminar");
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el producto a eliminar");
         }
     }
 }

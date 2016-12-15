@@ -5,7 +5,6 @@
  */
 package pantallas;
 
-import static java.lang.Long.parseLong;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;

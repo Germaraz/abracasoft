@@ -5,47 +5,36 @@
  */
 package pantallas;
 
-import com.toedter.calendar.JDateChooser;
 import entidades.Compra;
 import entidades.Producto;
-import entidades.Usuario;
-import gestores.GestorCliente;
-import gestores.GestorProducto;
-import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.print.PrinterException;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import static java.lang.Integer.parseInt;
-import static java.lang.String.valueOf;
-import java.text.ParseException;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import static javax.xml.bind.DatatypeConverter.parseDate;
 
 /**
  *
  * @author German
  */
-public class GestionPresupuesto extends javax.swing.JFrame {
-    
-    ArrayList<Producto> productos = new ArrayList<>();
+public class GestionDeCompras extends javax.swing.JFrame {
+
+    private ArrayList<ArrayList<Producto>> productos = new ArrayList<>();
+    int idUsuario;
 
     /**
      * Creates new form GestionPresupuesto
      */
-    public GestionPresupuesto() {
+    public GestionDeCompras() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        this.agregarComprasTabla();
     }
 
     /**
@@ -154,20 +143,14 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        ComprasjTable.setColumnSelectionAllowed(true);
         ComprasjTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ComprasjTable.getTableHeader().setReorderingAllowed(false);
         ComprasjTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ComprasjTableMouseClicked(evt);
             }
         });
-        ComprasjTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ComprasjTableKeyReleased(evt);
-            }
-        });
         SPpresupuesto.setViewportView(ComprasjTable);
-        ComprasjTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (ComprasjTable.getColumnModel().getColumnCount() > 0) {
             ComprasjTable.getColumnModel().getColumn(0).setMinWidth(70);
             ComprasjTable.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -292,37 +275,85 @@ public class GestionPresupuesto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BuscarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarjButtonActionPerformed
-        //busqueda();
+        agregarComprasTabla();
     }//GEN-LAST:event_BuscarjButtonActionPerformed
 
-    private void ComprasjTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ComprasjTableKeyReleased
-        //presupuestoProducto();
-    }//GEN-LAST:event_ComprasjTableKeyReleased
-
     private void ComprasjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComprasjTableMouseClicked
-        //presupuestoProducto();
+        if (evt.getClickCount() == 1) {
+            ComprasjTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    if (ComprasjTable.getSelectedRow() > -1) {
+                        agregarDetalleCompra();
+                    }
+                }
+            });
+        } else if (evt.getClickCount() == 2) {
+            abrirEditarCompra();
+        }
     }//GEN-LAST:event_ComprasjTableMouseClicked
 
     private void ImprimirDetallejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirDetallejButtonActionPerformed
-        try {
-            DetalleComprasjTable.print();
-        } catch (PrinterException ex) {
-            Logger.getLogger(GestionPresupuesto.class.getName()).log(Level.SEVERE, null, ex);
+        if (ComprasjTable.getSelectedRow() != -1) {
+            try {
+                MessageFormat headerFormat = new MessageFormat("COMPRAS REALIZADAS - DESDE: "
+                        + DesdejCalendar.getDateFormatString() + " HASTA: " + HastajCalendar.getDateFormatString());
+                MessageFormat footerFormat = new MessageFormat("Cantidad de compras: "
+                        + ComprasjTable.getRowCount());
+                ComprasjTable.print(JTable.PrintMode.NORMAL, headerFormat, footerFormat);
+            } catch (PrinterException ex) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        } else {
+            int fila = ComprasjTable.getSelectedRow();
+            int nrocompra = (int) ComprasjTable.getValueAt(fila, 0);
+            String usuario = ComprasjTable.getValueAt(fila, 1).toString();
+            String proveedor = ComprasjTable.getValueAt(fila, 2).toString();
+            String fechaCompra = ComprasjTable.getValueAt(fila, 3).toString();
+            String montoSIVA = ComprasjTable.getValueAt(fila, 4).toString();
+            String montoCIVA = ComprasjTable.getValueAt(fila, 5).toString();
+            MessageFormat headerFormat = new MessageFormat("COMPRA N°: " + nrocompra + "\n"
+                    + "REALIZADA POR: " + usuario + "\n" + "AL PROVEEDOR: " + proveedor + "\n"
+                    + "FECHA DE COMPRA: " + fechaCompra + "\n"
+            );
+            MessageFormat footerFormat = new MessageFormat("SUBTOTAL: " + montoSIVA + "\n"
+                    + "TOTAL: " + montoCIVA + "\n"
+            );
+            try {
+                ComprasjTable.print(JTable.PrintMode.NORMAL, headerFormat, footerFormat);
+            } catch (PrinterException ex) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
 
     private void BajaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaComprajButtonActionPerformed
-        //eliminarPresupuesto();
+        if (ComprasjTable.getSelectedRow() != -1) {
+            int fila = ComprasjTable.getSelectedRow();
+            int idcompra = (int) ComprasjTable.getValueAt(fila, 0);
+            Compra compra = new Compra();
+            compra.setIdCompra(idcompra);
+            try {
+                int resultado = compra.darDeBajaCompra(compra);
+                if (resultado == 1) {
+                    JOptionPane.showMessageDialog(null, "La compra fue dada de baja exitosamente");
+                }
+            } catch (Exception e) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al intentar dar de baja la compra");
+            }
+        }
     }//GEN-LAST:event_BajaComprajButtonActionPerformed
 
     private void EditarComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarComprajButtonActionPerformed
-        //modificarPresupuesto();
-        //abrirPresupuesto();
+        abrirEditarCompra();
     }//GEN-LAST:event_EditarComprajButtonActionPerformed
 
     private void NuevaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaComprajButtonActionPerformed
         // TODO add your handling code here:
-        new AltaPresupuesto().setVisible(true);
+        AltaCompra nuevaCompra = new AltaCompra();
+        nuevaCompra.idUsuario = this.idUsuario;
+        nuevaCompra.setVisible(true);
     }//GEN-LAST:event_NuevaComprajButtonActionPerformed
 
     /**
@@ -342,20 +373,21 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionPresupuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionDeCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionPresupuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionDeCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionPresupuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionDeCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionPresupuesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionDeCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionPresupuesto().setVisible(true);
+                new GestionDeCompras().setVisible(true);
             }
         });
     }
@@ -400,7 +432,8 @@ public class GestionPresupuesto extends javax.swing.JFrame {
         try {
             compras = new Compra().listaCompras(DesdejCalendar.getDate(), HastajCalendar.getDate());
             if (compras.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Aun no se han realizado compras, puedes comenzar desde el boton 'Nueva compra'");
+                JOptionPane.showMessageDialog(null, "Aun no se han realizado compras, puedes comenzar desde "
+                        + "el boton 'Nueva compra'");
             } else {
                 for (int i = 0; i < compras.size(); i++) {
                     columnas[0] = compras.get(i).getIdCompra();
@@ -412,6 +445,7 @@ public class GestionPresupuesto extends javax.swing.JFrame {
                     float iva = compras.get(i).getIvaCompra() + 1;
                     float total = compra * iva;
                     columnas[5] = total;
+                    this.productos.add(compras.get(i).getProductos());
                     tabla.addRow(columnas);
                 }
             }
@@ -419,9 +453,61 @@ public class GestionPresupuesto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void agregarDetalleCompra() {
-        
+        DefaultTableModel tabla = (DefaultTableModel) DetalleComprasjTable.getModel();
+        Object[] columnas = new Object[4];
+        try {
+            int fila = DetalleComprasjTable.getSelectedRow();
+            if (!this.productos.isEmpty()) {
+                if (!this.productos.get(fila).isEmpty()) {
+                    for (int j = 0; j < this.productos.get(fila).size(); j++) {
+                        columnas[0] = this.productos.get(fila).get(j).getCodigoBarra();
+                        columnas[1] = this.productos.get(fila).get(j).getDescripcionProducto();
+                        columnas[2] = this.productos.get(fila).get(j).getStock();
+                        columnas[3] = this.productos.get(fila).get(j).getPrecioUnitario();
+                        tabla.addRow(columnas);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar los productos de las compras");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
+    private void abrirEditarCompra() {
+        if (ComprasjTable.getSelectedRow() != -1) {
+            int fila = ComprasjTable.getSelectedRow();
+            int idCompra = (int) ComprasjTable.getValueAt(fila, 0);
+            try {
+                Compra compra = new Compra().obtenerCompra(idCompra);
+                AltaCompra modCompra = new AltaCompra();
+                modCompra.CompraIDjTextField.setText(Integer.toString(compra.getIdCompra()));
+                modCompra.ProveedorjComboBox.addItem(compra.getProveedor().getNombreFantasia());
+                modCompra.CUITjTextField.setText(Integer.toString(compra.getProveedor().getCuit()));
+                if (compra.getProductos().size() > 0) {
+                    DefaultTableModel tabla2 = (DefaultTableModel) modCompra.detalleComprajTable.getModel();
+                    Object[] columnas = new Object[4];
+                    for (int i = 0; i < compra.getProductos().size(); i++) {
+                        columnas[0] = compra.getProductos().get(i).getCodigoBarra();
+                        columnas[1] = compra.getProductos().get(i).getDescripcionProducto();
+                        columnas[2] = compra.getProductos().get(i).getStock();
+                        columnas[3] = compra.getProductos().get(i).getPrecioUnitario();
+                        tabla2.addRow(columnas);
+                    }
+                }
+                modCompra.SubtotaljTextField.setText(Float.toString(compra.getMontoCompra()));
+                modCompra.IVAjTextField.setText(Float.toString(compra.getIvaCompra()));
+                Float total = compra.getMontoCompra() + compra.getIvaCompra();
+                modCompra.totaljTextField.setText(total.toString());
+                modCompra.setVisible(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe selecionar una fila para poder editarla");
+        }
+    }
 }

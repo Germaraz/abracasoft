@@ -9,6 +9,7 @@ package pantallas;
 import entidades.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -47,10 +48,10 @@ public class LogIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        TFloginUsuario = new javax.swing.JTextField();
+        nombreUsuariojTextField = new javax.swing.JTextField();
         BlogIn = new javax.swing.JButton();
         Bexit = new javax.swing.JButton();
-        TFloginPass = new javax.swing.JPasswordField();
+        passUsuariojTextField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OSG");
@@ -66,9 +67,9 @@ public class LogIn extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Contraseña:");
 
-        TFloginUsuario.addActionListener(new java.awt.event.ActionListener() {
+        nombreUsuariojTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFloginUsuarioActionPerformed(evt);
+                nombreUsuariojTextFieldActionPerformed(evt);
             }
         });
 
@@ -97,8 +98,8 @@ public class LogIn extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TFloginUsuario)
-                    .addComponent(TFloginPass, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                    .addComponent(nombreUsuariojTextField)
+                    .addComponent(passUsuariojTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(98, Short.MAX_VALUE)
@@ -119,11 +120,11 @@ public class LogIn extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TFloginUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreUsuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TFloginPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passUsuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -148,10 +149,10 @@ public class LogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TFloginUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFloginUsuarioActionPerformed
+    private void nombreUsuariojTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreUsuariojTextFieldActionPerformed
 
 // TODO add your handling code here:
-    }//GEN-LAST:event_TFloginUsuarioActionPerformed
+    }//GEN-LAST:event_nombreUsuariojTextFieldActionPerformed
 
     private void BexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BexitActionPerformed
         System.exit(0);
@@ -159,10 +160,7 @@ public class LogIn extends javax.swing.JFrame {
 
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
         if (validar()) {
-            Usuario usuario = new Usuario();
-            usuario.setNombreUsuario(TFloginUsuario.getText());
-            usuario.setPassUsuario(TFloginPass.getPassword().toString());
-            this.dispose();
+            this.ingresar();
         }
     }//GEN-LAST:event_BlogInActionPerformed
 
@@ -204,34 +202,39 @@ public class LogIn extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bexit;
     private javax.swing.JButton BlogIn;
-    private javax.swing.JPasswordField TFloginPass;
-    private javax.swing.JTextField TFloginUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField nombreUsuariojTextField;
+    private javax.swing.JPasswordField passUsuariojTextField;
     // End of variables declaration//GEN-END:variables
 
     private boolean validar() {
         boolean estado = false;
-        if (TFloginUsuario.getText().isEmpty()) {
+        if (nombreUsuariojTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No ha ingresado su nombre de usuario");
-            TFloginUsuario.requestFocus();
-        } else if (TFloginPass.getText().length() < 4 || TFloginPass.getText().length() > 12) {
+            nombreUsuariojTextField.requestFocus();
+        } else if (passUsuariojTextField.getText().length() < 4 || passUsuariojTextField.getText().length() > 12) {
             JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 4 y 12 caracteres");
-            TFloginPass.requestFocus();
+            passUsuariojTextField.requestFocus();
         } else {
             estado = true;
         }
         return estado;
     }
 
-    private Usuario ingresar(Usuario usuario) {
+    private Usuario ingresar() {
+        Usuario usuario = new Usuario();
+        usuario.setNombreUsuario(nombreUsuariojTextField.getText());
+        usuario.setPassUsuario(Arrays.toString(passUsuariojTextField.getPassword()));
         try {
             usuario = new Usuario().login(usuario);
             if (usuario != null) {
                 //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
                 MenuDeOpcionesEmpleado ventana = new MenuDeOpcionesEmpleado();
+                ventana.NombreUsuariojLabel.setText(usuario.getNombreUsuario());
+                ventana.UsuarioIDjLabel.setText(Integer.toString(usuario.getIdUsuario()));
                 ventana.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Error al intentar loguearse");

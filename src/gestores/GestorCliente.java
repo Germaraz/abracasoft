@@ -26,18 +26,21 @@ public class GestorCliente extends PoolDeConexiones {
 
     public int altaCliente(Cliente cliente) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO cliente (DNI_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, DIRECCION_CLIENTE, "
-                + "MAIL_CLIENTE, TELEFONO_CLIENTE, localidad_IDLOCALIDAD) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO cliente (DNI_CLIENTE, SEXO_CLIENTE, NOMBRE_CLIENTE, APELLIDO_CLIENTE, "
+                + "FECHANACIMIENTO_CLIENTE, DIRECCION_CLIENTE, MAIL_CLIENTE, TELEFONO_CLIENTE, localidad_IDLOCALIDAD)"
+                + " VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, cliente.getDniCliente());
-            pst.setString(2, cliente.getNombreCliente());
-            pst.setString(3, cliente.getApellidoCliente());
-            pst.setString(4, cliente.getDireccionCliente());
-            pst.setString(5, cliente.getMailCliente());
-            pst.setInt(6, cliente.getTelefonoCliente());
-            pst.setInt(7, cliente.getLocalidad().getIdLocalidad());
+            pst.setString(2, cliente.getSexo());
+            pst.setString(3, cliente.getNombreCliente());
+            pst.setString(4, cliente.getApellidoCliente());
+            pst.setDate(5, (Date) cliente.getFechaNacimiento());
+            pst.setString(6, cliente.getDireccionCliente());
+            pst.setString(7, cliente.getMailCliente());
+            pst.setInt(8, cliente.getTelefonoCliente());
+            pst.setInt(9, cliente.getLocalidad().getIdLocalidad());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -49,20 +52,22 @@ public class GestorCliente extends PoolDeConexiones {
 
     public int modificarCliente(Cliente cliente) throws Exception {
         int resultado = 0;
-        String sql = "UPDATE cliente SET DNI_CLIENTE = ?, NOMBRE_CLIENTE = ?, APELLIDO_CLIENTE = ?, "
-                + "DIRECCION_CLIENTE = ?, MAIL_CLIENTE = ?, TELEFONO_CLIENTE = ?, localidad_IDLOCALIDAD = ? "
+        String sql = "UPDATE cliente SET DNI_CLIENTE = ?, SEXO_CLIENTE = ? , NOMBRE_CLIENTE = ?, APELLIDO_CLIENTE = ?, "
+                + "FECHANACIMIENTO_CLIENTE = ?, DIRECCION_CLIENTE = ?, MAIL_CLIENTE = ?, TELEFONO_CLIENTE = ?, localidad_IDLOCALIDAD = ? "
                 + "WHERE IDCLIENTE = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, cliente.getDniCliente());
-            pst.setString(2, cliente.getNombreCliente());
-            pst.setString(3, cliente.getApellidoCliente());
-            pst.setString(4, cliente.getDireccionCliente());
-            pst.setString(5, cliente.getMailCliente());
-            pst.setInt(6, cliente.getTelefonoCliente());
-            pst.setInt(7, cliente.getLocalidad().getIdLocalidad());
-            pst.setInt(8, cliente.getIdCliente());
+            pst.setString(2, cliente.getSexo());
+            pst.setString(3, cliente.getNombreCliente());
+            pst.setString(4, cliente.getApellidoCliente());
+            pst.setDate(5, (Date) cliente.getFechaNacimiento());
+            pst.setString(6, cliente.getDireccionCliente());
+            pst.setString(7, cliente.getMailCliente());
+            pst.setInt(8, cliente.getTelefonoCliente());
+            pst.setInt(9, cliente.getLocalidad().getIdLocalidad());
+            pst.setInt(10, cliente.getIdCliente());
             resultado = pst.executeUpdate();
         } catch (Exception e) {
             conexion.rollback();
@@ -100,6 +105,8 @@ public class GestorCliente extends PoolDeConexiones {
                 Cliente cliente = new Cliente();
                 cliente.setIdCliente(resultado.getInt("IDCLIENTE"));
                 cliente.setDniCliente(resultado.getInt("DNI_CLIENTE"));
+                cliente.setSexo(resultado.getString("SEXO_CLIENTE"));
+                cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
@@ -127,6 +134,8 @@ public class GestorCliente extends PoolDeConexiones {
             while (resultado.next()) {
                 cliente.setIdCliente(resultado.getInt("IDCLIENTE"));
                 cliente.setDniCliente(dni);
+                cliente.setSexo(resultado.getString("SEXO_CLIENTE"));
+                cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
@@ -154,6 +163,8 @@ public class GestorCliente extends PoolDeConexiones {
             while (resultado.next()) {
                 cliente.setIdCliente(resultado.getInt("IDCLIENTE"));
                 cliente.setDniCliente(resultado.getInt("DNI_CLIENTE"));
+                cliente.setSexo(resultado.getString("SEXO_CLIENTE"));
+                cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
@@ -180,6 +191,8 @@ public class GestorCliente extends PoolDeConexiones {
             while (resultado.next()) {
                 cliente.setIdCliente(idCliente);
                 cliente.setDniCliente(resultado.getInt("DNI_CLIENTE"));
+                cliente.setSexo(resultado.getString("SEXO_CLIENTE"));
+                cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));

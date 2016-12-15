@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorFactura;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -56,6 +57,14 @@ public class Factura {
 
     public Factura obtenerFactura(int idFactura) throws Exception {
         return new GestorFactura().obtenerFactura(idFactura);
+    }
+
+    public Factura obtenerFactura(String tipofactura) throws Exception {
+        return new GestorFactura().obtenerFactura(tipofactura);
+    }
+
+    public ArrayList<Factura> listarFacturas() throws Exception {
+        return new GestorFactura().listarFacturas();
     }
 
 }
