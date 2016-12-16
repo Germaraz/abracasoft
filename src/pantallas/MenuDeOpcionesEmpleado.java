@@ -6,6 +6,9 @@
 package pantallas;
 
 import entidades.Usuario;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -19,19 +22,19 @@ import javax.help.HelpSet;
  *
  * @author Pablo el mejor
  */
-public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
-
+public class MenuDeOpcionesEmpleado extends javax.swing.JFrame{
+    
     /**
      * Creates new form MenuDeOpcionesEmpleado
      */
-    public MenuDeOpcionesEmpleado() {
+    public MenuDeOpcionesEmpleado(){
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         JBNNuevaVenta.setMnemonic(KeyEvent.VK_V);
-        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());   
     }
-
+    
     public void cerrar() {
         setLocationRelativeTo(null);
         Object[] opciones = {"Aceptar", "Cancelar"};
@@ -41,9 +44,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         if (eleccion == JOptionPane.YES_OPTION) {
             System.exit(0);
         } else {
-        }
+        }    
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +57,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void initComponents() {
 
         UsuarioIDjLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         JBProductos = new javax.swing.JButton();
@@ -68,7 +72,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JToolBar.Separator();
         JBCaja = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
-        JBOtrosAccesos = new javax.swing.JButton();
+        JBInformes = new javax.swing.JButton();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
+        JBUsuarios = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         btnExit = new javax.swing.JButton();
@@ -78,9 +84,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         NombreUsuariojLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         FechajLabel = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-
-        UsuarioIDjLabel.setText("(ID XXX)");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OSG - Otro Sistema de Gestión");
@@ -137,7 +140,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator6);
 
         JBClientes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        JBClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clientes30.png"))); // NOI18N
+        JBClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cliente30.png"))); // NOI18N
         JBClientes.setText("Clientes");
         JBClientes.setFocusable(false);
         JBClientes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -175,18 +178,32 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(JBCaja);
         jToolBar1.add(jSeparator5);
 
-        JBOtrosAccesos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        JBOtrosAccesos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/informes30.png"))); // NOI18N
-        JBOtrosAccesos.setText("Informes");
-        JBOtrosAccesos.setFocusable(false);
-        JBOtrosAccesos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        JBOtrosAccesos.setPreferredSize(new java.awt.Dimension(31, 31));
-        JBOtrosAccesos.addActionListener(new java.awt.event.ActionListener() {
+        JBInformes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        JBInformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/informes30.png"))); // NOI18N
+        JBInformes.setText("Informes");
+        JBInformes.setFocusable(false);
+        JBInformes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        JBInformes.setPreferredSize(new java.awt.Dimension(31, 31));
+        JBInformes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBOtrosAccesosActionPerformed(evt);
+                JBInformesActionPerformed(evt);
             }
         });
-        jToolBar1.add(JBOtrosAccesos);
+        jToolBar1.add(JBInformes);
+        jToolBar1.add(jSeparator7);
+
+        JBUsuarios.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        JBUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario30.png"))); // NOI18N
+        JBUsuarios.setText("Usuarios");
+        JBUsuarios.setFocusable(false);
+        JBUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        JBUsuarios.setPreferredSize(new java.awt.Dimension(31, 31));
+        JBUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBUsuariosActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(JBUsuarios);
 
         jScrollPane1.setOpaque(false);
 
@@ -229,8 +246,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         FechajLabel.setText(fec);
 
-        jButton2.setText("GESTIONAR USUARIOS");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -239,8 +254,8 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1061, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JBNNuevaVenta))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAyuda)
@@ -252,8 +267,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(NombreUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExit))
                     .addComponent(jScrollPane1))
@@ -264,10 +277,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBNNuevaVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(JBNNuevaVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
@@ -275,20 +288,23 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(NombreUsuariojLabel)
                     .addComponent(jLabel3)
-                    .addComponent(FechajLabel)
-                    .addComponent(jButton2))
+                    .addComponent(FechajLabel))
                 .addContainerGap())
         );
+
+        jScrollPane2.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
 
         pack();
@@ -300,7 +316,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             jTabbedPane1.addTab("Gestión de productos", gestionproducto.getContentPane());
             señalProd = 1;
         }
-
     }//GEN-LAST:event_JBProductosActionPerformed
 
     private void JBClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBClientesActionPerformed
@@ -324,10 +339,13 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 case "Gestión de productos":
                     señalProd = 0;
                     break;
-                case "Gestion Compras":
+                case "Gestion Compra":
                     señalCompra = 0;
                     break;
-                case "Otros accesos":
+                case "Gestion venta":
+                    señalVenta = 0;
+                    break;
+                case "Informes":
                     señalOac = 0;
                     break;
                 case "Caja":
@@ -335,6 +353,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                     break;
                 case "Nueva venta":
                     señalVenta = 0;
+                    break;
+                case "Gestion usuarios":
+                    señalUsu = 0;
                     break;
                 default:
                     break;
@@ -348,7 +369,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void JBCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajaActionPerformed
         // TODO add your handling code here:
         MenuDeCaja menuopdiarias = new MenuDeCaja();
-
         if (señalOpDia == 0) {
             jTabbedPane1.addTab("Caja", menuopdiarias.getContentPane());
             señalOpDia = 1;
@@ -365,9 +385,8 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
     private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
         ponLaAyuda();
-
     }//GEN-LAST:event_btnAyudaActionPerformed
-
+    
     private void ponLaAyuda() {
         try {
             // Carga el fichero de ayuda
@@ -382,7 +401,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             // principal y secundaria.
             hb.enableHelpOnButton(btnAyuda, "aplicacion", helpset);
             hb.enableHelpKey(getRootPane(), "", helpset);
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -392,14 +411,13 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         cerrar();
     }//GEN-LAST:event_formWindowClosing
 
-    private void JBOtrosAccesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBOtrosAccesosActionPerformed
+    private void JBInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBInformesActionPerformed
         Config config = new Config();
-
         if (señalOac == 0) {
-            jTabbedPane1.addTab("Otros accesos", config.getContentPane());
+            jTabbedPane1.addTab("Informes", config.getContentPane());
             señalOac = 1;
         }
-    }//GEN-LAST:event_JBOtrosAccesosActionPerformed
+    }//GEN-LAST:event_JBInformesActionPerformed
 
     private void JBProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProveedoresActionPerformed
         MenuGestionProveedor gestProv = new MenuGestionProveedor();
@@ -412,15 +430,31 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private void ComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprajButtonActionPerformed
         // TODO add your handling code here:
         GestionDeCompras gesComp = new GestionDeCompras();
-        gesComp.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+        if (!UsuarioIDjLabel.getText().isEmpty()) {
+            gesComp.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+        }        
         if (señalCompra == 0) {
-            jTabbedPane1.addTab("Gestion Compra", gesComp.getContentPane());
+            jTabbedPane1.addTab("Gestion compra", gesComp.getContentPane());
+            señalCompra = 1;
         }
     }//GEN-LAST:event_ComprajButtonActionPerformed
 
     private void JBVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBVentasActionPerformed
-        // TODO add your handling code here:
+        GestionDeVentas gesVenta = new GestionDeVentas();
+        gesVenta.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+        if (señalVenta == 0) {
+            jTabbedPane1.addTab("Gestion venta", gesVenta.getContentPane());
+            señalVenta = 1;
+        }
     }//GEN-LAST:event_JBVentasActionPerformed
+
+    private void JBUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBUsuariosActionPerformed
+        GestionDeUsuarios gesUsu = new GestionDeUsuarios();
+        if (señalUsu == 0) {
+            jTabbedPane1.addTab("Gestion usuarios", gesUsu.getContentPane());
+            señalUsu = 1;
+        }
+    }//GEN-LAST:event_JBUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,7 +488,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             @Override
             public void run() {
                 new MenuDeOpcionesEmpleado().setVisible(true);
-
+                
             }
         });
     }
@@ -464,26 +498,28 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     javax.swing.JLabel FechajLabel;
     javax.swing.JButton JBCaja;
     javax.swing.JButton JBClientes;
+    javax.swing.JButton JBInformes;
     javax.swing.JButton JBNNuevaVenta;
-    javax.swing.JButton JBOtrosAccesos;
     javax.swing.JButton JBProductos;
     javax.swing.JButton JBProveedores;
+    javax.swing.JButton JBUsuarios;
     javax.swing.JButton JBVentas;
     javax.swing.JLabel NombreUsuariojLabel;
     javax.swing.JLabel UsuarioIDjLabel;
     javax.swing.JButton btnAyuda;
     javax.swing.JButton btnExit;
-    javax.swing.JButton jButton2;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel3;
     javax.swing.JPanel jPanel1;
     javax.swing.JScrollPane jScrollPane1;
+    javax.swing.JScrollPane jScrollPane2;
     javax.swing.JToolBar.Separator jSeparator1;
     javax.swing.JToolBar.Separator jSeparator2;
     javax.swing.JToolBar.Separator jSeparator3;
     javax.swing.JToolBar.Separator jSeparator4;
     javax.swing.JToolBar.Separator jSeparator5;
     javax.swing.JToolBar.Separator jSeparator6;
+    javax.swing.JToolBar.Separator jSeparator7;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
@@ -494,9 +530,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     private int señalVenta = 0;
     private int señalCompra = 0;
     private int señalProv = 0;
-
+    private int señalUsu = 0;
+    
     Calendar Cal = Calendar.getInstance();
     String fec = Cal.get(Cal.DATE) + "/" + (Cal.get(Cal.MONTH) + 1) + "/" + Cal.get(Cal.YEAR
     ) + " " + Cal.get(Cal.HOUR_OF_DAY) + ":" + Cal.get(Cal.MINUTE) + ":" + Cal.get(Cal.SECOND);
-
+   
+    
 }

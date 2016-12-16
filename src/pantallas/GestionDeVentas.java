@@ -47,6 +47,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
         DetalleComprasjTable = new javax.swing.JTable();
         EditarComprajButton = new javax.swing.JButton();
@@ -63,7 +64,15 @@ public class GestionDeVentas extends javax.swing.JFrame {
         ImprimirDetallejButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion de presupuestos");
+        setTitle("Gestion de ventas - OSG");
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton3.setText("Nuevo tipo de pago");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         DetalleComprasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,7 +100,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
         SPpresupuestoArticulos.setViewportView(DetalleComprasjTable);
 
         EditarComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        EditarComprajButton.setText("Editar compra");
+        EditarComprajButton.setText("Editar venta");
         EditarComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
         EditarComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
         EditarComprajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +110,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
         });
 
         NuevaComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        NuevaComprajButton.setText("Nueva compra");
+        NuevaComprajButton.setText("Nueva venta");
         NuevaComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
         NuevaComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
         NuevaComprajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +170,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
         }
 
         BajaComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BajaComprajButton.setText("Dar de baja compra");
+        BajaComprajButton.setText("Dar de baja venta");
         BajaComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
         BajaComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
         BajaComprajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -221,9 +230,10 @@ public class GestionDeVentas extends javax.swing.JFrame {
                         .addComponent(HastajCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BuscarjButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE)
+                        .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 1037, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -235,20 +245,19 @@ public class GestionDeVentas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DesdejCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(HastajCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BuscarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DesdejCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(HastajCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(BuscarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                    .addComponent(SPpresupuestoArticulos)
+                    .addComponent(jSeparator1)
+                    .addComponent(SPpresupuesto))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EditarComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,14 +356,21 @@ public class GestionDeVentas extends javax.swing.JFrame {
 
     private void EditarComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarComprajButtonActionPerformed
         abrirEditarCompra();
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_EditarComprajButtonActionPerformed
 
     private void NuevaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaComprajButtonActionPerformed
         // TODO add your handling code here:
-        AltaCompra nuevaCompra = new AltaCompra();
-        nuevaCompra.idUsuario = this.idUsuario;
-        nuevaCompra.setVisible(true);
+        VentaEmpleado nuevaVenta = new VentaEmpleado();
+        nuevaVenta.idUsuario = this.idUsuario;
+        nuevaVenta.setVisible(true);
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_NuevaComprajButtonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new TipoPago().setVisible(true);
+        setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -406,6 +422,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
     private javax.swing.JButton NuevaComprajButton;
     private javax.swing.JScrollPane SPpresupuesto;
     private javax.swing.JScrollPane SPpresupuestoArticulos;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

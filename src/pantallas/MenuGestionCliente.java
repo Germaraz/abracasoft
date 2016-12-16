@@ -44,7 +44,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        buscarMientrasEscribe();
+        //buscarMientrasEscribe();
     }
 
     /**
@@ -283,30 +283,30 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_TFbusquedaClienteKeyTyped
 
     private void TFbusquedaClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_TFbusquedaClienteCaretUpdate
-        borrarRenglones(1);
-        buscarMientrasEscribe();
+        //borrarRenglones(1);
+        //buscarMientrasEscribe();
     }//GEN-LAST:event_TFbusquedaClienteCaretUpdate
 
     private void BclienteBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BclienteBorrarActionPerformed
-        eliminarCliente();
+        //eliminarCliente();
     }//GEN-LAST:event_BclienteBorrarActionPerformed
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
-        clienteVentaPago();
-        saldoCliente();
+        //clienteVentaPago();
+        //saldoCliente();
     }//GEN-LAST:event_jTable1KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        clienteVentaPago();
-        saldoCliente();
+        //clienteVentaPago();
+        //saldoCliente();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void BclienteEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BclienteEditarActionPerformed
-        modificarCliente();
+        //modificarCliente();
     }//GEN-LAST:event_BclienteEditarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        agregarPagoCliente();
+        new AgregarPago().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -365,7 +365,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
     private String paraBuscar="";
             
             
-
+/**
     private void buscarMientrasEscribe() {
         paraBuscar = TFbusquedaCliente.getText();
         DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
@@ -632,4 +632,5 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         }
         return impresion;
     }
+    * */
 }

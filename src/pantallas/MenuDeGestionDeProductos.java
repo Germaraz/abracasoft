@@ -28,7 +28,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        agregarProductosATabla();
+        //agregarProductosATabla();
     }
 
     /**
@@ -261,7 +261,7 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             numero = parseLong(jTextFieldCodigoDeBarraProducto.getText());
         }catch(NumberFormatException exc) {
         }
-        buscarPorCodigo(numero);
+        //buscarPorCodigo(numero);
     }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
 
     private void jTextFieldCodigoDeBarraProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCodigoDeBarraProductoMouseClicked
@@ -278,8 +278,8 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextDescripcionFocusGained
 
     private void jTextDescripcionCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextDescripcionCaretUpdate
-        borrarRenglones();
-        buscarMientrasEscribe();
+        //borrarRenglones();
+        //buscarMientrasEscribe();
     }//GEN-LAST:event_jTextDescripcionCaretUpdate
 
     private void jTextFieldCodigoDeBarraProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCodigoDeBarraProductoFocusGained
@@ -295,8 +295,8 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
 
     private void BproductoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoNuevoActionPerformed
         // TODO add your handling code here:
-        AltaProducto altaproducto = new AltaProducto();
-        altaproducto.setVisible(true);
+        //AltaProducto altaproducto = new AltaProducto();
+        //altaproducto.setVisible(true);
     }//GEN-LAST:event_BproductoNuevoActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -304,12 +304,12 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void BproductoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoEliminarActionPerformed
-        borrarProducto();
+        //borrarProducto();
     }//GEN-LAST:event_BproductoEliminarActionPerformed
 
     private void BproductoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BproductoEditarActionPerformed
-        ModificarProducto modprod = new ModificarProducto();
-        modprod.setVisible(true);
+        //ModificarProducto modprod = new ModificarProducto();
+        //modprod.setVisible(true);
     }//GEN-LAST:event_BproductoEditarActionPerformed
 
     /**
@@ -364,11 +364,11 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
     
     private void validar() {
         if (jTextFieldCodigoDeBarraProducto.getText().isEmpty() && jTextDescripcion.getText().isEmpty()) {
-            borrarRenglones();
-            agregarProductosATabla();
+            //borrarRenglones();
+            //agregarProductosATabla();
         }
     }
-
+/**
     private void agregarProductosATabla() {
         DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
         if (GestorProducto.listarProductosDB().size() != 0) {
@@ -457,4 +457,5 @@ public class MenuDeGestionDeProductos extends javax.swing.JFrame {
             tabla.insertRow(0, productoBuscado);
         }
     }
+    **/
 }

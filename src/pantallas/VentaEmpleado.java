@@ -8,35 +8,15 @@ package pantallas;
 
 import entidades.Cliente;
 import entidades.Producto;
-import gestores.GestorCliente;
-import gestores.GestorPresupuesto;
-import gestores.GestorProducto;
-import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
-import static java.lang.Float.parseFloat;
-import static java.lang.Integer.parseInt;
-import static java.lang.Long.parseLong;
-import static java.lang.String.valueOf;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author German
  */
 public class VentaEmpleado extends javax.swing.JFrame {
+    
+    int idUsuario;
 
     /**
      * Creates new form AltaPresupuesto
