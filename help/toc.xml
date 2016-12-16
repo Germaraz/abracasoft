@@ -5,10 +5,13 @@ topicimage="ItemIco"-->
            <tocitem text="Ventana principal"    target="ventana_principal"/>
            <tocitem text="Gestion de productos"    target="gestion_productos"/>
            <tocitem text="Gestion de clientes"    target="gestion_clientes"/>
-           <tocitem text="Gestion de presupuestos"    target="gestion_presupuestos"/>
+           <tocitem text="Compras/Ingreso de mercaderia"    target="compras"/>
+           <tocitem text="Venta de productos"    target="ventas"/>
+           <!--<tocitem text="Gestion de presupuestos"    target="gestion_presupuestos"/>-->
            <tocitem text="Gestion de caja"    target="caja"/>
            <tocitem text="Otros accesos"    target="otros_accesos"/>
         		<tocitem text="Gestion de usuarios"    target="gestion_usuarios"/>
-           <tocitem text="Nueva venta"    target="venta"/>  
+           <tocitem text="Nueva venta"    target="venta"/>
+           
         </tocitem>
 </toc>

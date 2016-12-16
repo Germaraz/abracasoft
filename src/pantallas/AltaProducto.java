@@ -81,11 +81,6 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel5.setText("Stock ");
 
         TFstockProducto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TFstockProducto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFstockProductoKeyTyped(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Nombre");
@@ -104,16 +99,6 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel25.setText("Precio unitario");
 
         TFDescuento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TFDescuento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                TFDescuentoFocusLost(evt);
-            }
-        });
-        TFDescuento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFDescuentoKeyTyped(evt);
-            }
-        });
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel30.setText("% de ganancia");
@@ -141,11 +126,6 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel2.setText("Descripcion");
 
         TAdescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        TAdescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TAdescripcionKeyTyped(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

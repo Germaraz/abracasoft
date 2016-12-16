@@ -53,6 +53,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        UsuarioIDjLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         JBProductos = new javax.swing.JButton();
@@ -77,7 +78,9 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         NombreUsuariojLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         FechajLabel = new javax.swing.JLabel();
-        UsuarioIDjLabel = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+
+        UsuarioIDjLabel.setText("(ID XXX)");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OSG - Otro Sistema de Gestión");
@@ -147,7 +150,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator2);
 
         JBProveedores.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        JBProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/proveedor30.png"))); // NOI18N
+        JBProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/proveedor35.png"))); // NOI18N
         JBProveedores.setText("Proveedores");
         JBProveedores.setFocusable(false);
         JBProveedores.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -173,8 +176,8 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         jToolBar1.add(jSeparator5);
 
         JBOtrosAccesos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        JBOtrosAccesos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/config25.png"))); // NOI18N
-        JBOtrosAccesos.setText("Otros accesos");
+        JBOtrosAccesos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/informes30.png"))); // NOI18N
+        JBOtrosAccesos.setText("Informes");
         JBOtrosAccesos.setFocusable(false);
         JBOtrosAccesos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         JBOtrosAccesos.setPreferredSize(new java.awt.Dimension(31, 31));
@@ -222,11 +225,11 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
         NombreUsuariojLabel.setText("jLabel2");
 
-        jLabel3.setText("Ultimo Ingreso:");
+        jLabel3.setText("Ultimo ingreso:");
 
-        FechajLabel.setText("jLabel4");
+        FechajLabel.setText(fec);
 
-        UsuarioIDjLabel.setText("jLabel2");
+        jButton2.setText("GESTIONAR USUARIOS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,16 +245,16 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAyuda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(FechajLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NombreUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NombreUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UsuarioIDjLabel)
-                        .addGap(171, 171, 171)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExit))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -273,7 +276,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                     .addComponent(NombreUsuariojLabel)
                     .addComponent(jLabel3)
                     .addComponent(FechajLabel)
-                    .addComponent(UsuarioIDjLabel))
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -344,7 +347,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
 
     private void JBCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajaActionPerformed
         // TODO add your handling code here:
-        MenuDeOperacionesDiarias menuopdiarias = new MenuDeOperacionesDiarias();
+        MenuDeCaja menuopdiarias = new MenuDeCaja();
 
         if (señalOpDia == 0) {
             jTabbedPane1.addTab("Caja", menuopdiarias.getContentPane());
@@ -470,6 +473,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     javax.swing.JLabel UsuarioIDjLabel;
     javax.swing.JButton btnAyuda;
     javax.swing.JButton btnExit;
+    javax.swing.JButton jButton2;
     javax.swing.JLabel jLabel1;
     javax.swing.JLabel jLabel3;
     javax.swing.JPanel jPanel1;
