@@ -75,13 +75,12 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="AyudajButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="ProveedorIDjTextField" min="-2" pref="75" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="GuardarjButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ProveedorIDjTextField" max="32767" attributes="0"/>
-                          <Component id="CancelarjButton" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="CancelarjButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -141,10 +140,9 @@
                   <Component id="CancelarjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="GuardarjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="AyudajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ProveedorIDjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="ProveedorIDjTextField" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
