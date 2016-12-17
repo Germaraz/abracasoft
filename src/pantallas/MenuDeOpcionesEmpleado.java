@@ -292,7 +292,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProductosActionPerformed
-        MenuDeGestionDeProductos gestionproducto = new MenuDeGestionDeProductos();
+        GestionDeProductos gestionproducto = new GestionDeProductos();
         if (señalProd == 0) {
             jTabbedPane1.addTab("Gestión de productos", gestionproducto.getContentPane());
             señalProd = 1;
@@ -301,7 +301,7 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_JBProductosActionPerformed
 
     private void JBClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBClientesActionPerformed
-        MenuGestionCliente gestioncliente = new MenuGestionCliente();
+        GestionDeCliente gestioncliente = new GestionDeCliente();
         if (señalClie == 0) {
             jTabbedPane1.addTab("Gestión de clientes", gestioncliente.getContentPane());
             señalClie = 1;

@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorProducto;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -19,8 +20,8 @@ public class Producto {
     private String nombreProducto;
     private String descripcionProducto;
     private Date fechaVencimientoProducto;
-    private float precioUnitario;
-    private int alicuota;
+    private double precioUnitario;
+    private double alicuota;
     private int stock;
     private Date fechaAltaProducto;
     private Date fechaBajaProducto;
@@ -68,19 +69,19 @@ public class Producto {
         this.fechaVencimientoProducto = fechaVencimientoProducto;
     }
 
-    public float getPrecioUnitario() {
+    public double getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(float precioUnitario) {
+    public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
-    public int getAlicuota() {
+    public double getAlicuota() {
         return alicuota;
     }
 
-    public void setAlicuota(int alicuota) {
+    public void setAlicuota(double alicuota) {
         this.alicuota = alicuota;
     }
 
@@ -108,11 +109,35 @@ public class Producto {
         this.fechaBajaProducto = fechaBajaProducto;
     }
 
+    public int altaProducto(Producto producto) throws Exception {
+        return new GestorProducto().altaProducto(producto);
+    }
+
+    public int modificarProducto(Producto producto) throws Exception {
+        return new GestorProducto().modificarProducto(producto);
+    }
+
+    public int darDebajaProducto(Producto producto) throws Exception {
+        return new GestorProducto().darDeBajaProducto(producto);
+    }
+
     public Producto obtenerProducto(int idProducto) throws Exception {
         return new GestorProducto().obtenerProducto(idProducto);
     }
 
-    public Producto obtenerProductoCodBarra(String codigobarra) throws Exception {
-        return new GestorProducto().obtenerProductoCodBarra(codigobarra);
+    public ArrayList<Producto> obtenerProductosCodBarra(int codigobarra) throws Exception {
+        return new GestorProducto().obtenerProductosCodBarra(codigobarra);
+    }
+
+    public ArrayList<Producto> obtenerProductosDescripcion(String descripcion) throws Exception {
+        return new GestorProducto().obtenerProductosDescripcion(descripcion);
+    }
+
+    public ArrayList<Producto> listarProductos() throws Exception {
+        return new GestorProducto().listarProductos();
+    }
+
+    public Producto obtenerProductoCodBarra(int codigoBarra) throws Exception {
+        return new GestorProducto().obtenerProductoCodBarra(codigoBarra);
     }
 }

@@ -61,8 +61,6 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButton2" min="-2" pref="80" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="generarFacturajButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="GuardarjButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -178,7 +176,6 @@
                   </Group>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="generarFacturajButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="GuardarjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -361,17 +358,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Producto"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="generarFacturajButton">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Generar Factura"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generarFacturajButtonActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="GuardarjButton">
           <Properties>

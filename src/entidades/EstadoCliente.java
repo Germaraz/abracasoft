@@ -15,8 +15,8 @@ public class EstadoCliente {
 
     private int idEstadoCliente;
     private String estadoCliente;
-    private float saldo;
-    private float interes;
+    private double saldo;
+    private double interes;
     private Date fechaAltaEstadoCliente;
     private Date fechaBajaEstadoCliente;
     private Cliente cliente;
@@ -40,19 +40,19 @@ public class EstadoCliente {
         this.estadoCliente = estadoCliente;
     }
 
-    public float getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(float saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
-    public float getInteres() {
+    public double getInteres() {
         return interes;
     }
 
-    public void setInteres(float interes) {
+    public void setInteres(double interes) {
         this.interes = interes;
     }
 

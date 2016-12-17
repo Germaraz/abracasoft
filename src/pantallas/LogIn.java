@@ -211,15 +211,15 @@ public class LogIn extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private boolean validar() {
-        boolean estado = false;
+        boolean estado = true;
         if (nombreUsuariojTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No ha ingresado su nombre de usuario");
             nombreUsuariojTextField.requestFocus();
-        } else if (passUsuariojTextField.getText().length() < 4 || passUsuariojTextField.getText().length() > 12) {
+            estado = false;
+        } else if (passUsuariojTextField.getPassword().length < 4 || passUsuariojTextField.getPassword().length > 12) {
             JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 4 y 12 caracteres");
             passUsuariojTextField.requestFocus();
-        } else {
-            estado = true;
+            estado = false;
         }
         return estado;
     }
@@ -241,6 +241,7 @@ public class LogIn extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al intentar loguearse: " + ex.getMessage());
         }
         return usuario;
     }

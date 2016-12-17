@@ -497,7 +497,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
     private String paraBuscar="";
     private Cliente cli;
     private Producto pro;
-    private float iva = (float) 1.21;
+    private double iva = (double) 1.21;
     
     private void buscarProducto(){
         paraBuscar = descripcionProducto.getText();
@@ -534,7 +534,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
 
     private void actualizarTotal() {
         DefaultTableModel tabla = (DefaultTableModel) detalleProducto.getModel();
-        float suma = 0;
+        double suma = 0;
         for (int i = 0; i<tabla.getRowCount(); i++){
             suma += parseFloat(tabla.getValueAt(i,5).toString());
         }
@@ -588,7 +588,7 @@ public class VentaEmpleado extends javax.swing.JFrame {
             for (int i = 0; i<tabla.getRowCount(); i++){
                 long codiProd = parseLong(tabla.getValueAt(i,0).toString());
                 int cantidad = parseInt(tabla.getValueAt(i,2).toString());
-                float precioRenglon = parseFloat(tabla.getValueAt(i,5).toString());
+                double precioRenglon = parseFloat(tabla.getValueAt(i,5).toString());
                 String precioUnitarioConIVa = valueOf(parseFloat(tabla.getValueAt(i,3).toString())*iva);
                 
                 GestorPresupuesto.productoPresupuesto(nuevoPresupuesto, codiProd, cantidad, precioRenglon);

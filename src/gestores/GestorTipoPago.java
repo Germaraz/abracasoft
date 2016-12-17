@@ -30,7 +30,7 @@ public class GestorTipoPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, tipoPago.getTipoPago());
             pst.setInt(2, tipoPago.getCuotas());
-            pst.setFloat(3, tipoPago.getBonificacion());
+            pst.setDouble(3, tipoPago.getBonificacion());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class GestorTipoPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, tipoPago.getTipoPago());
             pst.setInt(2, tipoPago.getCuotas());
-            pst.setFloat(3, tipoPago.getBonificacion());
+            pst.setDouble(3, tipoPago.getBonificacion());
             pst.setInt(4, tipoPago.getIdTipoPago());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -88,7 +88,7 @@ public class GestorTipoPago extends PoolDeConexiones {
                 tipoPago.setIdTipoPago(idTipoPago);
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
                 tipoPago.setCuotas(resultado.getInt("CUOTAS"));
-                tipoPago.setBonificacion(resultado.getFloat("BONIFICACION"));
+                tipoPago.setBonificacion(resultado.getDouble("BONIFICACION"));
             }
         } catch (Exception e) {
             conexion.rollback();
@@ -109,7 +109,7 @@ public class GestorTipoPago extends PoolDeConexiones {
                 tipoPago.setIdTipoPago(resultado.getInt("IDTIPOPAGO"));
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
                 tipoPago.setCuotas(resultado.getInt("CUOTAS"));
-                tipoPago.setBonificacion(resultado.getFloat("BONIFICACION"));
+                tipoPago.setBonificacion(resultado.getDouble("BONIFICACION"));
                 tiposDePago.add(tipoPago);
             }
         } catch (Exception e) {

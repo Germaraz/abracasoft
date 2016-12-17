@@ -15,7 +15,7 @@ public class Movimiento {
 
     private int idMovimiento;
     private String descripcionMovimiento;
-    private float montoMovimiento;
+    private double montoMovimiento;
     private Date fechaMovimiento;
     private Date fechaBajaMovimiento;
     private Caja caja;
@@ -42,11 +42,11 @@ public class Movimiento {
         this.descripcionMovimiento = descripcionMovimiento;
     }
 
-    public float getMontoMovimiento() {
+    public double getMontoMovimiento() {
         return montoMovimiento;
     }
 
-    public void setMontoMovimiento(float montoMovimiento) {
+    public void setMontoMovimiento(double montoMovimiento) {
         this.montoMovimiento = montoMovimiento;
     }
 

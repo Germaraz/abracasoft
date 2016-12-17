@@ -17,8 +17,8 @@ public class Compra {
 
     private int idCompra;
     private Date fechaCompra;
-    private float montoCompra;
-    private float ivaCompra;
+    private double montoCompra;
+    private double ivaCompra;
     private Date fechaBajaCompra;
     private Usuario usuario;
     private Proveedor proveedor;
@@ -43,19 +43,19 @@ public class Compra {
         this.fechaCompra = fechaCompra;
     }
 
-    public float getMontoCompra() {
+    public double getMontoCompra() {
         return montoCompra;
     }
 
-    public void setMontoCompra(float montoCompra) {
+    public void setMontoCompra(double montoCompra) {
         this.montoCompra = montoCompra;
     }
 
-    public float getIvaCompra() {
+    public double getIvaCompra() {
         return ivaCompra;
     }
 
-    public void setIvaCompra(float ivaCompra) {
+    public void setIvaCompra(double ivaCompra) {
         this.ivaCompra = ivaCompra;
     }
 
@@ -109,6 +109,10 @@ public class Compra {
 
     public ArrayList<Compra> listaCompras(Date fechaDesde, Date fechaHasta) throws Exception {
         return new GestorCompra().listarCompras(fechaDesde, fechaHasta);
+    }
+    
+    public ArrayList<Compra> obtenerComprasProveedor(int idProveedor) throws Exception{
+        return new GestorCompra().obtenerComprasProveedor(idProveedor);
     }
 
 }

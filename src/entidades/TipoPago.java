@@ -17,7 +17,7 @@ public class TipoPago {
     private int idTipoPago;
     private String tipoPago;
     private int cuotas;
-    private float bonificacion;
+    private double bonificacion;
     private Date fechaBajaTipoPago;
 
     public TipoPago() {
@@ -47,11 +47,11 @@ public class TipoPago {
         this.cuotas = cuotas;
     }
 
-    public float getBonificacion() {
+    public double getBonificacion() {
         return bonificacion;
     }
 
-    public void setBonificacion(float bonificacion) {
+    public void setBonificacion(double bonificacion) {
         this.bonificacion = bonificacion;
     }
 
