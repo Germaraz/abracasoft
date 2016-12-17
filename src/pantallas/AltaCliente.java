@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -340,19 +339,19 @@ public class AltaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AyudajButton;
     private javax.swing.JButton CancelarjButton;
-    private javax.swing.JTextField ClienteApellidojTextField;
-    private javax.swing.JTextField ClienteDNIjTextField;
-    private javax.swing.JTextField ClienteDireccionjTextField;
-    private javax.swing.JTextField ClienteEmailjTextField;
+    protected javax.swing.JTextField ClienteApellidojTextField;
+    protected javax.swing.JTextField ClienteDNIjTextField;
+    protected javax.swing.JTextField ClienteDireccionjTextField;
+    protected javax.swing.JTextField ClienteEmailjTextField;
     private javax.swing.JTextField ClienteIDjTextField;
-    private javax.swing.JTextField ClienteNombrejTextField;
-    private javax.swing.JTextField ClienteTelefonojTextField;
-    private javax.swing.JTextField CodPostjTextField;
-    private com.toedter.calendar.JDateChooser FecNacjDateChooser;
+    protected javax.swing.JTextField ClienteNombrejTextField;
+    protected javax.swing.JTextField ClienteTelefonojTextField;
+    protected javax.swing.JTextField CodPostjTextField;
+    protected com.toedter.calendar.JDateChooser FecNacjDateChooser;
     private javax.swing.JButton GuardarjButton;
-    private javax.swing.JComboBox<String> LocalidadesjComboBox;
-    private javax.swing.JComboBox<String> ProvinciasjComboBox;
-    private javax.swing.JComboBox<String> SexojComboBox;
+    protected javax.swing.JComboBox<String> LocalidadesjComboBox;
+    protected javax.swing.JComboBox<String> ProvinciasjComboBox;
+    protected javax.swing.JComboBox<String> SexojComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

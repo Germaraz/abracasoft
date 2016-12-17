@@ -5,11 +5,7 @@
  */
 package gestores;
 
-import entidades.Compra;
 import entidades.Producto;
-import entidades.Promocion;
-import entidades.Reserva;
-import entidades.Venta;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -37,8 +33,8 @@ public class GestorProducto extends PoolDeConexiones {
             pst.setString(2, producto.getNombreProducto());
             pst.setString(3, producto.getDescripcionProducto());
             pst.setDate(4, (Date) producto.getFechaVencimientoProducto());
-            pst.setFloat(5, producto.getPrecioUnitario());
-            pst.setInt(6, producto.getAlicuota());
+            pst.setDouble(5, producto.getPrecioUnitario());
+            pst.setDouble(6, producto.getAlicuota());
             pst.setInt(7, producto.getStock());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -60,8 +56,8 @@ public class GestorProducto extends PoolDeConexiones {
             pst.setString(2, producto.getNombreProducto());
             pst.setString(3, producto.getDescripcionProducto());
             pst.setDate(4, (Date) producto.getFechaVencimientoProducto());
-            pst.setFloat(5, producto.getPrecioUnitario());
-            pst.setInt(6, producto.getAlicuota());
+            pst.setDouble(5, producto.getPrecioUnitario());
+            pst.setDouble(6, producto.getAlicuota());
             pst.setInt(7, producto.getStock());
             pst.setInt(8, producto.getIdProducto());
             resultado = pst.executeUpdate();
@@ -102,10 +98,10 @@ public class GestorProducto extends PoolDeConexiones {
                 producto.setIdProducto(idProducto);
                 producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
-                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCT"));
+                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
-                producto.setPrecioUnitario(resultado.getFloat("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getInt("ALICUOTA"));
+                producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
+                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
             }
@@ -116,30 +112,62 @@ public class GestorProducto extends PoolDeConexiones {
         return producto;
     }
 
-    public Producto obtenerProductoCodBarra(String codigobarra) throws Exception {
-        Producto producto = new Producto();
-        String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL AND producto.CODIGOBARRA = ?";
+    public ArrayList<Producto> obtenerProductosCodBarra(int codigobarra) throws Exception {
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL "
+                + "AND producto.CODIGOBARRA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setString(1, codigobarra);
+            pst.setInt(1, codigobarra);
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
+                Producto producto = new Producto();
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
                 producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
-                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCT"));
+                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
-                producto.setPrecioUnitario(resultado.getFloat("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getInt("ALICUOTA"));
+                producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
+                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
+                productos.add(producto);
             }
         } catch (Exception e) {
             conexion.rollback();
             throw new Exception(e.getMessage());
         }
-        return producto;
+        return productos;
+    }
+
+    public ArrayList<Producto> obtenerProductosDescripcion(String descripcion) throws Exception {
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL "
+                + "AND producto.DESCRIPCIONPRODUCTO LIKE '?%'";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, descripcion);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                Producto producto = new Producto();
+                producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
+                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
+                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
+                producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
+                producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
+                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
+                producto.setStock(resultado.getInt("STOCK"));
+                producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
+                productos.add(producto);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return productos;
     }
 
     public ArrayList<Producto> listarProductos() throws Exception {
@@ -154,10 +182,10 @@ public class GestorProducto extends PoolDeConexiones {
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
                 producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
-                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCT"));
+                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
-                producto.setPrecioUnitario(resultado.getFloat("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getInt("ALICUOTA"));
+                producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
+                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
                 productos.add(producto);
@@ -167,5 +195,32 @@ public class GestorProducto extends PoolDeConexiones {
             throw new Exception(e.getMessage());
         }
         return productos;
+    }
+
+    public Producto obtenerProductoCodBarra(int codigoBarra) throws Exception {
+        Producto producto = new Producto();
+        String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL "
+                + "AND producto.CODIGOBARRA LIKE '?%'";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, codigoBarra);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
+                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
+                producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
+                producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
+                producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
+                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
+                producto.setStock(resultado.getInt("STOCK"));
+                producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return producto;
     }
 }

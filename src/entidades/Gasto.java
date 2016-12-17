@@ -15,7 +15,7 @@ public class Gasto {
     private int idGasto;
     private String descripcionGasto;
     private Date fechaGasto;
-    private float montoGasto;
+    private double montoGasto;
     private Date fechaBajaGasto;
     private Usuario usuario;
 
@@ -46,11 +46,11 @@ public class Gasto {
         this.fechaGasto = fechaGasto;
     }
 
-    public float getMontoGasto() {
+    public double getMontoGasto() {
         return montoGasto;
     }
 
-    public void setMontoGasto(float montoGasto) {
+    public void setMontoGasto(double montoGasto) {
         this.montoGasto = montoGasto;
     }
 

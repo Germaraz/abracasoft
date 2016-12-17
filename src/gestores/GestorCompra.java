@@ -34,8 +34,8 @@ public class GestorCompra extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDate(1, (Date) compra.getFechaCompra());
-            pst.setFloat(2, compra.getMontoCompra());
-            pst.setFloat(3, compra.getIvaCompra());
+            pst.setDouble(2, compra.getMontoCompra());
+            pst.setDouble(3, compra.getIvaCompra());
             pst.setInt(4, compra.getUsuario().getIdUsuario());
             pst.setInt(5, compra.getProveedor().getIdProveedor());
             Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
@@ -57,8 +57,8 @@ public class GestorCompra extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDate(1, (Date) compra.getFechaCompra());
-            pst.setFloat(2, compra.getMontoCompra());
-            pst.setFloat(3, compra.getIvaCompra());
+            pst.setDouble(2, compra.getMontoCompra());
+            pst.setDouble(3, compra.getIvaCompra());
             pst.setInt(4, compra.getUsuario().getIdUsuario());
             pst.setInt(5, compra.getProveedor().getIdProveedor());
             Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
@@ -102,8 +102,8 @@ public class GestorCompra extends PoolDeConexiones {
             while (resultado.next()) {
                 compra.setIdCompra(idCompra);
                 compra.setFechaCompra(resultado.getDate("FECHACOMPRA"));
-                compra.setMontoCompra(resultado.getFloat("MONTO"));
-                compra.setIvaCompra(resultado.getFloat("IVA"));
+                compra.setMontoCompra(resultado.getDouble("MONTO"));
+                compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
                 productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));
@@ -131,8 +131,37 @@ public class GestorCompra extends PoolDeConexiones {
                 Compra compra = new Compra();
                 compra.setIdCompra(resultado.getInt("IDCOMPRA"));
                 compra.setFechaCompra(resultado.getDate("FECHACOMPRA"));
-                compra.setMontoCompra(resultado.getFloat("MONTO"));
-                compra.setIvaCompra(resultado.getFloat("IVA"));
+                compra.setMontoCompra(resultado.getDouble("MONTO"));
+                compra.setIvaCompra(resultado.getDouble("IVA"));
+                compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
+                compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
+                productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));
+                compra.setProductos(productos);
+                compras.add(compra);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return compras;
+    }
+
+    public ArrayList<Compra> obtenerComprasProveedor(int idProveedor) throws Exception {
+        ArrayList<Compra> compras = new ArrayList<>();
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL "
+                + "AND compra.proveedor_IDPROVEEDOR = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idProveedor);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                Compra compra = new Compra();
+                compra.setIdCompra(resultado.getInt("IDCOMPRA"));
+                compra.setFechaCompra(resultado.getDate("FECHACOMPRA"));
+                compra.setMontoCompra(resultado.getDouble("MONTO"));
+                compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
                 productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));

@@ -5,6 +5,8 @@
  */
 package entidades;
 
+import gestores.GestorVenta;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,16 +14,17 @@ import java.util.Date;
  * @author ema_s
  */
 public class Venta {
+
     private int idVenta;
     private Date fechaVenta;
-    private float montoVenta;
-    private float ivaVenta;
+    private double montoVenta;
+    private double ivaVenta;
     private Date fechaBajaVenta;
     private Usuario usuario;
     private Cliente cliente;
     private Factura factura;
     private Producto producto;
-    
+
     public Venta() {
     }
 
@@ -41,19 +44,19 @@ public class Venta {
         this.fechaVenta = fechaVenta;
     }
 
-    public float getMontoVenta() {
+    public double getMontoVenta() {
         return montoVenta;
     }
 
-    public void setMontoVenta(float montoVenta) {
+    public void setMontoVenta(double montoVenta) {
         this.montoVenta = montoVenta;
     }
 
-    public float getIvaVenta() {
+    public double getIvaVenta() {
         return ivaVenta;
     }
 
-    public void setIvaVenta(float ivaVenta) {
+    public void setIvaVenta(double ivaVenta) {
         this.ivaVenta = ivaVenta;
     }
 
@@ -97,9 +100,28 @@ public class Venta {
         this.producto = producto;
     }
 
+    public int altaVenta(Venta venta) throws Exception {
+        return new GestorVenta().altaVenta(venta);
+    }
+
+    public int modificarVenta(Venta venta) throws Exception {
+        return new GestorVenta().modificaVenta(venta);
+    }
+
+    public int darDeBajaVenta(Venta venta) throws Exception {
+        return new GestorVenta().darDeBajaVenta(venta);
+    }
+
     public Venta obtenerVenta(int aInt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
+    public ArrayList<Venta> obtenerVentasCliente(int idCliente) throws Exception {
+        return new GestorVenta().obtenerVentasCliente(idCliente);
+    }
+
+    public ArrayList<Venta> listarVentas(Date desde, Date hasta) throws Exception {
+        return new GestorVenta().listarVentas(desde, hasta);
+    }
+
 }

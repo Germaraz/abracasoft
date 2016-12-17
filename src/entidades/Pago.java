@@ -5,6 +5,8 @@
  */
 package entidades;
 
+import gestores.GestorPago;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,12 +14,14 @@ import java.util.Date;
  * @author ema_s
  */
 public class Pago {
+
     private int idPago;
-    private float montoPago;
+    private double montoPago;
     private Date fechaPago;
     private Date fechaBajaPago;
     private Venta venta;
     private TipoPago tipoPago;
+    private Compra compra;
 
     public Pago() {
     }
@@ -30,11 +34,11 @@ public class Pago {
         this.idPago = idPago;
     }
 
-    public float getMontoPago() {
+    public double getMontoPago() {
         return montoPago;
     }
 
-    public void setMontoPago(float montoPago) {
+    public void setMontoPago(double montoPago) {
         this.montoPago = montoPago;
     }
 
@@ -69,6 +73,24 @@ public class Pago {
     public void setTipoPago(TipoPago tipoPago) {
         this.tipoPago = tipoPago;
     }
-    
-    
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Pago obtenerPago(int idPago) throws Exception {
+        return new GestorPago().obtenerPago(idPago);
+    }
+
+    public Pago obtenerPagoCompra(int idCompra) throws Exception {
+        return new GestorPago().obtenerPagoCompra(idCompra);
+    }
+
+    public ArrayList<Pago> obtenerPagosVenta(int idVenta) throws Exception {
+        return new GestorPago().obtenerPagosVenta(idVenta);
+    }
 }

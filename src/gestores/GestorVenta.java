@@ -25,7 +25,7 @@ public class GestorVenta extends PoolDeConexiones {
         this.pedirConexion();
     }
 
-    int altaVenta(Venta venta) throws Exception {
+    public int altaVenta(Venta venta) throws Exception {
         int resultado = 0;
         String sql = "INSERT INTO venta (FECHAVENTA, MONTOVENTA, IVA, usuario_IDUSUARIO, cliente_IDCLIENTE, "
                 + "factura_IDFACTURA) VALUES (?,?,?,?,?,?)";
@@ -33,8 +33,8 @@ public class GestorVenta extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDate(1, (Date) venta.getFechaVenta());
-            pst.setFloat(2, venta.getMontoVenta());
-            pst.setFloat(3, venta.getIvaVenta());
+            pst.setDouble(2, venta.getMontoVenta());
+            pst.setDouble(3, venta.getIvaVenta());
             pst.setInt(4, venta.getUsuario().getIdUsuario());
             pst.setInt(5, venta.getCliente().getIdCliente());
             pst.setInt(6, venta.getFactura().getIdFactura());
@@ -47,7 +47,7 @@ public class GestorVenta extends PoolDeConexiones {
         return resultado;
     }
 
-    int modificaVenta(Venta venta) throws Exception {
+    public int modificaVenta(Venta venta) throws Exception {
         int resultado = 0;
         String sql = "UPDATE venta SET FECHAVENTA = ?, MONTOVENTA = ?, IVA = ?, usuario_IDUSUARIO = ?, "
                 + "cliente_IDCLIENTE = ?, factura_IDFACTURA = ? WHERE venta.IDVENTA = ?";
@@ -55,8 +55,8 @@ public class GestorVenta extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDate(1, (Date) venta.getFechaVenta());
-            pst.setFloat(2, venta.getMontoVenta());
-            pst.setFloat(3, venta.getIvaVenta());
+            pst.setDouble(2, venta.getMontoVenta());
+            pst.setDouble(3, venta.getIvaVenta());
             pst.setInt(4, venta.getUsuario().getIdUsuario());
             pst.setInt(5, venta.getCliente().getIdCliente());
             pst.setInt(6, venta.getFactura().getIdFactura());
@@ -69,7 +69,7 @@ public class GestorVenta extends PoolDeConexiones {
         return resultado;
     }
 
-    int darDeBajaVenta(Venta venta) throws Exception {
+    public int darDeBajaVenta(Venta venta) throws Exception {
         int resultado = 0;
         String sql = "UPDATE venta SET FECHABAJA = ? WHERE venta.IDVENTA = ?";
         try {
@@ -86,7 +86,7 @@ public class GestorVenta extends PoolDeConexiones {
         return resultado;
     }
 
-    Venta obtenerVenta(int idVenta) throws Exception {
+    public Venta obtenerVenta(int idVenta) throws Exception {
         Venta venta = new Venta();
         String sql = "SELECT * FROM venta WHERE venta.IDVENTA = ?";
         try {
@@ -97,8 +97,8 @@ public class GestorVenta extends PoolDeConexiones {
             while (resultado.next()) {
                 venta.setIdVenta(idVenta);
                 venta.setFechaVenta(resultado.getDate("FECHAVENTA"));
-                venta.setMontoVenta(resultado.getFloat("MONTOVENTA"));
-                venta.setIvaVenta(resultado.getFloat("IVA"));
+                venta.setMontoVenta(resultado.getDouble("MONTOVENTA"));
+                venta.setIvaVenta(resultado.getDouble("IVA"));
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
@@ -109,8 +109,8 @@ public class GestorVenta extends PoolDeConexiones {
         }
         return venta;
     }
-
-    public ArrayList<Venta> listarVentas(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
+    
+        public ArrayList<Venta> listarVentas(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
         ArrayList<Venta> ventas = new ArrayList<>();
         String sql = "SELECT * FROM venta WHERE venta.FECHABAJA IS NULL "
                 + "AND (venta.FECHAVENTA BETWEEN ? AND ?)";
@@ -124,8 +124,35 @@ public class GestorVenta extends PoolDeConexiones {
                 Venta venta = new Venta();
                 venta.setIdVenta(resultado.getInt("IDVENTA"));
                 venta.setFechaVenta(resultado.getDate("FECHAVENTA"));
-                venta.setMontoVenta(resultado.getFloat("MONTOVENTA"));
-                venta.setIvaVenta(resultado.getFloat("IVA"));
+                venta.setMontoVenta(resultado.getDouble("MONTOVENTA"));
+                venta.setIvaVenta(resultado.getDouble("IVA"));
+                venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
+                venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
+                venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
+                ventas.add(venta);
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return ventas;
+    }
+
+    public ArrayList<Venta> obtenerVentasCliente(int idCliente) throws Exception {
+        ArrayList<Venta> ventas = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE venta.FECHABAJA IS NULL "
+                + "AND venta.cliente_IDCLIENTE = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idCliente);
+            ResultSet resultado = pst.executeQuery();
+            while (resultado.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(resultado.getInt("IDVENTA"));
+                venta.setFechaVenta(resultado.getDate("FECHAVENTA"));
+                venta.setMontoVenta(resultado.getDouble("MONTOVENTA"));
+                venta.setIvaVenta(resultado.getDouble("IVA"));
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));

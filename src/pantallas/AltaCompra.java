@@ -6,12 +6,10 @@
 package pantallas;
 
 import entidades.Compra;
-import entidades.Factura;
 import entidades.Producto;
 import entidades.Proveedor;
 import entidades.Usuario;
 import java.awt.event.ItemEvent;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -379,60 +377,33 @@ public class AltaCompra extends javax.swing.JFrame {
 
     private void codigoBarrajTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_codigoBarrajTextFieldInputMethodTextChanged
         // TODO add your handling code here:
-        this.buscarProducto(codigoBarrajTextField.getText());
+        this.buscarProducto(Integer.parseInt(codigoBarrajTextField.getText()));
     }//GEN-LAST:event_codigoBarrajTextFieldInputMethodTextChanged
 
     private void agregarProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProdjButtonActionPerformed
         // TODO add your handling code here:
-
+        cargarProductoATabla();
     }//GEN-LAST:event_agregarProdjButtonActionPerformed
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
-        int resultado = 0;
-        Compra compra = new Compra();
-        ArrayList<Producto> productos = new ArrayList<>();
-        try {
-            compra.setUsuario(new Usuario().obtenerUsuario(this.idUsuario));
-            compra.setMontoCompra(Float.parseFloat(SubtotaljTextField.getText()));
-            compra.setProveedor(new Proveedor().obtenerProveedor(ProveedorjComboBox.getSelectedItem().toString()));
-            compra.setIvaCompra(Float.parseFloat(IVAjTextField.getText()));
-            DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
-            for (int i = 0; i < tabla.getRowCount(); i++) {
-                String codigobarra = tabla.getValueAt(i, 0).toString();
-                productos.add(new Producto().obtenerProductoCodBarra(codigobarra));
-            }
-            compra.setProductos(productos);
-            if (CompraIDjTextField.getText().isEmpty()) {
-                resultado = compra.altaCompra(compra);
-            } else {
-                compra.setIdCompra(Integer.parseInt(CompraIDjTextField.getText()));
-                resultado = compra.modificarCompra(compra);
-            }
-            if (resultado != 0) {
-                JOptionPane.showMessageDialog(null, "Compra ingresada correctamente");
-            } else {
-                JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar la compra");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        guardarOActualizarCompra();
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
     private void totaljTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_totaljTextFieldMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 1) {
-            float IVA;
-            float subtotal;
+            double IVA;
+            double subtotal;
             if (!IVAjTextField.getText().isEmpty() && !SubtotaljTextField.getText().isEmpty()) {
-                IVA = Float.parseFloat(IVAjTextField.getText());
-                subtotal = Float.parseFloat(SubtotaljTextField.getText());
+                IVA = Double.parseDouble(IVAjTextField.getText());
+                subtotal = Double.parseDouble(SubtotaljTextField.getText());
             } else {
                 IVA = 0;
                 subtotal = 0;
             }
-            float total = subtotal + IVA;
-            totaljTextField.setText(Float.toString(total));
+            double total = subtotal + IVA;
+            totaljTextField.setText(Double.toString(total));
         }
     }//GEN-LAST:event_totaljTextFieldMouseClicked
 
@@ -518,6 +489,20 @@ public class AltaCompra extends javax.swing.JFrame {
     protected javax.swing.JTextField totaljTextField;
     // End of variables declaration//GEN-END:variables
 
+    private boolean validar() {
+        boolean valido = true;
+        if (ProveedorjComboBox.getSelectedItem().toString().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un proveedor");
+            ProveedorjComboBox.requestFocus();
+            valido = false;
+        } else if (detalleComprajTable.getRowCount() == -1) {
+            JOptionPane.showMessageDialog(null, "Debe cargar al menos 1 producto por compra");
+            DescripcionjComboBox.requestFocus();
+            valido = false;
+        }
+        return valido;
+    }
+
     private void buscarProveedor() {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
@@ -535,7 +520,7 @@ public class AltaCompra extends javax.swing.JFrame {
         }
     }
 
-    private void buscarProducto(String codigoBarra) {
+    private void buscarProducto(int codigoBarra) {
         try {
             producto = new Producto().obtenerProductoCodBarra(codigoBarra);
             DescripcionjComboBox.addItem(producto.getDescripcionProducto());
@@ -553,10 +538,53 @@ public class AltaCompra extends javax.swing.JFrame {
             columnas[2] = Integer.parseInt(cantidadjTextField.getText());
             columnas[3] = producto.getPrecioUnitario();
             tabla.addRow(columnas);
-            float subtotal = Float.parseFloat(SubtotaljTextField.getText()) + producto.getPrecioUnitario();
-            SubtotaljTextField.setText(Float.toString(subtotal));
+            double subtotal = Double.parseDouble(SubtotaljTextField.getText()) + producto.getPrecioUnitario();
+            SubtotaljTextField.setText(Double.toString(subtotal));
+            double IVA;
+            if (!IVAjTextField.getText().isEmpty() && !SubtotaljTextField.getText().isEmpty()) {
+                IVA = Double.parseDouble(IVAjTextField.getText());
+                subtotal = Double.parseDouble(SubtotaljTextField.getText());
+            } else {
+                IVA = 0.00;
+                subtotal = 0.00;
+            }
+            double total = subtotal + IVA;
+            totaljTextField.setText(Double.toString(total));
         } else {
             JOptionPane.showMessageDialog(null, "Debe buscar un producto primero");
+        }
+    }
+
+    private void guardarOActualizarCompra() {
+        if (validar()) {
+            int resultado;
+            Compra compra = new Compra();
+            ArrayList<Producto> productos = new ArrayList<>();
+            try {
+                compra.setUsuario(new Usuario().obtenerUsuario(this.idUsuario));
+                compra.setMontoCompra(Double.parseDouble(SubtotaljTextField.getText()));
+                compra.setProveedor(new Proveedor().obtenerProveedor(ProveedorjComboBox.getSelectedItem().toString()));
+                compra.setIvaCompra(Double.parseDouble(IVAjTextField.getText()));
+                DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
+                for (int i = 0; i < tabla.getRowCount(); i++) {
+                    int codigobarra = Integer.parseInt(tabla.getValueAt(i, 0).toString());
+                    productos.add(new Producto().obtenerProductoCodBarra(codigobarra));
+                }
+                compra.setProductos(productos);
+                if (CompraIDjTextField.getText().isEmpty()) {
+                    resultado = compra.altaCompra(compra);
+                } else {
+                    compra.setIdCompra(Integer.parseInt(CompraIDjTextField.getText()));
+                    resultado = compra.modificarCompra(compra);
+                }
+                if (resultado != 0) {
+                    JOptionPane.showMessageDialog(null, "Compra ingresada correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar la compra");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
     }
 
@@ -564,9 +592,9 @@ public class AltaCompra extends javax.swing.JFrame {
         DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
         try {
             if (tabla.getRowCount() != 0) {
-                float precio = (float) tabla.getValueAt(detalleComprajTable.getSelectedRow(), 3);
-                float total = Float.parseFloat(IVAjTextField.getText()) - precio;
-                IVAjTextField.setText(Float.toString(total));
+                double precio = (double) tabla.getValueAt(detalleComprajTable.getSelectedRow(), 3);
+                double total = Double.parseDouble(IVAjTextField.getText()) - precio;
+                IVAjTextField.setText(Double.toString(total));
                 tabla.removeRow(detalleComprajTable.getSelectedRow());
             }
         } catch (ArrayIndexOutOfBoundsException e) {

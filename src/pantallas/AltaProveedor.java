@@ -368,18 +368,18 @@ public class AltaProveedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AyudajButton;
-    private javax.swing.JTextField CUITjTextField;
+    protected javax.swing.JTextField CUITjTextField;
     private javax.swing.JButton CancelarjButton;
-    private javax.swing.JTextField CodPostjTextField;
-    private javax.swing.JTextField DireccionjTextField;
-    private javax.swing.JTextField EmailjTextField;
+    protected javax.swing.JTextField CodPostjTextField;
+    protected javax.swing.JTextField DireccionjTextField;
+    protected javax.swing.JTextField EmailjTextField;
     private javax.swing.JButton GuardarjButton;
-    private javax.swing.JComboBox<String> LocalidadesjComboBox;
-    private javax.swing.JTextField NombreFantasiajTextField;
-    private javax.swing.JTextField ProveedorIDjTextField;
-    private javax.swing.JComboBox<String> ProvinciasjComboBox;
-    private javax.swing.JTextField RazonSocialjTextField;
-    private javax.swing.JTextField TelefonojTextField;
+    protected javax.swing.JComboBox<String> LocalidadesjComboBox;
+    protected javax.swing.JTextField NombreFantasiajTextField;
+    protected javax.swing.JTextField ProveedorIDjTextField;
+    protected javax.swing.JComboBox<String> ProvinciasjComboBox;
+    protected javax.swing.JTextField RazonSocialjTextField;
+    protected javax.swing.JTextField TelefonojTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

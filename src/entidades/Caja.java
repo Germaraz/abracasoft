@@ -14,8 +14,8 @@ import java.util.Date;
  */
 public class Caja {
     private int idCaja;
-    private float importeArqueo;
-    private float importeCierre;
+    private double importeArqueo;
+    private double importeCierre;
     private Date fechaApertura;
     private Date fechaCierre;
     private Date fechaBaja;
@@ -31,19 +31,19 @@ public class Caja {
         this.idCaja = idCaja;
     }
 
-    public float getImporteArqueo() {
+    public double getImporteArqueo() {
         return importeArqueo;
     }
 
-    public void setImporteArqueo(float importeArqueo) {
+    public void setImporteArqueo(double importeArqueo) {
         this.importeArqueo = importeArqueo;
     }
 
-    public float getImporteCierre() {
+    public double getImporteCierre() {
         return importeCierre;
     }
 
-    public void setImporteCierre(float importeCierre) {
+    public void setImporteCierre(double importeCierre) {
         this.importeCierre = importeCierre;
     }
 
