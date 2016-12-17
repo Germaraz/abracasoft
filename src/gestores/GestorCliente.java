@@ -68,6 +68,7 @@ public class GestorCliente extends PoolDeConexiones {
             pst.setInt(9, cliente.getLocalidad().getIdLocalidad());
             pst.setInt(10, cliente.getIdCliente());
             resultado = pst.executeUpdate();
+            conexion.commit();
         } catch (Exception e) {
             conexion.rollback();
             throw new Exception(e.getMessage());

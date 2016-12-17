@@ -94,6 +94,7 @@ public class GestorProducto extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idProducto);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 producto.setIdProducto(idProducto);
                 producto.setCodigoBarra(resultado.getLong("CODIGOBARRA"));
@@ -121,6 +122,7 @@ public class GestorProducto extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, codigobarra);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
@@ -150,6 +152,7 @@ public class GestorProducto extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, descripcion);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
@@ -177,6 +180,7 @@ public class GestorProducto extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
@@ -206,6 +210,7 @@ public class GestorProducto extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setLong(1, codigoBarra);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
                 producto.setCodigoBarra(resultado.getLong("CODIGOBARRA"));

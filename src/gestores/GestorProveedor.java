@@ -78,6 +78,8 @@ public class GestorProveedor extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDate(1, new Date(proveedor.getFechaBajaProveedor().getTime()));
             pst.setInt(2, proveedor.getIdProveedor());
+            resultado = pst.executeUpdate();
+            conexion.commit();
         } catch (Exception e) {
             conexion.rollback();
             throw new Exception(e.getMessage());
@@ -93,6 +95,7 @@ public class GestorProveedor extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idProveedor);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 proveedor.setIdProveedor(idProveedor);
                 proveedor.setCuit(resultado.getLong("CUIT"));
@@ -120,6 +123,7 @@ public class GestorProveedor extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, nombreFantasia);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 proveedor.setIdProveedor(resultado.getInt("IDPROVEEDOR"));
                 proveedor.setCuit(resultado.getLong("CUIT"));
@@ -146,6 +150,7 @@ public class GestorProveedor extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Proveedor proveedor = new Proveedor();
                 proveedor.setCuit(resultado.getLong("CUIT"));
@@ -175,6 +180,7 @@ public class GestorProveedor extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, razonSocial.trim());
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Proveedor proveedor = new Proveedor();
                 proveedor.setCuit(resultado.getLong("CUIT"));
@@ -204,6 +210,7 @@ public class GestorProveedor extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, nombreFantasia.trim());
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Proveedor proveedor = new Proveedor();
                 proveedor.setCuit(resultado.getLong("CUIT"));

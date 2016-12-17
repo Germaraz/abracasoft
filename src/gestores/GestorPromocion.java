@@ -28,6 +28,7 @@ public class GestorPromocion extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idPromocion);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 promocion.setIdPromocion(idPromocion);
                 promocion.setDescripPromo(resultado.getString("DESCRIPCIONPROMO"));

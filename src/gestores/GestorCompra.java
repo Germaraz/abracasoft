@@ -99,6 +99,7 @@ public class GestorCompra extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idCompra);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 compra.setIdCompra(idCompra);
                 compra.setFechaCompra(resultado.getDate("FECHACOMPRA"));
@@ -127,6 +128,7 @@ public class GestorCompra extends PoolDeConexiones {
             pst.setDate(1, (Date) fechaDesde);
             pst.setDate(2, (Date) fechaHasta);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Compra compra = new Compra();
                 compra.setIdCompra(resultado.getInt("IDCOMPRA"));
@@ -156,6 +158,7 @@ public class GestorCompra extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idProveedor);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Compra compra = new Compra();
                 compra.setIdCompra(resultado.getInt("IDCOMPRA"));

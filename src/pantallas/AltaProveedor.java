@@ -414,7 +414,7 @@ public class AltaProveedor extends javax.swing.JFrame {
     }
 
     private void cargarOActualizar() {
-        int resultado = 0;
+        int resultado;
         Proveedor proveedor = new Proveedor();
         if (validar()) {
             try {
@@ -432,7 +432,7 @@ public class AltaProveedor extends javax.swing.JFrame {
                 }
                 if (resultado == 1) {
                     JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
-                    GestionDeUsuarios panta = new GestionDeUsuarios();
+                    GestionDeProveedores panta = new GestionDeProveedores();
                     panta.setVisible(true);
                     this.dispose();
                 } else {

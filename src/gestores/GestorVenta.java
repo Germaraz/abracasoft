@@ -94,6 +94,7 @@ public class GestorVenta extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idVenta);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 venta.setIdVenta(idVenta);
                 venta.setFechaVenta(resultado.getDate("FECHAVENTA"));
@@ -109,8 +110,8 @@ public class GestorVenta extends PoolDeConexiones {
         }
         return venta;
     }
-    
-        public ArrayList<Venta> listarVentas(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
+
+    public ArrayList<Venta> listarVentas(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
         ArrayList<Venta> ventas = new ArrayList<>();
         String sql = "SELECT * FROM venta WHERE venta.FECHABAJA IS NULL "
                 + "AND (venta.FECHAVENTA BETWEEN ? AND ?)";
@@ -120,6 +121,7 @@ public class GestorVenta extends PoolDeConexiones {
             pst.setDate(1, (Date) fechaDesde);
             pst.setDate(2, (Date) fechaHasta);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Venta venta = new Venta();
                 venta.setIdVenta(resultado.getInt("IDVENTA"));
@@ -147,6 +149,7 @@ public class GestorVenta extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idCliente);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Venta venta = new Venta();
                 venta.setIdVenta(resultado.getInt("IDVENTA"));
