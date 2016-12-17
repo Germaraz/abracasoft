@@ -9,6 +9,8 @@ import entidades.Cliente;
 import entidades.Pago;
 import entidades.Provincia;
 import entidades.Venta;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +37,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        agregarClientesATabla();
     }
 
     /**
@@ -149,6 +152,12 @@ public class GestionDeCliente extends javax.swing.JFrame {
 
         FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Apellido y Nombre", "Nro de Documento" }));
 
+        FiltrojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FiltrojTextFieldKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,6 +233,20 @@ public class GestionDeCliente extends javax.swing.JFrame {
             abrirEditarCliente();
         }
     }//GEN-LAST:event_ClientesjTableMouseClicked
+
+    private void FiltrojTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FiltrojTextFieldKeyTyped
+        // TODO add your handling code here:
+        FiltrojTextField.addKeyListener(new KeyAdapter() {
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (FiltrojTextField.getText());
+                FiltrojTextField.setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
+        trsFiltro = new TableRowSorter(ClientesjTable.getModel());
+        ClientesjTable.setRowSorter(trsFiltro);
+    }//GEN-LAST:event_FiltrojTextFieldKeyTyped
 
     /**
      * @param args the command line arguments

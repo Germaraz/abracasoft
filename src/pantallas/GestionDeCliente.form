@@ -277,6 +277,9 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="FiltrojTextField">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="FiltrojTextFieldKeyTyped"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

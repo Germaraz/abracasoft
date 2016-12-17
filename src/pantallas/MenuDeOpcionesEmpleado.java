@@ -178,11 +178,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         JBOtrosAccesos.setFocusable(false);
         JBOtrosAccesos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         JBOtrosAccesos.setPreferredSize(new java.awt.Dimension(31, 31));
-        JBOtrosAccesos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBOtrosAccesosActionPerformed(evt);
-            }
-        });
         jToolBar1.add(JBOtrosAccesos);
 
         jScrollPane1.setOpaque(false);
@@ -291,23 +286,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JBProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProductosActionPerformed
-        GestionDeProductos gestionproducto = new GestionDeProductos();
-        if (señalProd == 0) {
-            jTabbedPane1.addTab("Gestión de productos", gestionproducto.getContentPane());
-            señalProd = 1;
-        }
-
-    }//GEN-LAST:event_JBProductosActionPerformed
-
-    private void JBClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBClientesActionPerformed
-        GestionDeCliente gestioncliente = new GestionDeCliente();
-        if (señalClie == 0) {
-            jTabbedPane1.addTab("Gestión de clientes", gestioncliente.getContentPane());
-            señalClie = 1;
-        }
-    }//GEN-LAST:event_JBClientesActionPerformed
-
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         try {
             String nomTab = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
@@ -324,11 +302,14 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
                 case "Gestion Compras":
                     señalCompra = 0;
                     break;
+                case "Gestion Ventas":
+                    señalVenta = 0;
+                    break;
                 case "Otros accesos":
-                    señalOac = 0;
+                    señalOtrosAccesos = 0;
                     break;
                 case "Caja":
-                    señalOpDia = 0;
+                    señalCaja = 0;
                     break;
                 case "Nueva venta":
                     señalVenta = 0;
@@ -341,24 +322,6 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
             cerrar();
         }
     }//GEN-LAST:event_btnExitActionPerformed
-
-    private void JBCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajaActionPerformed
-        // TODO add your handling code here:
-        MenuDeOperacionesDiarias menuopdiarias = new MenuDeOperacionesDiarias();
-
-        if (señalOpDia == 0) {
-            jTabbedPane1.addTab("Caja", menuopdiarias.getContentPane());
-            señalOpDia = 1;
-        }
-    }//GEN-LAST:event_JBCajaActionPerformed
-
-    private void JBNNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNNuevaVentaActionPerformed
-        VentaEmpleado nuevaventa = new VentaEmpleado();
-        if (señalVenta == 0) {
-            jTabbedPane1.addTab("Nueva venta", nuevaventa.getContentPane());
-            señalVenta = 1;
-        }
-    }//GEN-LAST:event_JBNNuevaVentaActionPerformed
 
     private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
         ponLaAyuda();
@@ -389,35 +352,67 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
         cerrar();
     }//GEN-LAST:event_formWindowClosing
 
-    private void JBOtrosAccesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBOtrosAccesosActionPerformed
-        Config config = new Config();
-
-        if (señalOac == 0) {
-            jTabbedPane1.addTab("Otros accesos", config.getContentPane());
-            señalOac = 1;
+    private void JBProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProductosActionPerformed
+        // TODO add your handling code here:
+        if (señalProd == 0) {
+            GestionDeProductos gestProd = new GestionDeProductos();
+            gestProd.setTitle("Gestion de Productos");
+            gestProd.setVisible(true);
+            señalProd = 1;
         }
-    }//GEN-LAST:event_JBOtrosAccesosActionPerformed
-
-    private void JBProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProveedoresActionPerformed
-        MenuGestionProveedor gestProv = new MenuGestionProveedor();
-        if (señalProv == 0) {
-            jTabbedPane1.addTab("Gestion de proveedores", gestProv.getContentPane());
-            señalProv = 1;
-        }
-    }//GEN-LAST:event_JBProveedoresActionPerformed
+    }//GEN-LAST:event_JBProductosActionPerformed
 
     private void ComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprajButtonActionPerformed
         // TODO add your handling code here:
-        GestionDeCompras gesComp = new GestionDeCompras();
-        gesComp.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
         if (señalCompra == 0) {
-            jTabbedPane1.addTab("Gestion Compra", gesComp.getContentPane());
+            GestionDeCompras gestCompras = new GestionDeCompras();
+            gestCompras.setTitle("Gestion de Compras");
+            gestCompras.setVisible(true);
+            señalCompra = 1;
         }
     }//GEN-LAST:event_ComprajButtonActionPerformed
 
     private void JBVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBVentasActionPerformed
         // TODO add your handling code here:
+        if (señalVenta == 0) {
+        }
     }//GEN-LAST:event_JBVentasActionPerformed
+
+    private void JBClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBClientesActionPerformed
+        // TODO add your handling code here:
+        if (señalClie == 0) {
+            GestionDeCliente gestCli = new GestionDeCliente();
+            gestCli.setTitle("Gestion de Clientes");
+            gestCli.setVisible(true);
+            señalClie = 1;
+        }
+    }//GEN-LAST:event_JBClientesActionPerformed
+
+    private void JBProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProveedoresActionPerformed
+        // TODO add your handling code here:
+        if (señalProv == 0) {
+            GestionDeProveedores gestProv = new GestionDeProveedores();
+            gestProv.setTitle("Gestion de proveedores");
+            gestProv.setVisible(true);
+            señalProv = 1;
+        }
+    }//GEN-LAST:event_JBProveedoresActionPerformed
+
+    private void JBCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajaActionPerformed
+        // TODO add your handling code here:
+        if (señalCaja == 0) {
+        }
+    }//GEN-LAST:event_JBCajaActionPerformed
+
+    private void JBNNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNNuevaVentaActionPerformed
+        // TODO add your handling code here:
+        if (nuevaVenta == 0) {
+            AltaVenta altaVenta = new AltaVenta();
+            altaVenta.setTitle("Nueva venta");
+            altaVenta.setVisible(true);
+            nuevaVenta = 1;
+        }
+    }//GEN-LAST:event_JBNNuevaVentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -485,9 +480,10 @@ public class MenuDeOpcionesEmpleado extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private int señalProd = 0;
     private int señalClie = 0;
-    private int señalOac = 0;
-    private int señalOpDia = 0;
+    private int señalOtrosAccesos = 0;
+    private int señalCaja = 0;
     private int señalVenta = 0;
+    private int nuevaVenta = 0;
     private int señalCompra = 0;
     private int señalProv = 0;
 

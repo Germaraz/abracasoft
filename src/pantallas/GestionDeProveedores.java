@@ -444,31 +444,4 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
         }
     }
-    
-    private void abrirAyuda() {
-        try {
-            //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Gestion_Clientes.pdf");
-            //Desktop.getDesktop().open(file);
-
-            if (Desktop.isDesktopSupported()) {
-                File file = new File("Ayuda_Gestion_Cliente.pdf");
-                if (!file.exists()) {
-                    InputStream inputStream = ClassLoader.getSystemClassLoader()
-                            .getResourceAsStream("ayuda/Ayuda_Gestion_Cliente.pdf");
-                    OutputStream outputStream = new FileOutputStream(file);
-                    byte[] buffer = new byte[1024];
-                    int length;
-                    while ((length = inputStream.read(buffer)) > 0) {
-                        outputStream.write(buffer, 0, length);
-                    }
-                    outputStream.close();
-                    inputStream.close();
-                }
-                Desktop.getDesktop().open(file);
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
-        }
-    }
 }
