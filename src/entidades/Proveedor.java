@@ -16,11 +16,11 @@ import java.util.Date;
 public class Proveedor {
 
     private int idProveedor;
-    private int cuit;
+    private long cuit;
     private String razonSocial;
     private String nombreFantasia;
     private String direccionProveedor;
-    private int telefonoProveedor;
+    private long telefonoProveedor;
     private String mailProveedor;
     private Date fechaAltaProveedor;
     private Date fechaBajaProveedor;
@@ -37,11 +37,11 @@ public class Proveedor {
         this.idProveedor = idProveedor;
     }
 
-    public int getCuit() {
+    public long getCuit() {
         return cuit;
     }
 
-    public void setCuit(int cuit) {
+    public void setCuit(long cuit) {
         this.cuit = cuit;
     }
 
@@ -69,11 +69,11 @@ public class Proveedor {
         this.direccionProveedor = direccionProveedor;
     }
 
-    public int getTelefonoProveedor() {
+    public long getTelefonoProveedor() {
         return telefonoProveedor;
     }
 
-    public void setTelefonoProveedor(int telefonoProveedor) {
+    public void setTelefonoProveedor(long telefonoProveedor) {
         this.telefonoProveedor = telefonoProveedor;
     }
 

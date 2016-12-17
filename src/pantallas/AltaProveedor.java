@@ -8,12 +8,7 @@ package pantallas;
 import entidades.Localidad;
 import entidades.Proveedor;
 import entidades.Provincia;
-import java.awt.Desktop;
 import java.awt.event.ItemEvent;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +28,6 @@ public class AltaProveedor extends javax.swing.JFrame {
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         this.cargarProvincias();
-        ProveedorIDjTextField.setVisible(false);
     }
 
     /**
@@ -59,7 +53,6 @@ public class AltaProveedor extends javax.swing.JFrame {
         CUITjTextField = new javax.swing.JTextField();
         CancelarjButton = new javax.swing.JButton();
         GuardarjButton = new javax.swing.JButton();
-        AyudajButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         ProvinciasjComboBox = new javax.swing.JComboBox<>();
@@ -116,13 +109,6 @@ public class AltaProveedor extends javax.swing.JFrame {
             }
         });
 
-        AyudajButton.setText("Ayuda");
-        AyudajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AyudajButtonActionPerformed(evt);
-            }
-        });
-
         jLabel9.setText("Nombre de fantasia");
 
         jLabel7.setText("Provincia");
@@ -141,6 +127,7 @@ public class AltaProveedor extends javax.swing.JFrame {
             }
         });
 
+        ProveedorIDjTextField.setVisible(false);
         ProveedorIDjTextField.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,9 +153,6 @@ public class AltaProveedor extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
                         .addComponent(ProvinciasjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(DireccionjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
@@ -187,8 +171,9 @@ public class AltaProveedor extends javax.swing.JFrame {
                             .addComponent(RazonSocialjTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                             .addComponent(NombreFantasiajTextField)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(AyudajButton)
-                        .addGap(45, 45, 45)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(DireccionjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ProveedorIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(GuardarjButton)
@@ -239,9 +224,8 @@ public class AltaProveedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelarjButton)
                     .addComponent(GuardarjButton)
-                    .addComponent(AyudajButton)
                     .addComponent(ProveedorIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,10 +257,6 @@ public class AltaProveedor extends javax.swing.JFrame {
         }// TODO add your handling code here:
     }//GEN-LAST:event_TelefonojTextFieldKeyTyped
 
-    private void AyudajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AyudajButtonActionPerformed
-        abrirAyuda();
-    }//GEN-LAST:event_AyudajButtonActionPerformed
-
     private void ProvinciasjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProvinciasjComboBoxItemStateChanged
         // TODO add your handling code here:
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -286,34 +266,7 @@ public class AltaProveedor extends javax.swing.JFrame {
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
-        int resultado = 0;
-        Proveedor proveedor = new Proveedor();
-        if (validar()) {
-            try {
-                proveedor.setCuit(Integer.parseInt(CUITjTextField.getText()));
-                proveedor.setRazonSocial(RazonSocialjTextField.getText());
-                proveedor.setNombreFantasia(NombreFantasiajTextField.getText());
-                proveedor.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
-                proveedor.setDireccionProveedor(DireccionjTextField.getText());
-                proveedor.setMailProveedor(EmailjTextField.getText());
-                proveedor.setTelefonoProveedor(Integer.parseInt(TelefonojTextField.getText()));
-                if (ProveedorIDjTextField.getText().isEmpty()) {
-                    resultado = proveedor.altaProveedor(proveedor);
-                } else {
-                    resultado = proveedor.modificarProveedor(proveedor);
-                }
-                if (resultado == 1) {
-                    JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
-                    GestionDeUsuarios panta = new GestionDeUsuarios();
-                    panta.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "El proveedor no pudo guardarse");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
+        cargarOActualizar();
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
     private void LocalidadesjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_LocalidadesjComboBoxItemStateChanged
@@ -366,7 +319,6 @@ public class AltaProveedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AyudajButton;
     protected javax.swing.JTextField CUITjTextField;
     private javax.swing.JButton CancelarjButton;
     protected javax.swing.JTextField CodPostjTextField;
@@ -389,33 +341,6 @@ public class AltaProveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
-
-    private void abrirAyuda() {
-        try {
-            //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Agregar_Cliente.pdf");
-            //Desktop.getDesktop().open(file);
-
-            if (Desktop.isDesktopSupported()) {
-                File file = new File("Ayuda_Agregar_Cliente.pdf");
-                if (!file.exists()) {
-                    InputStream inputStream = ClassLoader.getSystemClassLoader()
-                            .getResourceAsStream("ayuda/Ayuda_Agregar_Cliente.pdf");
-                    OutputStream outputStream = new FileOutputStream(file);
-                    byte[] buffer = new byte[1024];
-                    int length;
-                    while ((length = inputStream.read(buffer)) > 0) {
-                        outputStream.write(buffer, 0, length);
-                    }
-                    outputStream.close();
-                    inputStream.close();
-                }
-                Desktop.getDesktop().open(file);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
-        }
-    }
 
     private void cargarProvincias() {
         ArrayList<Provincia> provincias = new ArrayList<>();
@@ -486,5 +411,36 @@ public class AltaProveedor extends javax.swing.JFrame {
             valido = false;
         }
         return valido;
+    }
+
+    private void cargarOActualizar() {
+        int resultado;
+        Proveedor proveedor = new Proveedor();
+        if (validar()) {
+            try {
+                proveedor.setCuit(Long.parseLong(CUITjTextField.getText()));
+                proveedor.setRazonSocial(RazonSocialjTextField.getText());
+                proveedor.setNombreFantasia(NombreFantasiajTextField.getText());
+                proveedor.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
+                proveedor.setDireccionProveedor(DireccionjTextField.getText());
+                proveedor.setMailProveedor(EmailjTextField.getText());
+                proveedor.setTelefonoProveedor(Long.parseLong(TelefonojTextField.getText()));
+                if (ProveedorIDjTextField.getText().isEmpty()) {
+                    resultado = proveedor.altaProveedor(proveedor);
+                } else {
+                    resultado = proveedor.modificarProveedor(proveedor);
+                }
+                if (resultado == 1) {
+                    JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
+                    GestionDeProveedores panta = new GestionDeProveedores();
+                    panta.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El proveedor no pudo guardarse");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
     }
 }

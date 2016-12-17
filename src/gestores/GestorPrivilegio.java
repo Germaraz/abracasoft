@@ -10,7 +10,6 @@ import entidades.Rol;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +29,7 @@ public class GestorPrivilegio extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Privilegio privilegio = new Privilegio();
                 privilegio.setIdPrivilegio(resultado.getInt("IDHABILIDAD"));
@@ -55,6 +55,7 @@ public class GestorPrivilegio extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, rol.getIdRol());
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Privilegio privilegio = new Privilegio();
                 privilegio.setIdPrivilegio(resultado.getInt("IDHABILIDAD"));

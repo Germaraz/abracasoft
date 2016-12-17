@@ -362,7 +362,7 @@ public class AltaCompra extends javax.swing.JFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             try {
                 Proveedor proveedor = new Proveedor().obtenerProveedor(ProveedorjComboBox.getSelectedItem().toString());
-                CUITjTextField.setText(Integer.toString(proveedor.getCuit()));
+                CUITjTextField.setText(Long.toString(proveedor.getCuit()));
             } catch (Exception ex) {
                 Logger.getLogger(AltaCompra.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -377,7 +377,7 @@ public class AltaCompra extends javax.swing.JFrame {
 
     private void codigoBarrajTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_codigoBarrajTextFieldInputMethodTextChanged
         // TODO add your handling code here:
-        this.buscarProducto(Integer.parseInt(codigoBarrajTextField.getText()));
+        this.buscarProducto(Long.parseLong(codigoBarrajTextField.getText()));
     }//GEN-LAST:event_codigoBarrajTextFieldInputMethodTextChanged
 
     private void agregarProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProdjButtonActionPerformed
@@ -520,7 +520,7 @@ public class AltaCompra extends javax.swing.JFrame {
         }
     }
 
-    private void buscarProducto(int codigoBarra) {
+    private void buscarProducto(Long codigoBarra) {
         try {
             producto = new Producto().obtenerProductoCodBarra(codigoBarra);
             DescripcionjComboBox.addItem(producto.getDescripcionProducto());

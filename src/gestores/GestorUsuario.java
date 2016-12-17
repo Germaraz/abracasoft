@@ -92,6 +92,7 @@ public class GestorUsuario extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
@@ -120,6 +121,7 @@ public class GestorUsuario extends PoolDeConexiones {
             pst.setString(1, usuario.getNombreUsuario());
             pst.setString(2, usuario.getPassUsuario());
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 usuario1 = new Usuario();
                 usuario1.setIdUsuario(resultado.getInt("IDUSUARIO"));
@@ -146,6 +148,7 @@ public class GestorUsuario extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, apellidoYNombre.trim());
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
                 usuario.setApellido(resultado.getString("APELLIDO"));
@@ -172,6 +175,7 @@ public class GestorUsuario extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, nombreUsuario.trim());
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
                 usuario.setApellido(resultado.getString("APELLIDO"));
@@ -196,6 +200,7 @@ public class GestorUsuario extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(resultado.getInt("IDUSUARIO"));
@@ -223,6 +228,7 @@ public class GestorUsuario extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idUsuario);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 usuario.setIdUsuario(idUsuario);
                 usuario.setApellido(resultado.getString("APELLIDO"));

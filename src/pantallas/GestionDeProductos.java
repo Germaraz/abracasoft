@@ -428,7 +428,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
                 Producto producto = new Producto().obtenerProducto(idProducto);
                 AltaProducto modProd = new AltaProducto();
                 modProd.IDProductojTextField.setText(Integer.toString(producto.getIdProducto()));
-                modProd.CodigoProductoJTextField.setText(Integer.toString(producto.getCodigoBarra()));
+                modProd.CodigoProductoJTextField.setText(Long.toString(producto.getCodigoBarra()));
                 modProd.DescripcionProductojTextField.setText(producto.getDescripcionProducto());
                 modProd.NombreProdJTextField.setText(producto.getNombreProducto());
                 modProd.PrecioUniProdjTextField.setText(Double.toString(producto.getPrecioUnitario()));

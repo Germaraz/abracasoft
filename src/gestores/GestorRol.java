@@ -29,6 +29,7 @@ public class GestorRol extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 Rol rol = new Rol();
                 rol.setIdRol(resultado.getInt("IDROL"));
@@ -52,6 +53,7 @@ public class GestorRol extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, nombreRol);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 rol.setIdRol(resultado.getInt("IDROL"));
                 rol.setRol(resultado.getString("ROL"));
@@ -72,6 +74,7 @@ public class GestorRol extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idRol);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 rol.setIdRol(idRol);
                 rol.setRol(resultado.getString("ROL"));

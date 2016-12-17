@@ -23,7 +23,7 @@ public class Cliente {
     private Date fechaNacimiento;
     private String direccionCliente;
     private String mailCliente;
-    private int telefonoCliente;
+    private long telefonoCliente;
     private Date fechaAltaCliente;
     private Date fechaBajaCliente;
     private Localidad localidad;
@@ -95,11 +95,11 @@ public class Cliente {
         this.mailCliente = mailCliente;
     }
 
-    public int getTelefonoCliente() {
+    public long getTelefonoCliente() {
         return telefonoCliente;
     }
 
-    public void setTelefonoCliente(int telefonoCliente) {
+    public void setTelefonoCliente(long telefonoCliente) {
         this.telefonoCliente = telefonoCliente;
     }
 

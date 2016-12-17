@@ -92,6 +92,7 @@ public class GestorPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idPago);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 pago.setIdPago(idPago);
                 pago.setMontoPago(resultado.getDouble("MONTOPAGO"));
@@ -115,6 +116,7 @@ public class GestorPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idCompra);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 pago.setIdPago(resultado.getInt("IDPAGO"));
                 pago.setMontoPago(resultado.getDouble("MONTOPAGO"));

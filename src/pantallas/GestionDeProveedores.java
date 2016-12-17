@@ -8,13 +8,8 @@ package pantallas;
 import entidades.Compra;
 import entidades.Pago;
 import entidades.Proveedor;
-import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -32,7 +27,7 @@ import javax.swing.table.TableRowSorter;
  * @author German
  */
 public class GestionDeProveedores extends javax.swing.JFrame {
-    
+
     private ArrayList<ArrayList<Compra>> compras = new ArrayList<>();
     private TableRowSorter trsFiltro;
 
@@ -232,14 +227,9 @@ public class GestionDeProveedores extends javax.swing.JFrame {
     private void ProveedoresjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProveedoresjTableMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 1) {
-            ProveedoresjTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    if (ProveedoresjTable.getSelectedRow() > -1) {
-                        agregarComprasPorProveedor();
-                    }
-                }
-            });
+            if (ProveedoresjTable.getSelectedRow() > -1) {
+                agregarComprasPorProveedor();
+            }
         } else if (evt.getClickCount() == 2) {
             abrirEditarProveedor();
         }
@@ -247,7 +237,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
 
     private void NuevoProveedorjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoProveedorjButtonActionPerformed
         // TODO add your handling code here:
-        
+
         AltaProveedor nuProveVent = new AltaProveedor();
         nuProveVent.setTitle("Nuevo Proveedor");
         nuProveVent.setVisible(true);
@@ -327,14 +317,14 @@ public class GestionDeProveedores extends javax.swing.JFrame {
 
     private void limpiarTabla(JTable tabla) {
         int filas = tabla.getRowCount();
-        if (filas != -1) {
+        if (filas > 0) {
             DefaultTableModel defaultTabla = (DefaultTableModel) tabla.getModel();
             for (int i = filas; i >= -1; i--) {
                 defaultTabla.removeRow(i);
             }
         }
     }
-    
+
     private void agregarProveedoresATabla() {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
@@ -363,18 +353,18 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
     }
-    
+
     private void filtro() {
         int columnaABuscar = 0;
         if ("Nombre de Fantasia".equals(FiltrojComboBox.getSelectedItem().toString())) {
-            columnaABuscar = 4;
+            columnaABuscar = 3;
         }
         if ("Razon Social".equals(FiltrojComboBox.getSelectedItem().toString())) {
-            columnaABuscar = 3;
+            columnaABuscar = 2;
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(FiltrojTextField.getText(), columnaABuscar));
     }
-    
+
     private void agregarComprasPorProveedor() {
         limpiarTabla(ComprasjTable);
         try {
@@ -399,7 +389,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void abrirEditarProveedor() {
         if (ProveedoresjTable.getSelectedRow() != -1) {
             int fila = ProveedoresjTable.getSelectedRow();
@@ -407,16 +397,15 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             try {
                 Proveedor proveedor = new Proveedor().obtenerProveedor(idProveedor);
                 AltaProveedor modProveedor = new AltaProveedor();
-                modProveedor.CUITjTextField.setText(Integer.toString(proveedor.getCuit()));
+                modProveedor.CUITjTextField.setText(Long.toString(proveedor.getCuit()));
                 modProveedor.RazonSocialjTextField.setText(proveedor.getRazonSocial());
                 modProveedor.NombreFantasiajTextField.setText(proveedor.getNombreFantasia());
-                int idProv = proveedor.getLocalidad().getProvincia().getIdProvincia();
-                modProveedor.ProvinciasjComboBox.setSelectedIndex(idProv);
-                modProveedor.LocalidadesjComboBox.setSelectedIndex(proveedor.getLocalidad().getIdLocalidad());
+                modProveedor.ProvinciasjComboBox.setSelectedItem(proveedor.getLocalidad().getProvincia());
+                modProveedor.LocalidadesjComboBox.setSelectedItem(proveedor.getLocalidad());
                 modProveedor.CodPostjTextField.setText(Integer.toString(proveedor.getLocalidad().getCodigoPosta()));
                 modProveedor.DireccionjTextField.setText(proveedor.getDireccionProveedor());
                 modProveedor.EmailjTextField.setText(proveedor.getMailProveedor());
-                modProveedor.TelefonojTextField.setText(Integer.toString(proveedor.getTelefonoProveedor()));
+                modProveedor.TelefonojTextField.setText(Long.toString(proveedor.getTelefonoProveedor()));
                 modProveedor.setTitle("Modificar Proveedor");
                 modProveedor.setVisible(true);
             } catch (Exception e) {
@@ -425,13 +414,13 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void darDeBajaProveedores() {
         int resultados = 0;
         if (ProveedoresjTable.getSelectedRowCount() > 0) {
             int[] filas = ProveedoresjTable.getSelectedRows();
             for (int i = 0; i < filas.length; i++) {
-                int idProveedor = (int) ProveedoresjTable.getValueAt(i, 0);
+                int idProveedor = (int) ProveedoresjTable.getValueAt(filas[i], 0);
                 try {
                     Proveedor proveedor = new Proveedor();
                     proveedor.setIdProveedor(idProveedor);

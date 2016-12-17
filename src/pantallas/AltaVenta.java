@@ -444,7 +444,7 @@ public class AltaVenta extends javax.swing.JFrame {
             switch (FiltrojComboBox.getSelectedItem().toString()) {
                 case "Codigo de Barra":
                     Producto producto;
-                    int codigoBarra = Integer.parseInt(FiltrojTextField.getText());
+                    long codigoBarra = Long.parseLong(FiltrojTextField.getText());
                     producto = new Producto().obtenerProductoCodBarra(codigoBarra);
                     if (producto != null) {
                         columnas[0] = producto.getCodigoBarra();

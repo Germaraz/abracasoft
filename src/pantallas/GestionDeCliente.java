@@ -7,7 +7,6 @@ package pantallas;
 
 import entidades.Cliente;
 import entidades.Pago;
-import entidades.Provincia;
 import entidades.Venta;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -404,7 +403,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
                 modCliente.CodPostjTextField.setText(Integer.toString(cliente.getLocalidad().getCodigoPosta()));
                 modCliente.ClienteDireccionjTextField.setText(cliente.getDireccionCliente());
                 modCliente.ClienteEmailjTextField.setText(cliente.getMailCliente());
-                modCliente.ClienteTelefonojTextField.setText(Integer.toString(cliente.getTelefonoCliente()));
+                modCliente.ClienteTelefonojTextField.setText(Long.toString(cliente.getTelefonoCliente()));
                 modCliente.setTitle("Modificar Cliente");
                 modCliente.setVisible(true);
             } catch (Exception e) {

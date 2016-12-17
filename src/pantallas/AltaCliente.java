@@ -8,11 +8,6 @@ package pantallas;
 import entidades.Cliente;
 import entidades.Localidad;
 import entidades.Provincia;
-import java.awt.Desktop;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -55,7 +50,6 @@ public class AltaCliente extends javax.swing.JFrame {
         ClienteDNIjTextField = new javax.swing.JTextField();
         CancelarjButton = new javax.swing.JButton();
         GuardarjButton = new javax.swing.JButton();
-        AyudajButton = new javax.swing.JButton();
         ClienteApellidojTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         ClienteIDjTextField = new javax.swing.JTextField();
@@ -108,13 +102,6 @@ public class AltaCliente extends javax.swing.JFrame {
         GuardarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarjButtonActionPerformed(evt);
-            }
-        });
-
-        AyudajButton.setText("Ayuda");
-        AyudajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AyudajButtonActionPerformed(evt);
             }
         });
 
@@ -195,13 +182,11 @@ public class AltaCliente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ClienteIDjTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ClienteDireccionjTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(AyudajButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(GuardarjButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(CancelarjButton)))
+                            .addComponent(ClienteDireccionjTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(GuardarjButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(CancelarjButton)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -256,8 +241,7 @@ public class AltaCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelarjButton)
-                    .addComponent(GuardarjButton)
-                    .addComponent(AyudajButton))
+                    .addComponent(GuardarjButton))
                 .addContainerGap())
         );
 
@@ -282,10 +266,6 @@ public class AltaCliente extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_ClienteTelefonojTextFieldKeyTyped
-
-    private void AyudajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AyudajButtonActionPerformed
-        abrirAyuda();
-    }//GEN-LAST:event_AyudajButtonActionPerformed
 
     private void ProvinciasjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProvinciasjComboBoxItemStateChanged
         // TODO add your handling code here:
@@ -337,7 +317,6 @@ public class AltaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AyudajButton;
     private javax.swing.JButton CancelarjButton;
     protected javax.swing.JTextField ClienteApellidojTextField;
     protected javax.swing.JTextField ClienteDNIjTextField;
@@ -365,33 +344,6 @@ public class AltaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 
-    private void abrirAyuda() {
-        try {
-            //File file = new File(System.getProperty("user.dir") + "\\src\\ayuda\\Manual_Agregar_Cliente.pdf");
-            //Desktop.getDesktop().open(file);
-
-            if (Desktop.isDesktopSupported()) {
-                File file = new File("Ayuda_Agregar_Cliente.pdf");
-                if (!file.exists()) {
-                    InputStream inputStream = ClassLoader.getSystemClassLoader()
-                            .getResourceAsStream("ayuda/Ayuda_Agregar_Cliente.pdf");
-                    OutputStream outputStream = new FileOutputStream(file);
-                    byte[] buffer = new byte[1024];
-                    int length;
-                    while ((length = inputStream.read(buffer)) > 0) {
-                        outputStream.write(buffer, 0, length);
-                    }
-                    outputStream.close();
-                    inputStream.close();
-                }
-                Desktop.getDesktop().open(file);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se puedo abrir el archivo de ayuda");
-        }
-    }
-
     private void cargarProvincias() {
         ArrayList<Provincia> provincias = new ArrayList<>();
         try {
@@ -409,7 +361,7 @@ public class AltaCliente extends javax.swing.JFrame {
     }
 
     private void cargarLocalidad() {
-        ArrayList<Localidad> localidades = new ArrayList<Localidad>();
+        ArrayList<Localidad> localidades;
         int idprovincia;
         try {
             if (ProvinciasjComboBox.getItemCount() != 0) {
@@ -423,6 +375,7 @@ public class AltaCliente extends javax.swing.JFrame {
                     LocalidadesjComboBox.removeAllItems();
                     for (int i = 0; i < localidades.size(); i++) {
                         LocalidadesjComboBox.addItem(localidades.get(i).getNombreLocalidad());
+                        CodPostjTextField.setText(Integer.toString(localidades.get(i).getCodigoPosta()));
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "No existen localidades para la provincia seleccionada");
@@ -484,7 +437,7 @@ public class AltaCliente extends javax.swing.JFrame {
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
                 cliente.setDireccionCliente(ClienteDireccionjTextField.getText());
                 cliente.setMailCliente(ClienteEmailjTextField.getText());
-                cliente.setTelefonoCliente(Integer.parseInt(ClienteTelefonojTextField.getText()));
+                cliente.setTelefonoCliente(Long.parseLong(ClienteTelefonojTextField.getText()));
             }
             if (ClienteIDjTextField.getText().isEmpty()) {
                 resultado = cliente.altaCliente(cliente);

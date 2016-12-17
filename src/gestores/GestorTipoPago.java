@@ -84,6 +84,7 @@ public class GestorTipoPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setInt(1, idTipoPago);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 tipoPago.setIdTipoPago(idTipoPago);
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
@@ -104,6 +105,7 @@ public class GestorTipoPago extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             ResultSet resultado = pst.executeQuery();
+            conexion.commit();
             while (resultado.next()) {
                 TipoPago tipoPago = new TipoPago();
                 tipoPago.setIdTipoPago(resultado.getInt("IDTIPOPAGO"));
