@@ -134,7 +134,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Usuario", "Proveedor", "Fecha de compra", "Monto s/ IVA", "Monto c/ IVA"
+                "Código", "Usuario", "Cliente", "Fecha de compra", "Monto s/ IVA", "Monto c/ IVA"
             }
         ) {
             Class[] types = new Class [] {

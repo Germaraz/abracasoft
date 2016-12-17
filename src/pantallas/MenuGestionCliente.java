@@ -70,7 +70,7 @@ public class MenuGestionCliente extends javax.swing.JFrame {
         BclienteAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion de clientes");
+        setTitle("Gestion de clientes - OSG");
         setMinimumSize(new java.awt.Dimension(713, 510));
 
         BclienteEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

@@ -14,4 +14,5 @@ PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
    <mapID target="venta" url="html/8-venta.html" />
    <mapID target="compras" url="html/9-compras.html" />
    <mapID target="venta" url="html/10-ventas.html" />
+   <mapID target="proveedores" url="html/11-proveedores.html" />
 </map>

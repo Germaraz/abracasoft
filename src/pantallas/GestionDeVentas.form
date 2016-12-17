@@ -246,7 +246,7 @@
                   <Table columnCount="6" rowCount="0">
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                     <Column editable="false" title="Usuario" type="java.lang.String"/>
-                    <Column editable="false" title="Proveedor" type="java.lang.String"/>
+                    <Column editable="false" title="Cliente" type="java.lang.String"/>
                     <Column editable="true" title="Fecha de compra" type="java.lang.Object"/>
                     <Column editable="true" title="Monto s/ IVA" type="java.lang.Object"/>
                     <Column editable="true" title="Monto c/ IVA" type="java.lang.Object"/>

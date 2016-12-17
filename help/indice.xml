@@ -9,9 +9,10 @@
         <indexitem text="Compras/Ingreso de mercaderia"    target="compras"/>
         <indexitem text="Ventas de productos"    target="ventas"/>
         <indexitem text="Gestion de clientes"    target="gestion_clientes"/>
+        <indexitem text="Gestion de proveedores"    target="proveedores"/>
         <!--<indexitem text="Gestion de presupuestos"    target="gestion_presupuestos"/>-->
         <indexitem text="Gestion de caja"    target="caja"/>
-        <indexitem text="Otros accesos"    target="otros_accesos"/>
+        <indexitem text="Informes"    target="otros_accesos"/>
         <indexitem text="Gestion de clientes"    target="gestion_clientes"/>
         <indexitem text="Venta"    target="venta"/>
 </index>

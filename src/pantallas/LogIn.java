@@ -220,6 +220,7 @@ public class LogIn extends javax.swing.JFrame {
             passUsuariojTextField.requestFocus();
         } else {
             estado = true;
+            this.dispose();
         }
         return estado;
     }
@@ -243,6 +244,7 @@ public class LogIn extends javax.swing.JFrame {
             Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuario;
+        
     }
 
 }

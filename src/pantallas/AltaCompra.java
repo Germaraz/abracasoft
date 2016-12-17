@@ -62,7 +62,6 @@ public class AltaCompra extends javax.swing.JFrame {
         agregarProdjButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
-        generarFacturajButton = new javax.swing.JButton();
         GuardarjButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         IVAjTextField = new javax.swing.JTextField();
@@ -79,7 +78,7 @@ public class AltaCompra extends javax.swing.JFrame {
         jRadioButton3.setText("jRadioButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nueva venta - OSG");
+        setTitle("Nueva/Editar compra - OSG");
 
         eliminarProductoTablajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         eliminarProductoTablajButton.setText("Quitar producto seleccionado");
@@ -147,7 +146,7 @@ public class AltaCompra extends javax.swing.JFrame {
         jLabel10.setText("x");
 
         NuevoProvjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        NuevoProvjButton.setText("Nuevo Proveedor");
+        NuevoProvjButton.setText("Nuevo proveedor");
         NuevoProvjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NuevoProvjButtonActionPerformed(evt);
@@ -170,14 +169,6 @@ public class AltaCompra extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Producto");
-
-        generarFacturajButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        generarFacturajButton.setText("Generar Factura");
-        generarFacturajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generarFacturajButtonActionPerformed(evt);
-            }
-        });
 
         GuardarjButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         GuardarjButton.setText("Guardar");
@@ -206,7 +197,7 @@ public class AltaCompra extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setText("Ayuda");
 
         CompraIDjTextField.setEditable(false);
@@ -244,8 +235,6 @@ public class AltaCompra extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(generarFacturajButton)
-                        .addGap(18, 18, 18)
                         .addComponent(GuardarjButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -307,7 +296,7 @@ public class AltaCompra extends javax.swing.JFrame {
                     .addComponent(ProveedorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CompraIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
@@ -340,7 +329,6 @@ public class AltaCompra extends javax.swing.JFrame {
                     .addComponent(eliminarProductoTablajButton))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(generarFacturajButton)
                     .addComponent(GuardarjButton)
                     .addComponent(jButton2))
                 .addContainerGap())
@@ -354,9 +342,7 @@ public class AltaCompra extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -400,11 +386,6 @@ public class AltaCompra extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_agregarProdjButtonActionPerformed
-
-    private void generarFacturajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarFacturajButtonActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_generarFacturajButtonActionPerformed
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
@@ -519,7 +500,6 @@ public class AltaCompra extends javax.swing.JFrame {
     private javax.swing.JTextField codigoBarrajTextField;
     protected javax.swing.JTable detalleComprajTable;
     private javax.swing.JButton eliminarProductoTablajButton;
-    private javax.swing.JButton generarFacturajButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
