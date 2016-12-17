@@ -22,7 +22,7 @@ import javax.swing.table.TableRowSorter;
  * @author ema_s
  */
 public class GestionDeUsuarios extends javax.swing.JFrame {
-
+    
     private TableRowSorter trsFiltro;
 
     /**
@@ -202,7 +202,9 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
 
     private void NuevoUsuariojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoUsuariojButtonActionPerformed
         // TODO add your handling code here:
-        new AltaDeUsuario("Agregar Nuevo Usuario").setVisible(true);
+        AltaDeUsuario altaUsu = new AltaDeUsuario();
+        altaUsu.setTitle("Nuevo Usuario");
+        altaUsu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_NuevoUsuariojButtonActionPerformed
 
@@ -214,7 +216,7 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
             int idUsuarioSeleccionado = (int) table.getValueAt(row, 0);
             try {
                 Usuario usuario = new Usuario().obtenerUsuario(idUsuarioSeleccionado);
-                AltaDeUsuario modUsuario = new AltaDeUsuario("Modificar Usuario");
+                AltaDeUsuario modUsuario = new AltaDeUsuario();
                 modUsuario.UsuarioIDjTextField.setText(Integer.toString(usuario.getIdUsuario()));
                 modUsuario.ApellidojTextField.setText(usuario.getApellido());
                 modUsuario.NombrejTextField.setText(usuario.getNombre());
@@ -225,6 +227,7 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
                 modUsuario.TipoDeUsuariojComboBox.setSelectedIndex(usuario.getRol().getIdRol() - 1);
                 modUsuario.ContraseniajPasswordField.setEnabled(false);
                 modUsuario.RContraseniajPasswordField.setEnabled(false);
+                modUsuario.setTitle("Modificar Usuario");
                 modUsuario.setVisible(true);
                 this.dispose();
             } catch (Exception e) {
@@ -317,7 +320,7 @@ private void filtro() {
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), columnaABuscar));
     }
-
+    
     private void cargarTablaUsuarios() {
         DefaultTableModel tablaUsuario = (DefaultTableModel) tablaUsuarios.getModel();
         Object[] columnas = new Object[6];

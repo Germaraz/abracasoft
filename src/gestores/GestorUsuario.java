@@ -112,7 +112,7 @@ public class GestorUsuario extends PoolDeConexiones {
     }
 
     public Usuario login(Usuario usuario) throws Exception {
-        Usuario usuario1 = new Usuario();
+        Usuario usuario1 = null;
         String sql = "SELECT * FROM usuario WHERE NOMBREUSUARIO = ? AND PASSUSUARIO = ? AND FECHABAJA IS NULL";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -121,6 +121,7 @@ public class GestorUsuario extends PoolDeConexiones {
             pst.setString(2, usuario.getPassUsuario());
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
+                usuario1 = new Usuario();
                 usuario1.setIdUsuario(resultado.getInt("IDUSUARIO"));
                 usuario1.setApellido(resultado.getString("APELLIDO"));
                 usuario1.setNombre(resultado.getString("NOMBRE"));
