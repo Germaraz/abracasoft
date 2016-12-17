@@ -161,6 +161,7 @@ public class LogIn extends javax.swing.JFrame {
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
         if (validar()) {
             this.ingresar();
+            this.dispose();
         }
     }//GEN-LAST:event_BlogInActionPerformed
 
@@ -232,7 +233,7 @@ public class LogIn extends javax.swing.JFrame {
             usuario = new Usuario().login(usuario);
             if (usuario != null) {
                 //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
-                MenuDeOpcionesEmpleado ventana = new MenuDeOpcionesEmpleado();
+                VentanaPrincipal ventana = new VentanaPrincipal();
                 ventana.NombreUsuariojLabel.setText(usuario.getNombreUsuario());
                 ventana.UsuarioIDjLabel.setText(Integer.toString(usuario.getIdUsuario()));
                 ventana.setVisible(true);

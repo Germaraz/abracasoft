@@ -361,8 +361,8 @@ public class GestionDeVentas extends javax.swing.JFrame {
 
     private void NuevaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaComprajButtonActionPerformed
         // TODO add your handling code here:
-        VentaEmpleado nuevaVenta = new VentaEmpleado();
-        nuevaVenta.idUsuario = this.idUsuario;
+        AltaVenta nuevaVenta = new AltaVenta();
+        //nuevaVenta.idUsuario = this.idUsuario;
         nuevaVenta.setVisible(true);
         setLocationRelativeTo(null);
     }//GEN-LAST:event_NuevaComprajButtonActionPerformed
@@ -460,9 +460,9 @@ public class GestionDeVentas extends javax.swing.JFrame {
                     columnas[2] = compras.get(i).getProveedor().getNombreFantasia();
                     columnas[3] = new SimpleDateFormat("dd-MM-yyyy").format(compras.get(i).getFechaCompra().getTime());
                     columnas[4] = compras.get(i).getMontoCompra();
-                    float compra = compras.get(i).getMontoCompra();
-                    float iva = compras.get(i).getIvaCompra() + 1;
-                    float total = compra * iva;
+                    double compra = compras.get(i).getMontoCompra();
+                    double iva = compras.get(i).getIvaCompra() + 1;
+                    double total = compra * iva;
                     columnas[5] = total;
                     this.productos.add(compras.get(i).getProductos());
                     tabla.addRow(columnas);
@@ -517,10 +517,10 @@ public class GestionDeVentas extends javax.swing.JFrame {
                         tabla2.addRow(columnas);
                     }
                 }
-                modCompra.SubtotaljTextField.setText(Float.toString(compra.getMontoCompra()));
-                modCompra.IVAjTextField.setText(Float.toString(compra.getIvaCompra()));
-                Float total = compra.getMontoCompra() + compra.getIvaCompra();
-                modCompra.totaljTextField.setText(total.toString());
+                modCompra.SubtotaljTextField.setText(Double.toString(compra.getMontoCompra()));
+                modCompra.IVAjTextField.setText(Double.toString(compra.getIvaCompra()));
+                double total = compra.getMontoCompra() + compra.getIvaCompra();
+                modCompra.totaljTextField.setText(Double.toString(total));
                 modCompra.setVisible(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());

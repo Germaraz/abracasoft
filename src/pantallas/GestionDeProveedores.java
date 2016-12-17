@@ -66,6 +66,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         FiltrojComboBox = new javax.swing.JComboBox<>();
         FiltrojTextField = new javax.swing.JTextField();
+        EditarProveedorjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de clientes");
@@ -152,7 +153,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         PagoComprajButton.setText("Agregar pago");
 
         NuevoProveedorjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        NuevoProveedorjButton.setText("Nuevo Proveedor");
+        NuevoProveedorjButton.setText("Nuevo proveedor");
         NuevoProveedorjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NuevoProveedorjButtonActionPerformed(evt);
@@ -161,13 +162,16 @@ public class GestionDeProveedores extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar por:");
 
-        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre de Fantasia", "Razon Social" }));
+        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre de fantasia", "Razon social" }));
 
         FiltrojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 FiltrojTextFieldKeyTyped(evt);
             }
         });
+
+        EditarProveedorjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        EditarProveedorjButton.setText("Editar proveedor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,7 +181,15 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1402, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(NuevoProveedorjButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(EditarProveedorjButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(DarBajajButton)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -188,11 +200,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                         .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(NuevoProveedorjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(DarBajajButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 887, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PagoComprajButton)))
                 .addContainerGap())
         );
@@ -204,18 +212,18 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                     .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(NuevoProveedorjButton)
-                    .addComponent(DarBajajButton)
                     .addComponent(PagoComprajButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 34, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NuevoProveedorjButton)
+                    .addComponent(DarBajajButton)
+                    .addComponent(EditarProveedorjButton))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -305,6 +313,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ComprasjTable;
     private javax.swing.JButton DarBajajButton;
+    private javax.swing.JButton EditarProveedorjButton;
     private javax.swing.JComboBox<String> FiltrojComboBox;
     private javax.swing.JTextField FiltrojTextField;
     private javax.swing.JButton NuevoProveedorjButton;
