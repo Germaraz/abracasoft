@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -39,7 +38,7 @@ public class GestorCliente extends PoolDeConexiones {
             pst.setDate(5, (Date) cliente.getFechaNacimiento());
             pst.setString(6, cliente.getDireccionCliente());
             pst.setString(7, cliente.getMailCliente());
-            pst.setInt(8, cliente.getTelefonoCliente());
+            pst.setLong(8, cliente.getTelefonoCliente());
             pst.setInt(9, cliente.getLocalidad().getIdLocalidad());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -65,7 +64,7 @@ public class GestorCliente extends PoolDeConexiones {
             pst.setDate(5, (Date) cliente.getFechaNacimiento());
             pst.setString(6, cliente.getDireccionCliente());
             pst.setString(7, cliente.getMailCliente());
-            pst.setInt(8, cliente.getTelefonoCliente());
+            pst.setLong(8, cliente.getTelefonoCliente());
             pst.setInt(9, cliente.getLocalidad().getIdLocalidad());
             pst.setInt(10, cliente.getIdCliente());
             resultado = pst.executeUpdate();
@@ -110,7 +109,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
-                cliente.setTelefonoCliente(resultado.getInt("TELEFONO_CLIENTE"));
+                cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));
                 clientes.add(cliente);
@@ -139,7 +138,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
-                cliente.setTelefonoCliente(resultado.getInt("TELEFONO_CLIENTE"));
+                cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));
             }
@@ -168,7 +167,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
-                cliente.setTelefonoCliente(resultado.getInt("TELEFONO_CLIENTE"));
+                cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));
             }
@@ -196,7 +195,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
                 cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
-                cliente.setTelefonoCliente(resultado.getInt("TELEFONO_CLIENTE"));
+                cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));
             }

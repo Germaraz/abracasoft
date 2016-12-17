@@ -29,7 +29,7 @@ public class GestorProducto extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setInt(1, producto.getCodigoBarra());
+            pst.setLong(1, producto.getCodigoBarra());
             pst.setString(2, producto.getNombreProducto());
             pst.setString(3, producto.getDescripcionProducto());
             pst.setDate(4, (Date) producto.getFechaVencimientoProducto());
@@ -52,7 +52,7 @@ public class GestorProducto extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setInt(1, producto.getCodigoBarra());
+            pst.setLong(1, producto.getCodigoBarra());
             pst.setString(2, producto.getNombreProducto());
             pst.setString(3, producto.getDescripcionProducto());
             pst.setDate(4, (Date) producto.getFechaVencimientoProducto());
@@ -96,7 +96,7 @@ public class GestorProducto extends PoolDeConexiones {
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 producto.setIdProducto(idProducto);
-                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setCodigoBarra(resultado.getLong("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
@@ -124,7 +124,7 @@ public class GestorProducto extends PoolDeConexiones {
             while (resultado.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
-                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setCodigoBarra(resultado.getLong("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
@@ -153,7 +153,7 @@ public class GestorProducto extends PoolDeConexiones {
             while (resultado.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
-                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setCodigoBarra(resultado.getLong("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
@@ -180,7 +180,7 @@ public class GestorProducto extends PoolDeConexiones {
             while (resultado.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
-                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setCodigoBarra(resultado.getLong("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
@@ -197,18 +197,18 @@ public class GestorProducto extends PoolDeConexiones {
         return productos;
     }
 
-    public Producto obtenerProductoCodBarra(int codigoBarra) throws Exception {
+    public Producto obtenerProductoCodBarra(long codigoBarra) throws Exception {
         Producto producto = new Producto();
         String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL "
                 + "AND producto.CODIGOBARRA LIKE '?%'";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setInt(1, codigoBarra);
+            pst.setLong(1, codigoBarra);
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 producto.setIdProducto(resultado.getInt("IDPRODUCTO"));
-                producto.setCodigoBarra(resultado.getInt("CODIGOBARRA"));
+                producto.setCodigoBarra(resultado.getLong("CODIGOBARRA"));
                 producto.setNombreProducto(resultado.getString("NOMBREPRODUCTO"));
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));

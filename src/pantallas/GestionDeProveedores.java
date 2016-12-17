@@ -8,13 +8,8 @@ package pantallas;
 import entidades.Compra;
 import entidades.Pago;
 import entidades.Proveedor;
-import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -398,7 +393,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             try {
                 Proveedor proveedor = new Proveedor().obtenerProveedor(idProveedor);
                 AltaProveedor modProveedor = new AltaProveedor();
-                modProveedor.CUITjTextField.setText(Integer.toString(proveedor.getCuit()));
+                modProveedor.CUITjTextField.setText(Long.toString(proveedor.getCuit()));
                 modProveedor.RazonSocialjTextField.setText(proveedor.getRazonSocial());
                 modProveedor.NombreFantasiajTextField.setText(proveedor.getNombreFantasia());
                 int idProv = proveedor.getLocalidad().getProvincia().getIdProvincia();
@@ -407,7 +402,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                 modProveedor.CodPostjTextField.setText(Integer.toString(proveedor.getLocalidad().getCodigoPosta()));
                 modProveedor.DireccionjTextField.setText(proveedor.getDireccionProveedor());
                 modProveedor.EmailjTextField.setText(proveedor.getMailProveedor());
-                modProveedor.TelefonojTextField.setText(Integer.toString(proveedor.getTelefonoProveedor()));
+                modProveedor.TelefonojTextField.setText(Long.toString(proveedor.getTelefonoProveedor()));
                 modProveedor.setTitle("Modificar Proveedor");
                 modProveedor.setVisible(true);
             } catch (Exception e) {

@@ -449,7 +449,7 @@ public class GestionDeCompras extends javax.swing.JFrame {
                 AltaCompra modCompra = new AltaCompra();
                 modCompra.CompraIDjTextField.setText(Integer.toString(compra.getIdCompra()));
                 modCompra.ProveedorjComboBox.addItem(compra.getProveedor().getNombreFantasia());
-                modCompra.CUITjTextField.setText(Integer.toString(compra.getProveedor().getCuit()));
+                modCompra.CUITjTextField.setText(Long.toString(compra.getProveedor().getCuit()));
                 if (compra.getProductos().size() > 0) {
                     DefaultTableModel tabla2 = (DefaultTableModel) modCompra.detalleComprajTable.getModel();
                     Object[] columnas = new Object[4];

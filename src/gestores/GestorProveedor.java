@@ -30,11 +30,11 @@ public class GestorProveedor extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setInt(1, proveedor.getCuit());
+            pst.setLong(1, proveedor.getCuit());
             pst.setString(2, proveedor.getRazonSocial());
             pst.setString(3, proveedor.getNombreFantasia());
             pst.setString(4, proveedor.getDireccionProveedor());
-            pst.setInt(5, proveedor.getTelefonoProveedor());
+            pst.setLong(5, proveedor.getTelefonoProveedor());
             pst.setString(6, proveedor.getMailProveedor());
             pst.setInt(7, proveedor.getLocalidad().getIdLocalidad());
             resultado = pst.executeUpdate();
@@ -53,11 +53,11 @@ public class GestorProveedor extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setInt(1, proveedor.getCuit());
+            pst.setLong(1, proveedor.getCuit());
             pst.setString(2, proveedor.getRazonSocial());
             pst.setString(3, proveedor.getNombreFantasia());
             pst.setString(4, proveedor.getDireccionProveedor());
-            pst.setInt(5, proveedor.getTelefonoProveedor());
+            pst.setLong(5, proveedor.getTelefonoProveedor());
             pst.setString(6, proveedor.getMailProveedor());
             pst.setInt(7, proveedor.getLocalidad().getIdLocalidad());
             pst.setInt(8, proveedor.getIdProveedor());
@@ -95,11 +95,11 @@ public class GestorProveedor extends PoolDeConexiones {
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 proveedor.setIdProveedor(idProveedor);
-                proveedor.setCuit(resultado.getInt("CUIT"));
+                proveedor.setCuit(resultado.getLong("CUIT"));
                 proveedor.setRazonSocial(resultado.getString("RAZONSOCIAL"));
                 proveedor.setNombreFantasia(resultado.getString("NOMBREFANTASIA"));
                 proveedor.setDireccionProveedor(resultado.getString("DIRECCION_PROVEEDOR"));
-                proveedor.setTelefonoProveedor(resultado.getInt("TELEFONO_PROVEEDOR"));
+                proveedor.setTelefonoProveedor(resultado.getLong("TELEFONO_PROVEEDOR"));
                 proveedor.setMailProveedor(resultado.getString("MAIL_PROVEEDOR"));
                 proveedor.setFechaAltaProveedor(resultado.getDate("FECHAALTA"));
                 proveedor.setIdProveedor(resultado.getInt("IDPROVEEDOR"));
@@ -122,11 +122,11 @@ public class GestorProveedor extends PoolDeConexiones {
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 proveedor.setIdProveedor(resultado.getInt("IDPROVEEDOR"));
-                proveedor.setCuit(resultado.getInt("CUIT"));
+                proveedor.setCuit(resultado.getLong("CUIT"));
                 proveedor.setRazonSocial(resultado.getString("RAZONSOCIAL"));
                 proveedor.setNombreFantasia(resultado.getString("NOMBREFANTASIA"));
                 proveedor.setDireccionProveedor(resultado.getString("DIRECCION_PROVEEDOR"));
-                proveedor.setTelefonoProveedor(resultado.getInt("TELEFONO_PROVEEDOR"));
+                proveedor.setTelefonoProveedor(resultado.getLong("TELEFONO_PROVEEDOR"));
                 proveedor.setMailProveedor(resultado.getString("MAIL_PROVEEDOR"));
                 proveedor.setFechaAltaProveedor(resultado.getDate("FECHAALTA"));
                 proveedor.setIdProveedor(resultado.getInt("IDPROVEEDOR"));
@@ -148,11 +148,11 @@ public class GestorProveedor extends PoolDeConexiones {
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 Proveedor proveedor = new Proveedor();
-                proveedor.setCuit(resultado.getInt("CUIT"));
+                proveedor.setCuit(resultado.getLong("CUIT"));
                 proveedor.setRazonSocial(resultado.getString("RAZONSOCIAL"));
                 proveedor.setNombreFantasia(resultado.getString("NOMBREFANTASIA"));
                 proveedor.setDireccionProveedor(resultado.getString("DIRECCION_PROVEEDOR"));
-                proveedor.setTelefonoProveedor(resultado.getInt("TELEFONO_PROVEEDOR"));
+                proveedor.setTelefonoProveedor(resultado.getLong("TELEFONO_PROVEEDOR"));
                 proveedor.setMailProveedor(resultado.getString("MAIL_PROVEEDOR"));
                 proveedor.setFechaAltaProveedor(resultado.getDate("FECHAALTA"));
                 proveedor.setIdProveedor(resultado.getInt("IDPROVEEDOR"));
@@ -177,11 +177,11 @@ public class GestorProveedor extends PoolDeConexiones {
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 Proveedor proveedor = new Proveedor();
-                proveedor.setCuit(resultado.getInt("CUIT"));
+                proveedor.setCuit(resultado.getLong("CUIT"));
                 proveedor.setRazonSocial(resultado.getString("RAZONSOCIAL"));
                 proveedor.setNombreFantasia(resultado.getString("NOMBREFANTASIA"));
                 proveedor.setDireccionProveedor(resultado.getString("DIRECCION_PROVEEDOR"));
-                proveedor.setTelefonoProveedor(resultado.getInt("TELEFONO_PROVEEDOR"));
+                proveedor.setTelefonoProveedor(resultado.getLong("TELEFONO_PROVEEDOR"));
                 proveedor.setMailProveedor(resultado.getString("MAIL_PROVEEDOR"));
                 proveedor.setFechaAltaProveedor(resultado.getDate("FECHAALTA"));
                 proveedor.setIdProveedor(resultado.getInt("IDPROVEEDOR"));
@@ -206,11 +206,11 @@ public class GestorProveedor extends PoolDeConexiones {
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 Proveedor proveedor = new Proveedor();
-                proveedor.setCuit(resultado.getInt("CUIT"));
+                proveedor.setCuit(resultado.getLong("CUIT"));
                 proveedor.setRazonSocial(resultado.getString("RAZONSOCIAL"));
                 proveedor.setNombreFantasia(resultado.getString("NOMBREFANTASIA"));
                 proveedor.setDireccionProveedor(resultado.getString("DIRECCION_PROVEEDOR"));
-                proveedor.setTelefonoProveedor(resultado.getInt("TELEFONO_PROVEEDOR"));
+                proveedor.setTelefonoProveedor(resultado.getLong("TELEFONO_PROVEEDOR"));
                 proveedor.setMailProveedor(resultado.getString("MAIL_PROVEEDOR"));
                 proveedor.setFechaAltaProveedor(resultado.getDate("FECHAALTA"));
                 proveedor.setIdProveedor(resultado.getInt("IDPROVEEDOR"));

@@ -258,7 +258,7 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelajButtonActionPerformed
 
     private void GuardajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardajButtonActionPerformed
-
+        guardarOActualizarProducto();
     }//GEN-LAST:event_GuardajButtonActionPerformed
 
     private void PrecioUnitJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrecioUnitJTextFieldKeyTyped
@@ -414,12 +414,12 @@ public class AltaProducto extends javax.swing.JFrame {
         return valido;
     }
 
-    private void guardarProducto() {
+    private void guardarOActualizarProducto() {
         if (validar()) {
             int resultado;
             Producto producto = new Producto();
             try {
-                producto.setCodigoBarra(Integer.parseInt(CodigoProductoJTextField.getText()));
+                producto.setCodigoBarra(Long.parseLong(CodigoProductoJTextField.getText()));
                 producto.setNombreProducto(NombreProdJTextField.getText());
                 producto.setDescripcionProducto(DescripcionProductojTextField.getText());
                 producto.setPrecioUnitario(Double.parseDouble(PrecioUniProdjTextField.getText()));

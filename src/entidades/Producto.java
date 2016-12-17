@@ -16,7 +16,7 @@ import java.util.Date;
 public class Producto {
 
     private int idProducto;
-    private int codigoBarra;
+    private long codigoBarra;
     private String nombreProducto;
     private String descripcionProducto;
     private Date fechaVencimientoProducto;
@@ -37,11 +37,11 @@ public class Producto {
         this.idProducto = idProducto;
     }
 
-    public int getCodigoBarra() {
+    public long getCodigoBarra() {
         return codigoBarra;
     }
 
-    public void setCodigoBarra(int codigoBarra) {
+    public void setCodigoBarra(long codigoBarra) {
         this.codigoBarra = codigoBarra;
     }
 
@@ -137,7 +137,7 @@ public class Producto {
         return new GestorProducto().listarProductos();
     }
 
-    public Producto obtenerProductoCodBarra(int codigoBarra) throws Exception {
+    public Producto obtenerProductoCodBarra(long codigoBarra) throws Exception {
         return new GestorProducto().obtenerProductoCodBarra(codigoBarra);
     }
 }
