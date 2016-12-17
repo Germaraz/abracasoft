@@ -20,12 +20,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Ema
  */
 public class AltaDeUsuario extends javax.swing.JFrame {
-    private String titulo;
     /**
      * Creates new form AltaDeUsuario
      */
-    public AltaDeUsuario(String titulo) {
-        this.setTitle(titulo);
+    public AltaDeUsuario() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -350,7 +348,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AltaDeUsuario("Agregar nuevo usuario").setVisible(true);
+                new AltaDeUsuario().setVisible(true);
             }
         });
     }

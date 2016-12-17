@@ -7,8 +7,6 @@
 package pantallas;
 
 import entidades.Usuario;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -161,6 +159,7 @@ public class LogIn extends javax.swing.JFrame {
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
         if (validar()) {
             this.ingresar();
+            this.dispose();
         }
     }//GEN-LAST:event_BlogInActionPerformed
 
@@ -227,7 +226,7 @@ public class LogIn extends javax.swing.JFrame {
     private Usuario ingresar() {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuariojTextField.getText());
-        usuario.setPassUsuario(Arrays.toString(passUsuariojTextField.getPassword()));
+        usuario.setPassUsuario(new String(passUsuariojTextField.getPassword()));
         try {
             usuario = new Usuario().login(usuario);
             if (usuario != null) {
@@ -237,7 +236,7 @@ public class LogIn extends javax.swing.JFrame {
                 ventana.UsuarioIDjLabel.setText(Integer.toString(usuario.getIdUsuario()));
                 ventana.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Error al intentar loguearse");
+                JOptionPane.showMessageDialog(null, "Usuario inexistente");
             }
         } catch (Exception ex) {
             Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
