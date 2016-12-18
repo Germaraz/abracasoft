@@ -8,7 +8,10 @@ package pantallas;
 import entidades.Cliente;
 import entidades.Localidad;
 import entidades.Provincia;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -119,6 +122,12 @@ public class AltaCliente extends javax.swing.JFrame {
         });
 
         jLabel10.setText("Localidad");
+
+        LocalidadesjComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                LocalidadesjComboBoxItemStateChanged(evt);
+            }
+        });
 
         jLabel9.setText("Sexo");
 
@@ -284,6 +293,19 @@ public class AltaCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
+    private void LocalidadesjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_LocalidadesjComboBoxItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            try {
+                Localidad localidad = new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString());
+                CodPostjTextField.setText(Integer.toString(localidad.getCodigoPosta()));
+            } catch (Exception ex) {
+                Logger.getLogger(AltaProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_LocalidadesjComboBoxItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -325,7 +347,7 @@ public class AltaCliente extends javax.swing.JFrame {
     protected javax.swing.JTextField ClienteDNIjTextField;
     protected javax.swing.JTextField ClienteDireccionjTextField;
     protected javax.swing.JTextField ClienteEmailjTextField;
-    private javax.swing.JTextField ClienteIDjTextField;
+    protected javax.swing.JTextField ClienteIDjTextField;
     protected javax.swing.JTextField ClienteNombrejTextField;
     protected javax.swing.JTextField ClienteTelefonojTextField;
     protected javax.swing.JTextField CodPostjTextField;
@@ -362,7 +384,7 @@ public class AltaCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void cargarLocalidad() {
         ArrayList<Localidad> localidades;
         int idprovincia;
@@ -378,7 +400,6 @@ public class AltaCliente extends javax.swing.JFrame {
                     LocalidadesjComboBox.removeAllItems();
                     for (int i = 0; i < localidades.size(); i++) {
                         LocalidadesjComboBox.addItem(localidades.get(i).getNombreLocalidad());
-                        CodPostjTextField.setText(Integer.toString(localidades.get(i).getCodigoPosta()));
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "No existen localidades para la provincia seleccionada");
@@ -388,7 +409,7 @@ public class AltaCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private boolean validar() {
         boolean valido = true;
         if (ClienteDNIjTextField.getText().isEmpty()) {
@@ -426,7 +447,7 @@ public class AltaCliente extends javax.swing.JFrame {
         }
         return valido;
     }
-    
+
     public void guardarOActualizarCliente() {
         int resultado = 0;
         try {

@@ -94,6 +94,10 @@ public class Caja {
         return new GestorCaja().darDeBajaCaja(caja);
     }
 
+    public Caja obtenerCaja(int idcaja) throws Exception {
+        return new GestorCaja().obtenerCaja(idcaja);
+    }
+
     public Caja obtenerCajaPorUsuario(int idusuario) throws Exception {
         return new GestorCaja().obtenerCajaPorUsuario(idusuario);
     }

@@ -5,6 +5,8 @@
  */
 package entidades;
 
+import gestores.GestorMovimiento;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -97,4 +99,17 @@ public class Movimiento {
     public void setGasto(Gasto gasto) {
         this.gasto = gasto;
     }
+
+    public int altaMovimiento(Movimiento movimiento) throws Exception {
+        return new GestorMovimiento().altaMovimiento(movimiento);
+    }
+
+    public int darDeBajaMovimiento(Movimiento movimiento) throws Exception {
+        return new GestorMovimiento().darDeBajaMovimiento(movimiento);
+    }
+
+    public ArrayList<Movimiento> listarMovimientoPorCaja(int idcaja) throws Exception {
+        return new GestorMovimiento().listarMovimientosPorCaja(idcaja);
+    }
+
 }

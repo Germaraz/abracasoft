@@ -109,7 +109,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
-                cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
+                cliente.setMailCliente(resultado.getString("MAIL_CLIENTE"));
                 cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));
@@ -138,7 +138,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
-                cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
+                cliente.setMailCliente(resultado.getString("MAIL_CLIENTE"));
                 cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));
@@ -167,7 +167,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
-                cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
+                cliente.setMailCliente(resultado.getString("MAIL_CLIENTE"));
                 cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));
@@ -195,7 +195,7 @@ public class GestorCliente extends PoolDeConexiones {
                 cliente.setFechaNacimiento(resultado.getDate("FECHANACIMIENTO_CLIENTE"));
                 cliente.setApellidoCliente(resultado.getString("APELLIDO_CLIENTE"));
                 cliente.setNombreCliente(resultado.getString("NOMBRE_CLIENTE"));
-                cliente.setMailCliente(resultado.getString("EMAIL_CLIENTE"));
+                cliente.setMailCliente(resultado.getString("MAIL_CLIENTE"));
                 cliente.setTelefonoCliente(resultado.getLong("TELEFONO_CLIENTE"));
                 cliente.setDireccionCliente(resultado.getString("DIRECCION_CLIENTE"));
                 cliente.setLocalidad(new Localidad().obtenerLocalidad(resultado.getInt("localidad_IDLOCALIDAD")));

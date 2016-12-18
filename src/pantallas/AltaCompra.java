@@ -5,12 +5,19 @@
  */
 package pantallas;
 
+import entidades.Caja;
 import entidades.Compra;
+import entidades.Gasto;
+import entidades.Movimiento;
+import entidades.Pago;
 import entidades.Producto;
 import entidades.Proveedor;
+import entidades.TipoPago;
 import entidades.Usuario;
+import entidades.Venta;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,16 +29,15 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author German
  */
 public class AltaCompra extends javax.swing.JFrame {
-    
+
     private Producto producto;
     int idUsuario;
-    
+    private int idCaja;
+
     public AltaCompra() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        buscarProveedor();
-        ProveedorjComboBox.requestFocus();
     }
 
     /**
@@ -460,7 +466,14 @@ public class AltaCompra extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AltaCompra().setVisible(true);
+                AltaCompra aCompra = new AltaCompra();
+                if (aCompra.validarCajaAbierta()) {
+                    aCompra.buscarProveedor();
+                    aCompra.ProveedorjComboBox.requestFocus();
+                    aCompra.setVisible(true);
+                } else {
+                    aCompra.dispose();
+                }
             }
         });
     }
@@ -497,6 +510,33 @@ public class AltaCompra extends javax.swing.JFrame {
     protected javax.swing.JTextField totaljTextField;
     // End of variables declaration//GEN-END:variables
 
+    private boolean validarCajaAbierta() {
+        boolean resultado = false;
+        try {
+            Caja caja = new Caja().obtenerCajaPorUsuario(idUsuario);
+            if (caja != null) {
+                this.idCaja = caja.getIdCaja();
+                Date fecha = new Date();
+                Date fechaCajaApertura = caja.getFechaApertura();
+                Date fechaCajaCierre = caja.getFechaCierre();
+                if (fechaCajaCierre == null && fechaCajaApertura != null) {
+                    if (fechaCajaApertura.compareTo(fecha) == 0) {
+                        resultado = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usted tiene una caja abierta pero no es del dia y no esta cerrada. Por favor comuniquese con el administrador");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tiene que abrir primero una caja para poder realizar una venta");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro ninguna caja creada");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return resultado;
+    }
+
     private boolean validar() {
         boolean valido = true;
         if (ProveedorjComboBox.getSelectedItem().toString().isEmpty()) {
@@ -510,7 +550,7 @@ public class AltaCompra extends javax.swing.JFrame {
         }
         return valido;
     }
-    
+
     private void buscarProveedor() {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
@@ -527,7 +567,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void buscarProducto(Long codigoBarra) {
         try {
             producto = new Producto().obtenerProductoCodBarra(codigoBarra);
@@ -536,7 +576,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void cargarProductoATabla() {
         DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
         if (!DescripcionjComboBox.getSelectedItem().toString().isEmpty()) {
@@ -562,7 +602,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe buscar un producto primero");
         }
     }
-    
+
     private void guardarOActualizarCompra() {
         int resultado;
         Compra compra = new Compra();
@@ -585,7 +625,11 @@ public class AltaCompra extends javax.swing.JFrame {
                 resultado = compra.modificarCompra(compra);
             }
             if (resultado != 0) {
-                JOptionPane.showMessageDialog(null, "Compra ingresada correctamente");
+                if (guardarPago(resultado) != 0 && guardarMovimientoCaja(resultado) != 0) {
+                    JOptionPane.showMessageDialog(null, "Compra ingresada correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar el pago o el movimiento de caja");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar la compra");
             }
@@ -593,7 +637,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void eliminarItemProducto() {
         DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
         try {
@@ -607,4 +651,37 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar el producto a eliminar");
         }
     }
+
+    private int guardarPago(int idCompra) {
+        int resultado = 0;
+        Pago pago = new Pago();
+        try {
+            pago.setCompra(new Compra().obtenerCompra(idCompra));
+            pago.setTipoPago(new TipoPago().obtenerTipoPago(1));
+            pago.setMontoPago(Double.parseDouble(totaljTextField.getText()));
+            resultado = pago.altaPago(pago);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return resultado;
+    }
+
+    private int guardarMovimientoCaja(int idCompra) {
+        int resultado = 0;
+        Movimiento mov = new Movimiento();
+        try {
+            Compra compra = new Compra();
+            mov.setDescripcionMovimiento("COMPRA N°: " + idCompra + " REALIZADA EL: " + compra.getFechaCompra().toString());
+            mov.setMontoMovimiento(Double.parseDouble(totaljTextField.getText()));
+            mov.setCaja(new Caja().obtenerCaja(this.idCaja));
+            mov.setCompra(compra);
+            mov.setVenta(new Venta());
+            mov.setGasto(new Gasto());
+            resultado = mov.altaMovimiento(mov);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return resultado;
+    }
+
 }

@@ -10,7 +10,10 @@ import entidades.Pago;
 import entidades.Venta;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,7 +27,7 @@ import javax.swing.table.TableRowSorter;
  * @author German
  */
 public class GestionDeCliente extends javax.swing.JFrame {
-
+    
     private ArrayList<ArrayList<Venta>> ventas = new ArrayList<>();
     private ArrayList<Pago> pagos = new ArrayList<>();
     private TableRowSorter trsFiltro;
@@ -52,13 +55,13 @@ public class GestionDeCliente extends javax.swing.JFrame {
         DarDeBajaClijButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ClientesjTable = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         CuentaCorrientejTable = new javax.swing.JTable();
         NuevoClientejButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         FiltrojComboBox = new javax.swing.JComboBox<>();
         FiltrojTextField = new javax.swing.JTextField();
+        ImprimirDetallejButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de clientes - OSG");
@@ -74,13 +77,18 @@ public class GestionDeCliente extends javax.swing.JFrame {
 
         DarDeBajaClijButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DarDeBajaClijButton.setText("Eliminar cliente");
+        DarDeBajaClijButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DarDeBajaClijButtonActionPerformed(evt);
+            }
+        });
 
         ClientesjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Apellido y Nombre", "DNI", "Sexo", "Provincia", "Localidad", "Codigo Postal", "Dirección", "Email", "Telefono"
+                "ID", "Apellido y Nombre", "DNI", "Sexo", "Provincia", "Localidad", "CP", "Dirección", "Email", "Telefono"
             }
         ) {
             Class[] types = new Class [] {
@@ -106,12 +114,37 @@ public class GestionDeCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ClientesjTable);
         if (ClientesjTable.getColumnModel().getColumnCount() > 0) {
-            ClientesjTable.getColumnModel().getColumn(0).setMinWidth(30);
-            ClientesjTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-            ClientesjTable.getColumnModel().getColumn(0).setMaxWidth(40);
+            ClientesjTable.getColumnModel().getColumn(0).setMinWidth(10);
+            ClientesjTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+            ClientesjTable.getColumnModel().getColumn(0).setMaxWidth(10);
+            ClientesjTable.getColumnModel().getColumn(1).setMinWidth(300);
+            ClientesjTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+            ClientesjTable.getColumnModel().getColumn(1).setMaxWidth(300);
+            ClientesjTable.getColumnModel().getColumn(2).setMinWidth(100);
+            ClientesjTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+            ClientesjTable.getColumnModel().getColumn(2).setMaxWidth(100);
+            ClientesjTable.getColumnModel().getColumn(3).setMinWidth(100);
+            ClientesjTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+            ClientesjTable.getColumnModel().getColumn(3).setMaxWidth(100);
+            ClientesjTable.getColumnModel().getColumn(4).setMinWidth(200);
+            ClientesjTable.getColumnModel().getColumn(4).setPreferredWidth(200);
+            ClientesjTable.getColumnModel().getColumn(4).setMaxWidth(200);
+            ClientesjTable.getColumnModel().getColumn(5).setMinWidth(200);
+            ClientesjTable.getColumnModel().getColumn(5).setPreferredWidth(200);
+            ClientesjTable.getColumnModel().getColumn(5).setMaxWidth(200);
+            ClientesjTable.getColumnModel().getColumn(6).setMinWidth(50);
+            ClientesjTable.getColumnModel().getColumn(6).setPreferredWidth(50);
+            ClientesjTable.getColumnModel().getColumn(6).setMaxWidth(50);
+            ClientesjTable.getColumnModel().getColumn(7).setMinWidth(300);
+            ClientesjTable.getColumnModel().getColumn(7).setPreferredWidth(300);
+            ClientesjTable.getColumnModel().getColumn(7).setMaxWidth(300);
+            ClientesjTable.getColumnModel().getColumn(8).setMinWidth(300);
+            ClientesjTable.getColumnModel().getColumn(8).setPreferredWidth(300);
+            ClientesjTable.getColumnModel().getColumn(8).setMaxWidth(300);
+            ClientesjTable.getColumnModel().getColumn(9).setMinWidth(100);
+            ClientesjTable.getColumnModel().getColumn(9).setPreferredWidth(100);
+            ClientesjTable.getColumnModel().getColumn(9).setMaxWidth(100);
         }
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         CuentaCorrientejTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,6 +190,13 @@ public class GestionDeCliente extends javax.swing.JFrame {
             }
         });
 
+        ImprimirDetallejButton.setText("Imprimir");
+        ImprimirDetallejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirDetallejButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,27 +204,23 @@ public class GestionDeCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 719, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(NuevoClientejButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(EditajButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(DarDeBajaClijButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(NuevoClientejButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(EditajButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(DarDeBajaClijButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ImprimirDetallejButton))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -195,16 +231,16 @@ public class GestionDeCliente extends javax.swing.JFrame {
                     .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevoClientejButton)
                     .addComponent(EditajButton)
-                    .addComponent(DarDeBajaClijButton))
+                    .addComponent(DarDeBajaClijButton)
+                    .addComponent(ImprimirDetallejButton))
                 .addContainerGap())
         );
 
@@ -245,6 +281,15 @@ public class GestionDeCliente extends javax.swing.JFrame {
         trsFiltro = new TableRowSorter(ClientesjTable.getModel());
         ClientesjTable.setRowSorter(trsFiltro);
     }//GEN-LAST:event_FiltrojTextFieldKeyTyped
+
+    private void ImprimirDetallejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirDetallejButtonActionPerformed
+        imprimir();
+    }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
+
+    private void DarDeBajaClijButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarDeBajaClijButtonActionPerformed
+        // TODO add your handling code here:
+        darDeBajaClientes();
+    }//GEN-LAST:event_DarDeBajaClijButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,23 +334,23 @@ public class GestionDeCliente extends javax.swing.JFrame {
     private javax.swing.JButton EditajButton;
     private javax.swing.JComboBox<String> FiltrojComboBox;
     private javax.swing.JTextField FiltrojTextField;
+    private javax.swing.JButton ImprimirDetallejButton;
     private javax.swing.JButton NuevoClientejButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     private void limpiarTabla(JTable tabla) {
         int filas = tabla.getRowCount();
-        if (filas != -1) {
+        if (filas > 0) {
             DefaultTableModel defaultTabla = (DefaultTableModel) tabla.getModel();
             for (int i = filas; i >= -1; i--) {
                 defaultTabla.removeRow(i);
             }
         }
     }
-
+    
     private void agregarClientesATabla() {
         ArrayList<Cliente> clientes;
         try {
@@ -335,7 +380,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
     }
-
+    
     private void filtro() {
         int columnaABuscar = 0;
         if ("Apellido y Nombre".equals(FiltrojComboBox.getSelectedItem().toString())) {
@@ -346,7 +391,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(FiltrojTextField.getText(), columnaABuscar));
     }
-
+    
     private void agregarVentasPorCliente() {
         limpiarTabla(CuentaCorrientejTable);
         try {
@@ -378,7 +423,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void abrirEditarCliente() {
         if (ClientesjTable.getSelectedRow() != -1) {
             int fila = ClientesjTable.getSelectedRow();
@@ -397,15 +442,16 @@ public class GestionDeCliente extends javax.swing.JFrame {
                     idSexo = 1;
                 }
                 modCliente.SexojComboBox.setSelectedIndex(idSexo);
-                int idProv = cliente.getLocalidad().getProvincia().getIdProvincia();
-                modCliente.ProvinciasjComboBox.setSelectedIndex(idProv);
-                modCliente.LocalidadesjComboBox.setSelectedIndex(cliente.getLocalidad().getIdLocalidad());
+                modCliente.ProvinciasjComboBox.setSelectedItem(cliente.getLocalidad().getProvincia());
+                modCliente.LocalidadesjComboBox.setSelectedItem(cliente.getLocalidad());
                 modCliente.CodPostjTextField.setText(Integer.toString(cliente.getLocalidad().getCodigoPosta()));
                 modCliente.ClienteDireccionjTextField.setText(cliente.getDireccionCliente());
                 modCliente.ClienteEmailjTextField.setText(cliente.getMailCliente());
                 modCliente.ClienteTelefonojTextField.setText(Long.toString(cliente.getTelefonoCliente()));
+                modCliente.ClienteIDjTextField.setText(Integer.toString(cliente.getIdCliente()));
                 modCliente.setTitle("Modificar Cliente");
                 modCliente.setVisible(true);
+                this.dispose();
             } catch (Exception e) {
                 Logger.getLogger(GestionDeProveedores.class.getName()).log(Level.SEVERE, e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -414,5 +460,57 @@ public class GestionDeCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe selecionar al menos una fila de la tabla para poder editar");
         }
     }
-
+    
+    private void darDeBajaClientes() {
+        int resultados = 0;
+        if (ClientesjTable.getSelectedRowCount() > 0) {
+            int[] filas = ClientesjTable.getSelectedRows();
+            for (int i = 0; i < filas.length; i++) {
+                int idCliente = (int) ClientesjTable.getValueAt(filas[i], 0);
+                try {
+                    Cliente cliente = new Cliente();
+                    cliente.setIdCliente(idCliente);
+                    cliente.setFechaBajaCliente(new Date());
+                    if (cliente.darDeBajaCliente(cliente) != 0) {
+                        resultados++;
+                    }
+                } catch (Exception e) {
+                    Logger.getLogger(GestionDeProveedores.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+            }
+            if (resultados == filas.length) {
+                JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultados + " clientes");
+                this.dispose();
+                new GestionDeCliente().setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
+        }
+    }
+    
+    private void imprimir() {
+        int fila = ClientesjTable.getSelectedRow();
+        if (fila != -1) {
+            try {
+                MessageFormat headerFormat = new MessageFormat("Cliente: " + ClientesjTable.getValueAt(fila, 1).toString()
+                        + "\n DNI: " + ClientesjTable.getValueAt(fila, 2).toString() + "\n");
+                MessageFormat footerFormat = new MessageFormat("Cantidad de ventas: "
+                        + CuentaCorrientejTable.getRowCount());
+                CuentaCorrientejTable.print(JTable.PrintMode.NORMAL, headerFormat, footerFormat);
+            } catch (PrinterException ex) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        } else {
+            MessageFormat headerFormat = new MessageFormat("LISTADO DE CLIENTES \n"
+                    + "CANTIDAD DE CLIENTES: " + ClientesjTable.getRowCount() + "\n");
+            MessageFormat footerFormat = new MessageFormat("");
+            try {
+                ClientesjTable.print(JTable.PrintMode.NORMAL, headerFormat, footerFormat);
+            } catch (PrinterException ex) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
 }

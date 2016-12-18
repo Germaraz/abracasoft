@@ -323,7 +323,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevaVentajButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new TipoPago().setVisible(true);
+        new AltaTipoPago().setVisible(true);
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton3ActionPerformed
 

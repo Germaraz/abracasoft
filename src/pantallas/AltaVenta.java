@@ -5,10 +5,12 @@
  */
 package pantallas;
 
-import com.sun.java.accessibility.util.EventID;
 import entidades.Caja;
 import entidades.Cliente;
+import entidades.Compra;
 import entidades.Factura;
+import entidades.Gasto;
+import entidades.Movimiento;
 import entidades.Pago;
 import entidades.Producto;
 import entidades.TipoPago;
@@ -41,15 +43,15 @@ public class AltaVenta extends javax.swing.JFrame {
     private double montoTotal;
     private double montoIVA;
     private int[] bonificaciones;
+    private int idCaja;
 
     /**
      * Creates new form AltaVenta
      */
     public AltaVenta() {
+        AparienciaPantalla apa = new AparienciaPantalla();
+        apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        cargarTiposPagos();
-        cargarTablaClientes();
-        cargarTipoFactura();
     }
 
     /**
@@ -493,10 +495,16 @@ public class AltaVenta extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 AltaVenta ventana = new AltaVenta();
                 if (ventana.validarCajaAbierta()) {
+                    ventana.cargarTiposPagos();
+                    ventana.cargarTablaClientes();
+                    ventana.cargarTipoFactura();
                     ventana.setVisible(true);
+                } else {
+                    ventana.dispose();
                 }
             }
         });
@@ -541,17 +549,22 @@ public class AltaVenta extends javax.swing.JFrame {
         boolean resultado = false;
         try {
             Caja caja = new Caja().obtenerCajaPorUsuario(idUsuario);
-            Date fecha = new Date();
-            Date fechaCajaApertura = caja.getFechaApertura();
-            Date fechaCajaCierre = caja.getFechaCierre();
-            if (fechaCajaCierre == null && fechaCajaApertura != null) {
-                if (fechaCajaApertura.compareTo(fecha) == 0) {
-                    resultado = true;
+            if (caja != null) {
+                this.idCaja = caja.getIdCaja();
+                Date fecha = new Date();
+                Date fechaCajaApertura = caja.getFechaApertura();
+                Date fechaCajaCierre = caja.getFechaCierre();
+                if (fechaCajaCierre == null && fechaCajaApertura != null) {
+                    if (fechaCajaApertura.compareTo(fecha) == 0) {
+                        resultado = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usted tiene una caja abierta pero no es del dia y no esta cerrada. Por favor comuniquese con el administrador");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Usted tiene una caja abierta pero no es del dia y no esta cerrada. Por favor comuniquese con el administrador");
+                    JOptionPane.showMessageDialog(null, "Tiene que abrir primero una caja para poder realizar una venta");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Tiene que abrir primero una caja para poder realizar una venta");
+                JOptionPane.showMessageDialog(null, "No se encontro ninguna caja creada");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -780,10 +793,10 @@ public class AltaVenta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
             if (resultado != 0) {
-                if (guardarPago(resultado) != 0) {
+                if (guardarPago(resultado) != 0 && guardarMovimientoCaja(resultado) != 0) {
                     JOptionPane.showMessageDialog(null, "Venta guardada correctamente");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar el pago");
+                    JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar el pago o el movimiento de caja");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar la venta");
@@ -799,6 +812,24 @@ public class AltaVenta extends javax.swing.JFrame {
             pago.setTipoPago(new TipoPago().obtenerTipoPago(TipoFacturajComboBox.getSelectedItem().toString()));
             pago.setMontoPago(Double.parseDouble(TotaljTextField.getText()));
             resultado = pago.altaPago(pago);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return resultado;
+    }
+
+    private int guardarMovimientoCaja(int idVenta) {
+        int resultado = 0;
+        Movimiento mov = new Movimiento();
+        try {
+            Venta venta = new Venta().obtenerVenta(idVenta);
+            mov.setDescripcionMovimiento("VENTA N°: " + idVenta + " REALIZADA EL: " + venta.getFechaVenta().toString());
+            mov.setMontoMovimiento(montoTotal);
+            mov.setCaja(new Caja().obtenerCaja(this.idCaja));
+            mov.setVenta(venta);
+            mov.setCompra(new Compra());
+            mov.setGasto(new Gasto());
+            resultado = mov.altaMovimiento(mov);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
