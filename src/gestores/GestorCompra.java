@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,7 @@ public class GestorCompra extends PoolDeConexiones {
             pst.setInt(5, compra.getProveedor().getIdProveedor());
             Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
             pst.setArray(6, productos);
-            resultado = pst.executeUpdate();
+            resultado = pst.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             conexion.commit();
         } catch (Exception e) {
             conexion.rollback();

@@ -6,6 +6,9 @@
 package pantallas;
 
 import entidades.Producto;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -39,16 +42,17 @@ public class GestionDeProductos extends javax.swing.JFrame {
     private void initComponents() {
 
         gestionDeProductojPanel = new javax.swing.JPanel();
-        DescripcionProdjTextField = new javax.swing.JTextField();
-        EditarProdjButton = new javax.swing.JButton();
-        AltaProdjButton = new javax.swing.JButton();
-        DarDeBajaProdjButton = new javax.swing.JButton();
-        BuscarProductojButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ProductosjTable = new javax.swing.JTable();
+        DescripcionProdjTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         CodigoBarraProdjTextField = new javax.swing.JTextField();
+        BuscarProductojButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ProductosjTable = new javax.swing.JTable();
+        AltaProdjButton = new javax.swing.JButton();
+        EditarProdjButton = new javax.swing.JButton();
+        DarDeBajaProdjButton = new javax.swing.JButton();
+        ImprimirDetallejButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de productos");
@@ -59,41 +63,19 @@ public class GestionDeProductos extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Descripción");
+
         DescripcionProdjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 DescripcionProdjTextFieldKeyTyped(evt);
             }
         });
 
-        EditarProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        EditarProdjButton.setText("Editar producto seleccionado");
-        EditarProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        EditarProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        EditarProdjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarProdjButtonActionPerformed(evt);
-            }
-        });
-
-        AltaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        AltaProdjButton.setText("Agregar producto");
-        AltaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        AltaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        AltaProdjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AltaProdjButtonActionPerformed(evt);
-            }
-        });
-
-        DarDeBajaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        DarDeBajaProdjButton.setText("Dar de baja producto/s seleccionado/s");
-        DarDeBajaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        DarDeBajaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        DarDeBajaProdjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DarDeBajaProdjButtonActionPerformed(evt);
-            }
-        });
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Código");
 
         BuscarProductojButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         BuscarProductojButton.setText("Buscar");
@@ -103,10 +85,6 @@ public class GestionDeProductos extends javax.swing.JFrame {
                 BuscarProductojButtonActionPerformed(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Descripción");
 
         ProductosjTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ProductosjTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -147,9 +125,43 @@ public class GestionDeProductos extends javax.swing.JFrame {
             ProductosjTable.getColumnModel().getColumn(3).setMaxWidth(90);
         }
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Código");
+        AltaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AltaProdjButton.setText("Agregar producto");
+        AltaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        AltaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        AltaProdjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AltaProdjButtonActionPerformed(evt);
+            }
+        });
+
+        EditarProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        EditarProdjButton.setText("Editar producto seleccionado");
+        EditarProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        EditarProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        EditarProdjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarProdjButtonActionPerformed(evt);
+            }
+        });
+
+        DarDeBajaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        DarDeBajaProdjButton.setText("Dar de baja producto/s seleccionado/s");
+        DarDeBajaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        DarDeBajaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        DarDeBajaProdjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DarDeBajaProdjButtonActionPerformed(evt);
+            }
+        });
+
+        ImprimirDetallejButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ImprimirDetallejButton.setText("Imprimir");
+        ImprimirDetallejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirDetallejButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout gestionDeProductojPanelLayout = new javax.swing.GroupLayout(gestionDeProductojPanel);
         gestionDeProductojPanel.setLayout(gestionDeProductojPanelLayout);
@@ -158,28 +170,32 @@ public class GestionDeProductos extends javax.swing.JFrame {
             .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
                     .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
-                        .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
-                                .addComponent(AltaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(EditarProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DarDeBajaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(DescripcionProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CodigoBarraProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BuscarProductojButton)))
+                        .addComponent(AltaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(EditarProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DarDeBajaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(ImprimirDetallejButton))
+                    .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(DescripcionProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CodigoBarraProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BuscarProductojButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         gestionDeProductojPanelLayout.setVerticalGroup(
             gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,14 +215,18 @@ public class GestionDeProductos extends javax.swing.JFrame {
                     .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(BuscarProductojButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 422, Short.MAX_VALUE)
                 .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AltaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DarDeBajaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EditarProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EditarProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ImprimirDetallejButton))
                 .addContainerGap())
+            .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gestionDeProductojPanelLayout.createSequentialGroup()
+                    .addContainerGap(76, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(51, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -267,6 +287,10 @@ public class GestionDeProductos extends javax.swing.JFrame {
         darDeBajaProductos();
     }//GEN-LAST:event_DarDeBajaProdjButtonActionPerformed
 
+    private void ImprimirDetallejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirDetallejButtonActionPerformed
+        imprimir();
+    }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,6 +334,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
     private javax.swing.JButton DarDeBajaProdjButton;
     private javax.swing.JTextField DescripcionProdjTextField;
     private javax.swing.JButton EditarProdjButton;
+    private javax.swing.JButton ImprimirDetallejButton;
     private javax.swing.JTable ProductosjTable;
     private javax.swing.JPanel gestionDeProductojPanel;
     private javax.swing.JLabel jLabel1;
@@ -319,16 +344,16 @@ public class GestionDeProductos extends javax.swing.JFrame {
 
     private void limpiarTabla(JTable tabla) {
         int filas = tabla.getRowCount();
-        if (filas != -1) {
+        if (filas > 0) {
             DefaultTableModel defaultTabla = (DefaultTableModel) tabla.getModel();
-            for (int i = filas; i >= -1; i--) {
-                defaultTabla.removeRow(i);
+            for (int i = 0; filas > i; i++) {
+                defaultTabla.removeRow(0);
             }
         }
     }
-    
+
     private void agregarProductosATabla() {
-        ArrayList<Producto> productos = new ArrayList<>();
+        ArrayList<Producto> productos;
         try {
             productos = new Producto().listarProductos();
             if (!productos.isEmpty()) {
@@ -345,8 +370,8 @@ public class GestionDeProductos extends javax.swing.JFrame {
                     double ganancia = productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota();
                     double precioVenta = productos.get(i).getPrecioUnitario() + ganancia;
                     columnas[6] = precioVenta;
-                    columnas[7] = productos.get(i).getFechaVencimientoProducto();
-                    columnas[8] = productos.get(i).getFechaAltaProducto();
+                    columnas[7] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaVencimientoProducto());
+                    columnas[8] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaAltaProducto());
                     tabla.addRow(columnas);
                 }
             } else {
@@ -357,7 +382,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void buscarPorCodigoDeBarra() {
         if (!CodigoBarraProdjTextField.getText().isEmpty()) {
             int codigobarra = Integer.parseInt(CodigoBarraProdjTextField.getText());
@@ -377,8 +402,8 @@ public class GestionDeProductos extends javax.swing.JFrame {
                         double ganancia = productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota();
                         double precioVenta = productos.get(i).getPrecioUnitario() + ganancia;
                         columnas[6] = precioVenta;
-                        columnas[7] = productos.get(i).getFechaVencimientoProducto();
-                        columnas[8] = productos.get(i).getFechaAltaProducto();
+                        columnas[7] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaVencimientoProducto());
+                        columnas[8] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaAltaProducto());
                         tabla.addRow(columnas);
                     }
                 }
@@ -388,7 +413,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void buscarPorDescripcion() {
         if (!DescripcionProdjTextField.getText().isEmpty()) {
             String descripcion = DescripcionProdjTextField.getText();
@@ -408,8 +433,8 @@ public class GestionDeProductos extends javax.swing.JFrame {
                         double ganancia = productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota();
                         double precioVenta = productos.get(i).getPrecioUnitario() + ganancia;
                         columnas[6] = precioVenta;
-                        columnas[7] = productos.get(i).getFechaVencimientoProducto();
-                        columnas[8] = productos.get(i).getFechaAltaProducto();
+                        columnas[7] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaVencimientoProducto());
+                        columnas[8] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaAltaProducto());
                         tabla.addRow(columnas);
                     }
                 }
@@ -419,7 +444,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void abrirEditarProducto() {
         if (ProductosjTable.getSelectedRow() != -1) {
             int fila = ProductosjTable.getSelectedRow();
@@ -444,13 +469,13 @@ public class GestionDeProductos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe selecionar al menos una fila de la tabla para poder editar");
         }
     }
-    
+
     private void darDeBajaProductos() {
         int resultados = 0;
         if (ProductosjTable.getSelectedRowCount() > 0) {
             int[] filas = ProductosjTable.getSelectedRows();
             for (int i = 0; i < filas.length; i++) {
-                int idProducto = (int) ProductosjTable.getValueAt(i, 0);
+                int idProducto = (int) ProductosjTable.getValueAt(filas[i], 0);
                 try {
                     Producto producto = new Producto();
                     producto.setIdProducto(idProducto);
@@ -464,12 +489,29 @@ public class GestionDeProductos extends javax.swing.JFrame {
                 }
             }
             if (resultados == filas.length) {
-                JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultados + " proveedores");
-                this.dispose();
-                new GestionDeProductos().setVisible(true);
+                JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultados + " productos");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
+        }
+    }
+
+    private void imprimir() {
+        int filas = ProductosjTable.getRowCount();
+        if (filas > 0) {
+            int stock = 0;
+            for (int i = 0; i < filas; i++) {
+                stock = stock + Integer.parseInt(ProductosjTable.getValueAt(i, 3).toString());
+            }
+            MessageFormat headerFormat = new MessageFormat("LISTADO DE PRODUCTOS");
+            MessageFormat footerFormat = new MessageFormat("CANTIDAD DE PRODUCTOS: " + stock);
+            try {
+                ProductosjTable.print(JTable.PrintMode.NORMAL, headerFormat, footerFormat);
+            } catch (PrinterException ex) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Primero debe buscar un producto o listar todos");
         }
     }
 }

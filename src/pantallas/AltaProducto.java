@@ -288,7 +288,6 @@ public class AltaProducto extends javax.swing.JFrame {
             if (respuesta == JOptionPane.YES_OPTION) {
                 guardarOActualizarProducto();
                 this.dispose();
-                new GestionDeProductos().setVisible(true);
             }
         }
     }//GEN-LAST:event_GuardajButtonActionPerformed

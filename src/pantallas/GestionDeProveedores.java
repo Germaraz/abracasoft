@@ -11,6 +11,8 @@ import entidades.Proveedor;
 import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -30,7 +32,7 @@ import javax.swing.table.TableRowSorter;
  * @author German
  */
 public class GestionDeProveedores extends javax.swing.JFrame {
-
+    
     private ArrayList<ArrayList<Compra>> compras = new ArrayList<>();
     private TableRowSorter trsFiltro;
 
@@ -67,6 +69,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         FiltrojComboBox = new javax.swing.JComboBox<String>();
         FiltrojTextField = new javax.swing.JTextField();
         EditarProveedorjButton = new javax.swing.JButton();
+        imprimirjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de clientes");
@@ -164,6 +167,14 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         EditarProveedorjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         EditarProveedorjButton.setText("Editar proveedor");
 
+        imprimirjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        imprimirjButton.setText("imprimir");
+        imprimirjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,11 +215,13 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DarBajajButton)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(DarBajajButton)
+                        .addComponent(imprimirjButton))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(NuevoProveedorjButton)
                         .addComponent(EditarProveedorjButton)))
-                .addGap(16, 16, 16))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -251,6 +264,11 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         trsFiltro = new TableRowSorter(ProveedoresjTable.getModel());
         ProveedoresjTable.setRowSorter(trsFiltro);
     }//GEN-LAST:event_FiltrojTextFieldKeyTyped
+
+    private void imprimirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirjButtonActionPerformed
+        // TODO add your handling code here:
+        imprimir();
+    }//GEN-LAST:event_imprimirjButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +317,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
     private javax.swing.JButton NuevoProveedorjButton;
     private javax.swing.JButton PagoComprajButton;
     private javax.swing.JTable ProveedoresjTable;
+    private javax.swing.JButton imprimirjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -313,7 +332,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void agregarProveedoresATabla() {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
@@ -342,7 +361,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
     }
-
+    
     private void filtro() {
         int columnaABuscar = 0;
         if ("Nombre de Fantasia".equals(FiltrojComboBox.getSelectedItem().toString())) {
@@ -353,7 +372,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(FiltrojTextField.getText(), columnaABuscar));
     }
-
+    
     private void agregarComprasPorProveedor() {
         limpiarTabla(ComprasjTable);
         try {
@@ -378,7 +397,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void abrirEditarProveedor() {
         if (ProveedoresjTable.getSelectedRow() != -1) {
             int fila = ProveedoresjTable.getSelectedRow();
@@ -395,6 +414,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                 modProveedor.DireccionjTextField.setText(proveedor.getDireccionProveedor());
                 modProveedor.EmailjTextField.setText(proveedor.getMailProveedor());
                 modProveedor.TelefonojTextField.setText(Long.toString(proveedor.getTelefonoProveedor()));
+                modProveedor.ProveedorIDjTextField.setText(Integer.toString(proveedor.getIdProveedor()));
                 modProveedor.setTitle("Modificar Proveedor");
                 modProveedor.setVisible(true);
             } catch (Exception e) {
@@ -403,7 +423,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void darDeBajaProveedores() {
         int resultados = 0;
         if (ProveedoresjTable.getSelectedRowCount() > 0) {
@@ -429,6 +449,30 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
+        }
+    }
+    
+    private void imprimir() {
+        int fila = ProveedoresjTable.getSelectedRow();
+        if (fila != -1) {
+            try {
+                MessageFormat headerFormat = new MessageFormat("Proveedor: " + ProveedoresjTable.getValueAt(fila, 3).toString()
+                        + "\n CUIT: " + ProveedoresjTable.getValueAt(fila, 1).toString() + "\n");
+                MessageFormat footerFormat = new MessageFormat("Cantidad de compras: "
+                        + ComprasjTable.getRowCount());
+                ComprasjTable.print(JTable.PrintMode.NORMAL, headerFormat, footerFormat);
+            } catch (PrinterException ex) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        } else {
+            MessageFormat headerFormat = new MessageFormat("LISTADO DE PROVEEDORES \n"
+                    + "CANTIDAD DE PROVEEDORES: " + ProveedoresjTable.getRowCount() + "\n");
+            MessageFormat footerFormat = new MessageFormat("");
+            try {
+                ProveedoresjTable.print(JTable.PrintMode.NORMAL, headerFormat, footerFormat);
+            } catch (PrinterException ex) {
+                Logger.getLogger(GestionDeCompras.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

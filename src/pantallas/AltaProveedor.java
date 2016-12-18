@@ -364,7 +364,7 @@ public class AltaProveedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void cargarLocalidad() {
         ArrayList<Localidad> localidades = new ArrayList<Localidad>();
         int idprovincia;
@@ -389,7 +389,7 @@ public class AltaProveedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private boolean validar() {
         boolean valido = true;
         if (CUITjTextField.getText().isEmpty()) {
@@ -419,7 +419,7 @@ public class AltaProveedor extends javax.swing.JFrame {
         }
         return valido;
     }
-    
+
     private void guardarOActualizarProveedor() {
         int resultado;
         Proveedor proveedor = new Proveedor();
@@ -434,9 +434,10 @@ public class AltaProveedor extends javax.swing.JFrame {
             if (ProveedorIDjTextField.getText().isEmpty()) {
                 resultado = proveedor.altaProveedor(proveedor);
             } else {
+                proveedor.setIdProveedor(Integer.parseInt(ProveedorIDjTextField.getText()));
                 resultado = proveedor.modificarProveedor(proveedor);
             }
-            if (resultado == 1) {
+            if (resultado != 0) {
                 JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
                 GestionDeProveedores panta = new GestionDeProveedores();
                 panta.setVisible(true);

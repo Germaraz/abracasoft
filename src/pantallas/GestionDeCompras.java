@@ -367,7 +367,7 @@ public class GestionDeCompras extends javax.swing.JFrame {
 
     private void limpiarTabla(JTable tabla) {
         int filas = tabla.getRowCount();
-        if (filas != -1) {
+        if (filas > 0) {
             DefaultTableModel defaultTabla = (DefaultTableModel) tabla.getModel();
             for (int i = filas; i >= -1; i--) {
                 defaultTabla.removeRow(i);
