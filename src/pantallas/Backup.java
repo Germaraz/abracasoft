@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.sql.Connection;
@@ -51,6 +52,7 @@ public class Backup extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Backup - OSG");
+        setResizable(false);
 
         CrearjButton.setText("Crear backup");
         CrearjButton.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +119,8 @@ public class Backup extends javax.swing.JFrame {
     }//GEN-LAST:event_CrearjButtonActionPerformed
 
     private void RestaurarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestaurarjButtonActionPerformed
-
+    //restore();
+    restaurarBackUp();
     }//GEN-LAST:event_RestaurarjButtonActionPerformed
 
     /**
@@ -186,6 +189,115 @@ public class Backup extends javax.swing.JFrame {
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
         return texto;//El texto se almacena en el JTextArea
+    }
+    
+    
+    private void restore() {
+    try {
+        JFileChooser selectorFichero = new JFileChooser();
+        int seleccion = selectorFichero.showOpenDialog(RestaurarjButton);
+        String fichero = selectorFichero.getSelectedFile().getPath().toString();
+        Process p = Runtime
+            .getRuntime()
+            .exec("C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql -u root -p root osg");
+
+        OutputStream os = p.getOutputStream();
+        FileInputStream fis = new FileInputStream(fichero);
+        byte[] buffer = new byte[1000];
+
+        int leido = fis.read(buffer);
+        while (leido > 0) {
+        os.write(buffer, 0, leido);
+        leido = fis.read(buffer);
+        }
+
+        os.flush();
+        os.close();
+        fis.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    
+    private void restaurarBackUp(){
+
+        Process runtimeProcess = null;
+
+        try {
+
+            JFileChooser selectorFichero = new JFileChooser();
+            int seleccion = selectorFichero.showOpenDialog(RestaurarjButton);
+
+            if (seleccion == selectorFichero.APPROVE_OPTION) {
+                //tomo string para ver como trae la direccion del fichero
+                String fichero = selectorFichero.getSelectedFile().getPath().toString();
+                System.out.println("Direccion del archivo: " + fichero);
+                
+                String patch = "\"C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql.exe\"";
+                String cad = patch + " --password=root --user=root osg" + " < " + fichero;
+                System.out.println(cad);
+                //runtimeProcess = Runtime.getRuntime().exec(cad);
+                
+                Process p = Runtime
+                        .getRuntime()
+                        .exec(cad);
+                new HiloLector(p.getErrorStream()).start();
+                
+                OutputStream os = p.getOutputStream();
+                FileInputStream fis = new FileInputStream(fichero);
+                byte[] buffer = new byte[1000];
+
+                int leido = fis.read(buffer);
+                while (leido > 0) {
+                    os.write(buffer, 0, leido);
+                    leido = fis.read(buffer);
+                }
+
+                os.flush();
+                os.close();
+                fis.close();
+                /**
+                int proceso = runtimeProcess.waitFor();
+
+                System.out.println(proceso);
+
+                if (proceso == 0) {
+                    System.out.println("Se logro restaurar");
+                } else {
+                    System.out.println("No se restauro");
+                }
+                * */
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            runtimeProcess.destroy();
+        }
+    }
+        
+        static class HiloLector extends Thread {
+
+        private InputStream is;
+
+        public HiloLector(InputStream is) {
+            this.is = is;
+        }
+
+        @Override
+        public void run() {
+            try {
+                byte[] buffer = new byte[1000];
+                int leido = is.read(buffer);
+                while (leido > 0) {
+                    String texto = new String(buffer, 0, leido);
+                    System.out.print(texto);
+                    leido = is.read(buffer);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
