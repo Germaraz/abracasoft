@@ -270,8 +270,8 @@ public class LogIn extends javax.swing.JFrame {
                 }
                 ventana.NombreUsuariojLabel.setText(usuario.getNombreUsuario());
                 ventana.UsuarioIDjLabel.setText(Integer.toString(usuario.getIdUsuario()));
-                ventana.setVisible(true);
                 this.dispose();
+                ventana.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario inexistente");
             }
