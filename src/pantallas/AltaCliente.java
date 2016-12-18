@@ -274,10 +274,13 @@ public class AltaCliente extends javax.swing.JFrame {
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
-        if (this.guardarOActualizar() != 0) {
-            JOptionPane.showMessageDialog(null, "Cliente cargado correctamente");
-        } else {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar el cliente");
+        if (validar()) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar cliente?");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                guardarOActualizarCliente();
+                this.dispose();
+                new GestionDeCliente().setVisible(true);
+            }
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
@@ -359,7 +362,7 @@ public class AltaCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void cargarLocalidad() {
         ArrayList<Localidad> localidades;
         int idprovincia;
@@ -385,7 +388,7 @@ public class AltaCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private boolean validar() {
         boolean valido = true;
         if (ClienteDNIjTextField.getText().isEmpty()) {
@@ -423,22 +426,20 @@ public class AltaCliente extends javax.swing.JFrame {
         }
         return valido;
     }
-
-    public int guardarOActualizar() {
+    
+    public void guardarOActualizarCliente() {
         int resultado = 0;
         try {
             Cliente cliente = new Cliente();
-            if (validar()) {
-                cliente.setDniCliente(Integer.parseInt(ClienteDNIjTextField.getText()));
-                cliente.setNombreCliente(ClienteNombrejTextField.getText());
-                cliente.setApellidoCliente(ClienteApellidojTextField.getText());
-                cliente.setFechaNacimiento(FecNacjDateChooser.getDate());
-                cliente.setSexo(SexojComboBox.getSelectedItem().toString());
-                cliente.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
-                cliente.setDireccionCliente(ClienteDireccionjTextField.getText());
-                cliente.setMailCliente(ClienteEmailjTextField.getText());
-                cliente.setTelefonoCliente(Long.parseLong(ClienteTelefonojTextField.getText()));
-            }
+            cliente.setDniCliente(Integer.parseInt(ClienteDNIjTextField.getText()));
+            cliente.setNombreCliente(ClienteNombrejTextField.getText());
+            cliente.setApellidoCliente(ClienteApellidojTextField.getText());
+            cliente.setFechaNacimiento(FecNacjDateChooser.getDate());
+            cliente.setSexo(SexojComboBox.getSelectedItem().toString());
+            cliente.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
+            cliente.setDireccionCliente(ClienteDireccionjTextField.getText());
+            cliente.setMailCliente(ClienteEmailjTextField.getText());
+            cliente.setTelefonoCliente(Long.parseLong(ClienteTelefonojTextField.getText()));
             if (ClienteIDjTextField.getText().isEmpty()) {
                 resultado = cliente.altaCliente(cliente);
             } else {
@@ -448,6 +449,10 @@ public class AltaCliente extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        return resultado;
+        if (resultado != 0) {
+            JOptionPane.showMessageDialog(null, "Cliente cargado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar el cliente");
+        }
     }
 }

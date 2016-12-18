@@ -266,7 +266,14 @@ public class AltaProveedor extends javax.swing.JFrame {
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
-        cargarOActualizar();
+        if (validar()) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar proveedor?");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                guardarOActualizarProveedor();
+                this.dispose();
+                new GestionDeProveedores().setVisible(true);
+            }
+        }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
     private void LocalidadesjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_LocalidadesjComboBoxItemStateChanged
@@ -357,7 +364,7 @@ public class AltaProveedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void cargarLocalidad() {
         ArrayList<Localidad> localidades = new ArrayList<Localidad>();
         int idprovincia;
@@ -382,7 +389,7 @@ public class AltaProveedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private boolean validar() {
         boolean valido = true;
         if (CUITjTextField.getText().isEmpty()) {
@@ -412,35 +419,33 @@ public class AltaProveedor extends javax.swing.JFrame {
         }
         return valido;
     }
-
-    private void cargarOActualizar() {
+    
+    private void guardarOActualizarProveedor() {
         int resultado;
         Proveedor proveedor = new Proveedor();
-        if (validar()) {
-            try {
-                proveedor.setCuit(Long.parseLong(CUITjTextField.getText()));
-                proveedor.setRazonSocial(RazonSocialjTextField.getText());
-                proveedor.setNombreFantasia(NombreFantasiajTextField.getText());
-                proveedor.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
-                proveedor.setDireccionProveedor(DireccionjTextField.getText());
-                proveedor.setMailProveedor(EmailjTextField.getText());
-                proveedor.setTelefonoProveedor(Long.parseLong(TelefonojTextField.getText()));
-                if (ProveedorIDjTextField.getText().isEmpty()) {
-                    resultado = proveedor.altaProveedor(proveedor);
-                } else {
-                    resultado = proveedor.modificarProveedor(proveedor);
-                }
-                if (resultado == 1) {
-                    JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
-                    GestionDeProveedores panta = new GestionDeProveedores();
-                    panta.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "El proveedor no pudo guardarse");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+        try {
+            proveedor.setCuit(Long.parseLong(CUITjTextField.getText()));
+            proveedor.setRazonSocial(RazonSocialjTextField.getText());
+            proveedor.setNombreFantasia(NombreFantasiajTextField.getText());
+            proveedor.setLocalidad(new Localidad().obtenerLocalidad(LocalidadesjComboBox.getSelectedItem().toString()));
+            proveedor.setDireccionProveedor(DireccionjTextField.getText());
+            proveedor.setMailProveedor(EmailjTextField.getText());
+            proveedor.setTelefonoProveedor(Long.parseLong(TelefonojTextField.getText()));
+            if (ProveedorIDjTextField.getText().isEmpty()) {
+                resultado = proveedor.altaProveedor(proveedor);
+            } else {
+                resultado = proveedor.modificarProveedor(proveedor);
             }
+            if (resultado == 1) {
+                JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
+                GestionDeProveedores panta = new GestionDeProveedores();
+                panta.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "El proveedor no pudo guardarse");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }

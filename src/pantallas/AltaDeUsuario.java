@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Ema
  */
 public class AltaDeUsuario extends javax.swing.JFrame {
+
     /**
      * Creates new form AltaDeUsuario
      */
@@ -271,35 +272,14 @@ public class AltaDeUsuario extends javax.swing.JFrame {
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
-        int resultado = 0;
-        Usuario usuario = new Usuario();
-        try {
-            if (validar()) {
-                usuario.setApellido(ApellidojTextField.getText());
-                usuario.setNombre(NombrejTextField.getText());
-                usuario.setEmail(EmailjTextField.getText());
-                usuario.setNombreUsuario(NombreDeUsuariojTextField.getText());
-                usuario.setPassUsuario(new String(ContraseniajPasswordField.getPassword()));
-                usuario.setRol(new Rol().obtenerRolPorNombre(TipoDeUsuariojComboBox.getSelectedItem().toString()));
-                if (UsuarioIDjTextField.getText().isEmpty()) {
-                    resultado = usuario.altaUsuario(usuario);
-                } else {
-                    usuario.setIdUsuario(Integer.parseInt(UsuarioIDjTextField.getText()));
-                    resultado = usuario.modificarUsuario(usuario);
-                }
-                if (resultado == 1) {
-                    JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente");
-                    GestionDeUsuarios panta = new GestionDeUsuarios();
-                    panta.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "El usuario no pudo guardarse");
-                }
+        if (validar()) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar usuario?");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                guardarOActualizarUsuario();
+                this.dispose();
+                new GestionDeUsuarios().setVisible(true);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
         }
-
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
     private void SalirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirjButtonActionPerformed
@@ -330,7 +310,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -395,7 +375,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void agregarPrivilegiosATabla() {
         DefaultTableModel tabla = (DefaultTableModel) PrivilegiosjTable.getModel();
         int filas = tabla.getRowCount() - 1;
@@ -423,9 +403,9 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
+        
     }
-
+    
     private boolean validar() {
         boolean valido = true;
         if (ApellidojTextField.getText().isEmpty()) {
@@ -454,5 +434,34 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             valido = false;
         }
         return valido;
+    }
+    
+    private void guardarOActualizarUsuario() {
+        int resultado = 0;
+        Usuario usuario = new Usuario();
+        try {
+            usuario.setApellido(ApellidojTextField.getText());
+            usuario.setNombre(NombrejTextField.getText());
+            usuario.setEmail(EmailjTextField.getText());
+            usuario.setNombreUsuario(NombreDeUsuariojTextField.getText());
+            usuario.setPassUsuario(new String(ContraseniajPasswordField.getPassword()));
+            usuario.setRol(new Rol().obtenerRolPorNombre(TipoDeUsuariojComboBox.getSelectedItem().toString()));
+            if (UsuarioIDjTextField.getText().isEmpty()) {
+                resultado = usuario.altaUsuario(usuario);
+            } else {
+                usuario.setIdUsuario(Integer.parseInt(UsuarioIDjTextField.getText()));
+                resultado = usuario.modificarUsuario(usuario);
+            }
+            if (resultado == 1) {
+                JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente");
+                GestionDeUsuarios panta = new GestionDeUsuarios();
+                panta.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "El usuario no pudo guardarse");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
     }
 }

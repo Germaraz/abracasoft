@@ -22,10 +22,10 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author German
  */
 public class AltaCompra extends javax.swing.JFrame {
-
+    
     private Producto producto;
     int idUsuario;
-
+    
     public AltaCompra() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -387,6 +387,14 @@ public class AltaCompra extends javax.swing.JFrame {
 
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
+        if (validar()) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar compra?");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                guardarOActualizarCompra();
+                this.dispose();
+                new GestionDeCompras().setVisible(true);
+            }
+        }
         guardarOActualizarCompra();
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
@@ -502,7 +510,7 @@ public class AltaCompra extends javax.swing.JFrame {
         }
         return valido;
     }
-
+    
     private void buscarProveedor() {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
@@ -519,7 +527,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void buscarProducto(Long codigoBarra) {
         try {
             producto = new Producto().obtenerProductoCodBarra(codigoBarra);
@@ -528,7 +536,7 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void cargarProductoATabla() {
         DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
         if (!DescripcionjComboBox.getSelectedItem().toString().isEmpty()) {
@@ -554,40 +562,38 @@ public class AltaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe buscar un producto primero");
         }
     }
-
+    
     private void guardarOActualizarCompra() {
-        if (validar()) {
-            int resultado;
-            Compra compra = new Compra();
-            ArrayList<Producto> productos = new ArrayList<>();
-            try {
-                compra.setUsuario(new Usuario().obtenerUsuario(this.idUsuario));
-                compra.setMontoCompra(Double.parseDouble(SubtotaljTextField.getText()));
-                compra.setProveedor(new Proveedor().obtenerProveedor(ProveedorjComboBox.getSelectedItem().toString()));
-                compra.setIvaCompra(Double.parseDouble(IVAjTextField.getText()));
-                DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
-                for (int i = 0; i < tabla.getRowCount(); i++) {
-                    int codigobarra = Integer.parseInt(tabla.getValueAt(i, 0).toString());
-                    productos.add(new Producto().obtenerProductoCodBarra(codigobarra));
-                }
-                compra.setProductos(productos);
-                if (CompraIDjTextField.getText().isEmpty()) {
-                    resultado = compra.altaCompra(compra);
-                } else {
-                    compra.setIdCompra(Integer.parseInt(CompraIDjTextField.getText()));
-                    resultado = compra.modificarCompra(compra);
-                }
-                if (resultado != 0) {
-                    JOptionPane.showMessageDialog(null, "Compra ingresada correctamente");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar la compra");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+        int resultado;
+        Compra compra = new Compra();
+        ArrayList<Producto> productos = new ArrayList<>();
+        try {
+            compra.setUsuario(new Usuario().obtenerUsuario(this.idUsuario));
+            compra.setMontoCompra(Double.parseDouble(SubtotaljTextField.getText()));
+            compra.setProveedor(new Proveedor().obtenerProveedor(ProveedorjComboBox.getSelectedItem().toString()));
+            compra.setIvaCompra(Double.parseDouble(IVAjTextField.getText()));
+            DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
+            for (int i = 0; i < tabla.getRowCount(); i++) {
+                int codigobarra = Integer.parseInt(tabla.getValueAt(i, 0).toString());
+                productos.add(new Producto().obtenerProductoCodBarra(codigobarra));
             }
+            compra.setProductos(productos);
+            if (CompraIDjTextField.getText().isEmpty()) {
+                resultado = compra.altaCompra(compra);
+            } else {
+                compra.setIdCompra(Integer.parseInt(CompraIDjTextField.getText()));
+                resultado = compra.modificarCompra(compra);
+            }
+            if (resultado != 0) {
+                JOptionPane.showMessageDialog(null, "Compra ingresada correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar la compra");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void eliminarItemProducto() {
         DefaultTableModel tabla = (DefaultTableModel) detalleComprajTable.getModel();
         try {

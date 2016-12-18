@@ -21,6 +21,8 @@ import net.sourceforge.jbarcodebean.model.Interleaved25;
  * @author German
  */
 public class AltaProducto extends javax.swing.JFrame {
+    
+    private int bandera = 0;
 
     /**
      * Creates new form AltaProducto
@@ -53,7 +55,6 @@ public class AltaProducto extends javax.swing.JFrame {
         PrecioUniProdjTextField = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        AyudajButton = new javax.swing.JButton();
         GuardajButton = new javax.swing.JButton();
         CancelajButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -62,10 +63,11 @@ public class AltaProducto extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         AlicuotaProdjTextField = new javax.swing.JTextField();
         IDProductojTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        FecVencjDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar un nuevo producto");
-        setAlwaysOnTop(true);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -82,11 +84,21 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel5.setText("Stock ");
 
         StockProdjTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        StockProdjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                StockProdjTextFieldKeyTyped(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Nombre");
 
         NombreProdJTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        NombreProdJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NombreProdJTextFieldFocusLost(evt);
+            }
+        });
 
         ImprimirCodBarrajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ImprimirCodBarrajButton.setText("Imprimir codigo de barra");
@@ -100,14 +112,13 @@ public class AltaProducto extends javax.swing.JFrame {
         jLabel25.setText("Precio unitario");
 
         PrecioUniProdjTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PrecioUniProdjTextField.setText("0.00");
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel30.setText("% de ganancia");
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel35.setText("No Incluir el IVA, el mismo será calculado en la venta");
-
-        AyudajButton.setText("Ayuda");
 
         GuardajButton.setText("Guardar");
         GuardajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +142,9 @@ public class AltaProducto extends javax.swing.JFrame {
         IDProductojTextField.setVisible(false);
         IDProductojTextField.setEditable(false);
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("Fecha de vencimiento");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,8 +153,7 @@ public class AltaProducto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(AyudajButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(GuardajButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CancelajButton)
@@ -156,9 +169,6 @@ public class AltaProducto extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(StockProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DescripcionProductojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,14 +181,26 @@ public class AltaProducto extends javax.swing.JFrame {
                                         .addComponent(IDProductojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(NombreProdJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel25)
-                                .addGap(18, 18, 18)
-                                .addComponent(PrecioUniProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel30)
-                                .addGap(18, 18, 18)
-                                .addComponent(AlicuotaProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(DescripcionProductojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel25)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(PrecioUniProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jLabel30)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(AlicuotaProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(StockProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(60, 60, 60)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(FecVencjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -216,14 +238,17 @@ public class AltaProducto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(StockProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(StockProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FecVencjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelajButton)
-                    .addComponent(GuardajButton)
-                    .addComponent(AyudajButton))
+                    .addComponent(GuardajButton))
                 .addContainerGap())
         );
 
@@ -258,7 +283,14 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelajButtonActionPerformed
 
     private void GuardajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardajButtonActionPerformed
-        guardarOActualizarProducto();
+        if (validar()) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Agregar este producto");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                guardarOActualizarProducto();
+                this.dispose();
+                new GestionDeProductos().setVisible(true);
+            }
+        }
     }//GEN-LAST:event_GuardajButtonActionPerformed
 
     private void PrecioUnitJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrecioUnitJTextFieldKeyTyped
@@ -282,10 +314,7 @@ public class AltaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_ImprimirCodBarrajButtonActionPerformed
 
     private void StockjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_StockjTextFieldKeyTyped
-        char car = evt.getKeyChar();
-        if ((car < '0' || car > '9')) {
-            evt.consume();
-        }
+
     }//GEN-LAST:event_StockjTextFieldKeyTyped
 
     private void CodigoProductoJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoProductoJTextFieldKeyTyped
@@ -295,8 +324,21 @@ public class AltaProducto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CodigoProductoJTextFieldKeyTyped
 
-    private void TestBarCode() {
+    private void StockProdjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_StockProdjTextFieldKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_StockProdjTextFieldKeyTyped
 
+    private void NombreProdJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NombreProdJTextFieldFocusLost
+        // TODO add your handling code here:
+        DescripcionProductojTextField.setText(NombreProdJTextField.getText());
+    }//GEN-LAST:event_NombreProdJTextFieldFocusLost
+    
+    private void TestBarCode() {
+        
         JBarcodeBean barcode = new JBarcodeBean();
 
         // nuestro tipo de codigo de barra
@@ -306,7 +348,7 @@ public class AltaProducto extends javax.swing.JFrame {
         // nuestro valor a codificar y algunas configuraciones mas
         barcode.setCode(CodigoProductoJTextField.getText());
         barcode.setCheckDigit(true);
-
+        
         BufferedImage bufferedImage = barcode.draw(new BufferedImage(400, 400, BufferedImage.TYPE_INT_RGB));
 
         // guardar en disco como png
@@ -362,10 +404,10 @@ public class AltaProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JTextField AlicuotaProdjTextField;
-    private javax.swing.JButton AyudajButton;
     private javax.swing.JButton CancelajButton;
     protected javax.swing.JTextField CodigoProductoJTextField;
     protected javax.swing.JTextField DescripcionProductojTextField;
+    private com.toedter.calendar.JDateChooser FecVencjDateChooser;
     private javax.swing.JButton GuardajButton;
     protected javax.swing.JTextField IDProductojTextField;
     private javax.swing.JButton ImprimirCodBarrajButton;
@@ -379,6 +421,7 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -410,34 +453,38 @@ public class AltaProducto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe ingresar el stock del producto");
             StockProdjTextField.requestFocus();
             valido = false;
+        } else if (FecVencjDateChooser.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de vencimiento del producto");
+            FecVencjDateChooser.requestFocus();
+            valido = false;
+            return valido;
         }
         return valido;
     }
-
+    
     private void guardarOActualizarProducto() {
-        if (validar()) {
-            int resultado;
-            Producto producto = new Producto();
-            try {
-                producto.setCodigoBarra(Long.parseLong(CodigoProductoJTextField.getText()));
-                producto.setNombreProducto(NombreProdJTextField.getText());
-                producto.setDescripcionProducto(DescripcionProductojTextField.getText());
-                producto.setPrecioUnitario(Double.parseDouble(PrecioUniProdjTextField.getText()));
-                producto.setAlicuota(Double.parseDouble(AlicuotaProdjTextField.getText()));
-                producto.setStock(Integer.parseInt(StockProdjTextField.getText()));
-                if (IDProductojTextField.getText().isEmpty()) {
-                    resultado = producto.altaProducto(producto);
-                } else {
-                    resultado = producto.modificarProducto(producto);
-                }
-                if (resultado != 0) {
-                    JOptionPane.showMessageDialog(null, "Producto ingresado correctamente");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar el producto");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+        int resultado;
+        Producto producto = new Producto();
+        try {
+            producto.setCodigoBarra(Long.parseLong(CodigoProductoJTextField.getText()));
+            producto.setNombreProducto(NombreProdJTextField.getText());
+            producto.setDescripcionProducto(DescripcionProductojTextField.getText());
+            producto.setPrecioUnitario(Double.parseDouble(PrecioUniProdjTextField.getText()));
+            producto.setAlicuota(Integer.parseInt(AlicuotaProdjTextField.getText()));
+            producto.setStock(Integer.parseInt(StockProdjTextField.getText()));
+            producto.setFechaVencimientoProducto(FecVencjDateChooser.getDate());
+            if (IDProductojTextField.getText().isEmpty()) {
+                resultado = producto.altaProducto(producto);
+            } else {
+                resultado = producto.modificarProducto(producto);
             }
+            if (resultado != 0) {
+                JOptionPane.showMessageDialog(null, "Producto ingresado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar el producto");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }

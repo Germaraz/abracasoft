@@ -30,7 +30,7 @@ import javax.swing.table.TableRowSorter;
  * @author ema_s
  */
 public class AltaVenta extends javax.swing.JFrame {
-    
+
     private int cantidad = 1;
     private TableRowSorter trsFiltro;
     private ArrayList<Producto> productos;
@@ -504,7 +504,7 @@ public class AltaVenta extends javax.swing.JFrame {
         }
         return resultado;
     }
-    
+
     private void limpiarTabla(JTable tabla) {
         int filas = tabla.getRowCount();
         if (filas != -1) {
@@ -514,7 +514,7 @@ public class AltaVenta extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void filtroClientes() {
         int columnaABuscar = 0;
         if ("Nombre de Fantasia".equals(FiltrojComboBox.getSelectedItem().toString())) {
@@ -525,7 +525,7 @@ public class AltaVenta extends javax.swing.JFrame {
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(FiltrojTextField.getText(), columnaABuscar));
     }
-    
+
     private void buscarProducto(int cantidad) {
         DefaultTableModel tabla = (DefaultTableModel) DetalleVentajTable.getModel();
         Object[] columnas = new Object[3];
@@ -541,7 +541,7 @@ public class AltaVenta extends javax.swing.JFrame {
                             columnas[0] = producto.getIdProducto();
                             columnas[1] = producto.getCodigoBarra();
                             columnas[2] = producto.getNombreProducto();
-                            double ganancia = producto.getPrecioUnitario() * producto.getAlicuota();
+                            double ganancia = (producto.getPrecioUnitario() * producto.getAlicuota()) / 100;
                             double precioVenta = producto.getPrecioUnitario() + ganancia;
                             columnas[3] = precioVenta;
                             tabla.addRow(columnas);
@@ -554,7 +554,7 @@ public class AltaVenta extends javax.swing.JFrame {
                                 columnas[0] = producto.getIdProducto();
                                 columnas[1] = producto.getCodigoBarra();
                                 columnas[2] = producto.getNombreProducto();
-                                double ganancia = producto.getPrecioUnitario() * producto.getAlicuota();
+                                double ganancia = (producto.getPrecioUnitario() * producto.getAlicuota()) / 100;
                                 double precioVenta = producto.getPrecioUnitario() + ganancia;
                                 columnas[3] = precioVenta;
                                 tabla.addRow(columnas);
@@ -571,7 +571,7 @@ public class AltaVenta extends javax.swing.JFrame {
                         for (int i = 0; i < productos.size(); i++) {
                             columnas[0] = productos.get(i).getCodigoBarra();
                             columnas[1] = productos.get(i).getNombreProducto();
-                            double ganancia = productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota();
+                            double ganancia = (productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota()) / 100;
                             double precioVenta = productos.get(i).getPrecioUnitario() + ganancia;
                             columnas[2] = precioVenta;
                             columnas[3] = cantidad;
@@ -585,7 +585,7 @@ public class AltaVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void cargarTiposPagos() {
         ArrayList<TipoPago> tipos;
         try {
@@ -602,7 +602,7 @@ public class AltaVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void cargarTablaClientes() {
         ArrayList<Cliente> clientes;
         try {
@@ -621,7 +621,7 @@ public class AltaVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void cargarTipoFactura() {
         ArrayList<Factura> facturas;
         try {
@@ -641,7 +641,7 @@ public class AltaVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void actualizarTotales() {
         int filas = DetalleVentajTable.getRowCount();
         if (filas > 0) {
@@ -655,7 +655,7 @@ public class AltaVenta extends javax.swing.JFrame {
             TotaljTextField.setText(Double.toString(montoTotal));
         }
     }
-    
+
     private boolean validar() {
         boolean valido = true;
         if (DetalleVentajTable.getRowCount() == 0) {
@@ -669,7 +669,7 @@ public class AltaVenta extends javax.swing.JFrame {
         }
         return valido;
     }
-    
+
     private boolean descontarStock() {
         int resultado = 0;
         int cantidadProductos = productos.size();
@@ -692,7 +692,7 @@ public class AltaVenta extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     private void guardarOActualizarVenta() {
         int resultado = 0;
         if (validar()) {
