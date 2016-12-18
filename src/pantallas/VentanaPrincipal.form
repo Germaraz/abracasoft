@@ -152,10 +152,13 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBProductosActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBProductos.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
                 </Component>
-                <Component class="javax.swing.JButton" name="ComprajButton">
+                <Component class="javax.swing.JButton" name="JBCompras">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="0"/>
@@ -169,8 +172,11 @@
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComprajButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBComprasActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBCompras.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator4">
                 </Component>
@@ -189,6 +195,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBVentasActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBVentas.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator6">
                 </Component>
@@ -207,6 +216,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBClientesActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBClientes.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator2">
                 </Component>
@@ -225,10 +237,13 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBProveedoresActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBProveedores.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
                 </Component>
-                <Component class="javax.swing.JButton" name="JBCaja">
+                <Component class="javax.swing.JButton" name="JBCajas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="0"/>
@@ -241,8 +256,11 @@
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBCajaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBCajasActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBCajas.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator5">
                 </Component>
@@ -264,6 +282,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBInformesActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBInformes.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator7">
                 </Component>
@@ -285,6 +306,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBUsuariosActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBUsuarios.setVisible(false);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -338,6 +362,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBNNuevaVentaActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JBNNuevaVenta.setVisible(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="btnAyuda">
               <Properties>

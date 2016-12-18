@@ -21,7 +21,7 @@ public class Producto {
     private String descripcionProducto;
     private Date fechaVencimientoProducto;
     private double precioUnitario;
-    private double alicuota;
+    private int alicuota;
     private int stock;
     private Date fechaAltaProducto;
     private Date fechaBajaProducto;
@@ -77,11 +77,11 @@ public class Producto {
         this.precioUnitario = precioUnitario;
     }
 
-    public double getAlicuota() {
+    public int getAlicuota() {
         return alicuota;
     }
 
-    public void setAlicuota(double alicuota) {
+    public void setAlicuota(int alicuota) {
         this.alicuota = alicuota;
     }
 

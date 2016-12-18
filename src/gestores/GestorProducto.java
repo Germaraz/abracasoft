@@ -24,7 +24,7 @@ public class GestorProducto extends PoolDeConexiones {
 
     public int altaProducto(Producto producto) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO producto (CODIGOBARRA, NOMBREPRODUCTO, DESCRIPCIONPRODUCT, "
+        String sql = "INSERT INTO producto (CODIGOBARRA, NOMBREPRODUCTO, DESCRIPCIONPRODUCTO, "
                 + "FECHAVENCIMIENTO, PRECIOUNITARIO, ALICUOTA, STOCK) VALUES (?,?,?,?,?,?,?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -34,7 +34,7 @@ public class GestorProducto extends PoolDeConexiones {
             pst.setString(3, producto.getDescripcionProducto());
             pst.setDate(4, new Date(producto.getFechaVencimientoProducto().getTime()));
             pst.setDouble(5, producto.getPrecioUnitario());
-            pst.setDouble(6, producto.getAlicuota());
+            pst.setInt(6, producto.getAlicuota());
             pst.setInt(7, producto.getStock());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -47,7 +47,7 @@ public class GestorProducto extends PoolDeConexiones {
 
     public int modificarProducto(Producto producto) throws Exception {
         int resultado = 0;
-        String sql = "UPDATE producto SET CODIGOBARRA = ?, NOMBREPRODUCTO = ?, DESCRIPCIONPRODUCT = ?, "
+        String sql = "UPDATE producto SET CODIGOBARRA = ?, NOMBREPRODUCTO = ?, DESCRIPCIONPRODUCTO = ?, "
                 + "FECHAVENCIMIENTO = ?, PRECIOUNITARIO = ?, ALICUOTA = ?, STOCK = ? WHERE `IDPRODUCTO = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -57,7 +57,7 @@ public class GestorProducto extends PoolDeConexiones {
             pst.setString(3, producto.getDescripcionProducto());
             pst.setDate(4, new Date(producto.getFechaVencimientoProducto().getTime()));
             pst.setDouble(5, producto.getPrecioUnitario());
-            pst.setDouble(6, producto.getAlicuota());
+            pst.setInt(6, producto.getAlicuota());
             pst.setInt(7, producto.getStock());
             pst.setInt(8, producto.getIdProducto());
             resultado = pst.executeUpdate();
@@ -102,7 +102,7 @@ public class GestorProducto extends PoolDeConexiones {
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
                 producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
+                producto.setAlicuota(resultado.getInt("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
             }
@@ -131,7 +131,7 @@ public class GestorProducto extends PoolDeConexiones {
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
                 producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
+                producto.setAlicuota(resultado.getInt("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
                 productos.add(producto);
@@ -161,7 +161,7 @@ public class GestorProducto extends PoolDeConexiones {
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
                 producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
+                producto.setAlicuota(resultado.getInt("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
                 productos.add(producto);
@@ -189,7 +189,7 @@ public class GestorProducto extends PoolDeConexiones {
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
                 producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
+                producto.setAlicuota(resultado.getInt("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
                 productos.add(producto);
@@ -218,7 +218,7 @@ public class GestorProducto extends PoolDeConexiones {
                 producto.setDescripcionProducto(resultado.getString("DESCRIPCIONPRODUCTO"));
                 producto.setFechaVencimientoProducto(resultado.getDate("FECHAVENCIMIENTO"));
                 producto.setPrecioUnitario(resultado.getDouble("PRECIOUNITARIO"));
-                producto.setAlicuota(resultado.getDouble("ALICUOTA"));
+                producto.setAlicuota(resultado.getInt("ALICUOTA"));
                 producto.setStock(resultado.getInt("STOCK"));
                 producto.setFechaAltaProducto(resultado.getDate("FECHAALTA"));
             }

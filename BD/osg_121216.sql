@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `osg` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `osg`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: osg
@@ -25,9 +23,9 @@ DROP TABLE IF EXISTS `caja`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `caja` (
-  `IDCAJA` int(11) NOT NULL,
-  `IMPORTEARQUEO` double DEFAULT NULL,
-  `IMPORTECIERRE` double DEFAULT NULL,
+  `IDCAJA` int(11) NOT NULL AUTO_INCREMENT,
+  `IMPORTEARQUEO` float DEFAULT NULL,
+  `IMPORTECIERRE` float DEFAULT NULL,
   `FECHAAPERTURA` date DEFAULT NULL,
   `FECHACIERRE` date DEFAULT NULL,
   `FECHABAJA` date DEFAULT NULL,
@@ -58,11 +56,13 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `IDCLIENTE` int(11) NOT NULL AUTO_INCREMENT,
   `DNI_CLIENTE` int(11) NOT NULL,
+  `SEXO_CLIENTE` char(2) DEFAULT NULL,
   `NOMBRE_CLIENTE` varchar(25) NOT NULL,
   `APELLIDO_CLIENTE` varchar(25) NOT NULL,
+  `FECHANACIMIENTO_CLIENTE` date DEFAULT NULL,
   `DIRECCION_CLIENTE` varchar(45) NOT NULL,
   `MAIL_CLIENTE` varchar(45) DEFAULT NULL,
-  `TELEFONO_CLIENTE` int(11) DEFAULT NULL,
+  `TELEFONO_CLIENTE` bigint(11) DEFAULT NULL,
   `FECHAALTA` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
   `localidad_IDLOCALIDAD` int(11) NOT NULL,
@@ -102,8 +102,8 @@ CREATE TABLE `compra` (
   UNIQUE KEY `COMPRA_PK` (`IDCOMPRA`),
   KEY `fk_compra_usuario1_idx` (`usuario_IDUSUARIO`),
   KEY `fk_compra_proveedor1_idx` (`proveedor_IDPROVEEDOR`),
-  KEY `fk_compra_producto1_idx` (`producto_IDPRODUCTO`),
-  CONSTRAINT `fk_compra_producto1` FOREIGN KEY (`producto_IDPRODUCTO`) REFERENCES `producto` (`IDPRODUCTO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fj_compra_producto1_idx` (`producto_IDPRODUCTO`),
+  CONSTRAINT `fj_compra_producto1` FOREIGN KEY (`producto_IDPRODUCTO`) REFERENCES `producto` (`IDPRODUCTO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_compra_proveedor1` FOREIGN KEY (`proveedor_IDPROVEEDOR`) REFERENCES `proveedor` (`IDPROVEEDOR`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_compra_usuario1` FOREIGN KEY (`usuario_IDUSUARIO`) REFERENCES `usuario` (`IDUSUARIO`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -130,8 +130,8 @@ CREATE TABLE `estadocliente` (
   `ESTADOCLIENTE` varchar(30) NOT NULL,
   `FECHAALTA` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
-  `SALDO` double DEFAULT NULL,
-  `INTERES` double DEFAULT NULL,
+  `SALDO` float DEFAULT NULL,
+  `INTERES` float DEFAULT NULL,
   `cliente_IDCLIENTE` int(11) NOT NULL,
   PRIMARY KEY (`IDESTADOCLIENTE`),
   UNIQUE KEY `ESTADOCLIENTE_PK` (`IDESTADOCLIENTE`),
@@ -157,7 +157,7 @@ DROP TABLE IF EXISTS `factura`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `factura` (
-  `IDFACTURA` int(11) NOT NULL,
+  `IDFACTURA` int(11) NOT NULL AUTO_INCREMENT,
   `TIPOFACTURA` char(3) NOT NULL,
   `PORCIVA` int(11) DEFAULT NULL,
   `FECHABAJA` date DEFAULT NULL,
@@ -186,7 +186,7 @@ CREATE TABLE `gasto` (
   `IDGASTO` int(11) NOT NULL AUTO_INCREMENT,
   `DESCRIPCIONGASTO` varchar(50) NOT NULL,
   `FECHAGASTO` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `MONTOGASTO` double NOT NULL,
+  `MONTOGASTO` float NOT NULL,
   `FECHABAJA` date DEFAULT NULL,
   `usuario_IDUSUARIO` int(11) NOT NULL,
   PRIMARY KEY (`IDGASTO`),
@@ -219,7 +219,7 @@ CREATE TABLE `habilidad` (
   `FECHABAJA` date DEFAULT NULL,
   PRIMARY KEY (`IDHABILIDAD`),
   UNIQUE KEY `HABILIDAD_PK` (`IDHABILIDAD`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +228,7 @@ CREATE TABLE `habilidad` (
 
 LOCK TABLES `habilidad` WRITE;
 /*!40000 ALTER TABLE `habilidad` DISABLE KEYS */;
-INSERT INTO `habilidad` VALUES (1,'GESTION USUARIOS','2016-09-09 02:42:36',NULL),(2,'GESTION CLIENTES','2016-11-10 04:29:46',NULL),(3,'GESTION PRODUCTOS','2016-11-10 04:29:46',NULL),(4,'CAJA','2016-11-10 04:29:46',NULL),(5,'GESTION SISTEMA','2016-11-10 04:29:46',NULL),(6,'GESTION PRESUPUESTOS','2016-11-10 04:29:46',NULL),(7,'VENTA','2016-11-15 22:25:27',NULL);
+INSERT INTO `habilidad` VALUES (1,'GESTION USUARIOS','2016-09-09 02:42:36',NULL),(2,'GESTION PRODUCTOS','2016-11-10 04:29:46',NULL),(3,'GESTION COMPRAS','2016-11-10 04:29:46',NULL),(4,'GESTION PROVEEDORES','2016-11-10 04:29:46',NULL),(5,'GESTION VENTAS','2016-11-10 04:29:46',NULL),(6,'NUEVA VENTA','2016-11-10 04:29:46',NULL),(7,'GESTION CAJAS','2016-11-15 22:25:27',NULL),(8,'GESTION CLIENTES','2016-12-18 04:31:18',NULL),(9,'INFORMES','2016-12-18 04:31:18',NULL);
 /*!40000 ALTER TABLE `habilidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +272,7 @@ DROP TABLE IF EXISTS `movimiento`;
 CREATE TABLE `movimiento` (
   `IDMOVIMIENTO` int(11) NOT NULL AUTO_INCREMENT,
   `DESCMOVIMIENTO` varchar(45) DEFAULT NULL,
-  `MONTOMOVIMIENTO` double DEFAULT NULL,
+  `MONTOMOVIMIENTO` float DEFAULT NULL,
   `FECHAMOVIMIENTO` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
   `caja_IDCAJA` int(11) NOT NULL,
@@ -280,10 +280,10 @@ CREATE TABLE `movimiento` (
   `compra_IDCOMPRA` int(11) NOT NULL,
   `gasto_IDGASTO` int(11) NOT NULL,
   PRIMARY KEY (`IDMOVIMIENTO`),
-  KEY `movimiento_caja_idx` (`caja_IDCAJA`),
   KEY `movimiento_venta_idx` (`venta_IDVENTA`),
   KEY `movimiento_compra_idx` (`compra_IDCOMPRA`),
   KEY `movimiento_gasto_idx` (`gasto_IDGASTO`),
+  KEY `movimiento_caja_idx` (`caja_IDCAJA`),
   CONSTRAINT `movimiento_caja` FOREIGN KEY (`caja_IDCAJA`) REFERENCES `caja` (`IDCAJA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `movimiento_compra` FOREIGN KEY (`compra_IDCOMPRA`) REFERENCES `compra` (`IDCOMPRA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `movimiento_gasto` FOREIGN KEY (`gasto_IDGASTO`) REFERENCES `gasto` (`IDGASTO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -308,17 +308,21 @@ DROP TABLE IF EXISTS `pago`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pago` (
-  `IDPAGO` int(11) NOT NULL,
+  `IDPAGO` int(11) NOT NULL AUTO_INCREMENT,
   `MONTOPAGO` double DEFAULT NULL,
   `FECHAPAGO` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `NUMEROAUTORIZACION` int(11) DEFAULT NULL,
   `FECHABAJA` date DEFAULT NULL,
-  `venta_IDVENTA` int(11) NOT NULL,
-  `tipo_pago_IDTIPOPAGO` int(11) NOT NULL,
+  `venta_IDVENTA` int(11) DEFAULT NULL,
+  `tipo_pago_IDTIPOPAGO` int(11) DEFAULT NULL,
+  `compra_IDCOMPRA` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDPAGO`),
   UNIQUE KEY `PAGO_PK` (`IDPAGO`),
   KEY `fk_pago_venta1_idx` (`venta_IDVENTA`),
-  KEY `fk_pago_tipo_pago1_idx` (`tipo_pago_IDTIPOPAGO`),
-  CONSTRAINT `fk_pago_tipo_pago1` FOREIGN KEY (`tipo_pago_IDTIPOPAGO`) REFERENCES `tipo_pago` (`IDTIPOPAGO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_pago_compra1_idx` (`compra_IDCOMPRA`),
+  KEY `fk_pago_tipopago1_idx` (`tipo_pago_IDTIPOPAGO`),
+  CONSTRAINT `fk_pago_compra1` FOREIGN KEY (`compra_IDCOMPRA`) REFERENCES `compra` (`IDCOMPRA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pago_tipopago1` FOREIGN KEY (`tipo_pago_IDTIPOPAGO`) REFERENCES `tipo_pago` (`IDTIPOPAGO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_pago_venta1` FOREIGN KEY (`venta_IDVENTA`) REFERENCES `venta` (`IDVENTA`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -340,19 +344,19 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto` (
-  `IDPRODUCTO` int(11) NOT NULL,
-  `CODIGOBARRA` int(11) DEFAULT NULL,
+  `IDPRODUCTO` int(11) NOT NULL AUTO_INCREMENT,
+  `CODIGOBARRA` bigint(30) DEFAULT NULL,
   `NOMBREPRODUCTO` varchar(20) DEFAULT NULL,
-  `DESCRIPCIONPRODUCT` varchar(30) DEFAULT NULL,
+  `DESCRIPCIONPRODUCTO` varchar(30) DEFAULT NULL,
   `FECHAVENCIMIENTO` date DEFAULT NULL,
   `PRECIOUNITARIO` double DEFAULT NULL,
-  `ALICUOTA` int(11) DEFAULT NULL,
+  `ALICUOTA` int(10) DEFAULT NULL,
   `STOCK` int(11) DEFAULT NULL,
   `FECHALTA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
   PRIMARY KEY (`IDPRODUCTO`),
   UNIQUE KEY `PRODUCTO_PK` (`IDPRODUCTO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,6 +365,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (1,123781237812783,'Papas Lays','Papas Lays x 80g','2018-12-18',45,10,5,'2016-12-18 03:20:34',NULL),(2,123124124124,'Yerba Mate Playadito','Yerba Mate Playadito x 1kg','2017-12-18',50,10,10,'2016-12-18 03:25:30',NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +377,7 @@ DROP TABLE IF EXISTS `promocion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `promocion` (
-  `IDPROMOCION` int(11) NOT NULL,
+  `IDPROMOCION` int(11) NOT NULL AUTO_INCREMENT,
   `DESCRIPCIONPROMO` varchar(15) DEFAULT NULL,
   `DESCUENTO` int(11) DEFAULT NULL,
   `FECHAVENCIMIENTO` date DEFAULT NULL,
@@ -401,12 +406,12 @@ DROP TABLE IF EXISTS `proveedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `proveedor` (
-  `IDPROVEEDOR` int(11) NOT NULL,
-  `CUIT` int(11) NOT NULL,
+  `IDPROVEEDOR` int(11) NOT NULL AUTO_INCREMENT,
+  `CUIT` bigint(11) NOT NULL,
   `RAZONSOCIAL` varchar(30) NOT NULL,
   `NOMBREFANTASIA` varchar(45) NOT NULL,
   `DIRECCION_PROVEEDOR` varchar(45) NOT NULL,
-  `TELEFONO_PROVEEDOR` int(11) DEFAULT NULL,
+  `TELEFONO_PROVEEDOR` bigint(11) DEFAULT NULL,
   `MAIL_PROVEEDOR` varchar(45) DEFAULT NULL,
   `FECHAALTA` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
@@ -415,7 +420,7 @@ CREATE TABLE `proveedor` (
   UNIQUE KEY `PROVEEDOR_PK` (`IDPROVEEDOR`),
   KEY `fk_proveedor_localidad1_idx` (`localidad_IDLOCALIDAD`),
   CONSTRAINT `fk_proveedor_localidad1` FOREIGN KEY (`localidad_IDLOCALIDAD`) REFERENCES `localidad` (`IDLOCALIDAD`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,6 +429,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
+INSERT INTO `proveedor` VALUES (1,20365896187,'Emanuel Seiguer','sanduba','Eva Peron 2700',342155475224,'ema_seiguer@hotmai.com','2016-12-17 20:05:03',NULL,16391),(2,20354667801,'German Araoz','mac donals','aosidnioasndionas',343715607581,'oaisndioasnodinasio@oanidoians.com','2016-12-17 20:10:09','2016-12-17',16391);
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -470,9 +476,9 @@ CREATE TABLE `reserva` (
   PRIMARY KEY (`IDRESERVA`),
   UNIQUE KEY `RESERVA_PK` (`IDRESERVA`),
   KEY `fk_reserva_cliente1_idx` (`cliente_IDCLIENTE`),
-  KEY `fk_reserva_producto1_idx` (`producto_IDPRODUCTO`),
+  KEY `fk_reseva_producto1_idx` (`producto_IDPRODUCTO`),
   CONSTRAINT `fk_reserva_cliente1` FOREIGN KEY (`cliente_IDCLIENTE`) REFERENCES `cliente` (`IDCLIENTE`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_reserva_producto1` FOREIGN KEY (`producto_IDPRODUCTO`) REFERENCES `producto` (`IDPRODUCTO`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_reseva_producto1` FOREIGN KEY (`producto_IDPRODUCTO`) REFERENCES `producto` (`IDPRODUCTO`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -499,7 +505,7 @@ CREATE TABLE `rol` (
   `FECHABAJA` date DEFAULT NULL,
   PRIMARY KEY (`IDROL`),
   UNIQUE KEY `ROL_PK` (`IDROL`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -508,7 +514,7 @@ CREATE TABLE `rol` (
 
 LOCK TABLES `rol` WRITE;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
-INSERT INTO `rol` VALUES (1,'ADMINISTRADOR','2016-09-09 02:41:59',NULL),(2,'JEFE','2016-11-10 04:26:22',NULL),(3,'VENDEDOR','2016-11-10 04:27:21',NULL);
+INSERT INTO `rol` VALUES (1,'ADMINISTRADOR','2016-09-09 02:41:59',NULL),(2,'JEFE','2016-11-10 04:26:22',NULL),(3,'SUPERVISOR','2016-11-10 04:27:21',NULL),(4,'EMPLEADO','2016-12-18 04:32:45',NULL);
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -536,7 +542,7 @@ CREATE TABLE `rol_habilidad` (
 
 LOCK TABLES `rol_habilidad` WRITE;
 /*!40000 ALTER TABLE `rol_habilidad` DISABLE KEYS */;
-INSERT INTO `rol_habilidad` VALUES (1,1),(2,1),(2,2),(2,3),(2,4),(3,4),(1,5),(2,5),(2,6);
+INSERT INTO `rol_habilidad` VALUES (1,1),(2,1),(2,2),(3,2),(2,3),(3,3),(2,4),(3,4),(2,5),(3,5),(4,5),(2,6),(3,6),(4,6),(2,7),(3,7),(4,7),(2,8),(3,8),(2,9),(3,9);
 /*!40000 ALTER TABLE `rol_habilidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -548,10 +554,9 @@ DROP TABLE IF EXISTS `tipo_pago`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tipo_pago` (
-  `IDTIPOPAGO` int(11) NOT NULL,
+  `IDTIPOPAGO` int(11) NOT NULL AUTO_INCREMENT,
   `TIPOPAGO` varchar(15) DEFAULT NULL,
-  `CUOTAS` int(11) DEFAULT NULL,
-  `BONIFICACION` decimal(10,0) DEFAULT NULL,
+  `BONIFICACION` int(10) DEFAULT NULL,
   `FECHABAJA` date DEFAULT NULL,
   PRIMARY KEY (`IDTIPOPAGO`),
   UNIQUE KEY `TIPO_PAGO_PK` (`IDTIPOPAGO`)
@@ -623,8 +628,8 @@ CREATE TABLE `venta` (
   UNIQUE KEY `VENTA_PK` (`IDVENTA`),
   KEY `fk_venta_usuario1_idx` (`usuario_IDUSUARIO`),
   KEY `fk_venta_cliente1_idx` (`cliente_IDCLIENTE`),
-  KEY `fk_venta_factura1_idx` (`factura_IDFACTURA`),
   KEY `fk_venta_producto1_idx` (`producto_IDPRODUCTO`),
+  KEY `fk_venta_factura1_idx` (`factura_IDFACTURA`),
   CONSTRAINT `fk_venta_cliente1` FOREIGN KEY (`cliente_IDCLIENTE`) REFERENCES `cliente` (`IDCLIENTE`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_venta_factura1` FOREIGN KEY (`factura_IDFACTURA`) REFERENCES `factura` (`IDFACTURA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_venta_producto1` FOREIGN KEY (`producto_IDPRODUCTO`) REFERENCES `producto` (`IDPRODUCTO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -650,4 +655,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-15  0:49:07
+-- Dump completed on 2016-12-18  2:02:14

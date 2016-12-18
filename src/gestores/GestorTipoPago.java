@@ -17,11 +17,11 @@ import java.util.ArrayList;
  * @author ema_s
  */
 public class GestorTipoPago extends PoolDeConexiones {
-
+    
     public GestorTipoPago() throws Exception {
         this.pedirConexion();
     }
-
+    
     public int altaTipoPago(TipoPago tipoPago) throws Exception {
         int resultado = 0;
         String sql = "INSERT INTO tipo_pago (TIPOPAGO, CUOTAS, BONIFICACION) VALUES (?,?,?)";
@@ -30,7 +30,7 @@ public class GestorTipoPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, tipoPago.getTipoPago());
             pst.setInt(2, tipoPago.getCuotas());
-            pst.setDouble(3, tipoPago.getBonificacion());
+            pst.setInt(3, tipoPago.getBonificacion());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class GestorTipoPago extends PoolDeConexiones {
         }
         return resultado;
     }
-
+    
     public int modificarTipoPago(TipoPago tipoPago) throws Exception {
         int resultado = 0;
         String sql = "UPDATE tipo_pago SET TIPOPAGO = ?, CUOTAS = ?, BONIFICACION = ? WHERE tipo_pago.IDTIPOPAGO = ?";
@@ -48,7 +48,7 @@ public class GestorTipoPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, tipoPago.getTipoPago());
             pst.setInt(2, tipoPago.getCuotas());
-            pst.setDouble(3, tipoPago.getBonificacion());
+            pst.setInt(3, tipoPago.getBonificacion());
             pst.setInt(4, tipoPago.getIdTipoPago());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -58,7 +58,7 @@ public class GestorTipoPago extends PoolDeConexiones {
         }
         return resultado;
     }
-
+    
     public int darDeBajaTipoPago(TipoPago tipoPago) throws Exception {
         int resultado = 0;
         String sql = "UPDATE tipo_pago SET FECHABAJA = ? WHERE tipo_pago.IDTIPOPAGO = ?";
@@ -75,7 +75,7 @@ public class GestorTipoPago extends PoolDeConexiones {
         }
         return resultado;
     }
-
+    
     public TipoPago obtenerTipoPago(int idTipoPago) throws Exception {
         TipoPago tipoPago = new TipoPago();
         String sql = "SELECT * FROM tipo_pago WHERE tipo_pago.FECHABAJA = ? AND tipo_pago.IDTIPOPAGO = ?";
@@ -89,7 +89,7 @@ public class GestorTipoPago extends PoolDeConexiones {
                 tipoPago.setIdTipoPago(idTipoPago);
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
                 tipoPago.setCuotas(resultado.getInt("CUOTAS"));
-                tipoPago.setBonificacion(resultado.getDouble("BONIFICACION"));
+                tipoPago.setBonificacion(resultado.getInt("BONIFICACION"));
             }
         } catch (Exception e) {
             conexion.rollback();
@@ -97,7 +97,29 @@ public class GestorTipoPago extends PoolDeConexiones {
         }
         return tipoPago;
     }
-
+    
+    public TipoPago obtenerTipoPago(String nombre) throws Exception {
+        TipoPago tipoPago = new TipoPago();
+        String sql = "SELECT * FROM tipo_pago WHERE tipo_pago.FECHABAJA = ? AND tipo_pago.TIPOPAGO = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setString(1, nombre);
+            ResultSet resultado = pst.executeQuery();
+            conexion.commit();
+            while (resultado.next()) {
+                tipoPago.setIdTipoPago(resultado.getInt("IDTIPOPAGO"));
+                tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
+                tipoPago.setCuotas(resultado.getInt("CUOTAS"));
+                tipoPago.setBonificacion(resultado.getInt("BONIFICACION"));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return tipoPago;
+    }
+    
     public ArrayList<TipoPago> listarTiposDePago() throws Exception {
         ArrayList<TipoPago> tiposDePago = new ArrayList<>();
         String sql = "SELECT * FROM tipo_pago WHERE tipo_pago.FECHABAJA IS NULL";
@@ -111,7 +133,7 @@ public class GestorTipoPago extends PoolDeConexiones {
                 tipoPago.setIdTipoPago(resultado.getInt("IDTIPOPAGO"));
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
                 tipoPago.setCuotas(resultado.getInt("CUOTAS"));
-                tipoPago.setBonificacion(resultado.getDouble("BONIFICACION"));
+                tipoPago.setBonificacion(resultado.getInt("BONIFICACION"));
                 tiposDePago.add(tipoPago);
             }
         } catch (Exception e) {

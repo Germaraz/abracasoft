@@ -71,7 +71,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jToolBar1 = new javax.swing.JToolBar();
         JBProductos = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        ComprajButton = new javax.swing.JButton();
+        JBCompras = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         JBVentas = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JToolBar.Separator();
@@ -79,7 +79,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jSeparator2 = new javax.swing.JToolBar.Separator();
         JBProveedores = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        JBCaja = new javax.swing.JButton();
+        JBCajas = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         JBInformes = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
@@ -118,6 +118,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jToolBar1.setBorderPainted(false);
         jToolBar1.setOpaque(false);
 
+        JBProductos.setVisible(false);
         JBProductos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JBProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/productos25.png"))); // NOI18N
         JBProductos.setText("Productos");
@@ -131,20 +132,22 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jToolBar1.add(JBProductos);
         jToolBar1.add(jSeparator1);
 
-        ComprajButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        ComprajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comprasin30.png"))); // NOI18N
-        ComprajButton.setText("Compras");
-        ComprajButton.setFocusable(false);
-        ComprajButton.setHideActionText(true);
-        ComprajButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        ComprajButton.addActionListener(new java.awt.event.ActionListener() {
+        JBCompras.setVisible(false);
+        JBCompras.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        JBCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comprasin30.png"))); // NOI18N
+        JBCompras.setText("Compras");
+        JBCompras.setFocusable(false);
+        JBCompras.setHideActionText(true);
+        JBCompras.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        JBCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComprajButtonActionPerformed(evt);
+                JBComprasActionPerformed(evt);
             }
         });
-        jToolBar1.add(ComprajButton);
+        jToolBar1.add(JBCompras);
         jToolBar1.add(jSeparator4);
 
+        JBVentas.setVisible(false);
         JBVentas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JBVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comprasout30.png"))); // NOI18N
         JBVentas.setText("Ventas");
@@ -158,6 +161,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jToolBar1.add(JBVentas);
         jToolBar1.add(jSeparator6);
 
+        JBClientes.setVisible(false);
         JBClientes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JBClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cliente30.png"))); // NOI18N
         JBClientes.setText("Clientes");
@@ -171,6 +175,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jToolBar1.add(JBClientes);
         jToolBar1.add(jSeparator2);
 
+        JBProveedores.setVisible(false);
         JBProveedores.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JBProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/proveedor35.png"))); // NOI18N
         JBProveedores.setText("Proveedores");
@@ -184,19 +189,21 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jToolBar1.add(JBProveedores);
         jToolBar1.add(jSeparator3);
 
-        JBCaja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        JBCaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/caja30.png"))); // NOI18N
-        JBCaja.setText("Caja");
-        JBCaja.setFocusable(false);
-        JBCaja.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        JBCaja.addActionListener(new java.awt.event.ActionListener() {
+        JBCajas.setVisible(false);
+        JBCajas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        JBCajas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/caja30.png"))); // NOI18N
+        JBCajas.setText("Caja");
+        JBCajas.setFocusable(false);
+        JBCajas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        JBCajas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCajaActionPerformed(evt);
+                JBCajasActionPerformed(evt);
             }
         });
-        jToolBar1.add(JBCaja);
+        jToolBar1.add(JBCajas);
         jToolBar1.add(jSeparator5);
 
+        JBInformes.setVisible(false);
         JBInformes.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JBInformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/informes30.png"))); // NOI18N
         JBInformes.setText("Informes");
@@ -211,6 +218,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         jToolBar1.add(JBInformes);
         jToolBar1.add(jSeparator7);
 
+        JBUsuarios.setVisible(false);
         JBUsuarios.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JBUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario30.png"))); // NOI18N
         JBUsuarios.setText("Usuarios");
@@ -240,6 +248,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
             }
         });
 
+        JBNNuevaVenta.setVisible(false);
         JBNNuevaVenta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         JBNNuevaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cash35.png"))); // NOI18N
         JBNNuevaVenta.setText("VENTA");
@@ -393,14 +402,14 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void JBCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajaActionPerformed
+    private void JBCajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajasActionPerformed
         // TODO add your handling code here:
         GestionDeCaja menuopdiarias = new GestionDeCaja();
         if (señalOpDia == 0) {
             jTabbedPane1.addTab("Gestión de caja", menuopdiarias.getContentPane());
             señalOpDia = 1;
         }
-    }//GEN-LAST:event_JBCajaActionPerformed
+    }//GEN-LAST:event_JBCajasActionPerformed
 
     private void JBNNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNNuevaVentaActionPerformed
         AltaVenta nuevaventa = new AltaVenta();
@@ -454,7 +463,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_JBProveedoresActionPerformed
 
-    private void ComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprajButtonActionPerformed
+    private void JBComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBComprasActionPerformed
         // TODO add your handling code here:
         GestionDeCompras gesComp = new GestionDeCompras();
         if (!UsuarioIDjLabel.getText().isEmpty()) {
@@ -464,7 +473,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
             jTabbedPane1.addTab("Gestión de compras", gesComp.getContentPane());
             señalCompra = 1;
         }
-    }//GEN-LAST:event_ComprajButtonActionPerformed
+    }//GEN-LAST:event_JBComprasActionPerformed
 
     private void JBVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBVentasActionPerformed
         GestionDeVentas gesVenta = new GestionDeVentas();
@@ -526,11 +535,10 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    javax.swing.JButton BackupjButton;
-    javax.swing.JButton ComprajButton;
-    javax.swing.JLabel FechajLabel;
-    javax.swing.JButton JBCaja;
+    javax.swing.JButton BackupjButton;    javax.swing.JLabel FechajLabel;
+    javax.swing.JButton JBCajas;
     javax.swing.JButton JBClientes;
+    javax.swing.JButton JBCompras;
     javax.swing.JButton JBInformes;
     javax.swing.JButton JBNNuevaVenta;
     javax.swing.JButton JBProductos;

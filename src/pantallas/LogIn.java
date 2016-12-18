@@ -6,8 +6,10 @@
 //DROPBOX
 package pantallas;
 
+import entidades.Privilegio;
 import entidades.Usuario;
-import java.util.Arrays;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -26,9 +28,6 @@ public class LogIn extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
-        setLocationRelativeTo(null);
-        getRootPane().setDefaultButton(BlogIn);
         //new gestores.AbraBackUp().CrearBackup();
         //new gestores.AbraBackUp().RestaurarBackup("24 de junio de 2014");
     }
@@ -159,7 +158,6 @@ public class LogIn extends javax.swing.JFrame {
     private void BlogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlogInActionPerformed
         if (validar()) {
             this.ingresar();
-            this.dispose();
         }
     }//GEN-LAST:event_BlogInActionPerformed
 
@@ -192,15 +190,20 @@ public class LogIn extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new LogIn().setVisible(true);
+                LogIn login = new LogIn();
+                login.setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
+                login.setLocationRelativeTo(null);
+                login.getRootPane().setDefaultButton(login.BlogIn);
+                login.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bexit;
-    private javax.swing.JButton BlogIn;
+    javax.swing.JButton BlogIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -223,18 +226,52 @@ public class LogIn extends javax.swing.JFrame {
         return estado;
     }
 
-    private Usuario ingresar() {
+    private void ingresar() {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuariojTextField.getText());
         usuario.setPassUsuario(new String(passUsuariojTextField.getPassword()));
         try {
             usuario = new Usuario().login(usuario);
             if (usuario != null) {
-                //acá habría que hacer un "case" que active la pantalla correcta según los privilegios del empleado
                 VentanaPrincipal ventana = new VentanaPrincipal();
+                ArrayList<Privilegio> privilegios = new Privilegio().obtenerPrivilegios(usuario.getRol());
+                if (!privilegios.isEmpty()) {
+                    for (int i = 0; i < privilegios.size(); i++) {
+                        switch (privilegios.get(i).getIdPrivilegio()) {
+                            case 1:
+                                ventana.JBUsuarios.setVisible(true);
+                                break;
+                            case 2:
+                                ventana.JBProductos.setVisible(true);
+                                break;
+                            case 3:
+                                ventana.JBCompras.setVisible(true);
+                                break;
+                            case 4:
+                                ventana.JBProveedores.setVisible(true);
+                                break;
+                            case 5:
+                                ventana.JBVentas.setVisible(true);
+                                break;
+                            case 6:
+                                ventana.JBNNuevaVenta.setVisible(true);
+                                break;
+                            case 7:
+                                ventana.JBCajas.setVisible(true);
+                                break;
+                            case 8:
+                                ventana.JBClientes.setVisible(true);
+                                break;
+                            case 9:
+                                ventana.JBInformes.setVisible(true);
+                                break;
+                        }
+                    }
+                }
                 ventana.NombreUsuariojLabel.setText(usuario.getNombreUsuario());
                 ventana.UsuarioIDjLabel.setText(Integer.toString(usuario.getIdUsuario()));
                 ventana.setVisible(true);
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario inexistente");
             }
@@ -242,7 +279,6 @@ public class LogIn extends javax.swing.JFrame {
             Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al intentar loguearse: " + ex.getMessage());
         }
-        return usuario;
     }
 
 }

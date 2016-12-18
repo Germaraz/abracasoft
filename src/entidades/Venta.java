@@ -99,7 +99,7 @@ public class Venta {
     public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
     }
-    
+
     public int altaVenta(Venta venta) throws Exception {
         return new GestorVenta().altaVenta(venta);
     }
@@ -112,8 +112,8 @@ public class Venta {
         return new GestorVenta().darDeBajaVenta(venta);
     }
 
-    public Venta obtenerVenta(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Venta obtenerVenta(int idventa) throws Exception {
+        return new GestorVenta().obtenerVenta(idventa);
     }
 
     public ArrayList<Venta> obtenerVentasCliente(int idCliente) throws Exception {
