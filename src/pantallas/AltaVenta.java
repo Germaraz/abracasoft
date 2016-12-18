@@ -5,6 +5,7 @@
  */
 package pantallas;
 
+import com.sun.java.accessibility.util.EventID;
 import entidades.Caja;
 import entidades.Cliente;
 import entidades.Factura;
@@ -13,6 +14,7 @@ import entidades.Producto;
 import entidades.TipoPago;
 import entidades.Usuario;
 import entidades.Venta;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -89,7 +91,7 @@ public class AltaVenta extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         PorcIVAjComboBox = new javax.swing.JComboBox<>();
         IDVentajTextField = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        BonifjLabel = new javax.swing.JLabel();
         BonifjTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -161,6 +163,11 @@ public class AltaVenta extends javax.swing.JFrame {
         jLabel4.setText("TIPO DE PAGO:");
 
         TipoPagojComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TipoPagojComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                TipoPagojComboBoxItemStateChanged(evt);
+            }
+        });
 
         AutjLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         AutjLabel.setText("NRO AUTORIZACIÓN:");
@@ -235,8 +242,8 @@ public class AltaVenta extends javax.swing.JFrame {
         IDVentajTextField.setVisible(false);
         IDVentajTextField.setEditable(false);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("BONIFICACIÓN");
+        BonifjLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        BonifjLabel.setText("BONIFICACIÓN");
 
         BonifjTextField1.setEditable(false);
         BonifjTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -262,7 +269,7 @@ public class AltaVenta extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TipoPagojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BonifjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BonifjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -343,7 +350,7 @@ public class AltaVenta extends javax.swing.JFrame {
                         .addComponent(NroAutjTextField)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BonifjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(BonifjTextField1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,6 +436,34 @@ public class AltaVenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CobrarjButtonActionPerformed
 
+    private void TipoPagojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoPagojComboBoxItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String tipopago = TipoPagojComboBox.getSelectedItem().toString();
+            int indice = TipoPagojComboBox.getSelectedIndex();
+            switch (tipopago) {
+                case "Efectivo":
+                    BonifjLabel.setVisible(false);
+                    BonifjTextField1.setVisible(false);
+                    AutjLabel.setVisible(false);
+                    NroAutjTextField.setVisible(false);
+                    break;
+                case "Debito":
+                    BonifjLabel.setVisible(true);
+                    BonifjTextField1.setVisible(true);
+                    BonifjTextField1.setText(Integer.toString(bonificaciones[indice]));
+                    AutjLabel.setVisible(true);
+                    NroAutjTextField.setVisible(true);
+                case "Credito":
+                    BonifjLabel.setVisible(true);
+                    BonifjTextField1.setVisible(true);
+                    BonifjTextField1.setText(Integer.toString(bonificaciones[indice]));
+                    AutjLabel.setVisible(true);
+                    NroAutjTextField.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_TipoPagojComboBoxItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -469,6 +504,7 @@ public class AltaVenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AutjLabel;
+    private javax.swing.JLabel BonifjLabel;
     protected javax.swing.JTextField BonifjTextField1;
     protected javax.swing.JTable ClientesjTable;
     private javax.swing.JButton CobrarjButton;
@@ -486,7 +522,6 @@ public class AltaVenta extends javax.swing.JFrame {
     protected javax.swing.JTextField UnidadesjTextField;
     private javax.swing.JLabel VueltojLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
