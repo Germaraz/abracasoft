@@ -3,14 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pantallas;
+
+import entidades.Caja;
+import entidades.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Ema
  */
 public class GestionDeCaja extends javax.swing.JFrame {
+
+    int idusuario;
 
     /**
      * Creates new form MenuDeOperacionesDiarias
@@ -30,20 +42,25 @@ public class GestionDeCaja extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        fechaInicioCaja = new com.toedter.calendar.JDateChooser();
-        fechaFinCaja = new com.toedter.calendar.JDateChooser();
+        DesdejDateChooser = new com.toedter.calendar.JDateChooser();
+        HastajDateChooser = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        ImpArqueojTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        ImpCierrejTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        MontoToTalCajajTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        CajasjTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        FecAperturajTextField = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        NroCajajLabel = new javax.swing.JLabel();
+        IDCajajTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Caja");
@@ -52,58 +69,87 @@ public class GestionDeCaja extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Controlar caja por periodo");
 
-        fechaInicioCaja.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        DesdejDateChooser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        fechaFinCaja.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        HastajDateChooser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Arqueo de caja");
+        jLabel2.setText("Importe de Arqueo");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ImpArqueojTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ImpArqueojTextField.setText("0.00");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Cierre de caja");
+        jLabel3.setText("Importe de Cierre");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ImpCierrejTextField.setEditable(false);
+        ImpCierrejTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ImpCierrejTextField.setText("0.00");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Caja al día de la fecha");
+        jLabel4.setText("Caja hasta el momento");
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MontoToTalCajajTextField.setEditable(false);
+        MontoToTalCajajTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MontoToTalCajajTextField.setText("0.00");
 
         jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        CajasjTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        CajasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha", "Arqueo", "Usuario"
+                "Fecha", "Arqueo", "Cierre", "Usuario"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        CajasjTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(CajasjTable);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Confirmar cierre");
+        jButton1.setText("Cerrar Caja");
+        jButton1.setEnabled(false);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton2.setText("Confirmar arqueo");
+        jButton2.setText("Abrir Caja");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Hasta");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Desde");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Fecha de Apertura");
+
+        FecAperturajTextField.setEditable(false);
+        FecAperturajTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        FecAperturajTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+
+        jButton3.setText("Buscar");
+
+        NroCajajLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        NroCajajLabel.setText("Nro de Caja");
+
+        IDCajajTextField.setEditable(false);
+        IDCajajTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        FecAperturajTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,17 +165,26 @@ public class GestionDeCaja extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton2))))
-                        .addGap(287, 525, Short.MAX_VALUE))
+                            .addComponent(MontoToTalCajajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(ImpCierrejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(ImpArqueojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel7)))
+                                .addGap(18, 18, 18)
+                                .addComponent(FecAperturajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(NroCajajLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(IDCajajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(268, 268, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
@@ -138,11 +193,13 @@ public class GestionDeCaja extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaInicioCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DesdejDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaFinCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(HastajDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,32 +208,38 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(ImpArqueojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FecAperturajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NroCajajLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(IDCajajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ImpCierrejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MontoToTalCajajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(fechaInicioCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DesdejDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(11, 11, 11))
-                        .addComponent(fechaFinCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(HastajDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3))
                         .addGap(12, 12, 12))))
         );
 
@@ -233,21 +296,80 @@ public class GestionDeCaja extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser fechaFinCaja;
-    private com.toedter.calendar.JDateChooser fechaInicioCaja;
+    private javax.swing.JTable CajasjTable;
+    private com.toedter.calendar.JDateChooser DesdejDateChooser;
+    private javax.swing.JTextField FecAperturajTextField;
+    private com.toedter.calendar.JDateChooser HastajDateChooser;
+    private javax.swing.JTextField IDCajajTextField;
+    private javax.swing.JTextField ImpArqueojTextField;
+    private javax.swing.JTextField ImpCierrejTextField;
+    private javax.swing.JTextField MontoToTalCajajTextField;
+    private javax.swing.JLabel NroCajajLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarTabla(JTable tabla) {
+        int filas = tabla.getRowCount();
+        if (filas > 0) {
+            DefaultTableModel defaultTabla = (DefaultTableModel) tabla.getModel();
+            for (int i = 0; filas > i; i++) {
+                defaultTabla.removeRow(0);
+            }
+        }
+    }
+
+    private void agregarCajasATabla() {
+        ArrayList<Caja> cajas;
+        try {
+            cajas = new Caja().listarCajas(DesdejDateChooser.getDate(), HastajDateChooser.getDate());
+            if (!cajas.isEmpty()) {
+                limpiarTabla(CajasjTable);
+                DefaultTableModel tabla = (DefaultTableModel) CajasjTable.getModel();
+                Object[] columnas = new Object[4];
+                for (int i = 0; i < cajas.size(); i++) {
+                    columnas[0] = cajas.get(i).getFechaApertura();
+                    columnas[1] = cajas.get(i).getImporteArqueo();
+                    columnas[2] = cajas.get(i).getImporteCierre();
+                    columnas[3] = cajas.get(i).getUsuario().getNombreUsuario();
+                    tabla.addRow(columnas);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay cajas entre ese rango de fechas");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(GestionDeProductos.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void abrirCaja() {
+        int resultado;
+        Caja caja = new Caja();
+        caja.setImporteArqueo(Double.parseDouble(ImpArqueojTextField.getText()));
+        try {
+            caja.setUsuario(new Usuario().obtenerUsuario(idusuario));
+            resultado = caja.abrirCaja(caja);
+            if (resultado != 0) {
+                NroCajajLabel.setVisible(true);
+                IDCajajTextField.setText(Integer.toString(resultado));
+                IDCajajTextField.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se logro abrir la caja");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestionDeCaja.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
 }
