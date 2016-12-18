@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorTipoPago;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ public class TipoPago {
     private int idTipoPago;
     private String tipoPago;
     private int cuotas;
-    private double bonificacion;
+    private int bonificacion;
     private Date fechaBajaTipoPago;
 
     public TipoPago() {
@@ -47,11 +48,11 @@ public class TipoPago {
         this.cuotas = cuotas;
     }
 
-    public double getBonificacion() {
+    public int getBonificacion() {
         return bonificacion;
     }
 
-    public void setBonificacion(double bonificacion) {
+    public void setBonificacion(int bonificacion) {
         this.bonificacion = bonificacion;
     }
 
@@ -65,6 +66,14 @@ public class TipoPago {
 
     public TipoPago obtenerTipoPago(int idTipoPago) throws Exception {
         return new GestorTipoPago().obtenerTipoPago(idTipoPago);
+    }
+
+    public TipoPago obtenerTipoPago(String nombre) throws Exception {
+        return new GestorTipoPago().obtenerTipoPago(nombre);
+    }
+
+    public ArrayList<TipoPago> listarTiposPagos() throws Exception {
+        return new GestorTipoPago().listarTiposDePago();
     }
 
 }

@@ -8,11 +8,11 @@ package pantallas;
 import entidades.Caja;
 import entidades.Cliente;
 import entidades.Factura;
+import entidades.Pago;
 import entidades.Producto;
 import entidades.TipoPago;
 import entidades.Usuario;
 import entidades.Venta;
-import gestores.GestorTipoPago;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -38,6 +38,7 @@ public class AltaVenta extends javax.swing.JFrame {
     private double montoVenta;
     private double montoTotal;
     private double montoIVA;
+    private int[] bonificaciones;
 
     /**
      * Creates new form AltaVenta
@@ -88,6 +89,8 @@ public class AltaVenta extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         PorcIVAjComboBox = new javax.swing.JComboBox<>();
         IDVentajTextField = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        BonifjTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nueva venta - OSG");
@@ -232,6 +235,12 @@ public class AltaVenta extends javax.swing.JFrame {
         IDVentajTextField.setVisible(false);
         IDVentajTextField.setEditable(false);
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setText("BONIFICACIÓN");
+
+        BonifjTextField1.setEditable(false);
+        BonifjTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -252,7 +261,11 @@ public class AltaVenta extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TipoPagojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BonifjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(AutjLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(NroAutjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,7 +277,7 @@ public class AltaVenta extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PorcIVAjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(UnidadesjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,7 +342,9 @@ public class AltaVenta extends javax.swing.JFrame {
                         .addComponent(AutjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(NroAutjTextField)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BonifjTextField1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,7 +363,9 @@ public class AltaVenta extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,6 +469,7 @@ public class AltaVenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AutjLabel;
+    protected javax.swing.JTextField BonifjTextField1;
     protected javax.swing.JTable ClientesjTable;
     private javax.swing.JButton CobrarjButton;
     protected javax.swing.JTable DetalleVentajTable;
@@ -468,6 +486,7 @@ public class AltaVenta extends javax.swing.JFrame {
     protected javax.swing.JTextField UnidadesjTextField;
     private javax.swing.JLabel VueltojLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -589,10 +608,12 @@ public class AltaVenta extends javax.swing.JFrame {
     private void cargarTiposPagos() {
         ArrayList<TipoPago> tipos;
         try {
-            tipos = new GestorTipoPago().listarTiposDePago();
+            tipos = new TipoPago().listarTiposPagos();
             if (!tipos.isEmpty()) {
+                bonificaciones = new int[tipos.size()];
                 for (int i = 0; i < tipos.size(); i++) {
                     TipoPagojComboBox.addItem(tipos.get(i).getTipoPago());
+                    bonificaciones[tipos.get(i).getIdTipoPago()] = tipos.get(i).getBonificacion();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay tipos de pago cargados. Por favor cargue uno");
@@ -724,10 +745,28 @@ public class AltaVenta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
             if (resultado != 0) {
-                JOptionPane.showMessageDialog(null, "Venta guardada correctamente");
+                if (guardarPago(resultado) != 0) {
+                    JOptionPane.showMessageDialog(null, "Venta guardada correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar el pago");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar la venta");
             }
         }
+    }
+
+    private int guardarPago(int idVenta) {
+        int resultado = 0;
+        Pago pago = new Pago();
+        try {
+            pago.setVenta(new Venta().obtenerVenta(idVenta));
+            pago.setTipoPago(new TipoPago().obtenerTipoPago(TipoFacturajComboBox.getSelectedItem().toString()));
+            pago.setMontoPago(Double.parseDouble(TotaljTextField.getText()));
+            resultado = pago.altaPago(pago);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return resultado;
     }
 }

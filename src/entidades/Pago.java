@@ -82,6 +82,10 @@ public class Pago {
         this.compra = compra;
     }
 
+    public int altaPago(Pago pago) throws Exception {
+        return new GestorPago().altaPago(pago);
+    }
+
     public Pago obtenerPago(int idPago) throws Exception {
         return new GestorPago().obtenerPago(idPago);
     }
