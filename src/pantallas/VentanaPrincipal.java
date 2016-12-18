@@ -5,18 +5,24 @@
  */
 package pantallas;
 
-import entidades.Usuario;
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Calendar;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
+import javax.swing.Timer;
 
 /**
  *
@@ -32,7 +38,9 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         JBNNuevaVenta.setMnemonic(KeyEvent.VK_V);
-        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());   
+        setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
+        //obtenerEstadoServer();
+        //repetirAccion();
     }
     
     public void cerrar() {
@@ -57,6 +65,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     private void initComponents() {
 
         UsuarioIDjLabel = new javax.swing.JLabel();
+        servidorjLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -84,6 +93,9 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         NombreUsuariojLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         FechajLabel = new javax.swing.JLabel();
+
+        servidorjLabel.setText("jLabel2");
+        servidorjLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OSG - Otro Sistema de Gestión");
@@ -239,6 +251,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user20.png"))); // NOI18N
         jLabel1.setText("Usuario: ");
 
         NombreUsuariojLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -263,15 +276,15 @@ public class VentanaPrincipal extends javax.swing.JFrame{
                         .addComponent(JBNNuevaVenta))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAyuda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(FechajLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NombreUsuariojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
+                        .addComponent(NombreUsuariojLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExit))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -463,7 +476,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws UnknownHostException, IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -486,9 +499,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+               
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -527,6 +538,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     javax.swing.JToolBar.Separator jSeparator7;
     javax.swing.JTabbedPane jTabbedPane1;
     javax.swing.JToolBar jToolBar1;
+    javax.swing.JLabel servidorjLabel;
     // End of variables declaration//GEN-END:variables
     private int señalProd = 0;
     private int señalClie = 0;
@@ -541,5 +553,33 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     String fec = Cal.get(Cal.DATE) + "/" + (Cal.get(Cal.MONTH) + 1) + "/" + Cal.get(Cal.YEAR
     ) + " " + Cal.get(Cal.HOUR_OF_DAY) + ":" + Cal.get(Cal.MINUTE) + ":" + Cal.get(Cal.SECOND);
    
+    /**
+    private void obtenerEstadoServer(){
+        InetAddress ping;
+        String ip = "127.0.0.1"; 
+        try {
+            ping = InetAddress.getByName(ip);
+            if (ping.isReachable(5000)) {
+                servidorjLabel.setText("Servidor en linea");
+                System.setProperty("myColor", "0X36703E");
+                servidorjLabel.setForeground(Color.getColor("myColor"));
+            } else {
+                servidorjLabel.setText("Servidor fuera de linea");
+                servidorjLabel.setForeground(Color.red);
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
     
+    
+    private void repetirAccion(){
+        Timer timer = new Timer(10000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                obtenerEstadoServer();
+            }
+        });
+        timer.start();
+    }
+    **/
 }

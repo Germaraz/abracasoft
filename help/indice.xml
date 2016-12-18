@@ -14,5 +14,5 @@
         <indexitem text="Gestion de caja"    target="caja"/>
         <indexitem text="Informes"    target="otros_accesos"/>
         <indexitem text="Gestion de clientes"    target="gestion_clientes"/>
-        <indexitem text="Venta"    target="venta"/>
+        <indexitem text="Nueva venta"    target="venta"/>
 </index>
