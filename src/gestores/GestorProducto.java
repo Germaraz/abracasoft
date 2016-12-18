@@ -32,7 +32,7 @@ public class GestorProducto extends PoolDeConexiones {
             pst.setLong(1, producto.getCodigoBarra());
             pst.setString(2, producto.getNombreProducto());
             pst.setString(3, producto.getDescripcionProducto());
-            pst.setDate(4, (Date) producto.getFechaVencimientoProducto());
+            pst.setDate(4, new Date(producto.getFechaVencimientoProducto().getTime()));
             pst.setDouble(5, producto.getPrecioUnitario());
             pst.setDouble(6, producto.getAlicuota());
             pst.setInt(7, producto.getStock());
@@ -55,7 +55,7 @@ public class GestorProducto extends PoolDeConexiones {
             pst.setLong(1, producto.getCodigoBarra());
             pst.setString(2, producto.getNombreProducto());
             pst.setString(3, producto.getDescripcionProducto());
-            pst.setDate(4, (Date) producto.getFechaVencimientoProducto());
+            pst.setDate(4, new Date(producto.getFechaVencimientoProducto().getTime()));
             pst.setDouble(5, producto.getPrecioUnitario());
             pst.setDouble(6, producto.getAlicuota());
             pst.setInt(7, producto.getStock());

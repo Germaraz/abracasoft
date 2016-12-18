@@ -15,6 +15,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -33,7 +35,7 @@ public class GestorCompra extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) compra.getFechaCompra());
+            pst.setDate(1, new Date(compra.getFechaCompra().getTime()));
             pst.setDouble(2, compra.getMontoCompra());
             pst.setDouble(3, compra.getIvaCompra());
             pst.setInt(4, compra.getUsuario().getIdUsuario());
@@ -56,7 +58,7 @@ public class GestorCompra extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) compra.getFechaCompra());
+            pst.setDate(1, new Date(compra.getFechaCompra().getTime()));
             pst.setDouble(2, compra.getMontoCompra());
             pst.setDouble(3, compra.getIvaCompra());
             pst.setInt(4, compra.getUsuario().getIdUsuario());
@@ -92,7 +94,6 @@ public class GestorCompra extends PoolDeConexiones {
 
     public Compra obtenerCompra(int idCompra) throws Exception {
         Compra compra = new Compra();
-        ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL AND compra.IDCOMPRA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
@@ -107,9 +108,9 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
-                productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));
+                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
+                compra.setProductos(new ArrayList<Producto>(productos));
             }
-            compra.setProductos(productos);
         } catch (Exception e) {
             conexion.rollback();
             throw new Exception(e.getMessage());
@@ -119,7 +120,6 @@ public class GestorCompra extends PoolDeConexiones {
 
     public ArrayList<Compra> listarCompras(java.util.Date fechaDesde, java.util.Date fechaHasta) throws Exception {
         ArrayList<Compra> compras = new ArrayList<>();
-        ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL "
                 + "AND (compra.FECHACOMPRA BETWEEN ? AND ?)";
         try {
@@ -137,8 +137,8 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
-                productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));
-                compra.setProductos(productos);
+                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
+                compra.setProductos(new ArrayList<Producto>(productos));
                 compras.add(compra);
             }
         } catch (Exception e) {
@@ -150,7 +150,6 @@ public class GestorCompra extends PoolDeConexiones {
 
     public ArrayList<Compra> obtenerComprasProveedor(int idProveedor) throws Exception {
         ArrayList<Compra> compras = new ArrayList<>();
-        ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL "
                 + "AND compra.proveedor_IDPROVEEDOR = ?";
         try {
@@ -167,8 +166,8 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
-                productos.add(new Producto().obtenerProducto(resultado.getInt("producto_IDPRODUCTO")));
-                compra.setProductos(productos);
+                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
+                compra.setProductos(new ArrayList<Producto>(productos));
                 compras.add(compra);
             }
         } catch (Exception e) {
