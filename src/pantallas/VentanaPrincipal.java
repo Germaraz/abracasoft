@@ -38,9 +38,8 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         JBNNuevaVenta.setMnemonic(KeyEvent.VK_V);
+        BackupjButton.setMnemonic(KeyEvent.VK_F10);
         setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
-        //obtenerEstadoServer();
-        //repetirAccion();
     }
     
     public void cerrar() {
@@ -68,6 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         servidorjLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        BackupjButton = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         JBProductos = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -104,6 +104,13 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+        });
+
+        BackupjButton.setLabel("");
+        BackupjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackupjButtonActionPerformed(evt);
             }
         });
 
@@ -276,6 +283,8 @@ public class VentanaPrincipal extends javax.swing.JFrame{
                         .addComponent(JBNNuevaVenta))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAyuda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BackupjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,7 +314,8 @@ public class VentanaPrincipal extends javax.swing.JFrame{
                     .addComponent(jLabel1)
                     .addComponent(NombreUsuariojLabel)
                     .addComponent(jLabel3)
-                    .addComponent(FechajLabel))
+                    .addComponent(FechajLabel)
+                    .addComponent(BackupjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -473,6 +483,12 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_JBUsuariosActionPerformed
 
+    private void BackupjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackupjButtonActionPerformed
+        Backup backup = new Backup();
+        backup.setVisible(true);
+        setLocationRelativeTo(null);
+    }//GEN-LAST:event_BackupjButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -510,6 +526,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    javax.swing.JButton BackupjButton;
     javax.swing.JButton ComprajButton;
     javax.swing.JLabel FechajLabel;
     javax.swing.JButton JBCaja;
@@ -552,34 +569,5 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     Calendar Cal = Calendar.getInstance();
     String fec = Cal.get(Cal.DATE) + "/" + (Cal.get(Cal.MONTH) + 1) + "/" + Cal.get(Cal.YEAR
     ) + " " + Cal.get(Cal.HOUR_OF_DAY) + ":" + Cal.get(Cal.MINUTE) + ":" + Cal.get(Cal.SECOND);
-   
-    /**
-    private void obtenerEstadoServer(){
-        InetAddress ping;
-        String ip = "127.0.0.1"; 
-        try {
-            ping = InetAddress.getByName(ip);
-            if (ping.isReachable(5000)) {
-                servidorjLabel.setText("Servidor en linea");
-                System.setProperty("myColor", "0X36703E");
-                servidorjLabel.setForeground(Color.getColor("myColor"));
-            } else {
-                servidorjLabel.setText("Servidor fuera de linea");
-                servidorjLabel.setForeground(Color.red);
-            }
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-    }
-    
-    
-    private void repetirAccion(){
-        Timer timer = new Timer(10000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                obtenerEstadoServer();
-            }
-        });
-        timer.start();
-    }
-    **/
+
 }
