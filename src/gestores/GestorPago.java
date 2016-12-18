@@ -33,7 +33,7 @@ public class GestorPago extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDouble(1, pago.getMontoPago());
-            pst.setDate(2, (Date) pago.getFechaPago());
+            pst.setDate(2, new Date(pago.getFechaPago().getTime()));
             pst.setInt(3, pago.getVenta().getIdVenta());
             pst.setInt(4, pago.getTipoPago().getIdTipoPago());
             pst.setInt(5, pago.getCompra().getIdCompra());
@@ -54,7 +54,7 @@ public class GestorPago extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDouble(1, pago.getMontoPago());
-            pst.setDate(2, (Date) pago.getFechaPago());
+            pst.setDate(2, new Date(pago.getFechaPago().getTime()));
             pst.setInt(3, pago.getTipoPago().getIdTipoPago());
             pst.setInt(4, pago.getCompra().getIdCompra());
             pst.setInt(5, pago.getIdPago());

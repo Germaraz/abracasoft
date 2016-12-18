@@ -7,13 +7,17 @@ package gestores;
 
 import entidades.Cliente;
 import entidades.Factura;
+import entidades.Producto;
 import entidades.Usuario;
 import entidades.Venta;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -32,12 +36,14 @@ public class GestorVenta extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) venta.getFechaVenta());
+            pst.setDate(1, new Date(venta.getFechaVenta().getTime()));
             pst.setDouble(2, venta.getMontoVenta());
             pst.setDouble(3, venta.getIvaVenta());
             pst.setInt(4, venta.getUsuario().getIdUsuario());
             pst.setInt(5, venta.getCliente().getIdCliente());
             pst.setInt(6, venta.getFactura().getIdFactura());
+            Array productos = conexion.createArrayOf("INT", venta.getProductos().toArray());
+            pst.setArray(6, productos);
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -54,12 +60,14 @@ public class GestorVenta extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) venta.getFechaVenta());
+            pst.setDate(1, new Date(venta.getFechaVenta().getTime()));
             pst.setDouble(2, venta.getMontoVenta());
             pst.setDouble(3, venta.getIvaVenta());
             pst.setInt(4, venta.getUsuario().getIdUsuario());
             pst.setInt(5, venta.getCliente().getIdCliente());
             pst.setInt(6, venta.getFactura().getIdFactura());
+            Array productos = conexion.createArrayOf("INT", venta.getProductos().toArray());
+            pst.setArray(6, productos);
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -103,6 +111,8 @@ public class GestorVenta extends PoolDeConexiones {
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
+                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
+                venta.setProductos(new ArrayList<Producto>(productos));
             }
         } catch (Exception e) {
             conexion.rollback();
@@ -131,6 +141,8 @@ public class GestorVenta extends PoolDeConexiones {
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
+                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
+                venta.setProductos(new ArrayList<Producto>(productos));
                 ventas.add(venta);
             }
         } catch (Exception e) {
@@ -159,6 +171,8 @@ public class GestorVenta extends PoolDeConexiones {
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
+                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
+                venta.setProductos(new ArrayList<Producto>(productos));
                 ventas.add(venta);
             }
         } catch (Exception e) {

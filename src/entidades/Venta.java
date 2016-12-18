@@ -23,7 +23,7 @@ public class Venta {
     private Usuario usuario;
     private Cliente cliente;
     private Factura factura;
-    private Producto producto;
+    private ArrayList<Producto> productos;
 
     public Venta() {
     }
@@ -92,14 +92,14 @@ public class Venta {
         this.factura = factura;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public ArrayList<Producto> getProductos() {
+        return productos;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
     }
-
+    
     public int altaVenta(Venta venta) throws Exception {
         return new GestorVenta().altaVenta(venta);
     }

@@ -35,7 +35,7 @@ public class GestorCliente extends PoolDeConexiones {
             pst.setString(2, cliente.getSexo());
             pst.setString(3, cliente.getNombreCliente());
             pst.setString(4, cliente.getApellidoCliente());
-            pst.setDate(5, (Date) cliente.getFechaNacimiento());
+            pst.setDate(5, new Date(cliente.getFechaNacimiento().getTime()));
             pst.setString(6, cliente.getDireccionCliente());
             pst.setString(7, cliente.getMailCliente());
             pst.setLong(8, cliente.getTelefonoCliente());
@@ -61,7 +61,7 @@ public class GestorCliente extends PoolDeConexiones {
             pst.setString(2, cliente.getSexo());
             pst.setString(3, cliente.getNombreCliente());
             pst.setString(4, cliente.getApellidoCliente());
-            pst.setDate(5, (Date) cliente.getFechaNacimiento());
+            pst.setDate(5, new Date(cliente.getFechaNacimiento().getTime()));
             pst.setString(6, cliente.getDireccionCliente());
             pst.setString(7, cliente.getMailCliente());
             pst.setLong(8, cliente.getTelefonoCliente());
