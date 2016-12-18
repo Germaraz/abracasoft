@@ -107,7 +107,6 @@ public class VentanaPrincipal extends javax.swing.JFrame{
             }
         });
 
-        BackupjButton.setLabel("");
         BackupjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BackupjButtonActionPerformed(evt);
@@ -317,14 +316,15 @@ public class VentanaPrincipal extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExit)
-                    .addComponent(btnAyuda)
-                    .addComponent(jLabel1)
-                    .addComponent(NombreUsuariojLabel)
-                    .addComponent(jLabel3)
-                    .addComponent(FechajLabel)
-                    .addComponent(BackupjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BackupjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExit)
+                        .addComponent(btnAyuda)
+                        .addComponent(jLabel1)
+                        .addComponent(NombreUsuariojLabel)
+                        .addComponent(jLabel3)
+                        .addComponent(FechajLabel)))
                 .addContainerGap())
         );
 
@@ -448,7 +448,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     }//GEN-LAST:event_formWindowClosing
 
     private void JBInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBInformesActionPerformed
-        Config config = new Config();
+        GestionDeInformes config = new GestionDeInformes();
         if (señalOac == 0) {
             jTabbedPane1.addTab("Informes", config.getContentPane());
             señalOac = 1;
@@ -535,7 +535,8 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    javax.swing.JButton BackupjButton;    javax.swing.JLabel FechajLabel;
+    javax.swing.JButton BackupjButton;
+    javax.swing.JLabel FechajLabel;
     javax.swing.JButton JBCajas;
     javax.swing.JButton JBClientes;
     javax.swing.JButton JBCompras;

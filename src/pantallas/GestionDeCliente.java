@@ -52,12 +52,11 @@ public class GestionDeCliente extends javax.swing.JFrame {
         DarDeBajaClijButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ClientesjTable = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         CuentaCorrientejTable = new javax.swing.JTable();
         NuevoClientejButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        FiltrojComboBox = new javax.swing.JComboBox<>();
+        FiltrojComboBox = new javax.swing.JComboBox<String>();
         FiltrojTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -80,7 +79,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Apellido y Nombre", "DNI", "Sexo", "Provincia", "Localidad", "Codigo Postal", "Dirección", "Email", "Telefono"
+                "ID", "Apellido y Nombre", "DNI", "Sexo", "Provincia", "Localidad", "CP", "Dirección", "Email", "Telefono"
             }
         ) {
             Class[] types = new Class [] {
@@ -109,16 +108,16 @@ public class GestionDeCliente extends javax.swing.JFrame {
             ClientesjTable.getColumnModel().getColumn(0).setMinWidth(30);
             ClientesjTable.getColumnModel().getColumn(0).setPreferredWidth(30);
             ClientesjTable.getColumnModel().getColumn(0).setMaxWidth(40);
+            ClientesjTable.getColumnModel().getColumn(6).setPreferredWidth(50);
+            ClientesjTable.getColumnModel().getColumn(9).setPreferredWidth(90);
         }
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         CuentaCorrientejTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Venta", "Fecha", "Importe Total", "Pago", "Saldo"
+                "Venta", "Fecha", "Importe total", "Pago", "Saldo"
             }
         ) {
             Class[] types = new Class [] {
@@ -149,7 +148,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar por:");
 
-        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Apellido y Nombre", "Nro de Documento" }));
+        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Apellido y Nombre", "Nro de Documento" }));
 
         FiltrojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -161,30 +160,26 @@ public class GestionDeCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(NuevoClientejButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(EditajButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(DarDeBajaClijButton))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 448, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -196,11 +191,10 @@ public class GestionDeCliente extends javax.swing.JFrame {
                     .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevoClientejButton)
                     .addComponent(EditajButton)
@@ -293,7 +287,6 @@ public class GestionDeCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     private void limpiarTabla(JTable tabla) {

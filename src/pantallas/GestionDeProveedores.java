@@ -8,6 +8,7 @@ package pantallas;
 import entidades.Compra;
 import entidades.Pago;
 import entidades.Proveedor;
+import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -17,7 +18,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -37,7 +42,10 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         agregarProveedoresATabla();
+        ProveedoresjTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,13 +59,12 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         DarBajajButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ProveedoresjTable = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         ComprasjTable = new javax.swing.JTable();
         PagoComprajButton = new javax.swing.JButton();
         NuevoProveedorjButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        FiltrojComboBox = new javax.swing.JComboBox<>();
+        FiltrojComboBox = new javax.swing.JComboBox<String>();
         FiltrojTextField = new javax.swing.JTextField();
         EditarProveedorjButton = new javax.swing.JButton();
 
@@ -105,17 +112,8 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ProveedoresjTable);
         if (ProveedoresjTable.getColumnModel().getColumnCount() > 0) {
-            ProveedoresjTable.getColumnModel().getColumn(1).setPreferredWidth(11);
-            ProveedoresjTable.getColumnModel().getColumn(2).setPreferredWidth(30);
-            ProveedoresjTable.getColumnModel().getColumn(3).setPreferredWidth(30);
-            ProveedoresjTable.getColumnModel().getColumn(4).setPreferredWidth(30);
-            ProveedoresjTable.getColumnModel().getColumn(5).setPreferredWidth(30);
-            ProveedoresjTable.getColumnModel().getColumn(6).setPreferredWidth(40);
-            ProveedoresjTable.getColumnModel().getColumn(7).setPreferredWidth(10);
-            ProveedoresjTable.getColumnModel().getColumn(8).setPreferredWidth(30);
+            ProveedoresjTable.getColumnModel().getColumn(0).setPreferredWidth(5);
         }
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         ComprasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,7 +153,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar por:");
 
-        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre de fantasia", "Razon social" }));
+        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre de fantasia", "Razon social" }));
 
         FiltrojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -174,26 +172,20 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1402, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(NuevoProveedorjButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(EditarProveedorjButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(DarBajajButton)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(NuevoProveedorjButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(EditarProveedorjButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(DarBajajButton))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 574, Short.MAX_VALUE)
                         .addComponent(PagoComprajButton)))
                 .addContainerGap())
         );
@@ -207,11 +199,10 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(PagoComprajButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DarBajajButton)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -311,7 +302,6 @@ public class GestionDeProveedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     private void limpiarTabla(JTable tabla) {
