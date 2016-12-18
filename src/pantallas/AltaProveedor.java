@@ -62,7 +62,7 @@ public class AltaProveedor extends javax.swing.JFrame {
         ProveedorIDjTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Agregar nuevo cliente");
+        setTitle("Agregar nuevo proveedor - OSG");
 
         jLabel1.setText("Razon social");
 
