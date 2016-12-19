@@ -271,7 +271,6 @@ public class AltaProveedor extends javax.swing.JFrame {
             if (respuesta == JOptionPane.YES_OPTION) {
                 guardarOActualizarProveedor();
                 this.dispose();
-                new GestionDeProveedores().setVisible(true);
             }
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
@@ -439,9 +438,6 @@ public class AltaProveedor extends javax.swing.JFrame {
             }
             if (resultado != 0) {
                 JOptionPane.showMessageDialog(null, "Proveedor guardado exitosamente");
-                GestionDeProveedores panta = new GestionDeProveedores();
-                panta.setVisible(true);
-                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "El proveedor no pudo guardarse");
             }

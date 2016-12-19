@@ -32,20 +32,33 @@ public class GestorVenta extends PoolDeConexiones {
 
     public int altaVenta(Venta venta) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO venta (FECHAVENTA, MONTOVENTA, IVA, usuario_IDUSUARIO, cliente_IDCLIENTE, "
-                + "factura_IDFACTURA) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO venta (FECHAVENTA, MONTOVENTA, IVA, usuario_IDUSUARIO, cliente_IDCLIENTE, factura_IDFACTURA) VALUES (CURDATE(),?,?,?,?,?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, new Date(venta.getFechaVenta().getTime()));
-            pst.setDouble(2, venta.getMontoVenta());
-            pst.setDouble(3, venta.getIvaVenta());
-            pst.setInt(4, venta.getUsuario().getIdUsuario());
-            pst.setInt(5, venta.getCliente().getIdCliente());
-            pst.setInt(6, venta.getFactura().getIdFactura());
-            Array productos = conexion.createArrayOf("INT", venta.getProductos().toArray());
-            pst.setArray(6, productos);
-            resultado = pst.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setDouble(1, venta.getMontoVenta());
+            pst.setDouble(2, venta.getIvaVenta());
+            pst.setInt(3, venta.getUsuario().getIdUsuario());
+            pst.setInt(4, venta.getCliente().getIdCliente());
+            pst.setInt(5, venta.getFactura().getIdFactura());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    public int altaDetalleVenta(int idventa, int idProducto) throws Exception {
+        int resultado = 0;
+        String sql = "INSERT INTO detalleventa (idventa, idproducto) VALUES (?,?)";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, idventa);
+            pst.setInt(2, idProducto);
+            resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
             conexion.rollback();
@@ -95,6 +108,25 @@ public class GestorVenta extends PoolDeConexiones {
         return resultado;
     }
 
+    private ArrayList<Producto> obtenerProductosPorVenta(int idventa) throws Exception {
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql = "SELECT idproducto FROM detalleventa WHERE detalleventa.idventa = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idventa);
+            ResultSet resultado = pst.executeQuery();
+            conexion.commit();
+            while (resultado.next()) {
+                productos.add(new Producto().obtenerProducto(resultado.getInt("idproducto")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return productos;
+    }
+
     public Venta obtenerVenta(int idVenta) throws Exception {
         Venta venta = new Venta();
         String sql = "SELECT * FROM venta WHERE venta.IDVENTA = ?";
@@ -112,8 +144,7 @@ public class GestorVenta extends PoolDeConexiones {
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
-                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
-                venta.setProductos(new ArrayList<Producto>(productos));
+                venta.setProductos(this.obtenerProductosPorVenta(resultado.getInt("IDVENTA")));
             }
         } catch (Exception e) {
             conexion.rollback();
@@ -142,8 +173,7 @@ public class GestorVenta extends PoolDeConexiones {
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
-                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
-                venta.setProductos(new ArrayList<Producto>(productos));
+                venta.setProductos(this.obtenerProductosPorVenta(resultado.getInt("IDVENTA")));
                 ventas.add(venta);
             }
         } catch (Exception e) {
@@ -172,8 +202,7 @@ public class GestorVenta extends PoolDeConexiones {
                 venta.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 venta.setCliente(new Cliente().obtenerClientePorId(resultado.getInt("cliente_IDCLIENTE")));
                 venta.setFactura(new Factura().obtenerFactura(resultado.getInt("factura_IDFACTURA")));
-                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
-                venta.setProductos(new ArrayList<Producto>(productos));
+                venta.setProductos(this.obtenerProductosPorVenta(resultado.getInt("IDVENTA")));
                 ventas.add(venta);
             }
         } catch (Exception e) {

@@ -350,6 +350,9 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="FecVencjDateChooser">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

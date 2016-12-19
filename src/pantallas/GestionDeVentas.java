@@ -305,6 +305,23 @@ public class GestionDeVentas extends javax.swing.JFrame {
         imprimir();
     }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
 
+    private void NuevaVentajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaVentajButtonActionPerformed
+        // TODO add your handling code here:
+        AltaVenta nuevaVenta = new AltaVenta();
+        nuevaVenta.idUsuario = this.idUsuario;
+        nuevaVenta.validarCajaAbierta();
+        nuevaVenta.cargarTiposPagos();
+        nuevaVenta.cargarTipoFactura();
+        nuevaVenta.cargarTablaClientes();
+        nuevaVenta.setLocationRelativeTo(null);
+        nuevaVenta.setVisible(true);
+    }//GEN-LAST:event_NuevaVentajButtonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new AltaTipoPago().setVisible(true);
+        setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     private void BajaVentajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaVentajButtonActionPerformed
         darDeBajaVentas();
     }//GEN-LAST:event_BajaVentajButtonActionPerformed
@@ -313,19 +330,6 @@ public class GestionDeVentas extends javax.swing.JFrame {
         abrirEditarCompra();
         setLocationRelativeTo(null);
     }//GEN-LAST:event_EditarVentajButtonActionPerformed
-
-    private void NuevaVentajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaVentajButtonActionPerformed
-        // TODO add your handling code here:
-        AltaVenta nuevaVenta = new AltaVenta();
-        //nuevaVenta.idUsuario = this.idUsuario;
-        nuevaVenta.setVisible(true);
-        setLocationRelativeTo(null);
-    }//GEN-LAST:event_NuevaVentajButtonActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new AltaTipoPago().setVisible(true);
-        setLocationRelativeTo(null);
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -78,7 +78,7 @@ public class GestorTipoPago extends PoolDeConexiones {
     
     public TipoPago obtenerTipoPago(int idTipoPago) throws Exception {
         TipoPago tipoPago = new TipoPago();
-        String sql = "SELECT * FROM tipo_pago WHERE tipo_pago.FECHABAJA = ? AND tipo_pago.IDTIPOPAGO = ?";
+        String sql = "SELECT * FROM tipo_pago WHERE tipo_pago.FECHABAJA IS NULL AND tipo_pago.IDTIPOPAGO = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
@@ -88,7 +88,6 @@ public class GestorTipoPago extends PoolDeConexiones {
             while (resultado.next()) {
                 tipoPago.setIdTipoPago(idTipoPago);
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
-                tipoPago.setCuotas(resultado.getInt("CUOTAS"));
                 tipoPago.setBonificacion(resultado.getInt("BONIFICACION"));
             }
         } catch (Exception e) {
@@ -100,7 +99,7 @@ public class GestorTipoPago extends PoolDeConexiones {
     
     public TipoPago obtenerTipoPago(String nombre) throws Exception {
         TipoPago tipoPago = new TipoPago();
-        String sql = "SELECT * FROM tipo_pago WHERE tipo_pago.FECHABAJA = ? AND tipo_pago.TIPOPAGO = ?";
+        String sql = "SELECT * FROM tipo_pago WHERE tipo_pago.FECHABAJA IS NULL AND tipo_pago.TIPOPAGO = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
@@ -110,7 +109,6 @@ public class GestorTipoPago extends PoolDeConexiones {
             while (resultado.next()) {
                 tipoPago.setIdTipoPago(resultado.getInt("IDTIPOPAGO"));
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
-                tipoPago.setCuotas(resultado.getInt("CUOTAS"));
                 tipoPago.setBonificacion(resultado.getInt("BONIFICACION"));
             }
         } catch (Exception e) {
@@ -132,7 +130,6 @@ public class GestorTipoPago extends PoolDeConexiones {
                 TipoPago tipoPago = new TipoPago();
                 tipoPago.setIdTipoPago(resultado.getInt("IDTIPOPAGO"));
                 tipoPago.setTipoPago(resultado.getString("TIPOPAGO"));
-                tipoPago.setCuotas(resultado.getInt("CUOTAS"));
                 tipoPago.setBonificacion(resultado.getInt("BONIFICACION"));
                 tiposDePago.add(tipoPago);
             }

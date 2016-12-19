@@ -25,18 +25,35 @@ public class GestorPago extends PoolDeConexiones {
         this.pedirConexion();
     }
 
-    public int altaPago(Pago pago) throws Exception {
+    public int altaPagoVenta(Pago pago) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO pago (MONTOPAGO, FECHAPAGO, venta_IDVENTA, tipo_pago_IDTIPOPAGO, compra_IDCOMPRA) "
-                + "VALUES (?,?,?,?)";
+        String sql = "INSERT INTO pago (MONTOPAGO, FECHAPAGO, venta_IDVENTA, tipo_pago_IDTIPOPAGO) "
+                + "VALUES (?,CURDATE(),?,?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDouble(1, pago.getMontoPago());
-            pst.setDate(2, new Date(pago.getFechaPago().getTime()));
-            pst.setInt(3, pago.getVenta().getIdVenta());
-            pst.setInt(4, pago.getTipoPago().getIdTipoPago());
-            pst.setInt(5, pago.getCompra().getIdCompra());
+            pst.setInt(2, pago.getVenta().getIdVenta());
+            pst.setInt(3, pago.getTipoPago().getIdTipoPago());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    public int altaPagoCompra(Pago pago) throws Exception {
+        int resultado = 0;
+        String sql = "INSERT INTO pago (MONTOPAGO, FECHAPAGO, tipo_pago_IDTIPOPAGO, compra_IDCOMPRA) "
+                + "VALUES (?,CURDATE(),?,?)";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setDouble(1, pago.getMontoPago());
+            pst.setInt(2, pago.getTipoPago().getIdTipoPago());
+            pst.setInt(3, pago.getCompra().getIdCompra());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -75,6 +92,22 @@ public class GestorPago extends PoolDeConexiones {
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDate(1, new Date(pago.getFechaBajaPago().getTime()));
             pst.setInt(2, pago.getIdPago());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    public int darDeBajaPagoCompra(int idCompra) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE pago FECHABAJA = CURDATE() WHERE pago.compra_IDCOMPRA = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idCompra);
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {

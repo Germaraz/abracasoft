@@ -5,11 +5,11 @@
  */
 package pantallas;
 
+import br.com.adilson.util.Extenso;
+import br.com.adilson.util.PrinterMatrix;
 import entidades.Caja;
 import entidades.Cliente;
-import entidades.Compra;
 import entidades.Factura;
-import entidades.Gasto;
 import entidades.Movimiento;
 import entidades.Pago;
 import entidades.Producto;
@@ -19,10 +19,21 @@ import entidades.Venta;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -37,12 +48,13 @@ public class AltaVenta extends javax.swing.JFrame {
 
     private int cantidad = 1;
     private TableRowSorter trsFiltro;
-    private ArrayList<Producto> productos;
+    private ArrayList<Producto> productos = new ArrayList<>();
+    private ArrayList<Producto> productosPorVenta = new ArrayList<>();
     int idUsuario;
-    private double montoVenta;
-    private double montoTotal;
-    private double montoIVA;
-    private int[] bonificaciones;
+    private double montoVenta = 0;
+    private double montoTotal = 0;
+    private double montoIVA = 0;
+    private int[] bonificaciones = new int[3];
     private int idCaja;
 
     /**
@@ -65,7 +77,7 @@ public class AltaVenta extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        FiltrojComboBox = new javax.swing.JComboBox<>();
+        FiltrojComboBox = new javax.swing.JComboBox<String>();
         FiltrojTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         DetalleVentajTable = new javax.swing.JTable();
@@ -74,7 +86,7 @@ public class AltaVenta extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         TotaljTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TipoPagojComboBox = new javax.swing.JComboBox<>();
+        TipoPagojComboBox = new javax.swing.JComboBox<String>();
         AutjLabel = new javax.swing.JLabel();
         NroAutjTextField = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
@@ -87,11 +99,11 @@ public class AltaVenta extends javax.swing.JFrame {
         ClientesjTable = new javax.swing.JTable();
         GenPresujButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        PagaConjTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        TipoFacturajComboBox = new javax.swing.JComboBox<>();
+        TipoFacturajComboBox = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        PorcIVAjComboBox = new javax.swing.JComboBox<>();
+        PorcIVAjComboBox = new javax.swing.JComboBox<String>();
         IDVentajTextField = new javax.swing.JTextField();
         BonifjLabel = new javax.swing.JLabel();
         BonifjTextField1 = new javax.swing.JTextField();
@@ -109,7 +121,7 @@ public class AltaVenta extends javax.swing.JFrame {
         jLabel1.setText("Buscar por");
 
         FiltrojComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo de barra", "Nombre del producto" }));
+        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Codigo de barra", "Nombre del producto" }));
 
         FiltrojTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         FiltrojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -231,9 +243,14 @@ public class AltaVenta extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("PAGA CON:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("0.00");
+        PagaConjTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PagaConjTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        PagaConjTextField.setText("0.00");
+        PagaConjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PagaConjTextFieldKeyPressed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Tipo de Factura:");
@@ -301,7 +318,7 @@ public class AltaVenta extends javax.swing.JFrame {
                         .addGap(166, 166, 166)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1)
+                        .addComponent(PagaConjTextField)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -362,7 +379,7 @@ public class AltaVenta extends javax.swing.JFrame {
                     .addComponent(VueltojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CobrarjButton)
                     .addComponent(GenPresujButton)
-                    .addComponent(jTextField1)
+                    .addComponent(PagaConjTextField)
                     .addComponent(jLabel6)
                     .addComponent(IDVentajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -440,23 +457,23 @@ public class AltaVenta extends javax.swing.JFrame {
 
     private void TipoPagojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoPagojComboBoxItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED || evt.getStateChange() == ItemEvent.ITEM_STATE_CHANGED) {
             String tipopago = TipoPagojComboBox.getSelectedItem().toString();
             int indice = TipoPagojComboBox.getSelectedIndex();
             switch (tipopago) {
-                case "Efectivo":
+                case "EFECTIVO":
                     BonifjLabel.setVisible(false);
                     BonifjTextField1.setVisible(false);
                     AutjLabel.setVisible(false);
                     NroAutjTextField.setVisible(false);
                     break;
-                case "Debito":
+                case "DEBITO":
                     BonifjLabel.setVisible(true);
                     BonifjTextField1.setVisible(true);
                     BonifjTextField1.setText(Integer.toString(bonificaciones[indice]));
                     AutjLabel.setVisible(true);
                     NroAutjTextField.setVisible(true);
-                case "Credito":
+                case "CREDITO":
                     BonifjLabel.setVisible(true);
                     BonifjTextField1.setVisible(true);
                     BonifjTextField1.setText(Integer.toString(bonificaciones[indice]));
@@ -465,6 +482,17 @@ public class AltaVenta extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_TipoPagojComboBoxItemStateChanged
+
+    private void PagaConjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PagaConjTextFieldKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!PagaConjTextField.getText().isEmpty()) {
+                double pagacon = Double.parseDouble(PagaConjTextField.getText());
+                double vuelto = montoTotal - pagacon;
+                VueltojLabel.setText(Double.toString(Math.round(vuelto)));
+            }
+        }
+    }//GEN-LAST:event_PagaConjTextFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -497,15 +525,7 @@ public class AltaVenta extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AltaVenta ventana = new AltaVenta();
-                if (ventana.validarCajaAbierta()) {
-                    ventana.cargarTiposPagos();
-                    ventana.cargarTablaClientes();
-                    ventana.cargarTipoFactura();
-                    ventana.setVisible(true);
-                } else {
-                    ventana.dispose();
-                }
+                new AltaVenta().setVisible(true);
             }
         });
     }
@@ -523,6 +543,7 @@ public class AltaVenta extends javax.swing.JFrame {
     private javax.swing.JButton GenPresujButton;
     protected javax.swing.JTextField IDVentajTextField;
     protected javax.swing.JTextField NroAutjTextField;
+    protected javax.swing.JTextField PagaConjTextField;
     private javax.swing.JComboBox<String> PorcIVAjComboBox;
     private javax.swing.JComboBox<String> TipoFacturajComboBox;
     protected javax.swing.JComboBox<String> TipoPagojComboBox;
@@ -542,20 +563,19 @@ public class AltaVenta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    protected javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private boolean validarCajaAbierta() {
+    protected boolean validarCajaAbierta() {
         boolean resultado = false;
         try {
             Caja caja = new Caja().obtenerCajaPorUsuario(idUsuario);
             if (caja != null) {
                 this.idCaja = caja.getIdCaja();
-                Date fecha = new Date();
+                String fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 Date fechaCajaApertura = caja.getFechaApertura();
                 Date fechaCajaCierre = caja.getFechaCierre();
                 if (fechaCajaCierre == null && fechaCajaApertura != null) {
-                    if (fechaCajaApertura.compareTo(fecha) == 0) {
+                    if (fechaCajaApertura.toString().equals(fecha)) {
                         resultado = true;
                     } else {
                         JOptionPane.showMessageDialog(null, "Usted tiene una caja abierta pero no es del dia y no esta cerrada. Por favor comuniquese con el administrador");
@@ -595,16 +615,17 @@ public class AltaVenta extends javax.swing.JFrame {
 
     private void buscarProducto(int cantidad) {
         DefaultTableModel tabla = (DefaultTableModel) DetalleVentajTable.getModel();
-        Object[] columnas = new Object[3];
+        Object[] columnas = new Object[4];
         try {
             switch (FiltrojComboBox.getSelectedItem().toString()) {
-                case "Codigo de Barra":
+                case "Codigo de barra":
                     Producto producto;
                     long codigoBarra = Long.parseLong(FiltrojTextField.getText());
                     if (cantidad == 1) {
                         producto = new Producto().obtenerProductoCodBarra(codigoBarra);
                         if (producto != null) {
                             this.productos.add(producto);
+                            productosPorVenta.add(producto);
                             columnas[0] = producto.getIdProducto();
                             columnas[1] = producto.getCodigoBarra();
                             columnas[2] = producto.getNombreProducto();
@@ -618,6 +639,7 @@ public class AltaVenta extends javax.swing.JFrame {
                             producto = new Producto().obtenerProductoCodBarra(codigoBarra);
                             if (producto != null) {
                                 this.productos.add(producto);
+                                productosPorVenta.add(producto);
                                 columnas[0] = producto.getIdProducto();
                                 columnas[1] = producto.getCodigoBarra();
                                 columnas[2] = producto.getNombreProducto();
@@ -629,11 +651,12 @@ public class AltaVenta extends javax.swing.JFrame {
                         }
                     }
                     break;
-                case "Nombre del Producto":
+                case "Nombre del producto":
                     ArrayList<Producto> productos2;
                     productos2 = new Producto().obtenerProductosDescripcion(FiltrojTextField.getText());
                     if (!productos.isEmpty()) {
                         this.productos = productos2;
+                        this.productosPorVenta = productos2;
                         limpiarTabla(DetalleVentajTable);
                         for (int i = 0; i < productos.size(); i++) {
                             columnas[0] = productos.get(i).getCodigoBarra();
@@ -653,7 +676,7 @@ public class AltaVenta extends javax.swing.JFrame {
         }
     }
 
-    private void cargarTiposPagos() {
+    protected void cargarTiposPagos() {
         ArrayList<TipoPago> tipos;
         try {
             tipos = new TipoPago().listarTiposPagos();
@@ -661,7 +684,7 @@ public class AltaVenta extends javax.swing.JFrame {
                 bonificaciones = new int[tipos.size()];
                 for (int i = 0; i < tipos.size(); i++) {
                     TipoPagojComboBox.addItem(tipos.get(i).getTipoPago());
-                    bonificaciones[tipos.get(i).getIdTipoPago()] = tipos.get(i).getBonificacion();
+                    bonificaciones[i] = tipos.get(i).getBonificacion();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay tipos de pago cargados. Por favor cargue uno");
@@ -672,7 +695,7 @@ public class AltaVenta extends javax.swing.JFrame {
         }
     }
 
-    private void cargarTablaClientes() {
+    protected void cargarTablaClientes() {
         ArrayList<Cliente> clientes;
         try {
             clientes = new Cliente().listarClientes();
@@ -691,7 +714,7 @@ public class AltaVenta extends javax.swing.JFrame {
         }
     }
 
-    private void cargarTipoFactura() {
+    protected void cargarTipoFactura() {
         ArrayList<Factura> facturas;
         try {
             facturas = new Factura().listarFacturas();
@@ -721,7 +744,7 @@ public class AltaVenta extends javax.swing.JFrame {
             montoIVA = (montoVenta * Integer.parseInt(PorcIVAjComboBox.getSelectedItem().toString())) / 100;
             montoTotal = montoVenta + montoIVA;
             UnidadesjTextField.setText(Integer.toString(filas));
-            TotaljTextField.setText(Double.toString(montoTotal));
+            TotaljTextField.setText(Double.toString(Math.round(montoTotal)));
         }
     }
 
@@ -744,9 +767,8 @@ public class AltaVenta extends javax.swing.JFrame {
         int cantidadProductos = productos.size();
         for (int i = 0; i < cantidadProductos; i++) {
             try {
-                Producto producto = new Producto();
-                producto.setIdProducto(productos.get(i).getIdProducto());
-                producto.setStock(productos.get(i).getStock() - 1);
+                Producto producto = productos.get(i);
+                producto.setStock(producto.getStock() - 1);
                 if (producto.modificarProducto(producto) != 0) {
                     resultado++;
                     productos.remove(productos.get(i));
@@ -768,14 +790,15 @@ public class AltaVenta extends javax.swing.JFrame {
             try {
                 Venta venta = new Venta();
                 venta.setUsuario(new Usuario().obtenerUsuario(idUsuario));
-                venta.setProductos(productos);
+                venta.setProductos(productosPorVenta);
                 venta.setFactura(new Factura().obtenerFactura(TipoFacturajComboBox.getSelectedItem().toString()));
                 if (ClientesjTable.getSelectedRowCount() > 0) {
                     int filaSelec = ClientesjTable.getSelectedRow();
                     String apeynom = ClientesjTable.getValueAt(filaSelec, 0).toString();
                     venta.setCliente(new Cliente().obtenerCliente(apeynom));
+                } else {
+                    venta.setCliente(new Cliente());
                 }
-                venta.setFechaVenta(new Date());
                 venta.setMontoVenta(montoVenta);
                 venta.setIvaVenta(montoIVA);
                 if (descontarStock()) {
@@ -794,6 +817,13 @@ public class AltaVenta extends javax.swing.JFrame {
             }
             if (resultado != 0) {
                 if (guardarPago(resultado) != 0 && guardarMovimientoCaja(resultado) != 0) {
+                    montoTotal = 0;
+                    montoIVA = 0;
+                    montoVenta = 0;
+                    FiltrojTextField.setText("");
+                    limpiarTabla(DetalleVentajTable);
+                    UnidadesjTextField.setText("");
+                    TotaljTextField.setText("");
                     JOptionPane.showMessageDialog(null, "Venta guardada correctamente");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar el pago o el movimiento de caja");
@@ -809,9 +839,9 @@ public class AltaVenta extends javax.swing.JFrame {
         Pago pago = new Pago();
         try {
             pago.setVenta(new Venta().obtenerVenta(idVenta));
-            pago.setTipoPago(new TipoPago().obtenerTipoPago(TipoFacturajComboBox.getSelectedItem().toString()));
+            pago.setTipoPago(new TipoPago().obtenerTipoPago(TipoPagojComboBox.getSelectedItem().toString()));
             pago.setMontoPago(Double.parseDouble(TotaljTextField.getText()));
-            resultado = pago.altaPago(pago);
+            resultado = pago.altaPagoVenta(pago);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -824,15 +854,72 @@ public class AltaVenta extends javax.swing.JFrame {
         try {
             Venta venta = new Venta().obtenerVenta(idVenta);
             mov.setDescripcionMovimiento("VENTA N°: " + idVenta + " REALIZADA EL: " + venta.getFechaVenta().toString());
-            mov.setMontoMovimiento(montoTotal);
+            mov.setMontoMovimiento(Math.round(montoTotal));
             mov.setCaja(new Caja().obtenerCaja(this.idCaja));
-            mov.setVenta(venta);
-            mov.setCompra(new Compra());
-            mov.setGasto(new Gasto());
             resultado = mov.altaMovimiento(mov);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return resultado;
+    }
+
+    private void imprimirFactura(Venta venta) {
+
+        PrinterMatrix printer = new PrinterMatrix();
+        Extenso e = new Extenso();
+        e.setNumber(101.85);
+        //Definir el tamanho del papel para la impresion  aca 25 lineas y 80 columnas
+        printer.setOutSize(60, 80);
+        //Imprimir * de la 2da linea a 25 en la columna 1;
+        // printer.printCharAtLin(2, 25, 1, "*");
+        //Imprimir * 1ra linea de la columa de 1 a 80
+        printer.printCharAtCol(1, 1, 80, "=");
+        //Imprimir Encabezado nombre del La EMpresa
+        printer.printTextWrap(1, 2, 30, 80, "FACTURA DE VENTA");
+        //printer.printTextWrap(linI, linE, colI, colE, null);
+        printer.printTextWrap(2, 3, 1, 22, "Num. Boleta : " + venta.getIdVenta());
+        printer.printTextWrap(2, 3, 25, 55, "Fecha de Emision: " + new SimpleDateFormat("dd-MM-yyyy").format(venta.getFechaVenta()));
+        printer.printTextWrap(3, 3, 1, 80, "Vendedor.  : " + venta.getUsuario().getApellido() + " - " + venta.getUsuario().getNombre());
+        printer.printCharAtCol(7, 1, 80, "=");
+        printer.printTextWrap(7, 8, 1, 80, "Codigo          Descripcion                Cant.      P  P.Unit.      P.Total");
+        printer.printCharAtCol(9, 1, 80, "-");
+        int filas = DetalleVentajTable.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            printer.printTextWrap(9 + i, 10, 1, 80, DetalleVentajTable.getValueAt(i, 0).toString() + "|" + DetalleVentajTable.getValueAt(i, 1).toString()
+                    + "| " + DetalleVentajTable.getValueAt(i, 2).toString() + "| " + DetalleVentajTable.getValueAt(i, 3).toString()
+                    + "|" + DetalleVentajTable.getValueAt(i, 4).toString());
+        }
+        printer.printCharAtCol(filas + 1, 1, 80, "=");
+        printer.printTextWrap(filas + 1, filas + 2, 1, 80, "TOTAL A PAGAR " + Double.toString(montoTotal));
+        printer.printCharAtCol(filas + 2, 1, 80, "=");
+        printer.printTextWrap(filas + 2, filas + 3, 1, 80, "Esta boleta no tiene valor fiscal, solo para uso interno.");
+        printer.toFile("C:\\OSG\\TICKET_" + venta.getIdVenta() + ".txt");
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream("C:\\OSG\\TICKET_" + venta.getIdVenta() + ".txt");
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        if (inputStream == null) {
+            return;
+        }
+        DocFlavor docFormat = DocFlavor.INPUT_STREAM.AUTOSENSE;
+        Doc document = new SimpleDoc(inputStream, docFormat, null);
+
+        PrintRequestAttributeSet attributeSet = new HashPrintRequestAttributeSet();
+
+        PrintService defaultPrintService = PrintServiceLookup.lookupDefaultPrintService();
+
+        if (defaultPrintService != null) {
+            DocPrintJob printJob = defaultPrintService.createPrintJob();
+            try {
+                printJob.print(document, attributeSet);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            System.err.println("No existen impresoras instaladas");
+        }
     }
 }

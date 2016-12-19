@@ -55,6 +55,18 @@ public class Factura {
         this.fechaBajaFactura = fechaBajaFactura;
     }
 
+    public int altaFactura(Factura factura) throws Exception {
+        return new GestorFactura().altaFactura(factura);
+    }
+
+    public int modificarFactura(Factura factura) throws Exception {
+        return new GestorFactura().modificarFactura(factura);
+    }
+
+    public int darDeBajaFactura(Factura factura) throws Exception {
+        return new GestorFactura().darDeBajaFactura(factura);
+    }
+
     public Factura obtenerFactura(int idFactura) throws Exception {
         return new GestorFactura().obtenerFactura(idFactura);
     }

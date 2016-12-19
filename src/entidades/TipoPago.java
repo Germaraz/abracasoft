@@ -64,6 +64,18 @@ public class TipoPago {
         this.fechaBajaTipoPago = fechaBajaTipoPago;
     }
 
+    public int altaTipoPago(TipoPago tipo) throws Exception {
+        return new GestorTipoPago().altaTipoPago(tipo);
+    }
+
+    public int modificarTipoPago(TipoPago tipo) throws Exception {
+        return new GestorTipoPago().modificarTipoPago(tipo);
+    }
+
+    public int darDeBajaTipoPago(TipoPago tipo) throws Exception {
+        return new GestorTipoPago().darDeBajaTipoPago(tipo);
+    }
+
     public TipoPago obtenerTipoPago(int idTipoPago) throws Exception {
         return new GestorTipoPago().obtenerTipoPago(idTipoPago);
     }

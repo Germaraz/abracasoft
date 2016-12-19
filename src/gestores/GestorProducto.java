@@ -48,7 +48,7 @@ public class GestorProducto extends PoolDeConexiones {
     public int modificarProducto(Producto producto) throws Exception {
         int resultado = 0;
         String sql = "UPDATE producto SET CODIGOBARRA = ?, NOMBREPRODUCTO = ?, DESCRIPCIONPRODUCTO = ?, "
-                + "FECHAVENCIMIENTO = ?, PRECIOUNITARIO = ?, ALICUOTA = ?, STOCK = ? WHERE `IDPRODUCTO = ?";
+                + "FECHAVENCIMIENTO = ?, PRECIOUNITARIO = ?, ALICUOTA = ?, STOCK = ? WHERE IDPRODUCTO = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
@@ -146,11 +146,11 @@ public class GestorProducto extends PoolDeConexiones {
     public ArrayList<Producto> obtenerProductosDescripcion(String descripcion) throws Exception {
         ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL "
-                + "AND producto.DESCRIPCIONPRODUCTO LIKE '?%'";
+                + "AND producto.DESCRIPCIONPRODUCTO LIKE ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setString(1, descripcion);
+            pst.setString(1, descripcion + "%");
             ResultSet resultado = pst.executeQuery();
             conexion.commit();
             while (resultado.next()) {
@@ -204,7 +204,7 @@ public class GestorProducto extends PoolDeConexiones {
     public Producto obtenerProductoCodBarra(long codigoBarra) throws Exception {
         Producto producto = new Producto();
         String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL "
-                + "AND producto.CODIGOBARRA LIKE '?%'";
+                + "AND producto.CODIGOBARRA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);

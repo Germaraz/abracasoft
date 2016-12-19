@@ -457,8 +457,9 @@ public class GestionDeProductos extends javax.swing.JFrame {
                 modProd.DescripcionProductojTextField.setText(producto.getDescripcionProducto());
                 modProd.NombreProdJTextField.setText(producto.getNombreProducto());
                 modProd.PrecioUniProdjTextField.setText(Double.toString(producto.getPrecioUnitario()));
-                modProd.AlicuotaProdjTextField.setText(Double.toString(producto.getAlicuota()));
+                modProd.AlicuotaProdjTextField.setText(Integer.toString(producto.getAlicuota()));
                 modProd.StockProdjTextField.setText(Integer.toString(producto.getStock()));
+                modProd.FecVencjDateChooser.setDate(producto.getFechaVencimientoProducto());
                 modProd.setTitle("Modificar Producto");
                 modProd.setVisible(true);
             } catch (Exception e) {

@@ -90,9 +90,28 @@ public class Compra {
     public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
     }
-
+    
     public int altaCompra(Compra compra) throws Exception {
-        return new GestorCompra().altaCompra(compra);
+        int idCompraNueva;
+        int resultado = 0;
+        GestorCompra gestComp = new GestorCompra();
+        idCompraNueva = gestComp.altaCompra(compra);
+        if (idCompraNueva != 0) {
+            for (int i = 0; i < compra.getProductos().size(); i++) {
+                if (gestComp.altaDetalleCompra(idCompraNueva, compra.getProductos().get(i).getIdProducto()) != 0) {
+                    resultado++;
+                } else {
+                    throw new Exception("No se logro guardar un detalle de compra");
+                }
+            }
+        } else {
+            throw new Exception("No se logro guardar la compra");
+        }
+        if (resultado == compra.getProductos().size()) {
+            return idCompraNueva;
+        } else {
+            return 0;
+        }
     }
 
     public int modificarCompra(Compra compra) throws Exception {
@@ -110,8 +129,8 @@ public class Compra {
     public ArrayList<Compra> listaCompras(Date fechaDesde, Date fechaHasta) throws Exception {
         return new GestorCompra().listarCompras(fechaDesde, fechaHasta);
     }
-    
-    public ArrayList<Compra> obtenerComprasProveedor(int idProveedor) throws Exception{
+
+    public ArrayList<Compra> obtenerComprasProveedor(int idProveedor) throws Exception {
         return new GestorCompra().obtenerComprasProveedor(idProveedor);
     }
 

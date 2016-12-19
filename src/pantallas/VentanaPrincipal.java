@@ -398,10 +398,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void JBCajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCajasActionPerformed
         // TODO add your handling code here:
-        GestionDeCaja menuopdiarias = new GestionDeCaja();
-        if (señalOpDia == 0) {
-            jTabbedPane1.addTab("Gestión de caja", menuopdiarias.getContentPane());
-            señalOpDia = 1;
+        GestionDeCaja gesCaja = new GestionDeCaja();
+        if (!UsuarioIDjLabel.getText().isEmpty()) {
+            gesCaja.idusuario = Integer.parseInt(UsuarioIDjLabel.getText());
+            if (señalOpDia == 0) {
+                gesCaja.validarCajaAbierta();
+                gesCaja.importeDeCajaEnVivo();
+                jTabbedPane1.addTab("Gestión de caja", gesCaja.getContentPane());
+                señalOpDia = 1;
+            }
         }
     }//GEN-LAST:event_JBCajasActionPerformed
 
@@ -462,20 +467,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GestionDeCompras gesComp = new GestionDeCompras();
         if (!UsuarioIDjLabel.getText().isEmpty()) {
             gesComp.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+            if (señalCompra == 0) {
+                jTabbedPane1.addTab("Gestión de compras", gesComp.getContentPane());
+                señalCompra = 1;
+            }
         }
-        if (señalCompra == 0) {
-            jTabbedPane1.addTab("Gestión de compras", gesComp.getContentPane());
-            señalCompra = 1;
-        }
+
     }//GEN-LAST:event_JBComprasActionPerformed
 
     private void JBVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBVentasActionPerformed
         GestionDeVentas gesVenta = new GestionDeVentas();
-        gesVenta.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
-        if (señalVenta == 0) {
-            jTabbedPane1.addTab("Gestión de ventas", gesVenta.getContentPane());
-            señalVenta = 1;
+        if (!UsuarioIDjLabel.getText().isEmpty()) {
+            gesVenta.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+            if (señalVenta == 0) {
+                jTabbedPane1.addTab("Gestión de ventas", gesVenta.getContentPane());
+                señalVenta = 1;
+            }
         }
+
     }//GEN-LAST:event_JBVentasActionPerformed
 
     private void JBUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBUsuariosActionPerformed

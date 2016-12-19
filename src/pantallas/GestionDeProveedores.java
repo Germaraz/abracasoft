@@ -32,7 +32,7 @@ import javax.swing.table.TableRowSorter;
  * @author German
  */
 public class GestionDeProveedores extends javax.swing.JFrame {
-    
+
     private ArrayList<ArrayList<Compra>> compras = new ArrayList<>();
     private TableRowSorter trsFiltro;
 
@@ -46,8 +46,6 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         agregarProveedoresATabla();
         ProveedoresjTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -167,8 +165,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         EditarProveedorjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         EditarProveedorjButton.setText("Editar proveedor");
 
-        imprimirjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        imprimirjButton.setText("imprimir");
+        imprimirjButton.setText("Imprimir");
         imprimirjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imprimirjButtonActionPerformed(evt);
@@ -187,7 +184,9 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(EditarProveedorjButton)
                         .addGap(18, 18, 18)
-                        .addComponent(DarBajajButton))
+                        .addComponent(DarBajajButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(imprimirjButton))
                     .addComponent(jScrollPane1)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
@@ -332,7 +331,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void agregarProveedoresATabla() {
         ArrayList<Proveedor> proveedores = new ArrayList<>();
         try {
@@ -361,18 +360,18 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
     }
-    
+
     private void filtro() {
         int columnaABuscar = 0;
-        if ("Nombre de Fantasia".equals(FiltrojComboBox.getSelectedItem().toString())) {
+        if ("Nombre de Fantasia".toLowerCase().trim().equals(FiltrojComboBox.getSelectedItem().toString().toLowerCase().trim())) {
             columnaABuscar = 3;
         }
-        if ("Razon Social".equals(FiltrojComboBox.getSelectedItem().toString())) {
+        if ("Razon Social".toLowerCase().trim().equals(FiltrojComboBox.getSelectedItem().toString().toLowerCase().trim())) {
             columnaABuscar = 2;
         }
-        trsFiltro.setRowFilter(RowFilter.regexFilter(FiltrojTextField.getText(), columnaABuscar));
+        trsFiltro.setRowFilter(RowFilter.regexFilter(FiltrojTextField.getText().toLowerCase().trim(), columnaABuscar));
     }
-    
+
     private void agregarComprasPorProveedor() {
         limpiarTabla(ComprasjTable);
         try {
@@ -397,7 +396,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void abrirEditarProveedor() {
         if (ProveedoresjTable.getSelectedRow() != -1) {
             int fila = ProveedoresjTable.getSelectedRow();
@@ -423,7 +422,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void darDeBajaProveedores() {
         int resultados = 0;
         if (ProveedoresjTable.getSelectedRowCount() > 0) {
@@ -451,7 +450,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
         }
     }
-    
+
     private void imprimir() {
         int fila = ProveedoresjTable.getSelectedRow();
         if (fila != -1) {

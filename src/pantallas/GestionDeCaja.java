@@ -6,8 +6,11 @@
 package pantallas;
 
 import entidades.Caja;
+import entidades.Compra;
+import entidades.Gasto;
 import entidades.Movimiento;
 import entidades.Usuario;
+import entidades.Venta;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -337,9 +340,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GestionDeCaja gestCaja = new GestionDeCaja();
-                gestCaja.importeDeCajaEnVivo();
-                gestCaja.setVisible(true);
+                new GestionDeCaja().setVisible(true);
             }
         });
     }
@@ -378,6 +379,33 @@ public class GestionDeCaja extends javax.swing.JFrame {
         }
     }
 
+    protected void validarCajaAbierta() {
+        try {
+            Caja caja = new Caja().obtenerCajaPorUsuario(idusuario);
+            if (caja != null) {
+                String fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                Date fechaCajaApertura = caja.getFechaApertura();
+                Date fechaCajaCierre = caja.getFechaCierre();
+                if (fechaCajaCierre == null && fechaCajaApertura != null) {
+                    if (fechaCajaApertura.toString().equals(fecha)) {
+                        ImpArqueojTextField.setText(Double.toString(importeApertura));
+                        AperturajButton.setEnabled(false);
+                        ImpArqueojTextField.setEditable(false);
+                        NroCajajLabel.setVisible(true);
+                        IDCajajTextField.setText(Integer.toString(caja.getIdCaja()));
+                        IDCajajTextField.setVisible(true);
+                        ImpCierrejTextField.setEditable(true);
+                        CierrejButton.setEnabled(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usted tiene una caja abierta pero no es del dia de la fecha. Por favor Comuniquese con el administrador");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
     private boolean validarArqueo() {
         boolean valido = true;
         if (ImpArqueojTextField.getText().isEmpty() || ImpArqueojTextField.getText().equals("0.00")) {
@@ -407,7 +435,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 DefaultTableModel tabla = (DefaultTableModel) CajasjTable.getModel();
                 Object[] columnas = new Object[4];
                 for (int i = 0; i < cajas.size(); i++) {
-                    columnas[0] = cajas.get(i).getFechaApertura();
+                    columnas[0] = new SimpleDateFormat("dd-MM-yyyy").format(cajas.get(i).getFechaApertura());
                     columnas[1] = cajas.get(i).getImporteArqueo();
                     columnas[2] = cajas.get(i).getImporteCierre();
                     columnas[3] = cajas.get(i).getUsuario().getNombreUsuario();
@@ -431,12 +459,19 @@ public class GestionDeCaja extends javax.swing.JFrame {
             resultado = caja.abrirCaja(caja);
             if (resultado != 0) {
                 importeApertura = Double.parseDouble(ImpArqueojTextField.getText());
-                AperturajButton.setEnabled(false);
-                ImpArqueojTextField.setEnabled(false);
-                NroCajajLabel.setVisible(true);
-                IDCajajTextField.setText(Integer.toString(resultado));
-                IDCajajTextField.setVisible(true);
-                ImpCierrejTextField.setEnabled(true);
+                Movimiento mov = new Movimiento();
+                mov.setCaja(new Caja().obtenerCaja(resultado));
+                mov.setDescripcionMovimiento("ARQUEO CAJA: " + resultado);
+                mov.setMontoMovimiento(importeApertura);
+                if (mov.altaMovimiento(mov) != 0) {
+                    AperturajButton.setEnabled(false);
+                    ImpArqueojTextField.setEditable(false);
+                    NroCajajLabel.setVisible(true);
+                    IDCajajTextField.setText(Integer.toString(resultado));
+                    IDCajajTextField.setVisible(true);
+                    ImpCierrejTextField.setEditable(true);
+                    CierrejButton.setEnabled(true);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No se logro abrir la caja");
             }
@@ -454,12 +489,20 @@ public class GestionDeCaja extends javax.swing.JFrame {
         try {
             resultado = caja.cerrarCaja(caja);
             if (resultado != 0) {
-                ImpArqueojTextField.setText("0.00");
-                AperturajButton.setEnabled(true);
-                ImpArqueojTextField.setEnabled(true);
-                IDCajajTextField.setVisible(false);
-                ImpCierrejTextField.setEnabled(false);
-                IDCajajTextField.setText("");
+                Movimiento mov = new Movimiento();
+                mov.setCaja(new Caja().obtenerCaja(resultado));
+                mov.setDescripcionMovimiento("ARQUEO CAJA: " + resultado);
+                mov.setMontoMovimiento(importeApertura);
+                if (mov.altaMovimiento(mov) != 0) {
+                    ImpArqueojTextField.setText("0.00");
+                    AperturajButton.setEnabled(true);
+                    ImpArqueojTextField.setEditable(true);
+                    NroCajajLabel.setVisible(false);
+                    IDCajajTextField.setVisible(false);
+                    ImpCierrejTextField.setEditable(false);
+                    CierrejButton.setEnabled(false);
+                    IDCajajTextField.setText("");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No se logro cerrar la caja");
             }
@@ -468,7 +511,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
         }
     }
 
-    private void importeDeCajaEnVivo() {
+    protected void importeDeCajaEnVivo() {
         if (!IDCajajTextField.getText().isEmpty()) {
             double totalEnCaja = 0;
             int idcaja = Integer.parseInt(IDCajajTextField.getText());

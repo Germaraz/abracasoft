@@ -5,7 +5,7 @@
  */
 package pantallas;
 
-import entidades.TipoPago;
+import entidades.Factura;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -18,12 +18,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author German
  */
-public class AltaTipoPago extends javax.swing.JFrame {
+public class AltaFactura extends javax.swing.JFrame {
 
     /**
      * Creates new form TipoPago
      */
-    public AltaTipoPago() {
+    public AltaFactura() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -45,13 +45,11 @@ public class AltaTipoPago extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        BonifjTextField = new javax.swing.JTextField();
+        IVAjTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TiposDePagojTable = new javax.swing.JTable();
+        TiposDeFacturajTable = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
-        IDTipoPagojTextField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        cuotajTextField1 = new javax.swing.JTextField();
+        IDFacturajTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tipos de pago - OSG");
@@ -67,9 +65,9 @@ public class AltaTipoPago extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Tipos de pago existentes");
+        jLabel3.setText("Tipos de factura existentes");
 
-        jLabel2.setText("Nombre");
+        jLabel2.setText("Tipo de Factura");
 
         jButton2.setText("Eliminar tipo/s seleccionado/s");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -78,27 +76,27 @@ public class AltaTipoPago extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Recargo (%)");
+        jLabel4.setText("IVA (%)");
 
-        BonifjTextField.addActionListener(new java.awt.event.ActionListener() {
+        IVAjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BonifjTextFieldActionPerformed(evt);
+                IVAjTextFieldActionPerformed(evt);
             }
         });
 
-        TiposDePagojTable.setModel(new javax.swing.table.DefaultTableModel(
+        TiposDeFacturajTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre", "Recargo (%)", "Cuotas"
+                "ID", "Tipo", "IVA (%)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -109,20 +107,20 @@ public class AltaTipoPago extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TiposDePagojTable.getTableHeader().setReorderingAllowed(false);
-        TiposDePagojTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        TiposDeFacturajTable.getTableHeader().setReorderingAllowed(false);
+        TiposDeFacturajTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TiposDePagojTableMouseClicked(evt);
+                TiposDeFacturajTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TiposDePagojTable);
-        if (TiposDePagojTable.getColumnModel().getColumnCount() > 0) {
-            TiposDePagojTable.getColumnModel().getColumn(0).setMinWidth(50);
-            TiposDePagojTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-            TiposDePagojTable.getColumnModel().getColumn(0).setMaxWidth(50);
-            TiposDePagojTable.getColumnModel().getColumn(1).setMinWidth(200);
-            TiposDePagojTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-            TiposDePagojTable.getColumnModel().getColumn(1).setMaxWidth(200);
+        jScrollPane1.setViewportView(TiposDeFacturajTable);
+        if (TiposDeFacturajTable.getColumnModel().getColumnCount() > 0) {
+            TiposDeFacturajTable.getColumnModel().getColumn(0).setMinWidth(50);
+            TiposDeFacturajTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            TiposDeFacturajTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            TiposDeFacturajTable.getColumnModel().getColumn(1).setMinWidth(50);
+            TiposDeFacturajTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            TiposDeFacturajTable.getColumnModel().getColumn(1).setMaxWidth(50);
         }
 
         jButton3.setText("Guardar cambios a tipo editado");
@@ -132,55 +130,44 @@ public class AltaTipoPago extends javax.swing.JFrame {
             }
         });
 
-        IDTipoPagojTextField.setVisible(false);
-        IDTipoPagojTextField.setEditable(false);
-
-        jLabel5.setText("Cuotas");
-
-        cuotajTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cuotajTextField1ActionPerformed(evt);
-            }
-        });
+        IDFacturajTextField.setVisible(false);
+        IDFacturajTextField.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4))
                                 .addGap(14, 14, 14)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NombreTipojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(BonifjTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                        .addComponent(cuotajTextField1, javax.swing.GroupLayout.Alignment.LEADING))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(IVAjTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                                    .addComponent(NombreTipojTextField))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addComponent(IDFacturajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addGap(39, 39, 39)
-                                .addComponent(jButton2))
-                            .addComponent(jLabel3)
-                            .addComponent(IDTipoPagojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 41, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(117, 117, 117)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(IDTipoPagojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(IDFacturajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NombreTipojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,17 +175,13 @@ public class AltaTipoPago extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(BonifjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cuotajTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IVAjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton2))
@@ -219,53 +202,48 @@ public class AltaTipoPago extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BonifjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BonifjTextFieldActionPerformed
+    private void IVAjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IVAjTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BonifjTextFieldActionPerformed
-
-    private void cuotajTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuotajTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cuotajTextField1ActionPerformed
+    }//GEN-LAST:event_IVAjTextFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if (validar()) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar Tipo de pago?");
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar Tipo de factura?");
             if (respuesta == JOptionPane.YES_OPTION) {
-                guardarOActualizarTipoPago();
+                guardarOActualizarTipoFactura();
+                 this.dispose();
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        int fila = TiposDePagojTable.getSelectedRow();
+        int fila = TiposDeFacturajTable.getSelectedRow();
         if (fila != -1) {
-            IDTipoPagojTextField.setText(TiposDePagojTable.getValueAt(fila, 0).toString());
-            NombreTipojTextField.setText(TiposDePagojTable.getValueAt(fila, 1).toString());
-            BonifjTextField.setText(TiposDePagojTable.getValueAt(fila, 2).toString());
-            cuotajTextField1.setText(TiposDePagojTable.getValueAt(fila, 3).toString());
+            IDFacturajTextField.setText(TiposDeFacturajTable.getValueAt(fila, 0).toString());
+            NombreTipojTextField.setText(TiposDeFacturajTable.getValueAt(fila, 1).toString());
+            IVAjTextField.setText(TiposDeFacturajTable.getValueAt(fila, 2).toString());
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void TiposDePagojTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TiposDePagojTableMouseClicked
+    private void TiposDeFacturajTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TiposDeFacturajTableMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            int fila = TiposDePagojTable.getSelectedRow();
+            int fila = TiposDeFacturajTable.getSelectedRow();
             if (fila != -1) {
-                IDTipoPagojTextField.setText(TiposDePagojTable.getValueAt(fila, 0).toString());
-                NombreTipojTextField.setText(TiposDePagojTable.getValueAt(fila, 1).toString());
-                BonifjTextField.setText(TiposDePagojTable.getValueAt(fila, 2).toString());
-                cuotajTextField1.setText(TiposDePagojTable.getValueAt(fila, 3).toString());
+                IDFacturajTextField.setText(TiposDeFacturajTable.getValueAt(fila, 0).toString());
+                NombreTipojTextField.setText(TiposDeFacturajTable.getValueAt(fila, 1).toString());
+                IVAjTextField.setText(TiposDeFacturajTable.getValueAt(fila, 2).toString());
             }
         }
-    }//GEN-LAST:event_TiposDePagojTableMouseClicked
+    }//GEN-LAST:event_TiposDeFacturajTableMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        darDeBajaTipoDePago();
+        darDeBajaTipoDeFactura();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -285,40 +263,40 @@ public class AltaTipoPago extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AltaTipoPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltaFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AltaTipoPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltaFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AltaTipoPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltaFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AltaTipoPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AltaFactura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AltaTipoPago tipo = new AltaTipoPago();
-                tipo.agregarTiposDePagoATabla();
+                AltaFactura tipo = new AltaFactura();
+                tipo.agregarTiposDeFacturaATabla();
                 tipo.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BonifjTextField;
-    private javax.swing.JTextField IDTipoPagojTextField;
+    private javax.swing.JTextField IDFacturajTextField;
+    private javax.swing.JTextField IVAjTextField;
     private javax.swing.JTextField NombreTipojTextField;
-    private javax.swing.JTable TiposDePagojTable;
-    private javax.swing.JTextField cuotajTextField1;
+    private javax.swing.JTable TiposDeFacturajTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
@@ -332,84 +310,82 @@ public class AltaTipoPago extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private boolean validar() {
         boolean valido = true;
         if (NombreTipojTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un nombre de tipo de pago");
             NombreTipojTextField.requestFocus();
             valido = false;
-        } else if (BonifjTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar la bonificación correspondiente al tipo de pago. Si no tiene bonificación ingrese 0");
-            BonifjTextField.requestFocus();
+        } else if (IVAjTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el IVA correspondiente al tipo de factura. Si no tiene IVA ingrese 0");
+            IVAjTextField.requestFocus();
             valido = false;
         }
         return valido;
     }
-    
-    private void agregarTiposDePagoATabla() {
+
+    private void agregarTiposDeFacturaATabla() {
         try {
-            ArrayList<TipoPago> tipos = new TipoPago().listarTiposPagos();
-            if (!tipos.isEmpty()) {
-                limpiarTabla(TiposDePagojTable);
-                DefaultTableModel tabla = (DefaultTableModel) TiposDePagojTable.getModel();
+            ArrayList<Factura> facturas = new Factura().listarFacturas();
+            if (!facturas.isEmpty()) {
+                limpiarTabla(TiposDeFacturajTable);
+                DefaultTableModel tabla = (DefaultTableModel) TiposDeFacturajTable.getModel();
                 Object[] columnas = new Object[2];
-                for (int i = 0; i < tipos.size(); i++) {
-                    columnas[0] = tipos.get(i).getIdTipoPago();
-                    columnas[1] = tipos.get(i).getTipoPago();
-                    columnas[2] = tipos.get(i).getBonificacion();
-                    columnas[3] = tipos.get(i).getCuotas();
+                for (int i = 0; i < facturas.size(); i++) {
+                    columnas[0] = facturas.get(i).getIdFactura();
+                    columnas[1] = facturas.get(i).getTipoFactura();
+                    columnas[2] = facturas.get(i).getPorcIVA();
                     tabla.addRow(columnas);
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(AltaTipoPago.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AltaFactura.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
-    
-    private void guardarOActualizarTipoPago() {
+
+    private void guardarOActualizarTipoFactura() {
         int resultado;
         try {
-            TipoPago tipo = new TipoPago();
-            tipo.setTipoPago(NombreTipojTextField.getText());
-            tipo.setBonificacion(Integer.parseInt(BonifjTextField.getText()));
-            tipo.setCuotas(Integer.parseInt(cuotajTextField1.getText()));
-            if (IDTipoPagojTextField.getText().isEmpty()) {
-                resultado = tipo.altaTipoPago(tipo);
+            Factura factura = new Factura();
+            factura.setTipoFactura(NombreTipojTextField.getText());
+            factura.setPorcIVA(Integer.parseInt(IVAjTextField.getText()));
+            if (IDFacturajTextField.getText().isEmpty()) {
+                resultado = factura.altaFactura(factura);
             } else {
-                resultado = tipo.modificarTipoPago(tipo);
+                resultado = factura.modificarFactura(factura);
             }
             if (resultado != 0) {
-                JOptionPane.showMessageDialog(null, "Tipo de pago guardado correctamente");
+                JOptionPane.showMessageDialog(null, "Tipo de factura guardada correctamente");
             } else {
-                JOptionPane.showMessageDialog(null, "Error al tratar de guardar el tipo de pago");
+                JOptionPane.showMessageDialog(null, "Error al tratar de guardar el tipo de factura");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    private void darDeBajaTipoDePago() {
+
+    private void darDeBajaTipoDeFactura() {
         int resultado = 0;
-        int[] filas = TiposDePagojTable.getSelectedRows();
+        int[] filas = TiposDeFacturajTable.getSelectedRows();
         if (filas.length > 0) {
             for (int i = 0; i < filas.length; i++) {
-                int idTipo = Integer.parseInt(TiposDePagojTable.getValueAt(filas[i], 0).toString());
-                TipoPago tipo = new TipoPago();
-                tipo.setIdTipoPago(idTipo);
-                tipo.setFechaBajaTipoPago(new Date());
+                int idTipo = Integer.parseInt(TiposDeFacturajTable.getValueAt(filas[i], 0).toString());
+                Factura factura = new Factura();
+                factura.setIdFactura(idTipo);
+                factura.setFechaBajaFactura(new Date());
                 try {
-                    if (tipo.darDeBajaTipoPago(tipo) != 0) {
+                    if (factura.darDeBajaFactura(factura) != 0) {
                         resultado++;
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(AltaTipoPago.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AltaFactura.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
             if (resultado == filas.length) {
-                JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultado + " tipos de pago");
+                JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultado + " tipos de factura");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");

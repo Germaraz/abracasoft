@@ -284,7 +284,7 @@ public class AltaProducto extends javax.swing.JFrame {
 
     private void GuardajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardajButtonActionPerformed
         if (validar()) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Agregar este producto");
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Agregar este producto?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 guardarOActualizarProducto();
                 this.dispose();
@@ -406,7 +406,7 @@ public class AltaProducto extends javax.swing.JFrame {
     private javax.swing.JButton CancelajButton;
     protected javax.swing.JTextField CodigoProductoJTextField;
     protected javax.swing.JTextField DescripcionProductojTextField;
-    private com.toedter.calendar.JDateChooser FecVencjDateChooser;
+    protected com.toedter.calendar.JDateChooser FecVencjDateChooser;
     private javax.swing.JButton GuardajButton;
     protected javax.swing.JTextField IDProductojTextField;
     private javax.swing.JButton ImprimirCodBarrajButton;
@@ -475,6 +475,7 @@ public class AltaProducto extends javax.swing.JFrame {
             if (IDProductojTextField.getText().isEmpty()) {
                 resultado = producto.altaProducto(producto);
             } else {
+                producto.setIdProducto(Integer.parseInt(IDProductojTextField.getText()));
                 resultado = producto.modificarProducto(producto);
             }
             if (resultado != 0) {

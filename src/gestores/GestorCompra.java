@@ -31,19 +31,32 @@ public class GestorCompra extends PoolDeConexiones {
 
     public int altaCompra(Compra compra) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO compra (FECHACOMPRA, MONTO, IVA, usuario_IDUSUARIO, proveedor_IDPROVEEDOR, "
-                + "producto_IDPRODUCTO) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO compra (FECHACOMPRA, MONTO, IVA, usuario_IDUSUARIO, proveedor_IDPROVEEDOR) VALUES (CURDATE(),?,?,?,?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, new Date(compra.getFechaCompra().getTime()));
-            pst.setDouble(2, compra.getMontoCompra());
-            pst.setDouble(3, compra.getIvaCompra());
-            pst.setInt(4, compra.getUsuario().getIdUsuario());
-            pst.setInt(5, compra.getProveedor().getIdProveedor());
-            Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
-            pst.setArray(6, productos);
-            resultado = pst.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setDouble(1, compra.getMontoCompra());
+            pst.setDouble(2, compra.getIvaCompra());
+            pst.setInt(3, compra.getUsuario().getIdUsuario());
+            pst.setInt(4, compra.getProveedor().getIdProveedor());
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
+    public int altaDetalleCompra(int idCompra, int idProducto) throws Exception {
+        int resultado = 0;
+        String sql = "INSERT INTO detallecompra (idcompra, idproducto) VALUES (?,?)";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, idCompra);
+            pst.setInt(2, idProducto);
+            resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
             conexion.rollback();
@@ -55,7 +68,7 @@ public class GestorCompra extends PoolDeConexiones {
     public int modificarCompra(Compra compra) throws Exception {
         int resultado = 0;
         String sql = "UPDATE compra SET FECHACOMPRA = ?, MONTO = ?, IVA = ?, usuario_IDUSUARIO = ?, "
-                + "proveedor_IDPROVEEDOR = ?, producto_IDPRODUCTO = ? WHERE compra.IDCOMPRA = ?";
+                + "proveedor_IDPROVEEDOR = ? WHERE compra.IDCOMPRA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
@@ -64,8 +77,6 @@ public class GestorCompra extends PoolDeConexiones {
             pst.setDouble(3, compra.getIvaCompra());
             pst.setInt(4, compra.getUsuario().getIdUsuario());
             pst.setInt(5, compra.getProveedor().getIdProveedor());
-            Array productos = conexion.createArrayOf("INT", compra.getProductos().toArray());
-            pst.setArray(6, productos);
             pst.setInt(7, compra.getIdCompra());
             resultado = pst.executeUpdate();
             conexion.commit();
@@ -93,6 +104,25 @@ public class GestorCompra extends PoolDeConexiones {
         return resultado;
     }
 
+    private ArrayList<Producto> obtenerProductosPorCompra(int idcompra) throws Exception {
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql = "SELECT idproducto FROM detallecompra WHERE detallecompra.idcompra = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idcompra);
+            ResultSet resultado = pst.executeQuery();
+            conexion.commit();
+            while (resultado.next()) {
+                productos.add(new Producto().obtenerProducto(resultado.getInt("idproducto")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return productos;
+    }
+
     public Compra obtenerCompra(int idCompra) throws Exception {
         Compra compra = new Compra();
         String sql = "SELECT * FROM compra WHERE compra.FECHABAJA IS NULL AND compra.IDCOMPRA = ?";
@@ -109,8 +139,7 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
-                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
-                compra.setProductos(new ArrayList<Producto>(productos));
+                compra.setProductos(this.obtenerProductosPorCompra(idCompra));
             }
         } catch (Exception e) {
             conexion.rollback();
@@ -126,8 +155,8 @@ public class GestorCompra extends PoolDeConexiones {
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setDate(1, (Date) fechaDesde);
-            pst.setDate(2, (Date) fechaHasta);
+            pst.setDate(1, new Date(fechaDesde.getTime()));
+            pst.setDate(2, new Date(fechaHasta.getTime()));
             ResultSet resultado = pst.executeQuery();
             conexion.commit();
             while (resultado.next()) {
@@ -138,8 +167,7 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
-                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
-                compra.setProductos(new ArrayList<Producto>(productos));
+                compra.setProductos(this.obtenerProductosPorCompra(resultado.getInt("IDCOMPRA")));
                 compras.add(compra);
             }
         } catch (Exception e) {
@@ -167,8 +195,7 @@ public class GestorCompra extends PoolDeConexiones {
                 compra.setIvaCompra(resultado.getDouble("IVA"));
                 compra.setUsuario(new Usuario().obtenerUsuario(resultado.getInt("usuario_IDUSUARIO")));
                 compra.setProveedor(new Proveedor().obtenerProveedor(resultado.getInt("proveedor_IDPROVEEDOR")));
-                List productos = Arrays.asList(resultado.getArray("producto_IDPRODUCTO"));
-                compra.setProductos(new ArrayList<Producto>(productos));
+                compra.setProductos(this.obtenerProductosPorCompra(resultado.getInt("IDCOMPRA")));
                 compras.add(compra);
             }
         } catch (Exception e) {

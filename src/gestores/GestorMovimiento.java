@@ -5,10 +5,7 @@
  */
 package gestores;
 
-import entidades.Caja;
-import entidades.Compra;
 import entidades.Movimiento;
-import entidades.Venta;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -27,17 +24,13 @@ public class GestorMovimiento extends PoolDeConexiones {
 
     public int altaMovimiento(Movimiento movimiento) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO movimiento (DESCMOVIMIENTO, MONTOMOVIMIENTO, caja_IDCAJA, venta_IDVENTA, "
-                + "compra_IDCOMPRA, gasto_IDGASTO) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO movimiento (DESCMOVIMIENTO, MONTOMOVIMIENTO, FECHAMOVIMIENTO, caja_IDCAJA) VALUES (?,?,CURDATE(),?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setString(1, movimiento.getDescripcionMovimiento());
             pst.setDouble(2, movimiento.getMontoMovimiento());
             pst.setInt(3, movimiento.getCaja().getIdCaja());
-            pst.setInt(4, movimiento.getVenta().getIdVenta());
-            pst.setInt(5, movimiento.getCompra().getIdCompra());
-            pst.setInt(6, movimiento.getGasto().getIdGasto());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -80,8 +73,6 @@ public class GestorMovimiento extends PoolDeConexiones {
                 mov.setDescripcionMovimiento(resultado.getString("DESCMOVIMIENTO"));
                 mov.setMontoMovimiento(resultado.getDouble("MONTOMOVIMIENTO"));
                 mov.setFechaMovimiento(resultado.getDate("FECHAMOVIMIENTO"));
-                mov.setVenta(new Venta().obtenerVenta(resultado.getInt("venta_IDVENTA")));
-                mov.setCompra(new Compra().obtenerCompra(resultado.getInt("compra_IDCOMPRA")));
                 movimientos.add(mov);
             }
         } catch (Exception e) {

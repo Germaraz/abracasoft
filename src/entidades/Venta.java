@@ -101,7 +101,26 @@ public class Venta {
     }
 
     public int altaVenta(Venta venta) throws Exception {
-        return new GestorVenta().altaVenta(venta);
+        int idVentaNueva;
+        int resultado = 0;
+        GestorVenta gestVen = new GestorVenta();
+        idVentaNueva = gestVen.altaVenta(venta);
+        if (idVentaNueva != 0) {
+            for (int i = 0; i < venta.getProductos().size(); i++) {
+                if (gestVen.altaDetalleVenta(idVentaNueva, venta.getProductos().get(i).getIdProducto()) != 0) {
+                    resultado++;
+                } else {
+                    throw new Exception("No se logro guardar un detalle de compra");
+                }
+            }
+        } else {
+            throw new Exception("No se logro guardar la compra");
+        }
+        if (resultado == venta.getProductos().size()) {
+            return idVentaNueva;
+        } else {
+            return 0;
+        }
     }
 
     public int modificarVenta(Venta venta) throws Exception {

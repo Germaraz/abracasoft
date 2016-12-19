@@ -287,8 +287,7 @@ public class AltaCliente extends javax.swing.JFrame {
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar cliente?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 guardarOActualizarCliente();
-                this.dispose();
-                new GestionDeCliente().setVisible(true);
+                 this.dispose();
             }
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed

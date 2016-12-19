@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -25,12 +26,12 @@ public class GestorCaja extends PoolDeConexiones {
 
     public int abrirCaja(Caja caja) throws Exception {
         int resultado = 0;
-        String sql = "INSERT INTO caja (IMPORTEARQUEO, FECHAAPERTURA) VALUES (?,?)";
+        String sql = "INSERT INTO caja (IMPORTEARQUEO, FECHAAPERTURA, usuario_IDUSUARIO) VALUES (?,CURDATE(),?)";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            PreparedStatement pst = conexion.prepareStatement(sql);
+            PreparedStatement pst = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setDouble(1, caja.getImporteArqueo());
-            pst.setDate(2, new Date(caja.getFechaApertura().getTime()));
+            pst.setInt(2, caja.getUsuario().getIdUsuario());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {
@@ -42,13 +43,12 @@ public class GestorCaja extends PoolDeConexiones {
 
     public int cerrarCaja(Caja caja) throws Exception {
         int resultado = 0;
-        String sql = "UPDATE caja SET IMPORTECIERRE = ?, FECHACIERRE = ? WHERE caja.IDCAJA = ?";
+        String sql = "UPDATE caja SET IMPORTECIERRE = ?, FECHACIERRRE = NOW() WHERE caja.IDCAJA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDouble(1, caja.getImporteCierre());
-            pst.setDate(2, new Date(caja.getFechaCierre().getTime()));
-            pst.setInt(3, caja.getIdCaja());
+            pst.setInt(2, caja.getIdCaja());
             resultado = pst.executeUpdate();
             conexion.commit();
         } catch (Exception e) {

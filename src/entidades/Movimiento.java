@@ -21,9 +21,6 @@ public class Movimiento {
     private Date fechaMovimiento;
     private Date fechaBajaMovimiento;
     private Caja caja;
-    private Venta venta;
-    private Compra compra;
-    private Gasto gasto;
 
     public Movimiento() {
     }
@@ -74,30 +71,6 @@ public class Movimiento {
 
     public void setCaja(Caja caja) {
         this.caja = caja;
-    }
-
-    public Venta getVenta() {
-        return venta;
-    }
-
-    public void setVenta(Venta venta) {
-        this.venta = venta;
-    }
-
-    public Compra getCompra() {
-        return compra;
-    }
-
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-    }
-
-    public Gasto getGasto() {
-        return gasto;
-    }
-
-    public void setGasto(Gasto gasto) {
-        this.gasto = gasto;
     }
 
     public int altaMovimiento(Movimiento movimiento) throws Exception {

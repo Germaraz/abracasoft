@@ -276,15 +276,13 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar usuario?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 guardarOActualizarUsuario();
-                this.dispose();
-                new GestionDeUsuarios().setVisible(true);
+                 this.dispose();
             }
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
 
     private void SalirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirjButtonActionPerformed
         // TODO add your handling code here:
-        new GestionDeUsuarios().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_SalirjButtonActionPerformed
 
@@ -310,7 +308,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -375,7 +373,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void agregarPrivilegiosATabla() {
         DefaultTableModel tabla = (DefaultTableModel) PrivilegiosjTable.getModel();
         int filas = tabla.getRowCount() - 1;
@@ -403,9 +401,9 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
+
     }
-    
+
     private boolean validar() {
         boolean valido = true;
         if (ApellidojTextField.getText().isEmpty()) {
@@ -435,7 +433,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         }
         return valido;
     }
-    
+
     private void guardarOActualizarUsuario() {
         int resultado = 0;
         Usuario usuario = new Usuario();

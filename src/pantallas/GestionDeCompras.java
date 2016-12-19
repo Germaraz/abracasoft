@@ -6,6 +6,7 @@
 package pantallas;
 
 import entidades.Compra;
+import entidades.Pago;
 import entidades.Producto;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
@@ -50,13 +51,11 @@ public class GestionDeCompras extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
         DetalleComprasjTable = new javax.swing.JTable();
-        EditarComprajButton = new javax.swing.JButton();
         NuevaComprajButton = new javax.swing.JButton();
         HastajCalendar = new com.toedter.calendar.JDateChooser();
         DesdejCalendar = new com.toedter.calendar.JDateChooser();
         SPpresupuesto = new javax.swing.JScrollPane();
         ComprasjTable = new javax.swing.JTable();
-        BajaComprajButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         BuscarjButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -91,16 +90,6 @@ public class GestionDeCompras extends javax.swing.JFrame {
         });
         SPpresupuestoArticulos.setViewportView(DetalleComprasjTable);
 
-        EditarComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        EditarComprajButton.setText("Editar compra");
-        EditarComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        EditarComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        EditarComprajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarComprajButtonActionPerformed(evt);
-            }
-        });
-
         NuevaComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         NuevaComprajButton.setText("Nueva compra");
         NuevaComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
@@ -114,11 +103,13 @@ public class GestionDeCompras extends javax.swing.JFrame {
         HastajCalendar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         HastajCalendar.setMinimumSize(new java.awt.Dimension(27, 25));
         HastajCalendar.setName("HastajCalendar"); // NOI18N
+        HastajCalendar.setDate(new Date());
         HastajCalendar.setPreferredSize(new java.awt.Dimension(87, 18));
 
         DesdejCalendar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DesdejCalendar.setMinimumSize(new java.awt.Dimension(27, 25));
         DesdejCalendar.setName("DesdejCalendar"); // NOI18N
+        DesdejCalendar.setDate(new Date());
 
         ComprasjTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ComprasjTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -160,16 +151,6 @@ public class GestionDeCompras extends javax.swing.JFrame {
             ComprasjTable.getColumnModel().getColumn(2).setPreferredWidth(80);
             ComprasjTable.getColumnModel().getColumn(2).setMaxWidth(90);
         }
-
-        BajaComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BajaComprajButton.setText("Dar de baja compra/s seleccionadas");
-        BajaComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        BajaComprajButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        BajaComprajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BajaComprajButtonActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -223,10 +204,6 @@ public class GestionDeCompras extends javax.swing.JFrame {
                         .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(EditarComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BajaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ImprimirDetallejButton)))
                 .addContainerGap())
@@ -249,14 +226,12 @@ public class GestionDeCompras extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ImprimirDetallejButton)
-                    .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EditarComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BajaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
-        HastajCalendar.getAccessibleContext().setAccessibleName("CSpresupuestoRangoHasta");
-        DesdejCalendar.getAccessibleContext().setAccessibleName("CSpresupuestoRangoDesde");
+        HastajCalendar.getAccessibleContext().setAccessibleName("");
+        DesdejCalendar.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,16 +253,9 @@ public class GestionDeCompras extends javax.swing.JFrame {
 
     private void ComprasjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComprasjTableMouseClicked
         if (evt.getClickCount() == 1) {
-            ComprasjTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    if (ComprasjTable.getSelectedRow() > -1) {
-                        agregarDetalleCompra();
-                    }
-                }
-            });
-        } else if (evt.getClickCount() == 2) {
-            abrirEditarCompra();
+            if (ComprasjTable.getSelectedRow() > -1) {
+                agregarDetalleCompra();
+            }
         }
     }//GEN-LAST:event_ComprasjTableMouseClicked
 
@@ -295,20 +263,15 @@ public class GestionDeCompras extends javax.swing.JFrame {
         imprimir();
     }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
 
-    private void BajaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaComprajButtonActionPerformed
-        darDeBajaCompras();
-    }//GEN-LAST:event_BajaComprajButtonActionPerformed
-
-    private void EditarComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarComprajButtonActionPerformed
-        abrirEditarCompra();
-    }//GEN-LAST:event_EditarComprajButtonActionPerformed
-
     private void NuevaComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaComprajButtonActionPerformed
         // TODO add your handling code here:
         AltaCompra nuevaCompra = new AltaCompra();
         nuevaCompra.idUsuario = this.idUsuario;
-        nuevaCompra.setTitle("Nueva Compra");
-        nuevaCompra.setVisible(true);
+        if (nuevaCompra.validarCajaAbierta()) {
+            nuevaCompra.buscarProveedor();
+            nuevaCompra.setTitle("Nueva Compra");
+            nuevaCompra.setVisible(true);
+        }
     }//GEN-LAST:event_NuevaComprajButtonActionPerformed
 
     /**
@@ -348,12 +311,10 @@ public class GestionDeCompras extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BajaComprajButton;
     private javax.swing.JButton BuscarjButton;
     private javax.swing.JTable ComprasjTable;
     private com.toedter.calendar.JDateChooser DesdejCalendar;
     private javax.swing.JTable DetalleComprasjTable;
-    private javax.swing.JButton EditarComprajButton;
     private com.toedter.calendar.JDateChooser HastajCalendar;
     private javax.swing.JButton ImprimirDetallejButton;
     private javax.swing.JButton NuevaComprajButton;
@@ -369,8 +330,8 @@ public class GestionDeCompras extends javax.swing.JFrame {
         int filas = tabla.getRowCount();
         if (filas > 0) {
             DefaultTableModel defaultTabla = (DefaultTableModel) tabla.getModel();
-            for (int i = filas; i >= -1; i--) {
-                defaultTabla.removeRow(i);
+            for (int i = 0; filas > i; i++) {
+                defaultTabla.removeRow(0);
             }
         }
     }
@@ -393,8 +354,8 @@ public class GestionDeCompras extends javax.swing.JFrame {
                     columnas[3] = new SimpleDateFormat("dd-MM-yyyy").format(compras.get(i).getFechaCompra().getTime());
                     columnas[4] = compras.get(i).getMontoCompra();
                     double compra = compras.get(i).getMontoCompra();
-                    double iva = compras.get(i).getIvaCompra() + 1;
-                    double total = compra * iva;
+                    double iva = compras.get(i).getIvaCompra();
+                    double total = compra + iva;
                     columnas[5] = total;
                     this.productos.add(compras.get(i).getProductos());
                     tabla.addRow(columnas);
@@ -410,7 +371,7 @@ public class GestionDeCompras extends javax.swing.JFrame {
         DefaultTableModel tabla = (DefaultTableModel) DetalleComprasjTable.getModel();
         Object[] columnas = new Object[4];
         try {
-            int fila = DetalleComprasjTable.getSelectedRow();
+            int fila = ComprasjTable.getSelectedRow();
             if (!this.productos.isEmpty()) {
                 if (!this.productos.get(fila).isEmpty()) {
                     for (int j = 0; j < this.productos.get(fila).size(); j++) {
@@ -426,69 +387,6 @@ public class GestionDeCompras extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-
-    private void abrirEditarCompra() {
-        if (ComprasjTable.getSelectedRow() != -1) {
-            int fila = ComprasjTable.getSelectedRow();
-            int idCompra = (int) ComprasjTable.getValueAt(fila, 0);
-            try {
-                Compra compra = new Compra().obtenerCompra(idCompra);
-                AltaCompra modCompra = new AltaCompra();
-                modCompra.CompraIDjTextField.setText(Integer.toString(compra.getIdCompra()));
-                modCompra.ProveedorjComboBox.addItem(compra.getProveedor().getNombreFantasia());
-                modCompra.CUITjTextField.setText(Long.toString(compra.getProveedor().getCuit()));
-                if (compra.getProductos().size() > 0) {
-                    DefaultTableModel tabla2 = (DefaultTableModel) modCompra.detalleComprajTable.getModel();
-                    Object[] columnas = new Object[4];
-                    for (int i = 0; i < compra.getProductos().size(); i++) {
-                        columnas[0] = compra.getProductos().get(i).getCodigoBarra();
-                        columnas[1] = compra.getProductos().get(i).getDescripcionProducto();
-                        columnas[2] = compra.getProductos().get(i).getStock();
-                        columnas[3] = compra.getProductos().get(i).getPrecioUnitario();
-                        tabla2.addRow(columnas);
-                    }
-                }
-                modCompra.SubtotaljTextField.setText(Double.toString(compra.getMontoCompra()));
-                modCompra.IVAjTextField.setText(Double.toString(compra.getIvaCompra()));
-                Double total = compra.getMontoCompra() + compra.getIvaCompra();
-                modCompra.totaljTextField.setText(total.toString());
-                modCompra.setTitle("Modificar Compra");
-                modCompra.setVisible(true);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe selecionar una fila para poder editarla");
-        }
-    }
-
-    private void darDeBajaCompras() {
-        int resultados = 0;
-        if (ComprasjTable.getSelectedRowCount() > 0) {
-            int[] filas = ComprasjTable.getSelectedRows();
-            for (int i = 0; i < filas.length; i++) {
-                int idCompra = (int) ComprasjTable.getValueAt(i, 0);
-                try {
-                    Compra compra = new Compra();
-                    compra.setIdCompra(idCompra);
-                    compra.setFechaBajaCompra(new Date());
-                    if (compra.darDeBajaCompra(compra) != 0) {
-                        resultados++;
-                    }
-                } catch (Exception e) {
-                    Logger.getLogger(GestionDeProveedores.class.getName()).log(Level.SEVERE, e.getMessage(), e);
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
-            }
-            if (resultados == filas.length) {
-                JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultados + " compras");
-                this.dispose();
-                new GestionDeProveedores().setVisible(true);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
         }
     }
 
