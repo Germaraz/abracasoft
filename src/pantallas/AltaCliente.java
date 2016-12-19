@@ -8,7 +8,9 @@ package pantallas;
 import entidades.Cliente;
 import entidades.Localidad;
 import entidades.Provincia;
+import gestores.Logs;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -449,6 +451,12 @@ public class AltaCliente extends javax.swing.JFrame {
     }
 
     public void guardarOActualizarCliente() {
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha creado/actualizado un cliente");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int resultado = 0;
         try {
             Cliente cliente = new Cliente();

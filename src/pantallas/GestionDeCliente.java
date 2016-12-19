@@ -8,9 +8,11 @@ package pantallas;
 import entidades.Cliente;
 import entidades.Pago;
 import entidades.Venta;
+import gestores.Logs;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,6 +85,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
             }
         });
 
+        ClientesjTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ClientesjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -114,36 +117,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ClientesjTable);
         if (ClientesjTable.getColumnModel().getColumnCount() > 0) {
-            ClientesjTable.getColumnModel().getColumn(0).setMinWidth(10);
-            ClientesjTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-            ClientesjTable.getColumnModel().getColumn(0).setMaxWidth(10);
-            ClientesjTable.getColumnModel().getColumn(1).setMinWidth(300);
-            ClientesjTable.getColumnModel().getColumn(1).setPreferredWidth(300);
-            ClientesjTable.getColumnModel().getColumn(1).setMaxWidth(300);
-            ClientesjTable.getColumnModel().getColumn(2).setMinWidth(100);
-            ClientesjTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-            ClientesjTable.getColumnModel().getColumn(2).setMaxWidth(100);
-            ClientesjTable.getColumnModel().getColumn(3).setMinWidth(100);
-            ClientesjTable.getColumnModel().getColumn(3).setPreferredWidth(100);
-            ClientesjTable.getColumnModel().getColumn(3).setMaxWidth(100);
-            ClientesjTable.getColumnModel().getColumn(4).setMinWidth(200);
-            ClientesjTable.getColumnModel().getColumn(4).setPreferredWidth(200);
-            ClientesjTable.getColumnModel().getColumn(4).setMaxWidth(200);
-            ClientesjTable.getColumnModel().getColumn(5).setMinWidth(200);
-            ClientesjTable.getColumnModel().getColumn(5).setPreferredWidth(200);
-            ClientesjTable.getColumnModel().getColumn(5).setMaxWidth(200);
-            ClientesjTable.getColumnModel().getColumn(6).setMinWidth(50);
-            ClientesjTable.getColumnModel().getColumn(6).setPreferredWidth(50);
-            ClientesjTable.getColumnModel().getColumn(6).setMaxWidth(50);
-            ClientesjTable.getColumnModel().getColumn(7).setMinWidth(300);
-            ClientesjTable.getColumnModel().getColumn(7).setPreferredWidth(300);
-            ClientesjTable.getColumnModel().getColumn(7).setMaxWidth(300);
-            ClientesjTable.getColumnModel().getColumn(8).setMinWidth(300);
-            ClientesjTable.getColumnModel().getColumn(8).setPreferredWidth(300);
-            ClientesjTable.getColumnModel().getColumn(8).setMaxWidth(300);
-            ClientesjTable.getColumnModel().getColumn(9).setMinWidth(100);
-            ClientesjTable.getColumnModel().getColumn(9).setPreferredWidth(100);
-            ClientesjTable.getColumnModel().getColumn(9).setMaxWidth(100);
+            ClientesjTable.getColumnModel().getColumn(0).setPreferredWidth(50);
         }
 
         CuentaCorrientejTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -232,9 +206,9 @@ public class GestionDeCliente extends javax.swing.JFrame {
                     .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevoClientejButton)
@@ -483,6 +457,12 @@ public class GestionDeCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultados + " clientes");
                 this.dispose();
                 new GestionDeCliente().setVisible(true);
+                try {
+                    Logs log = new Logs();
+                    log.crearLog("ha dado de baja" + resultados + "cliente/s");
+                } catch (IOException ex) {
+                    Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");

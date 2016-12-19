@@ -15,7 +15,9 @@ import entidades.Proveedor;
 import entidades.TipoPago;
 import entidades.Usuario;
 import entidades.Venta;
+import gestores.Logs;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -38,6 +40,7 @@ public class AltaCompra extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -83,6 +86,7 @@ public class AltaCompra extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva/Editar compra - OSG");
+        setResizable(false);
 
         eliminarProductoTablajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         eliminarProductoTablajButton.setText("Quitar producto seleccionado");
@@ -635,6 +639,12 @@ public class AltaCompra extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha registrado una compra a proveedor");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -9,7 +9,9 @@ import entidades.Compra;
 import entidades.Pago;
 import entidades.Producto;
 import entidades.Venta;
+import gestores.Logs;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +64,6 @@ public class GestionDeVentas extends javax.swing.JFrame {
         BajaVentajButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         BuscarjButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         ImprimirDetallejButton = new javax.swing.JButton();
 
@@ -77,6 +78,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
             }
         });
 
+        DetalleVentasjTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DetalleVentasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -132,7 +134,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
         DesdejCalendar.setMinimumSize(new java.awt.Dimension(27, 25));
         DesdejCalendar.setName("DesdejCalendar"); // NOI18N
 
-        VentasjTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        VentasjTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         VentasjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -168,9 +170,6 @@ public class GestionDeVentas extends javax.swing.JFrame {
             VentasjTable.getColumnModel().getColumn(0).setMinWidth(70);
             VentasjTable.getColumnModel().getColumn(0).setPreferredWidth(80);
             VentasjTable.getColumnModel().getColumn(0).setMaxWidth(90);
-            VentasjTable.getColumnModel().getColumn(2).setMinWidth(70);
-            VentasjTable.getColumnModel().getColumn(2).setPreferredWidth(80);
-            VentasjTable.getColumnModel().getColumn(2).setMaxWidth(90);
         }
 
         BajaVentajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -195,9 +194,6 @@ public class GestionDeVentas extends javax.swing.JFrame {
             }
         });
 
-        jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Hasta");
@@ -214,6 +210,10 @@ public class GestionDeVentas extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(905, Short.MAX_VALUE)
+                .addComponent(ImprimirDetallejButton)
+                .addGap(10, 10, 10))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -221,9 +221,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(EditarVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(BajaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ImprimirDetallejButton))
+                        .addComponent(BajaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -236,17 +234,13 @@ public class GestionDeVentas extends javax.swing.JFrame {
                         .addComponent(BuscarjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 1037, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(SPpresupuesto)
+                    .addComponent(SPpresupuestoArticulos))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,11 +251,10 @@ public class GestionDeVentas extends javax.swing.JFrame {
                         .addComponent(jButton3))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SPpresupuestoArticulos)
-                    .addComponent(jSeparator1)
-                    .addComponent(SPpresupuesto))
-                .addGap(22, 22, 22)
+                .addComponent(SPpresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EditarVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,7 +270,9 @@ public class GestionDeVentas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,7 +376,6 @@ public class GestionDeVentas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     private void limpiarTabla(JTable tabla) {
@@ -503,6 +497,12 @@ public class GestionDeVentas extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha dado de baja una venta realizada a un cliente");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

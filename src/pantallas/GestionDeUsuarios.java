@@ -6,9 +6,11 @@
 package pantallas;
 
 import entidades.Usuario;
+import gestores.Logs;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -274,6 +276,12 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Se han dado de baja " + banderas + " usuarios");
             this.dispose();
             new GestionDeUsuarios().setVisible(true);
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha dado de baja" + banderas + "usuario/s");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_DarDeBajajButtonActionPerformed
 

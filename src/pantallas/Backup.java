@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package pantallas;
+import gestores.Logs;
 import gestores.OSGbackup;
 
 import java.io.BufferedReader;
@@ -17,6 +18,8 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -116,6 +119,12 @@ public class Backup extends javax.swing.JFrame {
     private void CrearjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearjButtonActionPerformed
     new OSGbackup().crear("root", "root", "osg");
     JOptionPane.showMessageDialog(null, "Backup creado correctamente en 'C:\\OSG\\backup\\'");
+    try {
+            Logs log = new Logs();
+            log.crearLog("ha creador un backup");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_CrearjButtonActionPerformed
 
     private void RestaurarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestaurarjButtonActionPerformed
