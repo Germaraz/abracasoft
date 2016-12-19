@@ -128,7 +128,7 @@ public class GestorCaja extends PoolDeConexiones {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
             pst.setDate(1, new Date(fechaDesde.getTime()));
-            pst.setDate(1, new Date(fechaHasta.getTime()));
+            pst.setDate(2, new Date(fechaHasta.getTime()));
             ResultSet resultado = pst.executeQuery();
             conexion.commit();
             while (resultado.next()) {

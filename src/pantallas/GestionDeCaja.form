@@ -59,7 +59,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="ImpCierrejTextField" min="-2" pref="143" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="CierrejButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="ImpArqueojTextField" min="-2" pref="143" max="-2" attributes="0"/>
@@ -70,7 +70,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="FecAperturajTextField" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButton2" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="AperturajButton" min="-2" pref="91" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="NroCajajLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="ImpArqueojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="AperturajButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" max="32767" attributes="0"/>
                       <Component id="FecAperturajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="NroCajajLabel" alignment="3" max="32767" attributes="0"/>
@@ -118,7 +118,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="ImpCierrejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="CierrejButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -169,6 +169,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="DesdejDateChooser.setDate(new Date());"/>
+          </AuxValues>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="HastajDateChooser">
           <Properties>
@@ -176,6 +179,9 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="HastajDateChooser.setDate(new Date());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -283,7 +289,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="CierrejButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -291,14 +297,20 @@
             <Property name="text" type="java.lang.String" value="Cerrar Caja"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CierrejButtonActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="AperturajButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Abrir Caja"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AperturajButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -339,6 +351,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="NroCajajLabel">
           <Properties>
@@ -347,6 +362,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nro de Caja"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="NroCajajLabel.setVisible(false);"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="IDCajajTextField">
           <Properties>
@@ -356,7 +374,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="FecAperturajTextField.setText(new SimpleDateFormat(&quot;dd-MM-yyyy&quot;).format(new Date()));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="IDCajajTextField.setVisible(false);"/>
           </AuxValues>
         </Component>
       </SubComponents>

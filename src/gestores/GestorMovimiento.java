@@ -67,7 +67,7 @@ public class GestorMovimiento extends PoolDeConexiones {
     public ArrayList<Movimiento> listarMovimientosPorCaja(int idCaja) throws Exception {
         ArrayList<Movimiento> movimientos = new ArrayList<>();
         String sql = "SELECT * FROM movimiento WHERE movimiento.FECHABAJA IS NULL "
-                + "AND movimiento.compra_IDCOMPRA = ?";
+                + "AND movimiento.caja_IDCAJA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);

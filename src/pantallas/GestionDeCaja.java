@@ -6,6 +6,7 @@
 package pantallas;
 
 import entidades.Caja;
+import entidades.Movimiento;
 import entidades.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,11 +24,14 @@ import javax.swing.table.DefaultTableModel;
 public class GestionDeCaja extends javax.swing.JFrame {
 
     int idusuario;
+    private double importeApertura;
 
     /**
      * Creates new form MenuDeOperacionesDiarias
      */
     public GestionDeCaja() {
+        AparienciaPantalla apa = new AparienciaPantalla();
+        apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
     }
 
@@ -52,8 +56,8 @@ public class GestionDeCaja extends javax.swing.JFrame {
         MontoToTalCajajTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         CajasjTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        CierrejButton = new javax.swing.JButton();
+        AperturajButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -70,8 +74,10 @@ public class GestionDeCaja extends javax.swing.JFrame {
         jLabel1.setText("Controlar caja por periodo");
 
         DesdejDateChooser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        DesdejDateChooser.setDate(new Date());
 
         HastajDateChooser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        HastajDateChooser.setDate(new Date());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Importe de Arqueo");
@@ -122,12 +128,22 @@ public class GestionDeCaja extends javax.swing.JFrame {
         CajasjTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(CajasjTable);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Cerrar Caja");
-        jButton1.setEnabled(false);
+        CierrejButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        CierrejButton.setText("Cerrar Caja");
+        CierrejButton.setEnabled(false);
+        CierrejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CierrejButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton2.setText("Abrir Caja");
+        AperturajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AperturajButton.setText("Abrir Caja");
+        AperturajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AperturajButtonActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Hasta");
@@ -143,13 +159,19 @@ public class GestionDeCaja extends javax.swing.JFrame {
         FecAperturajTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
         jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         NroCajajLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         NroCajajLabel.setText("Nro de Caja");
+        NroCajajLabel.setVisible(false);
 
         IDCajajTextField.setEditable(false);
         IDCajajTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        FecAperturajTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        IDCajajTextField.setVisible(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,7 +193,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(ImpCierrejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton1))
+                                        .addComponent(CierrejButton))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(ImpArqueojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -179,7 +201,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(FecAperturajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(AperturajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(NroCajajLabel)
                                 .addGap(18, 18, 18)
@@ -209,7 +231,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(ImpArqueojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
+                    .addComponent(AperturajButton)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(FecAperturajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NroCajajLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -218,7 +240,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(ImpCierrejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(CierrejButton))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -257,6 +279,31 @@ public class GestionDeCaja extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AperturajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AperturajButtonActionPerformed
+        // TODO add your handling code here:
+        if (validarArqueo()) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Abrir Caja?");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                abrirCaja();
+            }
+        }
+    }//GEN-LAST:event_AperturajButtonActionPerformed
+
+    private void CierrejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CierrejButtonActionPerformed
+        // TODO add your handling code here:
+        if (validarCierre()) {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Cerrar Caja Nro:" + IDCajajTextField.getText() + "?");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                cerrarCaja();
+            }
+        }
+    }//GEN-LAST:event_CierrejButtonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        agregarCajasATabla();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -290,13 +337,17 @@ public class GestionDeCaja extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionDeCaja().setVisible(true);
+                GestionDeCaja gestCaja = new GestionDeCaja();
+                gestCaja.importeDeCajaEnVivo();
+                gestCaja.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AperturajButton;
     private javax.swing.JTable CajasjTable;
+    private javax.swing.JButton CierrejButton;
     private com.toedter.calendar.JDateChooser DesdejDateChooser;
     private javax.swing.JTextField FecAperturajTextField;
     private com.toedter.calendar.JDateChooser HastajDateChooser;
@@ -305,8 +356,6 @@ public class GestionDeCaja extends javax.swing.JFrame {
     private javax.swing.JTextField ImpCierrejTextField;
     private javax.swing.JTextField MontoToTalCajajTextField;
     private javax.swing.JLabel NroCajajLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -327,6 +376,26 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 defaultTabla.removeRow(0);
             }
         }
+    }
+
+    private boolean validarArqueo() {
+        boolean valido = true;
+        if (ImpArqueojTextField.getText().isEmpty() || ImpArqueojTextField.getText().equals("0.00")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un importe de arqueo de caja");
+            ImpArqueojTextField.requestFocus();
+            valido = false;
+        }
+        return valido;
+    }
+
+    private boolean validarCierre() {
+        boolean valido = true;
+        if (ImpCierrejTextField.getText().isEmpty() || ImpCierrejTextField.getText().equals("0.00")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un importe de cierre de caja");
+            ImpCierrejTextField.requestFocus();
+            valido = false;
+        }
+        return valido;
     }
 
     private void agregarCajasATabla() {
@@ -361,15 +430,60 @@ public class GestionDeCaja extends javax.swing.JFrame {
             caja.setUsuario(new Usuario().obtenerUsuario(idusuario));
             resultado = caja.abrirCaja(caja);
             if (resultado != 0) {
+                importeApertura = Double.parseDouble(ImpArqueojTextField.getText());
+                AperturajButton.setEnabled(false);
+                ImpArqueojTextField.setEnabled(false);
                 NroCajajLabel.setVisible(true);
                 IDCajajTextField.setText(Integer.toString(resultado));
                 IDCajajTextField.setVisible(true);
+                ImpCierrejTextField.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No se logro abrir la caja");
             }
         } catch (Exception ex) {
             Logger.getLogger(GestionDeCaja.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+
+    private void cerrarCaja() {
+        int resultado;
+        Caja caja = new Caja();
+        caja.setIdCaja(Integer.parseInt(IDCajajTextField.getText()));
+        caja.setImporteCierre(Double.parseDouble(ImpCierrejTextField.getText()));
+        try {
+            resultado = caja.cerrarCaja(caja);
+            if (resultado != 0) {
+                ImpArqueojTextField.setText("0.00");
+                AperturajButton.setEnabled(true);
+                ImpArqueojTextField.setEnabled(true);
+                IDCajajTextField.setVisible(false);
+                ImpCierrejTextField.setEnabled(false);
+                IDCajajTextField.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se logro cerrar la caja");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void importeDeCajaEnVivo() {
+        if (!IDCajajTextField.getText().isEmpty()) {
+            double totalEnCaja = 0;
+            int idcaja = Integer.parseInt(IDCajajTextField.getText());
+            try {
+                ArrayList<Movimiento> movimientos = new Movimiento().listarMovimientoPorCaja(idcaja);
+                if (!movimientos.isEmpty()) {
+                    for (int i = 0; i < movimientos.size(); i++) {
+                        totalEnCaja = totalEnCaja + movimientos.get(i).getMontoMovimiento();
+                    }
+                    MontoToTalCajajTextField.setText(Double.toString(totalEnCaja));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(GestionDeCaja.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }
 }

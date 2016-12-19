@@ -5,35 +5,29 @@
  */
 package pantallas;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Calendar;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
-import javax.swing.Timer;
+
+;
 
 /**
  *
  * @author Pablo el mejor
  */
-public class VentanaPrincipal extends javax.swing.JFrame{
-    
+public class VentanaPrincipal extends javax.swing.JFrame {
+
     /**
      * Creates new form MenuDeOpcionesEmpleado
      */
-    public VentanaPrincipal(){
+    public VentanaPrincipal() {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
@@ -41,7 +35,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         BackupjButton.setMnemonic(KeyEvent.VK_F10);
         setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
     }
-    
+
     public void cerrar() {
         setLocationRelativeTo(null);
         Object[] opciones = {"Aceptar", "Cancelar"};
@@ -51,9 +45,9 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         if (eleccion == JOptionPane.YES_OPTION) {
             System.exit(0);
         } else {
-        }    
+        }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -422,7 +416,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
         ponLaAyuda();
     }//GEN-LAST:event_btnAyudaActionPerformed
-    
+
     private void ponLaAyuda() {
         try {
             // Carga el fichero de ayuda
@@ -437,7 +431,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
             // principal y secundaria.
             hb.enableHelpOnButton(btnAyuda, "aplicacion", helpset);
             hb.enableHelpKey(getRootPane(), "", helpset);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -468,7 +462,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
         GestionDeCompras gesComp = new GestionDeCompras();
         if (!UsuarioIDjLabel.getText().isEmpty()) {
             gesComp.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
-        }        
+        }
         if (señalCompra == 0) {
             jTabbedPane1.addTab("Gestión de compras", gesComp.getContentPane());
             señalCompra = 1;
@@ -524,12 +518,12 @@ public class VentanaPrincipal extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-               
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new VentanaPrincipal().setVisible(true);
-                
+
             }
         });
     }
@@ -574,7 +568,7 @@ public class VentanaPrincipal extends javax.swing.JFrame{
     private int señalCompra = 0;
     private int señalProv = 0;
     private int señalUsu = 0;
-    
+
     Calendar Cal = Calendar.getInstance();
     String fec = Cal.get(Cal.DATE) + "/" + (Cal.get(Cal.MONTH) + 1) + "/" + Cal.get(Cal.YEAR
     ) + " " + Cal.get(Cal.HOUR_OF_DAY) + ":" + Cal.get(Cal.MINUTE) + ":" + Cal.get(Cal.SECOND);
