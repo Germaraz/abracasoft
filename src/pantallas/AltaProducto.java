@@ -15,6 +15,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import net.sourceforge.jbarcodebean.JBarcodeBean;
 import net.sourceforge.jbarcodebean.model.Interleaved25;
+import gestores.Logs;
+import java.io.FileWriter;
+import java.util.Calendar;
 
 /**
  *
@@ -462,6 +465,12 @@ public class AltaProducto extends javax.swing.JFrame {
     }
     
     private void guardarOActualizarProducto() {
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha creado/actualizado un producto");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int resultado;
         Producto producto = new Producto();
         try {
@@ -487,4 +496,5 @@ public class AltaProducto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
 }

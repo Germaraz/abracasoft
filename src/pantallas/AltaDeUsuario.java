@@ -8,10 +8,18 @@ package pantallas;
 import entidades.Privilegio;
 import entidades.Rol;
 import entidades.Usuario;
+import gestores.Logs;
 import java.awt.event.ItemEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,6 +39,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         agregarRolesACombo();
         ApellidojTextField.requestFocus();
         UsuarioIDjTextField.setVisible(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -53,7 +62,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         PrivilegiosjTable = new javax.swing.JTable();
         GuardarjButton = new javax.swing.JButton();
         SalirjButton = new javax.swing.JButton();
-        Bayuda = new javax.swing.JButton();
+        btnAyuda = new javax.swing.JButton();
         UsuariojLabel1 = new javax.swing.JLabel();
         NombrejTextField = new javax.swing.JTextField();
         UsuariojLabel2 = new javax.swing.JLabel();
@@ -72,7 +81,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         UsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         UsuariojLabel.setText("Apellido");
 
-        EmailjTextField.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        EmailjTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         PassjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         PassjLabel.setText("Contraseña");
@@ -83,6 +92,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         TipoUsuariojLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         TipoUsuariojLabel.setText("Tipo");
 
+        TipoDeUsuariojComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TipoDeUsuariojComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 TipoDeUsuariojComboBoxItemStateChanged(evt);
@@ -98,6 +108,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         PrivilegiosjLabel.setText("Privilegios:");
 
         PrivilegiosjTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PrivilegiosjTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         PrivilegiosjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -134,6 +145,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             PrivilegiosjTable.getColumnModel().getColumn(2).setMaxWidth(90);
         }
 
+        GuardarjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         GuardarjButton.setText("Guardar");
         GuardarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +153,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             }
         });
 
+        SalirjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         SalirjButton.setText("Cancelar");
         SalirjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,12 +161,18 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             }
         });
 
-        Bayuda.setText("Ayuda");
+        btnAyuda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnAyuda.setText("Ayuda");
+        btnAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAyudaActionPerformed(evt);
+            }
+        });
 
         UsuariojLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         UsuariojLabel1.setText("Nombre");
 
-        NombrejTextField.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        NombrejTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         UsuariojLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         UsuariojLabel2.setText("Email");
@@ -161,15 +180,18 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         UsuariojLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         UsuariojLabel3.setText("Nombre de usuario");
 
-        ApellidojTextField.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        ApellidojTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        NombreDeUsuariojTextField.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        NombreDeUsuariojTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        ContraseniajPasswordField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ContraseniajPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ContraseniajPasswordFieldActionPerformed(evt);
             }
         });
+
+        RContraseniajPasswordField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         UsuarioIDjTextField.setEditable(false);
         UsuarioIDjTextField.setEnabled(false);
@@ -183,7 +205,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Bayuda)
+                        .addComponent(btnAyuda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(GuardarjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -235,7 +257,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EmailjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreDeUsuariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PassjLabel)
                     .addComponent(RepitaPassjLabel))
@@ -255,7 +277,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Bayuda)
+                    .addComponent(btnAyuda)
                     .addComponent(SalirjButton)
                     .addComponent(GuardarjButton))
                 .addContainerGap())
@@ -293,6 +315,10 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     private void TipoDeUsuariojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoDeUsuariojComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TipoDeUsuariojComboBoxActionPerformed
+
+    private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
+        ponLaAyuda();
+    }//GEN-LAST:event_btnAyudaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,7 +362,6 @@ public class AltaDeUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JTextField ApellidojTextField;
-    private javax.swing.JButton Bayuda;
     protected javax.swing.JPasswordField ContraseniajPasswordField;
     protected javax.swing.JTextField EmailjTextField;
     private javax.swing.JButton GuardarjButton;
@@ -355,9 +380,31 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel UsuariojLabel1;
     private javax.swing.JLabel UsuariojLabel2;
     private javax.swing.JLabel UsuariojLabel3;
+    private javax.swing.JButton btnAyuda;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void ponLaAyuda() {
+        try {
+            // Carga el fichero de ayuda
+            File fichero = new File("help/help_set.hs");
+            URL hsURL = fichero.toURI().toURL();
+
+            // Crea el HelpSet y el HelpBroker
+            HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+            HelpBroker hb = helpset.createHelpBroker();
+
+            // Pone ayuda a item de menu al pulsarlo y a F1 en ventana
+            // principal y secundaria.
+            hb.enableHelpOnButton(btnAyuda, "aplicacion", helpset);
+            hb.enableHelpKey(getRootPane(), "", helpset);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void agregarRolesACombo() {
         Rol rol = new Rol();
         try {
@@ -460,6 +507,12 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha creado/actualizado un usuario");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

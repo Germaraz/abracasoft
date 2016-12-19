@@ -11,6 +11,8 @@ import entidades.Gasto;
 import entidades.Movimiento;
 import entidades.Usuario;
 import entidades.Venta;
+import gestores.Logs;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -184,6 +186,22 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DesdejDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(HastajDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
@@ -209,23 +227,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                                 .addComponent(NroCajajLabel)
                                 .addGap(18, 18, 18)
                                 .addComponent(IDCajajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(268, 268, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DesdejDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HastajDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(228, 307, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +287,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
     private void AperturajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AperturajButtonActionPerformed
         // TODO add your handling code here:
         if (validarArqueo()) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Abrir Caja?");
+            int respuesta = JOptionPane.showConfirmDialog(null, "�Abrir Caja?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 abrirCaja();
             }
@@ -295,7 +297,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
     private void CierrejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CierrejButtonActionPerformed
         // TODO add your handling code here:
         if (validarCierre()) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Cerrar Caja Nro:" + IDCajajTextField.getText() + "?");
+            int respuesta = JOptionPane.showConfirmDialog(null, "�Cerrar Caja Nro:" + IDCajajTextField.getText() + "?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 cerrarCaja();
             }
@@ -478,6 +480,12 @@ public class GestionDeCaja extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(GestionDeCaja.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha hecho apertura de caja");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

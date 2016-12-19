@@ -8,7 +8,9 @@ package pantallas;
 import entidades.Localidad;
 import entidades.Proveedor;
 import entidades.Provincia;
+import gestores.Logs;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +30,7 @@ public class AltaProveedor extends javax.swing.JFrame {
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
         this.cargarProvincias();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -443,6 +446,12 @@ public class AltaProveedor extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha creado/actualizado un proveedor");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

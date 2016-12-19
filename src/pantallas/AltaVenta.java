@@ -16,10 +16,12 @@ import entidades.Producto;
 import entidades.TipoPago;
 import entidades.Usuario;
 import entidades.Venta;
+import gestores.Logs;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class AltaVenta extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -315,7 +318,7 @@ public class AltaVenta extends javax.swing.JFrame {
                         .addGap(12, 12, 12))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(IDVentajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(166, 166, 166)
+                        .addGap(113, 113, 113)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PagaConjTextField)
@@ -831,6 +834,12 @@ public class AltaVenta extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar la venta");
             }
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha hecho una venta a un cliente");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

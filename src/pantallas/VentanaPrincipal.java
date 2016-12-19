@@ -5,6 +5,10 @@
  */
 package pantallas;
 
+import gestores.Logs;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -13,6 +17,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 
@@ -37,6 +43,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     public void cerrar() {
+        try {
+            Logs log = new Logs();
+            log.user = NombreUsuariojLabel.getText();
+            log.crearLog("ha cerrado sesión");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setLocationRelativeTo(null);
         Object[] opciones = {"Aceptar", "Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane, "¿Desea salir de OSG?", "Saliendo de OSG",
@@ -536,6 +549,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton BackupjButton;

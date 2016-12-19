@@ -6,7 +6,9 @@
 package pantallas;
 
 import entidades.Producto;
+import gestores.Logs;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,12 +49,12 @@ public class GestionDeProductos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         CodigoBarraProdjTextField = new javax.swing.JTextField();
         BuscarProductojButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ProductosjTable = new javax.swing.JTable();
         AltaProdjButton = new javax.swing.JButton();
         EditarProdjButton = new javax.swing.JButton();
         DarDeBajaProdjButton = new javax.swing.JButton();
         ImprimirDetallejButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ProductosjTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de productos");
@@ -83,6 +85,44 @@ public class GestionDeProductos extends javax.swing.JFrame {
         BuscarProductojButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BuscarProductojButtonActionPerformed(evt);
+            }
+        });
+
+        AltaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        AltaProdjButton.setText("Agregar producto");
+        AltaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        AltaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        AltaProdjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AltaProdjButtonActionPerformed(evt);
+            }
+        });
+
+        EditarProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        EditarProdjButton.setText("Editar producto seleccionado");
+        EditarProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        EditarProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        EditarProdjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarProdjButtonActionPerformed(evt);
+            }
+        });
+
+        DarDeBajaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        DarDeBajaProdjButton.setText("Dar de baja producto/s seleccionado/s");
+        DarDeBajaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
+        DarDeBajaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
+        DarDeBajaProdjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DarDeBajaProdjButtonActionPerformed(evt);
+            }
+        });
+
+        ImprimirDetallejButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ImprimirDetallejButton.setText("Imprimir");
+        ImprimirDetallejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirDetallejButtonActionPerformed(evt);
             }
         });
 
@@ -125,77 +165,37 @@ public class GestionDeProductos extends javax.swing.JFrame {
             ProductosjTable.getColumnModel().getColumn(3).setMaxWidth(90);
         }
 
-        AltaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        AltaProdjButton.setText("Agregar producto");
-        AltaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        AltaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        AltaProdjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AltaProdjButtonActionPerformed(evt);
-            }
-        });
-
-        EditarProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        EditarProdjButton.setText("Editar producto seleccionado");
-        EditarProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        EditarProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        EditarProdjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarProdjButtonActionPerformed(evt);
-            }
-        });
-
-        DarDeBajaProdjButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        DarDeBajaProdjButton.setText("Dar de baja producto/s seleccionado/s");
-        DarDeBajaProdjButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        DarDeBajaProdjButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        DarDeBajaProdjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DarDeBajaProdjButtonActionPerformed(evt);
-            }
-        });
-
-        ImprimirDetallejButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        ImprimirDetallejButton.setText("Imprimir");
-        ImprimirDetallejButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImprimirDetallejButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout gestionDeProductojPanelLayout = new javax.swing.GroupLayout(gestionDeProductojPanel);
         gestionDeProductojPanel.setLayout(gestionDeProductojPanelLayout);
         gestionDeProductojPanelLayout.setHorizontalGroup(
             gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
-                        .addComponent(AltaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EditarProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DarDeBajaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                        .addComponent(ImprimirDetallejButton))
-                    .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                        .addContainerGap()
                         .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(DescripcionProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(CodigoBarraProdjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BuscarProductojButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(AltaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(EditarProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DarDeBajaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
+                        .addComponent(ImprimirDetallejButton))
+                    .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
-            .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         gestionDeProductojPanelLayout.setVerticalGroup(
             gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,25 +215,24 @@ public class GestionDeProductos extends javax.swing.JFrame {
                     .addGroup(gestionDeProductojPanelLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(BuscarProductojButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 422, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AltaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DarDeBajaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EditarProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ImprimirDetallejButton))
+                    .addComponent(ImprimirDetallejButton)
+                    .addComponent(AltaProdjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(gestionDeProductojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gestionDeProductojPanelLayout.createSequentialGroup()
-                    .addContainerGap(76, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(51, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gestionDeProductojPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(gestionDeProductojPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,10 +246,33 @@ public class GestionDeProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
-    private void DescripcionProdjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionProdjTextFieldKeyTyped
+    private void ProductosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductosjTableMouseClicked
         // TODO add your handling code here:
-        buscarPorDescripcion();
-    }//GEN-LAST:event_DescripcionProdjTextFieldKeyTyped
+        if (evt.getClickCount() == 2) {
+            abrirEditarProducto();
+        }
+    }//GEN-LAST:event_ProductosjTableMouseClicked
+
+    private void ImprimirDetallejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirDetallejButtonActionPerformed
+        imprimir();
+    }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
+
+    private void DarDeBajaProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarDeBajaProdjButtonActionPerformed
+        // TODO add your handling code here:
+        darDeBajaProductos();
+    }//GEN-LAST:event_DarDeBajaProdjButtonActionPerformed
+
+    private void EditarProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarProdjButtonActionPerformed
+        // TODO add your handling code here:
+        abrirEditarProducto();
+    }//GEN-LAST:event_EditarProdjButtonActionPerformed
+
+    private void AltaProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaProdjButtonActionPerformed
+        // TODO add your handling code here:
+        AltaProducto altaproducto = new AltaProducto();
+        altaproducto.setTitle("Nuevo Producto");
+        altaproducto.setVisible(true);
+    }//GEN-LAST:event_AltaProdjButtonActionPerformed
 
     private void BuscarProductojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarProductojButtonActionPerformed
         // TODO add your handling code here:
@@ -263,33 +285,10 @@ public class GestionDeProductos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BuscarProductojButtonActionPerformed
 
-    private void AltaProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaProdjButtonActionPerformed
+    private void DescripcionProdjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionProdjTextFieldKeyTyped
         // TODO add your handling code here:
-        AltaProducto altaproducto = new AltaProducto();
-        altaproducto.setTitle("Nuevo Producto");
-        altaproducto.setVisible(true);
-    }//GEN-LAST:event_AltaProdjButtonActionPerformed
-
-    private void ProductosjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductosjTableMouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
-            abrirEditarProducto();
-        }
-    }//GEN-LAST:event_ProductosjTableMouseClicked
-
-    private void EditarProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarProdjButtonActionPerformed
-        // TODO add your handling code here:
-        abrirEditarProducto();
-    }//GEN-LAST:event_EditarProdjButtonActionPerformed
-
-    private void DarDeBajaProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarDeBajaProdjButtonActionPerformed
-        // TODO add your handling code here:
-        darDeBajaProductos();
-    }//GEN-LAST:event_DarDeBajaProdjButtonActionPerformed
-
-    private void ImprimirDetallejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirDetallejButtonActionPerformed
-        imprimir();
-    }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
+        buscarPorDescripcion();
+    }//GEN-LAST:event_DescripcionProdjTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -494,6 +493,12 @@ public class GestionDeProductos extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
+        }
+        try {
+            Logs log = new Logs();
+            log.crearLog("ha dado de baja un producto");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: osg
+-- Host: localhost    Database: abracasoftdb
 -- ------------------------------------------------------
 -- Server version	5.7.13-log
 
@@ -15,6 +15,531 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+--
+-- Current Database: `abracasoftdb`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `abracasoftdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `abracasoftdb`;
+
+--
+-- Table structure for table `backup`
+--
+
+DROP TABLE IF EXISTS `backup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `backup` (
+  `IDBACKUP` int(11) NOT NULL AUTO_INCREMENT,
+  `IDUSU` int(11) DEFAULT NULL,
+  `FECHABACKUP` date DEFAULT NULL,
+  PRIMARY KEY (`IDBACKUP`),
+  UNIQUE KEY `BACKUP_PK` (`IDBACKUP`),
+  KEY `RELATION_391_FK` (`IDUSU`),
+  CONSTRAINT `backup_ibfk_1` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `backup`
+--
+
+LOCK TABLES `backup` WRITE;
+/*!40000 ALTER TABLE `backup` DISABLE KEYS */;
+/*!40000 ALTER TABLE `backup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `caja`
+--
+
+DROP TABLE IF EXISTS `caja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `caja` (
+  `IDCAJA` int(11) NOT NULL AUTO_INCREMENT,
+  `IDUSU` int(11) DEFAULT NULL,
+  `IMPARQUEO` float DEFAULT NULL,
+  `IMPCIERRE` float DEFAULT NULL,
+  `FECHA` datetime DEFAULT NULL,
+  `FECHABAJA` date DEFAULT NULL,
+  PRIMARY KEY (`IDCAJA`),
+  UNIQUE KEY `CAJA_PK` (`IDCAJA`),
+  KEY `RELATION_236_FK` (`IDUSU`),
+  CONSTRAINT `caja_ibfk_1` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`),
+  CONSTRAINT `caja_ibfk_2` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `caja`
+--
+
+LOCK TABLES `caja` WRITE;
+/*!40000 ALTER TABLE `caja` DISABLE KEYS */;
+/*!40000 ALTER TABLE `caja` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cliente` (
+  `IDCLIENTE` int(11) NOT NULL AUTO_INCREMENT,
+  `CODIGOPOSTAL` int(11) NOT NULL,
+  `NOMCLIENTE` varchar(30) DEFAULT NULL,
+  `DIRCLIENTE` varchar(30) DEFAULT NULL,
+  `MAILCLIENTE` varchar(50) DEFAULT NULL,
+  `TELCLIENTE` int(11) DEFAULT NULL,
+  `DNICLIENTE` int(11) DEFAULT NULL,
+  `ESTADOCLIENTE` varchar(20) DEFAULT NULL,
+  `FECHABAJA` date DEFAULT NULL,
+  PRIMARY KEY (`IDCLIENTE`),
+  UNIQUE KEY `CLIENTE_PK` (`IDCLIENTE`),
+  KEY `RELATION_149_FK` (`CODIGOPOSTAL`),
+  CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`CODIGOPOSTAL`) REFERENCES `lugar` (`CODIGOPOSTAL`),
+  CONSTRAINT `cliente_ibfk_2` FOREIGN KEY (`CODIGOPOSTAL`) REFERENCES `lugar` (`CODIGOPOSTAL`),
+  CONSTRAINT `cliente_ibfk_3` FOREIGN KEY (`CODIGOPOSTAL`) REFERENCES `lugar` (`CODIGOPOSTAL`),
+  CONSTRAINT `cliente_ibfk_4` FOREIGN KEY (`CODIGOPOSTAL`) REFERENCES `lugar` (`CODIGOPOSTAL`),
+  CONSTRAINT `cliente_ibfk_5` FOREIGN KEY (`CODIGOPOSTAL`) REFERENCES `lugar` (`CODIGOPOSTAL`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cliente`
+--
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,3000,'Alvarez Pablo','Regis Martinez 1978','pablofernando@hotmail.com',4690408,30786775,NULL,NULL),(2,3000,'Messi Lionel','','',0,0,NULL,NULL),(4,3000,'Gano de Diego','Rio Gallego 1212','diego@domucho.com',11558,35123258,NULL,NULL),(5,3016,'Acosta Victor','Libertad 1920','hamm@gtmail.com',454548,25870499,NULL,NULL),(6,3020,'Barletta Sara','','sarabarletta@hotmail.com',0,26789212,NULL,NULL),(7,3100,'Kreig Alberto','','',1511333,0,NULL,NULL),(8,3000,'Di María Ángel','Italia 9090','',0,0,NULL,NULL),(9,3000,'Higuaín Gonzalo','','',0,0,NULL,NULL),(10,2000,'Agüero Sergio','Made in China 1115','nomepidasquecorra@mediapila.com.ar',0,0,NULL,NULL),(11,5000,'Romero Sergio ','','ayalajoseluis@gmail.com',5170666,0,NULL,NULL),(12,2000,'Morales Victor Hugo','Eva Peron 678','',0,0,NULL,NULL),(13,3000,'Lavezzi Ezequiel','Calle Falsa 123','',0,0,NULL,NULL),(14,3100,'Mascherano Javier','','seleccion@argentina.com',11212117,0,NULL,NULL);
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `compra`
+--
+
+DROP TABLE IF EXISTS `compra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `compra` (
+  `IDCOMPRA` int(11) NOT NULL AUTO_INCREMENT,
+  `IDPROVEEDOR` int(11) DEFAULT NULL,
+  `IDUSU` int(11) DEFAULT NULL,
+  `FECHADECOMPRA` date DEFAULT NULL,
+  `MONTO` float DEFAULT NULL,
+  `FECHABAJA` date DEFAULT NULL,
+  PRIMARY KEY (`IDCOMPRA`),
+  UNIQUE KEY `COMPRA_PK` (`IDCOMPRA`),
+  KEY `RELATION_81_FK` (`IDPROVEEDOR`),
+  KEY `RELATION_170_FK` (`IDUSU`),
+  CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`IDPROVEEDOR`) REFERENCES `proveedor` (`IDPROVEEDOR`),
+  CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `compra`
+--
+
+LOCK TABLES `compra` WRITE;
+/*!40000 ALTER TABLE `compra` DISABLE KEYS */;
+/*!40000 ALTER TABLE `compra` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gasto`
+--
+
+DROP TABLE IF EXISTS `gasto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gasto` (
+  `IDGASTO` int(11) NOT NULL AUTO_INCREMENT,
+  `IDUSU` int(11) DEFAULT NULL,
+  `DESCGASTO` mediumtext,
+  `FECHAGASTO` date DEFAULT NULL,
+  `MONTOGASTO` float DEFAULT NULL,
+  `FECHABAJA` date DEFAULT NULL,
+  PRIMARY KEY (`IDGASTO`),
+  UNIQUE KEY `GASTO_PK` (`IDGASTO`),
+  KEY `RELATION_84_FK` (`IDUSU`),
+  CONSTRAINT `gasto_ibfk_1` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gasto`
+--
+
+LOCK TABLES `gasto` WRITE;
+/*!40000 ALTER TABLE `gasto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gasto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lugar`
+--
+
+DROP TABLE IF EXISTS `lugar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lugar` (
+  `CODIGOPOSTAL` int(11) NOT NULL,
+  `IDCLIENTE` int(11) DEFAULT NULL,
+  `LOCALIDAD` varchar(20) DEFAULT NULL,
+  `PROVINCIA` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`CODIGOPOSTAL`),
+  UNIQUE KEY `LUGAR_PK` (`CODIGOPOSTAL`),
+  KEY `RELATION_1492_FK` (`IDCLIENTE`),
+  CONSTRAINT `lugar_ibfk_1` FOREIGN KEY (`IDCLIENTE`) REFERENCES `cliente` (`IDCLIENTE`),
+  CONSTRAINT `lugar_ibfk_2` FOREIGN KEY (`IDCLIENTE`) REFERENCES `cliente` (`IDCLIENTE`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lugar`
+--
+
+LOCK TABLES `lugar` WRITE;
+/*!40000 ALTER TABLE `lugar` DISABLE KEYS */;
+INSERT INTO `lugar` VALUES (1001,NULL,NULL,'CAPITAL FEDERAL'),(1002,NULL,NULL,'Capital Federal'),(1003,NULL,NULL,'Capital Federal'),(1004,NULL,NULL,'Capital Federal'),(1005,NULL,NULL,'Capital Federal'),(1006,NULL,NULL,'Capital Federal'),(1007,NULL,NULL,'Capital Federal'),(1008,NULL,NULL,'Capital Federal'),(1009,NULL,NULL,'Capital Federal'),(1010,NULL,NULL,'Capital Federal'),(1011,NULL,NULL,'Capital Federal'),(1012,NULL,NULL,'Capital Federal'),(1013,NULL,NULL,'Capital Federal'),(1014,NULL,NULL,'Capital Federal'),(1015,NULL,NULL,'Capital Federal'),(1016,NULL,NULL,'Capital Federal'),(1017,NULL,NULL,'Capital Federal'),(1018,NULL,NULL,'Capital Federal'),(1019,NULL,NULL,'Capital Federal'),(1020,NULL,NULL,'Capital Federal'),(1021,NULL,NULL,'Capital Federal'),(1022,NULL,NULL,'Capital Federal'),(1023,NULL,NULL,'Capital Federal'),(1024,NULL,NULL,'Capital Federal'),(1025,NULL,NULL,'Capital Federal'),(1026,NULL,NULL,'Capital Federal'),(1027,NULL,NULL,'Capital Federal'),(1028,NULL,NULL,'Capital Federal'),(1029,NULL,NULL,'Capital Federal'),(1030,NULL,NULL,'Capital Federal'),(1031,NULL,NULL,'Capital Federal'),(1032,NULL,NULL,'Capital Federal'),(1033,NULL,NULL,'Capital Federal'),(1034,NULL,NULL,'Capital Federal'),(1035,NULL,NULL,'Capital Federal'),(1036,NULL,NULL,'Capital Federal'),(1037,NULL,NULL,'Capital Federal'),(1038,NULL,NULL,'Capital Federal'),(1039,NULL,NULL,'Capital Federal'),(1040,NULL,NULL,'Capital Federal'),(1041,NULL,NULL,'Capital Federal'),(1042,NULL,NULL,'Capital Federal'),(1043,NULL,NULL,'Capital Federal'),(1044,NULL,NULL,'Capital Federal'),(1045,NULL,NULL,'Capital Federal'),(1046,NULL,NULL,'Capital Federal'),(1047,NULL,NULL,'Capital Federal'),(1048,NULL,NULL,'Capital Federal'),(1049,NULL,NULL,'Capital Federal'),(1050,NULL,NULL,'Capital Federal'),(1051,NULL,NULL,'Capital Federal'),(1052,NULL,NULL,'Capital Federal'),(1053,NULL,NULL,'Capital Federal'),(1054,NULL,NULL,'Capital Federal'),(1055,NULL,NULL,'Capital Federal'),(1056,NULL,NULL,'Capital Federal'),(1057,NULL,NULL,'Capital Federal'),(1058,NULL,NULL,'Capital Federal'),(1059,NULL,NULL,'Capital Federal'),(1060,NULL,NULL,'Capital Federal'),(1061,NULL,NULL,'Capital Federal'),(1062,NULL,NULL,'Capital Federal'),(1063,NULL,NULL,'Capital Federal'),(1064,NULL,NULL,'Capital Federal'),(1065,NULL,NULL,'Capital Federal'),(1066,NULL,NULL,'Capital Federal'),(1067,NULL,NULL,'Capital Federal'),(1068,NULL,NULL,'Capital Federal'),(1069,NULL,NULL,'Capital Federal'),(1070,NULL,NULL,'Capital Federal'),(1071,NULL,NULL,'Capital Federal'),(1072,NULL,NULL,'Capital Federal'),(1073,NULL,NULL,'Capital Federal'),(1074,NULL,NULL,'Capital Federal'),(1075,NULL,NULL,'Capital Federal'),(1076,NULL,NULL,'Capital Federal'),(1077,NULL,NULL,'Capital Federal'),(1078,NULL,NULL,'Capital Federal'),(1079,NULL,NULL,'Capital Federal'),(1080,NULL,NULL,'Capital Federal'),(1081,NULL,NULL,'Capital Federal'),(1082,NULL,NULL,'Capital Federal'),(1083,NULL,NULL,'Capital Federal'),(1084,NULL,NULL,'Capital Federal'),(1085,NULL,NULL,'Capital Federal'),(1086,NULL,NULL,'Capital Federal'),(1087,NULL,NULL,'Capital Federal'),(1088,NULL,NULL,'Capital Federal'),(1089,NULL,NULL,'Capital Federal'),(1090,NULL,NULL,'Capital Federal'),(1091,NULL,NULL,'Capital Federal'),(1092,NULL,NULL,'Capital Federal'),(1093,NULL,NULL,'Capital Federal'),(1094,NULL,NULL,'Capital Federal'),(1095,NULL,NULL,'Capital Federal'),(1096,NULL,NULL,'Capital Federal'),(1097,NULL,NULL,'Capital Federal'),(1098,NULL,NULL,'Capital Federal'),(1099,NULL,NULL,'Capital Federal'),(1100,NULL,NULL,'Capital Federal'),(1101,NULL,NULL,'Capital Federal'),(1102,NULL,NULL,'Capital Federal'),(1103,NULL,NULL,'Capital Federal'),(1104,NULL,NULL,'Capital Federal'),(1106,NULL,NULL,'Capital Federal'),(1107,NULL,NULL,'Capital Federal'),(1110,NULL,NULL,'Capital Federal'),(1111,NULL,NULL,'Capital Federal'),(1112,NULL,NULL,'Capital Federal'),(1113,NULL,NULL,'Capital Federal'),(1114,NULL,NULL,'Capital Federal'),(1115,NULL,NULL,'Capital Federal'),(1116,NULL,NULL,'Capital Federal'),(1117,NULL,NULL,'Capital Federal'),(1118,NULL,NULL,'Capital Federal'),(1119,NULL,NULL,'Capital Federal'),(1120,NULL,NULL,'Capital Federal'),(1121,NULL,NULL,'Capital Federal'),(1122,NULL,NULL,'Capital Federal'),(1123,NULL,NULL,'Capital Federal'),(1124,NULL,NULL,'Capital Federal'),(1125,NULL,NULL,'Capital Federal'),(1126,NULL,NULL,'Capital Federal'),(1127,NULL,NULL,'Capital Federal'),(1128,NULL,NULL,'Capital Federal'),(1129,NULL,NULL,'Capital Federal'),(1130,NULL,NULL,'Capital Federal'),(1133,NULL,NULL,'Capital Federal'),(1134,NULL,NULL,'Capital Federal'),(1135,NULL,NULL,'Capital Federal'),(1136,NULL,NULL,'Capital Federal'),(1137,NULL,NULL,'Capital Federal'),(1138,NULL,NULL,'Capital Federal'),(1139,NULL,NULL,'Capital Federal'),(1140,NULL,NULL,'Capital Federal'),(1141,NULL,NULL,'Capital Federal'),(1143,NULL,NULL,'Capital Federal'),(1147,NULL,NULL,'Capital Federal'),(1148,NULL,NULL,'Capital Federal'),(1150,NULL,NULL,'Capital Federal'),(1151,NULL,NULL,'Capital Federal'),(1152,NULL,NULL,'Capital Federal'),(1153,NULL,NULL,'Capital Federal'),(1154,NULL,NULL,'Capital Federal'),(1155,NULL,NULL,'Capital Federal'),(1156,NULL,NULL,'Capital Federal'),(1157,NULL,NULL,'Capital Federal'),(1158,NULL,NULL,'Capital Federal'),(1159,NULL,NULL,'Capital Federal'),(1160,NULL,NULL,'Capital Federal'),(1161,NULL,NULL,'Capital Federal'),(1162,NULL,NULL,'Capital Federal'),(1163,NULL,NULL,'Capital Federal'),(1164,NULL,NULL,'Capital Federal'),(1165,NULL,NULL,'Capital Federal'),(1166,NULL,NULL,'Capital Federal'),(1167,NULL,NULL,'Capital Federal'),(1168,NULL,NULL,'Capital Federal'),(1169,NULL,NULL,'Capital Federal'),(1170,NULL,NULL,'Capital Federal'),(1171,NULL,NULL,'Capital Federal'),(1172,NULL,NULL,'Capital Federal'),(1173,NULL,NULL,'Capital Federal'),(1174,NULL,NULL,'Capital Federal'),(1175,NULL,NULL,'Capital Federal'),(1176,NULL,NULL,'Capital Federal'),(1177,NULL,NULL,'Capital Federal'),(1178,NULL,NULL,'Capital Federal'),(1179,NULL,NULL,'Capital Federal'),(1180,NULL,NULL,'Capital Federal'),(1181,NULL,NULL,'Capital Federal'),(1182,NULL,NULL,'Capital Federal'),(1183,NULL,NULL,'Capital Federal'),(1184,NULL,NULL,'Capital Federal'),(1185,NULL,NULL,'Capital Federal'),(1186,NULL,NULL,'Capital Federal'),(1187,NULL,NULL,'Capital Federal'),(1188,NULL,NULL,'Capital Federal'),(1189,NULL,NULL,'Capital Federal'),(1190,NULL,NULL,'Capital Federal'),(1191,NULL,NULL,'Capital Federal'),(1192,NULL,NULL,'Capital Federal'),(1193,NULL,NULL,'Capital Federal'),(1194,NULL,NULL,'Capital Federal'),(1195,NULL,NULL,'Capital Federal'),(1196,NULL,NULL,'Capital Federal'),(1197,NULL,NULL,'Capital Federal'),(1198,NULL,NULL,'Capital Federal'),(1199,NULL,NULL,'Capital Federal'),(1200,NULL,NULL,'Capital Federal'),(1201,NULL,NULL,'Capital Federal'),(1202,NULL,NULL,'Capital Federal'),(1203,NULL,NULL,'Capital Federal'),(1204,NULL,NULL,'Capital Federal'),(1205,NULL,NULL,'Capital Federal'),(1206,NULL,NULL,'Capital Federal'),(1207,NULL,NULL,'Capital Federal'),(1208,NULL,NULL,'Capital Federal'),(1209,NULL,NULL,'Capital Federal'),(1210,NULL,NULL,'Capital Federal'),(1211,NULL,NULL,'Capital Federal'),(1212,NULL,NULL,'Capital Federal'),(1213,NULL,NULL,'Capital Federal'),(1214,NULL,NULL,'Capital Federal'),(1215,NULL,NULL,'Capital Federal'),(1216,NULL,NULL,'Capital Federal'),(1217,NULL,NULL,'Capital Federal'),(1218,NULL,NULL,'Capital Federal'),(1219,NULL,NULL,'Capital Federal'),(1220,NULL,NULL,'Capital Federal'),(1221,NULL,NULL,'Capital Federal'),(1222,NULL,NULL,'Capital Federal'),(1223,NULL,NULL,'Capital Federal'),(1224,NULL,NULL,'Capital Federal'),(1225,NULL,NULL,'Capital Federal'),(1226,NULL,NULL,'Capital Federal'),(1227,NULL,NULL,'Capital Federal'),(1228,NULL,NULL,'Capital Federal'),(1229,NULL,NULL,'Capital Federal'),(1230,NULL,NULL,'Capital Federal'),(1231,NULL,NULL,'Capital Federal'),(1232,NULL,NULL,'Capital Federal'),(1233,NULL,NULL,'Capital Federal'),(1234,NULL,NULL,'Capital Federal'),(1235,NULL,NULL,'Capital Federal'),(1236,NULL,NULL,'Capital Federal'),(1237,NULL,NULL,'Capital Federal'),(1238,NULL,NULL,'Capital Federal'),(1239,NULL,NULL,'Capital Federal'),(1240,NULL,NULL,'Capital Federal'),(1241,NULL,NULL,'Capital Federal'),(1242,NULL,NULL,'Capital Federal'),(1243,NULL,NULL,'Capital Federal'),(1244,NULL,NULL,'Capital Federal'),(1245,NULL,NULL,'Capital Federal'),(1246,NULL,NULL,'Capital Federal'),(1247,NULL,NULL,'Capital Federal'),(1248,NULL,NULL,'Capital Federal'),(1249,NULL,NULL,'Capital Federal'),(1250,NULL,NULL,'Capital Federal'),(1251,NULL,NULL,'Capital Federal'),(1252,NULL,NULL,'Capital Federal'),(1253,NULL,NULL,'Capital Federal'),(1254,NULL,NULL,'Capital Federal'),(1255,NULL,NULL,'Capital Federal'),(1256,NULL,NULL,'Capital Federal'),(1257,NULL,NULL,'Capital Federal'),(1258,NULL,NULL,'Capital Federal'),(1259,NULL,NULL,'Capital Federal'),(1260,NULL,NULL,'Capital Federal'),(1261,NULL,NULL,'Capital Federal'),(1262,NULL,NULL,'Capital Federal'),(1263,NULL,NULL,'Capital Federal'),(1264,NULL,NULL,'Capital Federal'),(1265,NULL,NULL,'Capital Federal'),(1266,NULL,NULL,'Capital Federal'),(1267,NULL,NULL,'Capital Federal'),(1268,NULL,NULL,'Capital Federal'),(1269,NULL,NULL,'Capital Federal'),(1270,NULL,NULL,'Capital Federal'),(1271,NULL,NULL,'Capital Federal'),(1272,NULL,NULL,'Capital Federal'),(1273,NULL,NULL,'Capital Federal'),(1274,NULL,NULL,'Capital Federal'),(1275,NULL,NULL,'Capital Federal'),(1276,NULL,NULL,'Capital Federal'),(1277,NULL,NULL,'Capital Federal'),(1278,NULL,NULL,'Capital Federal'),(1279,NULL,NULL,'Capital Federal'),(1280,NULL,NULL,'Capital Federal'),(1281,NULL,NULL,'Capital Federal'),(1282,NULL,NULL,'Capital Federal'),(1283,NULL,NULL,'Capital Federal'),(1284,NULL,NULL,'Capital Federal'),(1285,NULL,NULL,'Capital Federal'),(1286,NULL,NULL,'Capital Federal'),(1287,NULL,NULL,'Capital Federal'),(1288,NULL,NULL,'Capital Federal'),(1289,NULL,NULL,'Capital Federal'),(1290,NULL,NULL,'Capital Federal'),(1291,NULL,NULL,'Capital Federal'),(1292,NULL,NULL,'Capital Federal'),(1293,NULL,NULL,'Capital Federal'),(1294,NULL,NULL,'Capital Federal'),(1295,NULL,NULL,'Capital Federal'),(1296,NULL,NULL,'Capital Federal'),(1300,NULL,NULL,'Capital Federal'),(1301,NULL,NULL,'Capital Federal'),(1302,NULL,NULL,'Capital Federal'),(1303,NULL,NULL,'Capital Federal'),(1304,NULL,NULL,'Capital Federal'),(1305,NULL,NULL,'Capital Federal'),(1306,NULL,NULL,'Capital Federal'),(1307,NULL,NULL,'Capital Federal'),(1308,NULL,NULL,'Capital Federal'),(1309,NULL,NULL,'Capital Federal'),(1310,NULL,NULL,'Capital Federal'),(1311,NULL,NULL,'Capital Federal'),(1312,NULL,NULL,'Capital Federal'),(1313,NULL,NULL,'Capital Federal'),(1314,NULL,NULL,'Capital Federal'),(1315,NULL,NULL,'Capital Federal'),(1316,NULL,NULL,'Capital Federal'),(1317,NULL,NULL,'Capital Federal'),(1318,NULL,NULL,'Capital Federal'),(1319,NULL,NULL,'Capital Federal'),(1320,NULL,NULL,'Capital Federal'),(1321,NULL,NULL,'Capital Federal'),(1322,NULL,NULL,'Capital Federal'),(1323,NULL,NULL,'Capital Federal'),(1324,NULL,NULL,'Capital Federal'),(1325,NULL,NULL,'Capital Federal'),(1326,NULL,NULL,'Capital Federal'),(1327,NULL,NULL,'Capital Federal'),(1328,NULL,NULL,'Capital Federal'),(1329,NULL,NULL,'Capital Federal'),(1330,NULL,NULL,'Capital Federal'),(1331,NULL,NULL,'Capital Federal'),(1332,NULL,NULL,'Capital Federal'),(1333,NULL,NULL,'Capital Federal'),(1334,NULL,NULL,'Capital Federal'),(1335,NULL,NULL,'Capital Federal'),(1336,NULL,NULL,'Capital Federal'),(1337,NULL,NULL,'Capital Federal'),(1338,NULL,NULL,'Capital Federal'),(1339,NULL,NULL,'Capital Federal'),(1340,NULL,NULL,'Capital Federal'),(1341,NULL,NULL,'Capital Federal'),(1342,NULL,NULL,'Capital Federal'),(1343,NULL,NULL,'Capital Federal'),(1344,NULL,NULL,'Capital Federal'),(1345,NULL,NULL,'Capital Federal'),(1346,NULL,NULL,'Capital Federal'),(1347,NULL,NULL,'Capital Federal'),(1348,NULL,NULL,'Capital Federal'),(1349,NULL,NULL,'Capital Federal'),(1350,NULL,NULL,'Capital Federal'),(1351,NULL,NULL,'Capital Federal'),(1352,NULL,NULL,'Capital Federal'),(1353,NULL,NULL,'Capital Federal'),(1354,NULL,NULL,'Capital Federal'),(1355,NULL,NULL,'Capital Federal'),(1356,NULL,NULL,'Capital Federal'),(1357,NULL,NULL,'Capital Federal'),(1358,NULL,NULL,'Capital Federal'),(1359,NULL,NULL,'Capital Federal'),(1360,NULL,NULL,'Capital Federal'),(1361,NULL,NULL,'Capital Federal'),(1362,NULL,NULL,'Capital Federal'),(1363,NULL,NULL,'Capital Federal'),(1364,NULL,NULL,'Capital Federal'),(1365,NULL,NULL,'Capital Federal'),(1366,NULL,NULL,'Capital Federal'),(1367,NULL,NULL,'Capital Federal'),(1368,NULL,NULL,'Capital Federal'),(1369,NULL,NULL,'Capital Federal'),(1370,NULL,NULL,'Capital Federal'),(1371,NULL,NULL,'Capital Federal'),(1372,NULL,NULL,'Capital Federal'),(1373,NULL,NULL,'Capital Federal'),(1374,NULL,NULL,'Capital Federal'),(1375,NULL,NULL,'Capital Federal'),(1376,NULL,NULL,'Capital Federal'),(1377,NULL,NULL,'Capital Federal'),(1378,NULL,NULL,'Capital Federal'),(1379,NULL,NULL,'Capital Federal'),(1380,NULL,NULL,'Capital Federal'),(1381,NULL,NULL,'Capital Federal'),(1382,NULL,NULL,'Capital Federal'),(1383,NULL,NULL,'Capital Federal'),(1384,NULL,NULL,'Capital Federal'),(1385,NULL,NULL,'Capital Federal'),(1386,NULL,NULL,'Capital Federal'),(1387,NULL,NULL,'Capital Federal'),(1388,NULL,NULL,'Capital Federal'),(1389,NULL,NULL,'Capital Federal'),(1390,NULL,NULL,'Capital Federal'),(1391,NULL,NULL,'Capital Federal'),(1392,NULL,NULL,'Capital Federal'),(1393,NULL,NULL,'Capital Federal'),(1394,NULL,NULL,'Capital Federal'),(1395,NULL,NULL,'Capital Federal'),(1396,NULL,NULL,'Capital Federal'),(1397,NULL,NULL,'Capital Federal'),(1398,NULL,NULL,'Capital Federal'),(1399,NULL,NULL,'Capital Federal'),(1405,NULL,NULL,'Capital Federal'),(1406,NULL,NULL,'Capital Federal'),(1407,NULL,NULL,'Capital Federal'),(1408,NULL,NULL,'Capital Federal'),(1414,NULL,NULL,'Capital Federal'),(1416,NULL,NULL,'Capital Federal'),(1417,NULL,NULL,'Capital Federal'),(1419,NULL,NULL,'Capital Federal'),(1424,NULL,NULL,'Capital Federal'),(1425,NULL,NULL,'Capital Federal'),(1426,NULL,NULL,'Capital Federal'),(1427,NULL,NULL,'Capital Federal'),(1428,NULL,NULL,'Capital Federal'),(1429,NULL,NULL,'Capital Federal'),(1430,NULL,NULL,'Capital Federal'),(1431,NULL,NULL,'Capital Federal'),(1437,NULL,NULL,'Capital Federal'),(1439,NULL,NULL,'Capital Federal'),(1440,NULL,NULL,'Capital Federal'),(1598,NULL,NULL,'Capital Federal'),(1601,NULL,NULL,'Buenos Aires'),(1602,NULL,NULL,'Buenos Aires'),(1603,NULL,NULL,'Buenos Aires'),(1605,NULL,NULL,'Buenos Aires'),(1606,NULL,NULL,'Buenos Aires'),(1607,NULL,NULL,'Buenos Aires'),(1609,NULL,NULL,'Buenos Aires'),(1611,NULL,NULL,'Buenos Aires'),(1612,NULL,NULL,'Buenos Aires'),(1613,NULL,NULL,'Buenos Aires'),(1614,NULL,NULL,'Buenos Aires'),(1615,NULL,NULL,'Buenos Aires'),(1617,NULL,NULL,'Buenos Aires'),(1618,NULL,NULL,'Buenos Aires'),(1619,NULL,NULL,'Buenos Aires'),(1620,NULL,NULL,'Buenos Aires'),(1621,NULL,NULL,'Buenos Aires'),(1623,NULL,NULL,'Buenos Aires'),(1625,NULL,NULL,'Buenos Aires'),(1627,NULL,NULL,'Buenos Aires'),(1629,NULL,NULL,'Buenos Aires'),(1631,NULL,NULL,'Buenos Aires'),(1633,NULL,NULL,'Buenos Aires'),(1635,NULL,NULL,'Buenos Aires'),(1636,NULL,NULL,'Buenos Aires'),(1638,NULL,NULL,'Buenos Aires'),(1640,NULL,NULL,'Buenos Aires'),(1642,NULL,NULL,'Buenos Aires'),(1643,NULL,NULL,'Buenos Aires'),(1644,NULL,NULL,'Buenos Aires'),(1646,NULL,NULL,'Buenos Aires'),(1647,NULL,NULL,'Buenos Aires'),(1648,NULL,NULL,'Buenos Aires'),(1649,NULL,NULL,'Buenos Aires'),(1650,NULL,NULL,'Buenos Aires'),(1651,NULL,NULL,'Buenos Aires'),(1653,NULL,NULL,'Buenos Aires'),(1655,NULL,NULL,'Buenos Aires'),(1657,NULL,NULL,'Buenos Aires'),(1659,NULL,NULL,'Buenos Aires'),(1661,NULL,NULL,'Buenos Aires'),(1663,NULL,NULL,'Buenos Aires'),(1664,NULL,NULL,'Buenos Aires'),(1665,NULL,NULL,'Buenos Aires'),(1667,NULL,NULL,'Buenos Aires'),(1669,NULL,NULL,'Buenos Aires'),(1672,NULL,NULL,'Buenos Aires'),(1674,NULL,NULL,'Buenos Aires'),(1676,NULL,NULL,'Buenos Aires'),(1678,NULL,NULL,'Buenos Aires'),(1682,NULL,NULL,'Buenos Aires'),(1684,NULL,NULL,'Buenos Aires'),(1686,NULL,NULL,'Buenos Aires'),(1688,NULL,NULL,'Buenos Aires'),(1702,NULL,NULL,'Buenos Aires'),(1704,NULL,NULL,'Buenos Aires'),(1706,NULL,NULL,'Buenos Aires'),(1708,NULL,NULL,'Buenos Aires'),(1712,NULL,NULL,'Buenos Aires'),(1713,NULL,NULL,'Buenos Aires'),(1714,NULL,NULL,'Buenos Aires'),(1716,NULL,NULL,'Buenos Aires'),(1718,NULL,NULL,'Buenos Aires'),(1722,NULL,NULL,'Buenos Aires'),(1723,NULL,NULL,'Buenos Aires'),(1727,NULL,NULL,'Buenos Aires'),(1731,NULL,NULL,'Buenos Aires'),(1735,NULL,NULL,'Buenos Aires'),(1737,NULL,NULL,'Buenos Aires'),(1739,NULL,NULL,'Buenos Aires'),(1741,NULL,NULL,'Buenos Aires'),(1742,NULL,NULL,'Buenos Aires'),(1744,NULL,NULL,'Buenos Aires'),(1746,NULL,NULL,'Buenos Aires'),(1748,NULL,NULL,'Buenos Aires'),(1752,NULL,NULL,'Buenos Aires'),(1754,NULL,NULL,'Buenos Aires'),(1755,NULL,NULL,'Buenos Aires'),(1757,NULL,NULL,'Buenos Aires'),(1759,NULL,NULL,'Buenos Aires'),(1761,NULL,NULL,'Buenos Aires'),(1763,NULL,NULL,'Buenos Aires'),(1765,NULL,NULL,'Buenos Aires'),(1766,NULL,NULL,'Buenos Aires'),(1768,NULL,NULL,'Buenos Aires'),(1770,NULL,NULL,'Buenos Aires'),(1771,NULL,NULL,'Buenos Aires'),(1772,NULL,NULL,'Buenos Aires'),(1773,NULL,NULL,'Buenos Aires'),(1774,NULL,NULL,'Buenos Aires'),(1776,NULL,NULL,'Buenos Aires'),(1778,NULL,NULL,'Buenos Aires'),(1802,NULL,NULL,'Buenos Aires'),(1804,NULL,NULL,'Buenos Aires'),(1806,NULL,NULL,'Buenos Aires'),(1808,NULL,NULL,'Buenos Aires'),(1812,NULL,NULL,'Buenos Aires'),(1814,NULL,NULL,'Buenos Aires'),(1815,NULL,NULL,'Buenos Aires'),(1816,NULL,NULL,'Buenos Aires'),(1822,NULL,NULL,'Buenos Aires'),(1824,NULL,NULL,'Buenos Aires'),(1825,NULL,NULL,'Buenos Aires'),(1826,NULL,NULL,'Buenos Aires'),(1828,NULL,NULL,'Buenos Aires'),(1829,NULL,NULL,'Buenos Aires'),(1831,NULL,NULL,'Buenos Aires'),(1832,NULL,NULL,'Buenos Aires'),(1834,NULL,NULL,'Buenos Aires'),(1835,NULL,NULL,'Buenos Aires'),(1836,NULL,NULL,'Buenos Aires'),(1838,NULL,NULL,'Buenos Aires'),(1842,NULL,NULL,'Buenos Aires'),(1846,NULL,NULL,'Buenos Aires'),(1847,NULL,NULL,'Buenos Aires'),(1849,NULL,NULL,'Buenos Aires'),(1852,NULL,NULL,'Buenos Aires'),(1854,NULL,NULL,'Buenos Aires'),(1856,NULL,NULL,'Buenos Aires'),(1858,NULL,NULL,'Buenos Aires'),(1862,NULL,NULL,'Buenos Aires'),(1864,NULL,NULL,'Buenos Aires'),(1865,NULL,NULL,'Buenos Aires'),(1870,NULL,NULL,'Buenos Aires'),(1871,NULL,NULL,'Buenos Aires'),(1872,NULL,NULL,'Buenos Aires'),(1874,NULL,NULL,'Buenos Aires'),(1875,NULL,NULL,'Buenos Aires'),(1876,NULL,NULL,'Buenos Aires'),(1878,NULL,NULL,'Buenos Aires'),(1879,NULL,NULL,'Buenos Aires'),(1881,NULL,NULL,'Buenos Aires'),(1882,NULL,NULL,'Buenos Aires'),(1884,NULL,NULL,'Buenos Aires'),(1885,NULL,NULL,'Buenos Aires'),(1886,NULL,NULL,'Buenos Aires'),(1888,NULL,NULL,'Buenos Aires'),(1889,NULL,NULL,'Buenos Aires'),(1890,NULL,NULL,'Buenos Aires'),(1891,NULL,NULL,'Buenos Aires'),(1893,NULL,NULL,'Buenos Aires'),(1894,NULL,NULL,'Buenos Aires'),(1895,NULL,NULL,'Buenos Aires'),(1896,NULL,NULL,'Buenos Aires'),(1897,NULL,NULL,'Buenos Aires'),(1900,NULL,NULL,'Buenos Aires'),(1901,NULL,NULL,'Buenos Aires'),(1903,NULL,NULL,'Buenos Aires'),(1905,NULL,NULL,'Buenos Aires'),(1907,NULL,NULL,'Buenos Aires'),(1909,NULL,NULL,'Buenos Aires'),(1911,NULL,NULL,'Buenos Aires'),(1913,NULL,NULL,'Buenos Aires'),(1915,NULL,NULL,'Buenos Aires'),(1917,NULL,NULL,'Buenos Aires'),(1919,NULL,NULL,'Buenos Aires'),(1921,NULL,NULL,'Buenos Aires'),(1923,NULL,NULL,'Buenos Aires'),(1925,NULL,NULL,'Buenos Aires'),(1927,NULL,NULL,'Buenos Aires'),(1929,NULL,NULL,'Buenos Aires'),(1931,NULL,NULL,'Buenos Aires'),(1980,NULL,NULL,'Buenos Aires'),(1981,NULL,NULL,'Buenos Aires'),(1983,NULL,NULL,'Buenos Aires'),(1984,NULL,NULL,'Buenos Aires'),(1986,NULL,NULL,'Buenos Aires'),(1987,NULL,NULL,'Buenos Aires'),(2000,NULL,NULL,'Entre Ríos'),(2100,NULL,NULL,'Entre Ríos'),(2101,NULL,NULL,'Santa Fe'),(2103,NULL,NULL,'Santa Fe'),(2105,NULL,NULL,'Santa Fe'),(2107,NULL,NULL,'Santa Fe'),(2109,NULL,NULL,'Santa Fe'),(2111,NULL,NULL,'Santa Fe'),(2113,NULL,NULL,'Santa Fe'),(2115,NULL,NULL,'Santa Fe'),(2117,NULL,NULL,'Santa Fe'),(2119,NULL,NULL,'Santa Fe'),(2121,NULL,NULL,'Santa Fe'),(2123,NULL,NULL,'Santa Fe'),(2124,NULL,NULL,'Santa Fe'),(2126,NULL,NULL,'Santa Fe'),(2128,NULL,NULL,'Santa Fe'),(2132,NULL,NULL,'Santa Fe'),(2134,NULL,NULL,'Santa Fe'),(2136,NULL,NULL,'Santa Fe'),(2138,NULL,NULL,'Santa Fe'),(2142,NULL,NULL,'Santa Fe'),(2144,NULL,NULL,'Santa Fe'),(2146,NULL,NULL,'Santa Fe'),(2147,NULL,NULL,'Santa Fe'),(2148,NULL,NULL,'Santa Fe'),(2152,NULL,NULL,'Santa Fe'),(2154,NULL,NULL,'Santa Fe'),(2156,NULL,NULL,'Santa Fe'),(2170,NULL,NULL,'Santa Fe'),(2173,NULL,NULL,'Santa Fe'),(2175,NULL,NULL,'Santa Fe'),(2177,NULL,NULL,'Santa Fe'),(2179,NULL,NULL,'Santa Fe'),(2181,NULL,NULL,'Santa Fe'),(2183,NULL,NULL,'Santa Fe'),(2185,NULL,NULL,'Santa Fe'),(2187,NULL,NULL,'Santa Fe'),(2189,NULL,NULL,'Córdoba'),(2200,NULL,NULL,'Santa Fe'),(2201,NULL,NULL,'Santa Fe'),(2202,NULL,NULL,'Santa Fe'),(2204,NULL,NULL,'Santa Fe'),(2206,NULL,NULL,'Santa Fe'),(2208,NULL,NULL,'Santa Fe'),(2212,NULL,NULL,'Santa Fe'),(2214,NULL,NULL,'Santa Fe'),(2216,NULL,NULL,'Santa Fe'),(2218,NULL,NULL,'Santa Fe'),(2222,NULL,NULL,'Santa Fe'),(2240,NULL,NULL,'Santa Fe'),(2241,NULL,NULL,'Santa Fe'),(2242,NULL,NULL,'Santa Fe'),(2246,NULL,NULL,'Santa Fe'),(2248,NULL,NULL,'Santa Fe'),(2252,NULL,NULL,'Santa Fe'),(2253,NULL,NULL,'Santa Fe'),(2255,NULL,NULL,'Santa Fe'),(2257,NULL,NULL,'Santa Fe'),(2258,NULL,NULL,'Santa Fe'),(2300,NULL,NULL,'Santa Fe'),(2301,NULL,NULL,'Santa Fe'),(2303,NULL,NULL,'Santa Fe'),(2305,NULL,NULL,'Santa Fe'),(2307,NULL,NULL,'Santa Fe'),(2309,NULL,NULL,'Santa Fe'),(2311,NULL,NULL,'Santa Fe'),(2313,NULL,NULL,'Santa Fe'),(2315,NULL,NULL,'Santa Fe'),(2317,NULL,NULL,'Santa Fe'),(2318,NULL,NULL,'Santa Fe'),(2322,NULL,NULL,'Santa Fe'),(2324,NULL,NULL,'Santa Fe'),(2326,NULL,NULL,'Santa Fe'),(2340,NULL,NULL,'Santa Fe'),(2341,NULL,NULL,'Córdoba'),(2342,NULL,NULL,'Santa Fe'),(2344,NULL,NULL,'Santa Fe'),(2345,NULL,NULL,'Santa Fe'),(2347,NULL,NULL,'Santa Fe'),(2349,NULL,NULL,'Córdoba'),(2352,NULL,NULL,'Santa Fe'),(2354,NULL,NULL,'Sgo. Del Estero'),(2356,NULL,NULL,'Sgo. Del Estero'),(2357,NULL,NULL,'Sgo. Del Estero'),(2400,NULL,NULL,'Córdoba'),(2401,NULL,NULL,'Córdoba'),(2403,NULL,NULL,'Santa Fe'),(2405,NULL,NULL,'Santa Fe'),(2407,NULL,NULL,'Santa Fe'),(2409,NULL,NULL,'Santa Fe'),(2411,NULL,NULL,'Córdoba'),(2413,NULL,NULL,'Córdoba'),(2415,NULL,NULL,'Córdoba'),(2417,NULL,NULL,'Córdoba'),(2419,NULL,NULL,'Córdoba'),(2421,NULL,NULL,'Córdoba'),(2423,NULL,NULL,'Córdoba'),(2424,NULL,NULL,'Córdoba'),(2426,NULL,NULL,'Córdoba'),(2428,NULL,NULL,'Córdoba'),(2432,NULL,NULL,'Córdoba'),(2433,NULL,NULL,'Córdoba'),(2434,NULL,NULL,'Córdoba'),(2435,NULL,NULL,'Córdoba'),(2436,NULL,NULL,'Córdoba'),(2438,NULL,NULL,'Santa Fe'),(2440,NULL,NULL,'Santa Fe'),(2441,NULL,NULL,'Santa Fe'),(2443,NULL,NULL,'Santa Fe'),(2445,NULL,NULL,'Santa Fe'),(2447,NULL,NULL,'Santa Fe'),(2449,NULL,NULL,'Santa Fe'),(2451,NULL,NULL,'Santa Fe'),(2453,NULL,NULL,'Santa Fe'),(2454,NULL,NULL,'Santa Fe'),(2456,NULL,NULL,'Santa Fe'),(2500,NULL,NULL,'Santa Fe'),(2501,NULL,NULL,'Santa Fe'),(2503,NULL,NULL,'Santa Fe'),(2505,NULL,NULL,'Santa Fe'),(2506,NULL,NULL,'Santa Fe'),(2508,NULL,NULL,'Santa Fe'),(2512,NULL,NULL,'Córdoba'),(2520,NULL,NULL,'Santa Fe'),(2521,NULL,NULL,'Santa Fe'),(2523,NULL,NULL,'Santa Fe'),(2525,NULL,NULL,'Córdoba'),(2527,NULL,NULL,'Santa Fe'),(2529,NULL,NULL,'Santa Fe'),(2531,NULL,NULL,'Santa Fe'),(2533,NULL,NULL,'Santa Fe'),(2535,NULL,NULL,'Santa Fe'),(2550,NULL,NULL,'Córdoba'),(2551,NULL,NULL,'Córdoba'),(2553,NULL,NULL,'Córdoba'),(2555,NULL,NULL,'Córdoba'),(2557,NULL,NULL,'Córdoba'),(2559,NULL,NULL,'Córdoba'),(2561,NULL,NULL,'Córdoba'),(2563,NULL,NULL,'Córdoba'),(2564,NULL,NULL,'Córdoba'),(2566,NULL,NULL,'Córdoba'),(2568,NULL,NULL,'Córdoba'),(2572,NULL,NULL,'Córdoba'),(2580,NULL,NULL,'Córdoba'),(2581,NULL,NULL,'Córdoba'),(2583,NULL,NULL,'Córdoba'),(2585,NULL,NULL,'Córdoba'),(2587,NULL,NULL,'Córdoba'),(2589,NULL,NULL,'Córdoba'),(2592,NULL,NULL,'Córdoba'),(2594,NULL,NULL,'Córdoba'),(2600,NULL,NULL,'Santa Fe'),(2601,NULL,NULL,'Santa Fe'),(2603,NULL,NULL,'Santa Fe'),(2605,NULL,NULL,'Santa Fe'),(2607,NULL,NULL,'Santa Fe'),(2609,NULL,NULL,'Santa Fe'),(2611,NULL,NULL,'Santa Fe'),(2613,NULL,NULL,'Santa Fe'),(2615,NULL,NULL,'Santa Fe'),(2617,NULL,NULL,'Santa Fe'),(2618,NULL,NULL,'Santa Fe'),(2619,NULL,NULL,'Córdoba'),(2622,NULL,NULL,'Santa Fe'),(2624,NULL,NULL,'Córdoba'),(2625,NULL,NULL,'Córdoba'),(2627,NULL,NULL,'Córdoba'),(2630,NULL,NULL,'Santa Fe'),(2631,NULL,NULL,'Santa Fe'),(2633,NULL,NULL,'Santa Fe'),(2635,NULL,NULL,'Santa Fe'),(2637,NULL,NULL,'Santa Fe'),(2639,NULL,NULL,'Santa Fe'),(2643,NULL,NULL,'Santa Fe'),(2645,NULL,NULL,'Córdoba'),(2650,NULL,NULL,'Córdoba'),(2651,NULL,NULL,'Córdoba'),(2655,NULL,NULL,'Córdoba'),(2657,NULL,NULL,'Córdoba'),(2659,NULL,NULL,'Córdoba'),(2661,NULL,NULL,'Córdoba'),(2662,NULL,NULL,'Córdoba'),(2664,NULL,NULL,'Córdoba'),(2670,NULL,NULL,'Córdoba'),(2671,NULL,NULL,'Córdoba'),(2675,NULL,NULL,'Córdoba'),(2677,NULL,NULL,'Córdoba'),(2679,NULL,NULL,'Córdoba'),(2681,NULL,NULL,'Córdoba'),(2684,NULL,NULL,'Córdoba'),(2686,NULL,NULL,'Córdoba'),(2700,NULL,NULL,'Buenos Aires'),(2701,NULL,NULL,'Buenos Aires'),(2703,NULL,NULL,'Buenos Aires'),(2705,NULL,NULL,'Buenos Aires'),(2707,NULL,NULL,'Buenos Aires'),(2709,NULL,NULL,'Buenos Aires'),(2711,NULL,NULL,'Buenos Aires'),(2713,NULL,NULL,'Buenos Aires'),(2715,NULL,NULL,'Buenos Aires'),(2717,NULL,NULL,'Buenos Aires'),(2718,NULL,NULL,'Buenos Aires'),(2720,NULL,NULL,'Buenos Aires'),(2721,NULL,NULL,'Buenos Aires'),(2722,NULL,NULL,'Santa Fe'),(2723,NULL,NULL,'Buenos Aires'),(2725,NULL,NULL,'Santa Fe'),(2726,NULL,NULL,'Santa Fe'),(2728,NULL,NULL,'Santa Fe'),(2729,NULL,NULL,'Santa Fe'),(2732,NULL,NULL,'Santa Fe'),(2740,NULL,NULL,'Buenos Aires'),(2741,NULL,NULL,'Buenos Aires'),(2743,NULL,NULL,'Buenos Aires'),(2745,NULL,NULL,'Buenos Aires'),(2747,NULL,NULL,'Buenos Aires'),(2751,NULL,NULL,'Buenos Aires'),(2752,NULL,NULL,'Buenos Aires'),(2754,NULL,NULL,'Buenos Aires'),(2760,NULL,NULL,'Buenos Aires'),(2761,NULL,NULL,'Buenos Aires'),(2763,NULL,NULL,'Buenos Aires'),(2764,NULL,NULL,'Buenos Aires'),(2800,NULL,NULL,'Buenos Aires'),(2801,NULL,NULL,'Buenos Aires'),(2802,NULL,NULL,'Buenos Aires'),(2804,NULL,NULL,'Buenos Aires'),(2805,NULL,NULL,'Buenos Aires'),(2806,NULL,NULL,'Buenos Aires'),(2808,NULL,NULL,'Buenos Aires'),(2812,NULL,NULL,'Buenos Aires'),(2814,NULL,NULL,'Buenos Aires'),(2820,NULL,NULL,'Entre Ríos'),(2821,NULL,NULL,'Entre Ríos'),(2823,NULL,NULL,'Entre Ríos'),(2824,NULL,NULL,'Entre Ríos'),(2826,NULL,NULL,'Entre Ríos'),(2828,NULL,NULL,'Entre Ríos'),(2840,NULL,NULL,'Entre Ríos'),(2841,NULL,NULL,'Entre Ríos'),(2843,NULL,NULL,'Entre Ríos'),(2845,NULL,NULL,'Entre Ríos'),(2846,NULL,NULL,'Entre Ríos'),(2848,NULL,NULL,'Entre Ríos'),(2852,NULL,NULL,'Entre Ríos'),(2854,NULL,NULL,'Entre Ríos'),(2900,NULL,NULL,'Buenos Aires'),(2901,NULL,NULL,'Buenos Aires'),(2903,NULL,NULL,'Buenos Aires'),(2905,NULL,NULL,'Buenos Aires'),(2907,NULL,NULL,'Buenos Aires'),(2909,NULL,NULL,'Buenos Aires'),(2912,NULL,NULL,'Buenos Aires'),(2914,NULL,NULL,'Buenos Aires'),(2915,NULL,NULL,'Buenos Aires'),(2916,NULL,NULL,'Buenos Aires'),(2918,NULL,NULL,'Santa Fe'),(2919,NULL,NULL,'Santa Fe'),(2921,NULL,NULL,'Santa Fe'),(2930,NULL,NULL,'Buenos Aires'),(2931,NULL,NULL,'Buenos Aires'),(2933,NULL,NULL,'Buenos Aires'),(2935,NULL,NULL,'Buenos Aires'),(2938,NULL,NULL,'Buenos Aires'),(2942,NULL,NULL,'Buenos Aires'),(2943,NULL,NULL,'Buenos Aires'),(2944,NULL,NULL,'Buenos Aires'),(2946,NULL,NULL,'Buenos Aires'),(3000,NULL,'Santa Fe','Santa Fe'),(3001,NULL,NULL,'Santa Fe'),(3003,NULL,NULL,'Santa Fe'),(3005,NULL,NULL,'Santa Fe'),(3007,NULL,NULL,'Santa Fe'),(3009,NULL,NULL,'Santa Fe'),(3011,NULL,NULL,'Santa Fe'),(3013,NULL,NULL,'Santa Fe'),(3014,NULL,NULL,'Santa Fe'),(3016,NULL,NULL,'Santa Fe'),(3017,NULL,NULL,'Santa Fe'),(3018,NULL,NULL,'Santa Fe'),(3020,NULL,NULL,'Santa Fe'),(3021,NULL,NULL,'Santa Fe'),(3023,NULL,NULL,'Santa Fe'),(3025,NULL,NULL,'Santa Fe'),(3027,NULL,NULL,'Santa Fe'),(3029,NULL,NULL,'Santa Fe'),(3032,NULL,NULL,'Santa Fe'),(3036,NULL,NULL,'Santa Fe'),(3038,NULL,NULL,'Santa Fe'),(3040,NULL,NULL,'Santa Fe'),(3041,NULL,NULL,'Santa Fe'),(3042,NULL,NULL,'Santa Fe'),(3044,NULL,NULL,'Santa Fe'),(3045,NULL,NULL,'Santa Fe'),(3046,NULL,NULL,'Santa Fe'),(3048,NULL,NULL,'Santa Fe'),(3050,NULL,NULL,'Santa Fe'),(3051,NULL,NULL,'Santa Fe'),(3052,NULL,NULL,'Santa Fe'),(3054,NULL,NULL,'Santa Fe'),(3056,NULL,NULL,'Santa Fe'),(3057,NULL,NULL,'Santa Fe'),(3060,NULL,NULL,'Santa Fe'),(3061,NULL,NULL,'Santa Fe'),(3062,NULL,NULL,'Sgo. Del Estero'),(3064,NULL,NULL,'Sgo. Del Estero'),(3066,NULL,NULL,'Santa Fe'),(3070,NULL,NULL,'Santa Fe'),(3071,NULL,NULL,'Santa Fe'),(3072,NULL,NULL,'Santa Fe'),(3074,NULL,NULL,'Santa Fe'),(3076,NULL,NULL,'Santa Fe'),(3080,NULL,NULL,'Santa Fe'),(3081,NULL,NULL,'Santa Fe'),(3083,NULL,NULL,'Santa Fe'),(3085,NULL,NULL,'Santa Fe'),(3087,NULL,NULL,'Santa Fe'),(3100,NULL,'Parana','Entre Rios'),(3101,NULL,NULL,'Entre Ríos'),(3103,NULL,NULL,'Entre Ríos'),(3105,NULL,NULL,'Entre Ríos'),(3107,NULL,NULL,'Entre Ríos'),(3109,NULL,NULL,'Entre Ríos'),(3111,NULL,NULL,'Entre Ríos'),(3113,NULL,NULL,'Entre Ríos'),(3114,NULL,NULL,'Entre Ríos'),(3116,NULL,NULL,'Entre Ríos'),(3117,NULL,NULL,'Entre Ríos'),(3118,NULL,NULL,'Entre Ríos'),(3122,NULL,NULL,'Entre Ríos'),(3123,NULL,NULL,'Entre Ríos'),(3125,NULL,NULL,'Entre Ríos'),(3127,NULL,NULL,'Entre Ríos'),(3128,NULL,NULL,'Entre Ríos'),(3129,NULL,NULL,'Entre Ríos'),(3132,NULL,NULL,'Entre Ríos'),(3133,NULL,NULL,'Entre Ríos'),(3134,NULL,NULL,'Entre Ríos'),(3136,NULL,NULL,'Entre Ríos'),(3137,NULL,NULL,'Entre Ríos'),(3138,NULL,NULL,'Entre Ríos'),(3142,NULL,NULL,'Entre Ríos'),(3144,NULL,NULL,'Entre Ríos'),(3150,NULL,NULL,'Entre Ríos'),(3151,NULL,NULL,'Entre Ríos'),(3153,NULL,NULL,'Entre Ríos'),(3155,NULL,NULL,'Entre Ríos'),(3156,NULL,NULL,'Entre Ríos'),(3158,NULL,NULL,'Entre Ríos'),(3162,NULL,NULL,'Entre Ríos'),(3164,NULL,NULL,'Entre Ríos'),(3170,NULL,NULL,'Entre Ríos'),(3172,NULL,NULL,'Entre Ríos'),(3174,NULL,NULL,'Entre Ríos'),(3176,NULL,NULL,'Entre Ríos'),(3177,NULL,NULL,'Entre Ríos'),(3180,NULL,NULL,'Entre Ríos'),(3181,NULL,NULL,'Entre Ríos'),(3183,NULL,NULL,'Entre Ríos'),(3185,NULL,NULL,'Corrientes'),(3187,NULL,NULL,'Entre Ríos'),(3188,NULL,NULL,'Entre Ríos'),(3190,NULL,NULL,'Entre Ríos'),(3191,NULL,NULL,'Entre Ríos'),(3192,NULL,NULL,'Entre Ríos'),(3194,NULL,NULL,'Corrientes'),(3196,NULL,NULL,'Corrientes'),(3197,NULL,NULL,'Corrientes'),(3199,NULL,NULL,'Corrientes'),(3200,NULL,NULL,'Entre Ríos'),(3201,NULL,NULL,'Entre Ríos'),(3203,NULL,NULL,'Entre Ríos'),(3204,NULL,NULL,'Entre Ríos'),(3206,NULL,NULL,'Entre Ríos'),(3208,NULL,NULL,'Entre Ríos'),(3212,NULL,NULL,'Entre Ríos'),(3214,NULL,NULL,'Entre Ríos'),(3216,NULL,NULL,'Entre Ríos'),(3218,NULL,NULL,'Entre Ríos'),(3220,NULL,NULL,'Corrientes'),(3222,NULL,NULL,'Corrientes'),(3224,NULL,NULL,'Corrientes'),(3226,NULL,NULL,'Corrientes'),(3228,NULL,NULL,'Entre Ríos'),(3229,NULL,NULL,'Entre Ríos'),(3230,NULL,NULL,'Corrientes'),(3231,NULL,NULL,'Corrientes'),(3232,NULL,NULL,'Corrientes'),(3234,NULL,NULL,'Corrientes'),(3240,NULL,NULL,'Entre Ríos'),(3241,NULL,NULL,'Entre Ríos'),(3244,NULL,NULL,'Entre Ríos'),(3246,NULL,NULL,'Entre Ríos'),(3248,NULL,NULL,'Entre Ríos'),(3252,NULL,NULL,'Entre Ríos'),(3254,NULL,NULL,'Entre Ríos'),(3260,NULL,NULL,'Entre Ríos'),(3261,NULL,NULL,'Entre Ríos'),(3262,NULL,NULL,'Entre Ríos'),(3263,NULL,NULL,'Entre Ríos'),(3265,NULL,NULL,'Entre Ríos'),(3267,NULL,NULL,'Entre Ríos'),(3269,NULL,NULL,'Entre Ríos'),(3272,NULL,NULL,'Entre Ríos'),(3280,NULL,NULL,'Entre Ríos'),(3281,NULL,NULL,'Entre Ríos'),(3283,NULL,NULL,'Entre Ríos'),(3285,NULL,NULL,'Entre Ríos'),(3287,NULL,NULL,'Entre Ríos'),(3300,NULL,NULL,'Corrientes'),(3302,NULL,NULL,'Corrientes'),(3304,NULL,NULL,'Misiones'),(3306,NULL,NULL,'Corrientes'),(3308,NULL,NULL,'Misiones'),(3309,NULL,NULL,'Misiones'),(3311,NULL,NULL,'Misiones'),(3313,NULL,NULL,'Misiones'),(3315,NULL,NULL,'Misiones'),(3316,NULL,NULL,'Misiones'),(3317,NULL,NULL,'Misiones'),(3318,NULL,NULL,'Misiones'),(3322,NULL,NULL,'Misiones'),(3324,NULL,NULL,'Misiones'),(3326,NULL,NULL,'Misiones'),(3327,NULL,NULL,'Misiones'),(3328,NULL,NULL,'Misiones'),(3332,NULL,NULL,'Misiones'),(3334,NULL,NULL,'Misiones'),(3340,NULL,NULL,'Corrientes'),(3342,NULL,NULL,'Corrientes'),(3344,NULL,NULL,'Corrientes'),(3346,NULL,NULL,'Corrientes'),(3350,NULL,NULL,'Misiones'),(3351,NULL,NULL,'Corrientes'),(3353,NULL,NULL,'Misiones'),(3355,NULL,NULL,'Misiones'),(3357,NULL,NULL,'Misiones'),(3358,NULL,NULL,'Corrientes'),(3360,NULL,NULL,'Misiones'),(3361,NULL,NULL,'Misiones'),(3362,NULL,NULL,'Misiones'),(3363,NULL,NULL,'Misiones'),(3364,NULL,NULL,'Misiones'),(3366,NULL,NULL,'Misiones'),(3370,NULL,NULL,'Misiones'),(3371,NULL,NULL,'Misiones'),(3372,NULL,NULL,'Misiones'),(3374,NULL,NULL,'Misiones'),(3376,NULL,NULL,'Misiones'),(3378,NULL,NULL,'Misiones'),(3380,NULL,NULL,'Misiones'),(3381,NULL,NULL,'Misiones'),(3382,NULL,NULL,'Misiones'),(3384,NULL,NULL,'Misiones'),(3386,NULL,NULL,'Misiones'),(3400,NULL,NULL,'Corrientes'),(3401,NULL,NULL,'Corrientes'),(3403,NULL,NULL,'Corrientes'),(3405,NULL,NULL,'Corrientes'),(3407,NULL,NULL,'Corrientes'),(3409,NULL,NULL,'Corrientes'),(3412,NULL,NULL,'Corrientes'),(3414,NULL,NULL,'Corrientes'),(3416,NULL,NULL,'Corrientes'),(3418,NULL,NULL,'Corrientes'),(3420,NULL,NULL,'Corrientes'),(3421,NULL,NULL,'Corrientes'),(3423,NULL,NULL,'Corrientes'),(3425,NULL,NULL,'Corrientes'),(3427,NULL,NULL,'Corrientes'),(3428,NULL,NULL,'Corrientes'),(3432,NULL,NULL,'Corrientes'),(3433,NULL,NULL,'Corrientes'),(3440,NULL,NULL,'Corrientes'),(3441,NULL,NULL,'Corrientes'),(3443,NULL,NULL,'Corrientes'),(3445,NULL,NULL,'Corrientes'),(3446,NULL,NULL,'Corrientes'),(3448,NULL,NULL,'Corrientes'),(3449,NULL,NULL,'Corrientes'),(3450,NULL,NULL,'Corrientes'),(3451,NULL,NULL,'Corrientes'),(3453,NULL,NULL,'Corrientes'),(3454,NULL,NULL,'Corrientes'),(3460,NULL,NULL,'Corrientes'),(3461,NULL,NULL,'Corrientes'),(3463,NULL,NULL,'Corrientes'),(3465,NULL,NULL,'Corrientes'),(3466,NULL,NULL,'Corrientes'),(3470,NULL,NULL,'Corrientes'),(3471,NULL,NULL,'Corrientes'),(3472,NULL,NULL,'Corrientes'),(3474,NULL,NULL,'Corrientes'),(3476,NULL,NULL,'Corrientes'),(3480,NULL,NULL,'Corrientes'),(3481,NULL,NULL,'Corrientes'),(3483,NULL,NULL,'Corrientes'),(3485,NULL,NULL,'Corrientes'),(3486,NULL,NULL,'Corrientes'),(3500,NULL,NULL,'Chaco'),(3501,NULL,NULL,'Chaco'),(3503,NULL,NULL,'Chaco'),(3505,NULL,NULL,'Chaco'),(3507,NULL,NULL,'Chaco'),(3509,NULL,NULL,'Chaco'),(3511,NULL,NULL,'Chaco'),(3513,NULL,NULL,'Chaco'),(3514,NULL,NULL,'Chaco'),(3515,NULL,NULL,'Chaco'),(3516,NULL,NULL,'Chaco'),(3518,NULL,NULL,'Chaco'),(3522,NULL,NULL,'Chaco'),(3524,NULL,NULL,'Chaco'),(3526,NULL,NULL,'Chaco'),(3530,NULL,NULL,'Chaco'),(3531,NULL,NULL,'Chaco'),(3534,NULL,NULL,'Chaco'),(3536,NULL,NULL,'Chaco'),(3540,NULL,NULL,'Chaco'),(3541,NULL,NULL,'Chaco'),(3543,NULL,NULL,'Chaco'),(3545,NULL,NULL,'Chaco'),(3550,NULL,NULL,'Santa Fe'),(3551,NULL,NULL,'Santa Fe'),(3553,NULL,NULL,'Santa Fe'),(3555,NULL,NULL,'Santa Fe'),(3557,NULL,NULL,'Santa Fe'),(3560,NULL,NULL,'Santa Fe'),(3561,NULL,NULL,'Santa Fe'),(3563,NULL,NULL,'Santa Fe'),(3565,NULL,NULL,'Santa Fe'),(3567,NULL,NULL,'Santa Fe'),(3569,NULL,NULL,'Santa Fe'),(3572,NULL,NULL,'Santa Fe'),(3574,NULL,NULL,'Santa Fe'),(3575,NULL,NULL,'Santa Fe'),(3580,NULL,NULL,'Santa Fe'),(3581,NULL,NULL,'Santa Fe'),(3583,NULL,NULL,'Santa Fe'),(3585,NULL,NULL,'Santa Fe'),(3586,NULL,NULL,'Santa Fe'),(3587,NULL,NULL,'Santa Fe'),(3589,NULL,NULL,'Santa Fe'),(3592,NULL,NULL,'Santa Fe'),(3600,NULL,NULL,'Formosa'),(3601,NULL,NULL,'Formosa'),(3603,NULL,NULL,'Formosa'),(3604,NULL,NULL,'Formosa'),(3606,NULL,NULL,'Formosa'),(3608,NULL,NULL,'Formosa'),(3610,NULL,NULL,'Formosa'),(3611,NULL,NULL,'Formosa'),(3613,NULL,NULL,'Formosa'),(3615,NULL,NULL,'Formosa'),(3620,NULL,NULL,'Chaco'),(3621,NULL,NULL,'Chaco'),(3622,NULL,NULL,'Formosa'),(3624,NULL,NULL,'Formosa'),(3626,NULL,NULL,'Formosa'),(3628,NULL,NULL,'Formosa'),(3630,NULL,NULL,'Formosa'),(3632,NULL,NULL,'Formosa'),(3634,NULL,NULL,'Chaco'),(3636,NULL,NULL,'Formosa'),(3700,NULL,NULL,'Chaco'),(3701,NULL,NULL,'Chaco'),(3703,NULL,NULL,'Chaco'),(3705,NULL,NULL,'Chaco'),(3706,NULL,NULL,'Chaco'),(3708,NULL,NULL,'Chaco'),(3712,NULL,NULL,'Chaco'),(3714,NULL,NULL,'Chaco'),(3716,NULL,NULL,'Chaco'),(3718,NULL,NULL,'Chaco'),(3722,NULL,NULL,'Chaco'),(3730,NULL,NULL,'Chaco'),(3731,NULL,NULL,'Chaco'),(3732,NULL,NULL,'Chaco'),(3733,NULL,NULL,'Chaco'),(3734,NULL,NULL,'Chaco'),(3736,NULL,NULL,'Sgo. Del Estero'),(3740,NULL,NULL,'Sgo. Del Estero'),(3741,NULL,NULL,'Sgo. Del Estero'),(3743,NULL,NULL,'Sgo. Del Estero'),(3745,NULL,NULL,'Sgo. Del Estero'),(3747,NULL,NULL,'Sgo. Del Estero'),(3749,NULL,NULL,'Sgo. Del Estero'),(3752,NULL,NULL,'Sgo. Del Estero'),(3760,NULL,NULL,'Sgo. Del Estero'),(3761,NULL,NULL,'Sgo. Del Estero'),(3763,NULL,NULL,'Sgo. Del Estero'),(3765,NULL,NULL,'Sgo. Del Estero'),(3766,NULL,NULL,'Sgo. Del Estero'),(4000,NULL,NULL,'Tucumán'),(4101,NULL,NULL,'Tucumán'),(4103,NULL,NULL,'Tucumán'),(4105,NULL,NULL,'Tucumán'),(4107,NULL,NULL,'Tucumán'),(4109,NULL,NULL,'Tucumán'),(4111,NULL,NULL,'Tucumán'),(4113,NULL,NULL,'Tucumán'),(4115,NULL,NULL,'Tucumán'),(4117,NULL,NULL,'Tucumán'),(4119,NULL,NULL,'Tucumán'),(4122,NULL,NULL,'Tucumán'),(4124,NULL,NULL,'Tucumán'),(4126,NULL,NULL,'Salta'),(4128,NULL,NULL,'Tucumán'),(4129,NULL,NULL,'Tucumán'),(4132,NULL,NULL,'Tucumán'),(4133,NULL,NULL,'Tucumán'),(4134,NULL,NULL,'Tucumán'),(4135,NULL,NULL,'Tucumán'),(4137,NULL,NULL,'Catamarca'),(4139,NULL,NULL,'Catamarca'),(4141,NULL,NULL,'Catamarca'),(4142,NULL,NULL,'Tucumán'),(4143,NULL,NULL,'Tucumán'),(4144,NULL,NULL,'Tucumán'),(4145,NULL,NULL,'Tucumán'),(4146,NULL,NULL,'Tucumán'),(4147,NULL,NULL,'Tucumán'),(4149,NULL,NULL,'Tucumán'),(4151,NULL,NULL,'Tucumán'),(4152,NULL,NULL,'Tucumán'),(4153,NULL,NULL,'Tucumán'),(4155,NULL,NULL,'Tucumán'),(4157,NULL,NULL,'Tucumán'),(4158,NULL,NULL,'Tucumán'),(4159,NULL,NULL,'Tucumán'),(4161,NULL,NULL,'Tucumán'),(4162,NULL,NULL,'Tucumán'),(4163,NULL,NULL,'Tucumán'),(4164,NULL,NULL,'Tucumán'),(4166,NULL,NULL,'Tucumán'),(4168,NULL,NULL,'Tucumán'),(4172,NULL,NULL,'Tucumán'),(4174,NULL,NULL,'Tucumán'),(4176,NULL,NULL,'Sgo. Del Estero'),(4178,NULL,NULL,'Sgo. Del Estero'),(4182,NULL,NULL,'Tucumán'),(4184,NULL,NULL,'Sgo. Del Estero'),(4186,NULL,NULL,'Sgo. Del Estero'),(4187,NULL,NULL,'Sgo. Del Estero'),(4189,NULL,NULL,'Sgo. Del Estero'),(4190,NULL,NULL,'Salta'),(4191,NULL,NULL,'Salta'),(4193,NULL,NULL,'Salta'),(4195,NULL,NULL,'Sgo. Del Estero'),(4197,NULL,NULL,'Sgo. Del Estero'),(4198,NULL,NULL,'Salta'),(4200,NULL,NULL,'Sgo. Del Estero'),(4201,NULL,NULL,'Sgo. Del Estero'),(4203,NULL,NULL,'Sgo. Del Estero'),(4205,NULL,NULL,'Sgo. Del Estero'),(4206,NULL,NULL,'Sgo. Del Estero'),(4208,NULL,NULL,'Sgo. Del Estero'),(4212,NULL,NULL,'Sgo. Del Estero'),(4220,NULL,NULL,'Sgo. Del Estero'),(4221,NULL,NULL,'Sgo. Del Estero'),(4223,NULL,NULL,'Sgo. Del Estero'),(4225,NULL,NULL,'Sgo. Del Estero'),(4230,NULL,NULL,'Catamarca'),(4231,NULL,NULL,'Catamarca'),(4233,NULL,NULL,'Sgo. Del Estero'),(4234,NULL,NULL,'Catamarca'),(4235,NULL,NULL,'Catamarca'),(4237,NULL,NULL,'Catamarca'),(4238,NULL,NULL,'Sgo. Del Estero'),(4242,NULL,NULL,'Tucumán'),(4300,NULL,NULL,'Sgo. Del Estero'),(4301,NULL,NULL,'Sgo. Del Estero'),(4302,NULL,NULL,'Sgo. Del Estero'),(4304,NULL,NULL,'Sgo. Del Estero'),(4306,NULL,NULL,'Sgo. Del Estero'),(4308,NULL,NULL,'Sgo. Del Estero'),(4312,NULL,NULL,'Sgo. Del Estero'),(4313,NULL,NULL,'Sgo. Del Estero'),(4315,NULL,NULL,'Sgo. Del Estero'),(4317,NULL,NULL,'Sgo. Del Estero'),(4319,NULL,NULL,'Sgo. Del Estero'),(4321,NULL,NULL,'Sgo. Del Estero'),(4322,NULL,NULL,'Sgo. Del Estero'),(4324,NULL,NULL,'Sgo. Del Estero'),(4326,NULL,NULL,'Sgo. Del Estero'),(4328,NULL,NULL,'Sgo. Del Estero'),(4332,NULL,NULL,'Sgo. Del Estero'),(4334,NULL,NULL,'Sgo. Del Estero'),(4336,NULL,NULL,'Sgo. Del Estero'),(4338,NULL,NULL,'Sgo. Del Estero'),(4339,NULL,NULL,'Sgo. Del Estero'),(4350,NULL,NULL,'Sgo. Del Estero'),(4351,NULL,NULL,'Sgo. Del Estero'),(4352,NULL,NULL,'Sgo. Del Estero'),(4353,NULL,NULL,'Sgo. Del Estero'),(4354,NULL,NULL,'Sgo. Del Estero'),(4356,NULL,NULL,'Sgo. Del Estero'),(4400,NULL,NULL,'Salta'),(4401,NULL,NULL,'Salta'),(4403,NULL,NULL,'Salta'),(4405,NULL,NULL,'Salta'),(4407,NULL,NULL,'Salta'),(4409,NULL,NULL,'Salta'),(4411,NULL,NULL,'Jujuy'),(4413,NULL,NULL,'Jujuy'),(4415,NULL,NULL,'Salta'),(4417,NULL,NULL,'Salta'),(4419,NULL,NULL,'Salta'),(4421,NULL,NULL,'Salta'),(4423,NULL,NULL,'Salta'),(4425,NULL,NULL,'Salta'),(4427,NULL,NULL,'Salta'),(4430,NULL,NULL,'Salta'),(4431,NULL,NULL,'Jujuy'),(4432,NULL,NULL,'Salta'),(4434,NULL,NULL,'Salta'),(4440,NULL,NULL,'Salta'),(4441,NULL,NULL,'Salta'),(4444,NULL,NULL,'Salta'),(4446,NULL,NULL,'Salta'),(4448,NULL,NULL,'Salta'),(4449,NULL,NULL,'Salta'),(4452,NULL,NULL,'Salta'),(4500,NULL,NULL,'Jujuy'),(4501,NULL,NULL,'Jujuy'),(4503,NULL,NULL,'Jujuy'),(4504,NULL,NULL,'Jujuy'),(4506,NULL,NULL,'Jujuy'),(4512,NULL,NULL,'Jujuy'),(4513,NULL,NULL,'Jujuy'),(4514,NULL,NULL,'Jujuy'),(4516,NULL,NULL,'Jujuy'),(4518,NULL,NULL,'Jujuy'),(4522,NULL,NULL,'Jujuy'),(4530,NULL,NULL,'Salta'),(4531,NULL,NULL,'Salta'),(4533,NULL,NULL,'Salta'),(4534,NULL,NULL,'Salta'),(4535,NULL,NULL,'Salta'),(4537,NULL,NULL,'Salta'),(4538,NULL,NULL,'Salta'),(4542,NULL,NULL,'Jujuy'),(4550,NULL,NULL,'Salta'),(4552,NULL,NULL,'Salta'),(4554,NULL,NULL,'Salta'),(4560,NULL,NULL,'Salta'),(4561,NULL,NULL,'Salta'),(4562,NULL,NULL,'Salta'),(4563,NULL,NULL,'Salta'),(4564,NULL,NULL,'Salta'),(4566,NULL,NULL,'Salta'),(4568,NULL,NULL,'Salta'),(4600,NULL,NULL,'Jujuy'),(4601,NULL,NULL,'Jujuy'),(4603,NULL,NULL,'Jujuy'),(4605,NULL,NULL,'Jujuy'),(4606,NULL,NULL,'Jujuy'),(4608,NULL,NULL,'Jujuy'),(4612,NULL,NULL,'Jujuy'),(4613,NULL,NULL,'Sgo. Del Estero'),(4616,NULL,NULL,'Jujuy'),(4618,NULL,NULL,'Jujuy'),(4622,NULL,NULL,'Jujuy'),(4624,NULL,NULL,'Jujuy'),(4626,NULL,NULL,'Jujuy'),(4630,NULL,NULL,'Jujuy'),(4631,NULL,NULL,'Jujuy'),(4632,NULL,NULL,'Jujuy'),(4633,NULL,NULL,'Salta'),(4634,NULL,NULL,'Jujuy'),(4640,NULL,NULL,'Jujuy'),(4641,NULL,NULL,'Jujuy'),(4643,NULL,NULL,'Jujuy'),(4644,NULL,NULL,'Jujuy'),(4650,NULL,NULL,'Jujuy'),(4651,NULL,NULL,'Jujuy'),(4653,NULL,NULL,'Jujuy'),(4655,NULL,NULL,'Jujuy'),(4700,NULL,NULL,'Catamarca'),(4701,NULL,NULL,'Catamarca'),(4705,NULL,NULL,'Catamarca'),(4707,NULL,NULL,'Catamarca'),(4709,NULL,NULL,'Catamarca'),(4711,NULL,NULL,'Catamarca'),(4713,NULL,NULL,'Catamarca'),(4715,NULL,NULL,'Catamarca'),(4716,NULL,NULL,'Catamarca'),(4718,NULL,NULL,'Catamarca'),(4719,NULL,NULL,'Catamarca'),(4722,NULL,NULL,'Catamarca'),(4723,NULL,NULL,'Catamarca'),(4724,NULL,NULL,'Catamarca'),(4726,NULL,NULL,'Catamarca'),(4728,NULL,NULL,'Catamarca'),(4740,NULL,NULL,'Catamarca'),(4741,NULL,NULL,'Catamarca'),(4743,NULL,NULL,'Catamarca'),(4750,NULL,NULL,'Catamarca'),(4751,NULL,NULL,'Catamarca'),(4753,NULL,NULL,'Catamarca'),(5000,NULL,NULL,'Córdoba'),(5006,NULL,NULL,'Córdoba'),(5008,NULL,NULL,'Córdoba'),(5009,NULL,NULL,'Córdoba'),(5012,NULL,NULL,'Córdoba'),(5101,NULL,NULL,'Córdoba'),(5103,NULL,NULL,'Córdoba'),(5105,NULL,NULL,'Córdoba'),(5107,NULL,NULL,'Córdoba'),(5109,NULL,NULL,'Córdoba'),(5111,NULL,NULL,'Córdoba'),(5113,NULL,NULL,'Córdoba'),(5115,NULL,NULL,'Córdoba'),(5117,NULL,NULL,'Córdoba'),(5119,NULL,NULL,'Córdoba'),(5121,NULL,NULL,'Córdoba'),(5123,NULL,NULL,'Córdoba'),(5125,NULL,NULL,'Córdoba'),(5127,NULL,NULL,'Córdoba'),(5129,NULL,NULL,'Córdoba'),(5131,NULL,NULL,'Córdoba'),(5133,NULL,NULL,'Córdoba'),(5135,NULL,NULL,'Córdoba'),(5137,NULL,NULL,'Córdoba'),(5139,NULL,NULL,'Córdoba'),(5141,NULL,NULL,'Córdoba'),(5143,NULL,NULL,'Córdoba'),(5145,NULL,NULL,'Córdoba'),(5147,NULL,NULL,'Córdoba'),(5149,NULL,NULL,'Córdoba'),(5151,NULL,NULL,'Córdoba'),(5152,NULL,NULL,'Córdoba'),(5153,NULL,NULL,'Córdoba'),(5155,NULL,NULL,'Córdoba'),(5156,NULL,NULL,'Córdoba'),(5158,NULL,NULL,'Córdoba'),(5162,NULL,NULL,'Córdoba'),(5164,NULL,NULL,'Córdoba'),(5165,NULL,NULL,'Córdoba'),(5166,NULL,NULL,'Córdoba'),(5168,NULL,NULL,'Córdoba'),(5172,NULL,NULL,'Córdoba'),(5174,NULL,NULL,'Córdoba'),(5175,NULL,NULL,'Córdoba'),(5176,NULL,NULL,'Córdoba'),(5178,NULL,NULL,'Córdoba'),(5182,NULL,NULL,'Córdoba'),(5184,NULL,NULL,'Córdoba'),(5186,NULL,NULL,'Córdoba'),(5187,NULL,NULL,'Córdoba'),(5189,NULL,NULL,'Córdoba'),(5191,NULL,NULL,'Córdoba'),(5192,NULL,NULL,'Córdoba'),(5194,NULL,NULL,'Córdoba'),(5196,NULL,NULL,'Córdoba'),(5197,NULL,NULL,'Córdoba'),(5199,NULL,NULL,'Córdoba'),(5200,NULL,NULL,'Córdoba'),(5201,NULL,NULL,'Córdoba'),(5203,NULL,NULL,'Córdoba'),(5205,NULL,NULL,'Córdoba'),(5209,NULL,NULL,'Córdoba'),(5211,NULL,NULL,'Córdoba'),(5212,NULL,NULL,'Córdoba'),(5214,NULL,NULL,'Córdoba'),(5216,NULL,NULL,'Córdoba'),(5218,NULL,NULL,'Córdoba'),(5220,NULL,NULL,'Córdoba'),(5221,NULL,NULL,'Córdoba'),(5223,NULL,NULL,'Córdoba'),(5225,NULL,NULL,'Córdoba'),(5227,NULL,NULL,'Córdoba'),(5229,NULL,NULL,'Córdoba'),(5231,NULL,NULL,'Córdoba'),(5233,NULL,NULL,'Córdoba'),(5235,NULL,NULL,'Córdoba'),(5236,NULL,NULL,'Córdoba'),(5238,NULL,NULL,'Córdoba'),(5242,NULL,NULL,'Córdoba'),(5243,NULL,NULL,'Córdoba'),(5244,NULL,NULL,'Córdoba'),(5246,NULL,NULL,'Córdoba'),(5248,NULL,NULL,'Córdoba'),(5249,NULL,NULL,'Córdoba'),(5250,NULL,NULL,'Sgo. Del Estero'),(5251,NULL,NULL,'Sgo. Del Estero'),(5253,NULL,NULL,'Sgo. Del Estero'),(5255,NULL,NULL,'Córdoba'),(5257,NULL,NULL,'Sgo. Del Estero'),(5258,NULL,NULL,'Sgo. Del Estero'),(5260,NULL,NULL,'Catamarca'),(5261,NULL,NULL,'Catamarca'),(5263,NULL,NULL,'Catamarca'),(5264,NULL,NULL,'Catamarca'),(5265,NULL,NULL,'Catamarca'),(5266,NULL,NULL,'Catamarca'),(5270,NULL,NULL,'Córdoba'),(5271,NULL,NULL,'Córdoba'),(5272,NULL,NULL,'Córdoba'),(5274,NULL,NULL,'La Rioja'),(5275,NULL,NULL,'La Rioja'),(5276,NULL,NULL,'La Rioja'),(5280,NULL,NULL,'Córdoba'),(5281,NULL,NULL,'Córdoba'),(5282,NULL,NULL,'Córdoba'),(5284,NULL,NULL,'Córdoba'),(5285,NULL,NULL,'Córdoba'),(5287,NULL,NULL,'Córdoba'),(5289,NULL,NULL,'Córdoba'),(5291,NULL,NULL,'Córdoba'),(5293,NULL,NULL,'Córdoba'),(5295,NULL,NULL,'Córdoba'),(5297,NULL,NULL,'Córdoba'),(5299,NULL,NULL,'Córdoba'),(5300,NULL,NULL,'La Rioja'),(5301,NULL,NULL,'La Rioja'),(5303,NULL,NULL,'La Rioja'),(5304,NULL,NULL,'La Rioja'),(5310,NULL,NULL,'La Rioja'),(5311,NULL,NULL,'La Rioja'),(5313,NULL,NULL,'La Rioja'),(5315,NULL,NULL,'Catamarca'),(5317,NULL,NULL,'Catamarca'),(5319,NULL,NULL,'Catamarca'),(5321,NULL,NULL,'Catamarca'),(5325,NULL,NULL,'La Rioja'),(5327,NULL,NULL,'La Rioja'),(5329,NULL,NULL,'La Rioja'),(5331,NULL,NULL,'Catamarca'),(5333,NULL,NULL,'Catamarca'),(5340,NULL,NULL,'Catamarca'),(5341,NULL,NULL,'Catamarca'),(5343,NULL,NULL,'Catamarca'),(5345,NULL,NULL,'Catamarca'),(5350,NULL,NULL,'La Rioja'),(5351,NULL,NULL,'La Rioja'),(5353,NULL,NULL,'La Rioja'),(5355,NULL,NULL,'La Rioja'),(5357,NULL,NULL,'La Rioja'),(5359,NULL,NULL,'La Rioja'),(5360,NULL,NULL,'La Rioja'),(5361,NULL,NULL,'La Rioja'),(5363,NULL,NULL,'La Rioja'),(5365,NULL,NULL,'La Rioja'),(5367,NULL,NULL,'La Rioja'),(5369,NULL,NULL,'La Rioja'),(5372,NULL,NULL,'La Rioja'),(5374,NULL,NULL,'La Rioja'),(5380,NULL,NULL,'La Rioja'),(5381,NULL,NULL,'La Rioja'),(5383,NULL,NULL,'La Rioja'),(5384,NULL,NULL,'La Rioja'),(5385,NULL,NULL,'La Rioja'),(5386,NULL,NULL,'La Rioja'),(5400,NULL,NULL,'San Juan'),(5401,NULL,NULL,'San Juan'),(5403,NULL,NULL,'San Juan'),(5405,NULL,NULL,'San Juan'),(5407,NULL,NULL,'San Juan'),(5409,NULL,NULL,'San Juan'),(5411,NULL,NULL,'San Juan'),(5413,NULL,NULL,'San Juan'),(5415,NULL,NULL,'San Juan'),(5417,NULL,NULL,'San Juan'),(5419,NULL,NULL,'San Juan'),(5421,NULL,NULL,'San Juan'),(5423,NULL,NULL,'San Juan'),(5424,NULL,NULL,'San Juan'),(5425,NULL,NULL,'San Juan'),(5427,NULL,NULL,'San Juan'),(5429,NULL,NULL,'San Juan'),(5431,NULL,NULL,'San Juan'),(5433,NULL,NULL,'San Juan'),(5435,NULL,NULL,'Mendoza'),(5436,NULL,NULL,'San Juan'),(5438,NULL,NULL,'San Juan'),(5439,NULL,NULL,'San Juan'),(5442,NULL,NULL,'San Juan'),(5443,NULL,NULL,'San Juan'),(5444,NULL,NULL,'La Rioja'),(5446,NULL,NULL,'San Juan'),(5447,NULL,NULL,'San Juan'),(5449,NULL,NULL,'San Juan'),(5460,NULL,NULL,'San Juan'),(5461,NULL,NULL,'San Juan'),(5463,NULL,NULL,'San Juan'),(5465,NULL,NULL,'San Juan'),(5467,NULL,NULL,'San Juan'),(5470,NULL,NULL,'La Rioja'),(5471,NULL,NULL,'La Rioja'),(5473,NULL,NULL,'La Rioja'),(5474,NULL,NULL,'La Rioja'),(5475,NULL,NULL,'La Rioja'),(5500,NULL,NULL,'Mendoza'),(5501,NULL,NULL,'Mendoza'),(5503,NULL,NULL,'Mendoza'),(5505,NULL,NULL,'Mendoza'),(5507,NULL,NULL,'Mendoza'),(5509,NULL,NULL,'Mendoza'),(5511,NULL,NULL,'Mendoza'),(5513,NULL,NULL,'Mendoza'),(5515,NULL,NULL,'Mendoza'),(5517,NULL,NULL,'Mendoza'),(5519,NULL,NULL,'Mendoza'),(5521,NULL,NULL,'Mendoza'),(5523,NULL,NULL,'Mendoza'),(5525,NULL,NULL,'Mendoza'),(5527,NULL,NULL,'Mendoza'),(5529,NULL,NULL,'Mendoza'),(5531,NULL,NULL,'Mendoza'),(5533,NULL,NULL,'Mendoza'),(5535,NULL,NULL,'Mendoza'),(5537,NULL,NULL,'Mendoza'),(5539,NULL,NULL,'Mendoza'),(5541,NULL,NULL,'Mendoza'),(5543,NULL,NULL,'Mendoza'),(5544,NULL,NULL,'Mendoza'),(5545,NULL,NULL,'Mendoza'),(5547,NULL,NULL,'Mendoza'),(5549,NULL,NULL,'Mendoza'),(5551,NULL,NULL,'Mendoza'),(5553,NULL,NULL,'Mendoza'),(5555,NULL,NULL,'Mendoza'),(5557,NULL,NULL,'Mendoza'),(5560,NULL,NULL,'Mendoza'),(5561,NULL,NULL,'Mendoza'),(5563,NULL,NULL,'Mendoza'),(5565,NULL,NULL,'Mendoza'),(5567,NULL,NULL,'Mendoza'),(5569,NULL,NULL,'Mendoza'),(5570,NULL,NULL,'Mendoza'),(5571,NULL,NULL,'Mendoza'),(5573,NULL,NULL,'Mendoza'),(5575,NULL,NULL,'Mendoza'),(5577,NULL,NULL,'Mendoza'),(5579,NULL,NULL,'Mendoza'),(5582,NULL,NULL,'Mendoza'),(5584,NULL,NULL,'Mendoza'),(5585,NULL,NULL,'Mendoza'),(5587,NULL,NULL,'Mendoza'),(5589,NULL,NULL,'Mendoza'),(5590,NULL,NULL,'Mendoza'),(5591,NULL,NULL,'Mendoza'),(5592,NULL,NULL,'Mendoza'),(5594,NULL,NULL,'Mendoza'),(5595,NULL,NULL,'Mendoza'),(5596,NULL,NULL,'Mendoza'),(5598,NULL,NULL,'Mendoza'),(5600,NULL,NULL,'Mendoza'),(5601,NULL,NULL,'Mendoza'),(5603,NULL,NULL,'Mendoza'),(5605,NULL,NULL,'Mendoza'),(5607,NULL,NULL,'Mendoza'),(5609,NULL,NULL,'Mendoza'),(5611,NULL,NULL,'Mendoza'),(5612,NULL,NULL,'Mendoza'),(5613,NULL,NULL,'Mendoza'),(5615,NULL,NULL,'Mendoza'),(5620,NULL,NULL,'Mendoza'),(5621,NULL,NULL,'La Pampa'),(5622,NULL,NULL,'Mendoza'),(5623,NULL,NULL,'Mendoza'),(5624,NULL,NULL,'Mendoza'),(5632,NULL,NULL,'Mendoza'),(5634,NULL,NULL,'Mendoza'),(5636,NULL,NULL,'Mendoza'),(5637,NULL,NULL,'Mendoza'),(5700,NULL,NULL,'San Luis'),(5701,NULL,NULL,'San Luis'),(5703,NULL,NULL,'San Luis'),(5705,NULL,NULL,'San Luis'),(5707,NULL,NULL,'San Luis'),(5709,NULL,NULL,'San Luis'),(5711,NULL,NULL,'San Luis'),(5713,NULL,NULL,'San Luis'),(5715,NULL,NULL,'San Luis'),(5717,NULL,NULL,'La Rioja'),(5719,NULL,NULL,'San Luis'),(5721,NULL,NULL,'San Luis'),(5722,NULL,NULL,'San Luis'),(5724,NULL,NULL,'San Luis'),(5730,NULL,NULL,'San Luis'),(5731,NULL,NULL,'San Luis'),(5733,NULL,NULL,'San Luis'),(5735,NULL,NULL,'San Luis'),(5736,NULL,NULL,'San Luis'),(5738,NULL,NULL,'Córdoba'),(5741,NULL,NULL,'San Luis'),(5750,NULL,NULL,'San Luis'),(5751,NULL,NULL,'San Luis'),(5753,NULL,NULL,'San Luis'),(5755,NULL,NULL,'San Luis'),(5759,NULL,NULL,'San Luis'),(5763,NULL,NULL,'San Luis'),(5770,NULL,NULL,'San Luis'),(5771,NULL,NULL,'San Luis'),(5773,NULL,NULL,'San Luis'),(5775,NULL,NULL,'San Luis'),(5777,NULL,NULL,'San Luis'),(5800,NULL,NULL,'Córdoba'),(5801,NULL,NULL,'Córdoba'),(5803,NULL,NULL,'Córdoba'),(5805,NULL,NULL,'Córdoba'),(5807,NULL,NULL,'Córdoba'),(5809,NULL,NULL,'Córdoba'),(5811,NULL,NULL,'Córdoba'),(5813,NULL,NULL,'Córdoba'),(5815,NULL,NULL,'Córdoba'),(5817,NULL,NULL,'Córdoba'),(5819,NULL,NULL,'Córdoba'),(5821,NULL,NULL,'Córdoba'),(5823,NULL,NULL,'Córdoba'),(5825,NULL,NULL,'Córdoba'),(5827,NULL,NULL,'Córdoba'),(5829,NULL,NULL,'Córdoba'),(5831,NULL,NULL,'Córdoba'),(5833,NULL,NULL,'Córdoba'),(5835,NULL,NULL,'San Luis'),(5837,NULL,NULL,'Córdoba'),(5839,NULL,NULL,'Córdoba'),(5841,NULL,NULL,'Córdoba'),(5843,NULL,NULL,'Córdoba'),(5845,NULL,NULL,'Córdoba'),(5847,NULL,NULL,'Córdoba'),(5848,NULL,NULL,'Córdoba'),(5850,NULL,NULL,'Córdoba'),(5851,NULL,NULL,'Córdoba'),(5853,NULL,NULL,'Córdoba'),(5854,NULL,NULL,'Córdoba'),(5856,NULL,NULL,'Córdoba'),(5857,NULL,NULL,'Córdoba'),(5859,NULL,NULL,'Córdoba'),(5862,NULL,NULL,'Córdoba'),(5864,NULL,NULL,'Córdoba'),(5870,NULL,NULL,'Córdoba'),(5871,NULL,NULL,'Córdoba'),(5873,NULL,NULL,'Córdoba'),(5875,NULL,NULL,'Córdoba'),(5877,NULL,NULL,'Córdoba'),(5879,NULL,NULL,'Córdoba'),(5881,NULL,NULL,'San Luis'),(5883,NULL,NULL,'San Luis'),(5885,NULL,NULL,'Córdoba'),(5887,NULL,NULL,'Córdoba'),(5889,NULL,NULL,'Córdoba'),(5891,NULL,NULL,'Córdoba'),(5893,NULL,NULL,'Córdoba'),(5900,NULL,NULL,'Córdoba'),(5901,NULL,NULL,'Córdoba'),(5903,NULL,NULL,'Córdoba'),(5905,NULL,NULL,'Córdoba'),(5907,NULL,NULL,'Córdoba'),(5909,NULL,NULL,'Córdoba'),(5911,NULL,NULL,'Córdoba'),(5913,NULL,NULL,'Córdoba'),(5915,NULL,NULL,'Córdoba'),(5917,NULL,NULL,'Córdoba'),(5919,NULL,NULL,'Córdoba'),(5921,NULL,NULL,'Córdoba'),(5923,NULL,NULL,'Córdoba'),(5925,NULL,NULL,'Córdoba'),(5929,NULL,NULL,'Córdoba'),(5931,NULL,NULL,'Córdoba'),(5933,NULL,NULL,'Córdoba'),(5935,NULL,NULL,'Córdoba'),(5936,NULL,NULL,'Córdoba'),(5940,NULL,NULL,'Córdoba'),(5941,NULL,NULL,'Córdoba'),(5943,NULL,NULL,'Córdoba'),(5945,NULL,NULL,'Córdoba'),(5947,NULL,NULL,'Córdoba'),(5949,NULL,NULL,'Córdoba'),(5951,NULL,NULL,'Córdoba'),(5960,NULL,NULL,'Córdoba'),(5961,NULL,NULL,'Córdoba'),(5963,NULL,NULL,'Córdoba'),(5965,NULL,NULL,'Córdoba'),(5967,NULL,NULL,'Córdoba'),(5969,NULL,NULL,'Córdoba'),(5972,NULL,NULL,'Córdoba'),(5974,NULL,NULL,'Córdoba'),(5980,NULL,NULL,'Córdoba'),(5984,NULL,NULL,'Córdoba'),(5986,NULL,NULL,'Córdoba'),(5987,NULL,NULL,'Córdoba'),(5988,NULL,NULL,'Córdoba'),(6000,NULL,NULL,'Buenos Aires'),(6001,NULL,NULL,'Buenos Aires'),(6003,NULL,NULL,'Buenos Aires'),(6005,NULL,NULL,'Buenos Aires'),(6007,NULL,NULL,'Buenos Aires'),(6009,NULL,NULL,'Santa Fe'),(6013,NULL,NULL,'Buenos Aires'),(6015,NULL,NULL,'Buenos Aires'),(6017,NULL,NULL,'Buenos Aires'),(6018,NULL,NULL,'Buenos Aires'),(6022,NULL,NULL,'Buenos Aires'),(6030,NULL,NULL,'Buenos Aires'),(6031,NULL,NULL,'Buenos Aires'),(6032,NULL,NULL,'Buenos Aires'),(6034,NULL,NULL,'Buenos Aires'),(6036,NULL,NULL,'Santa Fe'),(6039,NULL,NULL,'Santa Fe'),(6042,NULL,NULL,'Buenos Aires'),(6050,NULL,NULL,'Buenos Aires'),(6051,NULL,NULL,'Buenos Aires'),(6053,NULL,NULL,'Buenos Aires'),(6058,NULL,NULL,'Buenos Aires'),(6062,NULL,NULL,'Buenos Aires'),(6064,NULL,NULL,'Buenos Aires'),(6065,NULL,NULL,'Buenos Aires'),(6070,NULL,NULL,'Buenos Aires'),(6071,NULL,NULL,'Buenos Aires'),(6073,NULL,NULL,'Buenos Aires'),(6075,NULL,NULL,'Buenos Aires'),(6077,NULL,NULL,'Buenos Aires'),(6078,NULL,NULL,'Buenos Aires'),(6100,NULL,NULL,'Santa Fe'),(6101,NULL,NULL,'Buenos Aires'),(6103,NULL,NULL,'Santa Fe'),(6105,NULL,NULL,'Buenos Aires'),(6106,NULL,NULL,'Santa Fe'),(6120,NULL,NULL,'Córdoba'),(6121,NULL,NULL,'Córdoba'),(6123,NULL,NULL,'Córdoba'),(6125,NULL,NULL,'Córdoba'),(6127,NULL,NULL,'Córdoba'),(6128,NULL,NULL,'Córdoba'),(6132,NULL,NULL,'Córdoba'),(6134,NULL,NULL,'Córdoba'),(6140,NULL,NULL,'Córdoba'),(6141,NULL,NULL,'Córdoba'),(6142,NULL,NULL,'Córdoba'),(6144,NULL,NULL,'Córdoba'),(6200,NULL,NULL,'La Pampa'),(6201,NULL,NULL,'La Pampa'),(6203,NULL,NULL,'La Pampa'),(6205,NULL,NULL,'La Pampa'),(6207,NULL,NULL,'La Pampa'),(6212,NULL,NULL,'La Pampa'),(6213,NULL,NULL,'La Pampa'),(6214,NULL,NULL,'La Pampa'),(6216,NULL,NULL,'San Luis'),(6220,NULL,NULL,'La Pampa'),(6221,NULL,NULL,'La Pampa'),(6223,NULL,NULL,'Buenos Aires'),(6225,NULL,NULL,'Córdoba'),(6227,NULL,NULL,'Córdoba'),(6228,NULL,NULL,'La Pampa'),(6230,NULL,NULL,'Buenos Aires'),(6231,NULL,NULL,'Buenos Aires'),(6233,NULL,NULL,'Buenos Aires'),(6235,NULL,NULL,'Buenos Aires'),(6237,NULL,NULL,'Buenos Aires'),(6239,NULL,NULL,'Buenos Aires'),(6241,NULL,NULL,'Buenos Aires'),(6242,NULL,NULL,'Buenos Aires'),(6244,NULL,NULL,'Buenos Aires'),(6269,NULL,NULL,'San Luis'),(6270,NULL,NULL,'Córdoba'),(6271,NULL,NULL,'Córdoba'),(6273,NULL,NULL,'Córdoba'),(6275,NULL,NULL,'Córdoba'),(6277,NULL,NULL,'San Luis'),(6279,NULL,NULL,'Córdoba'),(6300,NULL,NULL,'La Pampa'),(6301,NULL,NULL,'La Pampa'),(6303,NULL,NULL,'La Pampa'),(6305,NULL,NULL,'La Pampa'),(6307,NULL,NULL,'La Pampa'),(6309,NULL,NULL,'La Pampa'),(6311,NULL,NULL,'La Pampa'),(6313,NULL,NULL,'La Pampa'),(6315,NULL,NULL,'La Pampa'),(6317,NULL,NULL,'La Pampa'),(6319,NULL,NULL,'La Pampa'),(6321,NULL,NULL,'La Pampa'),(6323,NULL,NULL,'La Pampa'),(6325,NULL,NULL,'La Pampa'),(6326,NULL,NULL,'La Pampa'),(6330,NULL,NULL,'La Pampa'),(6331,NULL,NULL,'La Pampa'),(6333,NULL,NULL,'La Pampa'),(6335,NULL,NULL,'Buenos Aires'),(6337,NULL,NULL,'Buenos Aires'),(6338,NULL,NULL,'Buenos Aires'),(6339,NULL,NULL,'Buenos Aires'),(6341,NULL,NULL,'Buenos Aires'),(6343,NULL,NULL,'Buenos Aires'),(6345,NULL,NULL,'La Pampa'),(6346,NULL,NULL,'Buenos Aires'),(6348,NULL,NULL,'Buenos Aires'),(6352,NULL,NULL,'La Pampa'),(6354,NULL,NULL,'La Pampa'),(6360,NULL,NULL,'La Pampa'),(6361,NULL,NULL,'La Pampa'),(6365,NULL,NULL,'La Pampa'),(6367,NULL,NULL,'La Pampa'),(6369,NULL,NULL,'La Pampa'),(6380,NULL,NULL,'La Pampa'),(6381,NULL,NULL,'La Pampa'),(6383,NULL,NULL,'La Pampa'),(6385,NULL,NULL,'La Pampa'),(6387,NULL,NULL,'La Pampa'),(6389,NULL,NULL,'San Luis'),(6400,NULL,NULL,'Buenos Aires'),(6401,NULL,NULL,'Buenos Aires'),(6403,NULL,NULL,'Buenos Aires'),(6405,NULL,NULL,'Buenos Aires'),(6407,NULL,NULL,'Buenos Aires'),(6409,NULL,NULL,'Buenos Aires'),(6411,NULL,NULL,'Buenos Aires'),(6417,NULL,NULL,'Buenos Aires'),(6422,NULL,NULL,'Buenos Aires'),(6424,NULL,NULL,'Buenos Aires'),(6430,NULL,NULL,'Buenos Aires'),(6431,NULL,NULL,'Buenos Aires'),(6433,NULL,NULL,'Buenos Aires'),(6435,NULL,NULL,'Buenos Aires'),(6437,NULL,NULL,'Buenos Aires'),(6439,NULL,NULL,'Buenos Aires'),(6441,NULL,NULL,'Buenos Aires'),(6443,NULL,NULL,'Buenos Aires'),(6450,NULL,NULL,'Buenos Aires'),(6451,NULL,NULL,'Buenos Aires'),(6453,NULL,NULL,'Buenos Aires'),(6455,NULL,NULL,'Buenos Aires'),(6457,NULL,NULL,'Buenos Aires'),(6459,NULL,NULL,'Buenos Aires'),(6461,NULL,NULL,'Buenos Aires'),(6463,NULL,NULL,'Buenos Aires'),(6465,NULL,NULL,'Buenos Aires'),(6467,NULL,NULL,'Buenos Aires'),(6469,NULL,NULL,'Buenos Aires'),(6471,NULL,NULL,'Buenos Aires'),(6472,NULL,NULL,'Buenos Aires'),(6474,NULL,NULL,'Buenos Aires'),(6475,NULL,NULL,'Buenos Aires'),(6476,NULL,NULL,'Buenos Aires'),(6500,NULL,NULL,'Buenos Aires'),(6501,NULL,NULL,'Buenos Aires'),(6503,NULL,NULL,'Buenos Aires'),(6505,NULL,NULL,'Buenos Aires'),(6507,NULL,NULL,'Buenos Aires'),(6509,NULL,NULL,'Buenos Aires'),(6511,NULL,NULL,'Buenos Aires'),(6513,NULL,NULL,'Buenos Aires'),(6515,NULL,NULL,'Buenos Aires'),(6516,NULL,NULL,'Buenos Aires'),(6530,NULL,NULL,'Buenos Aires'),(6531,NULL,NULL,'Buenos Aires'),(6533,NULL,NULL,'Buenos Aires'),(6535,NULL,NULL,'Buenos Aires'),(6537,NULL,NULL,'Buenos Aires'),(6538,NULL,NULL,'Buenos Aires'),(6550,NULL,NULL,'Buenos Aires'),(6551,NULL,NULL,'Buenos Aires'),(6553,NULL,NULL,'Buenos Aires'),(6555,NULL,NULL,'Buenos Aires'),(6557,NULL,NULL,'Buenos Aires'),(6559,NULL,NULL,'Buenos Aires'),(6561,NULL,NULL,'Buenos Aires'),(6600,NULL,NULL,'Buenos Aires'),(6601,NULL,NULL,'Buenos Aires'),(6603,NULL,NULL,'Buenos Aires'),(6605,NULL,NULL,'Buenos Aires'),(6607,NULL,NULL,'Buenos Aires'),(6608,NULL,NULL,'Buenos Aires'),(6612,NULL,NULL,'Buenos Aires'),(6614,NULL,NULL,'Buenos Aires'),(6616,NULL,NULL,'Buenos Aires'),(6620,NULL,NULL,'Buenos Aires'),(6621,NULL,NULL,'Buenos Aires'),(6623,NULL,NULL,'Buenos Aires'),(6625,NULL,NULL,'Buenos Aires'),(6627,NULL,NULL,'Buenos Aires'),(6628,NULL,NULL,'Buenos Aires'),(6632,NULL,NULL,'Buenos Aires'),(6634,NULL,NULL,'Buenos Aires'),(6640,NULL,NULL,'Buenos Aires'),(6641,NULL,NULL,'Buenos Aires'),(6643,NULL,NULL,'Buenos Aires'),(6645,NULL,NULL,'Buenos Aires'),(6646,NULL,NULL,'Buenos Aires'),(6648,NULL,NULL,'Buenos Aires'),(6652,NULL,NULL,'Buenos Aires'),(6660,NULL,NULL,'Buenos Aires'),(6661,NULL,NULL,'Buenos Aires'),(6663,NULL,NULL,'Buenos Aires'),(6665,NULL,NULL,'Buenos Aires'),(6667,NULL,NULL,'Buenos Aires'),(6700,NULL,NULL,'Buenos Aires'),(6701,NULL,NULL,'Buenos Aires'),(6703,NULL,NULL,'Buenos Aires'),(6705,NULL,NULL,'Buenos Aires'),(6706,NULL,NULL,'Buenos Aires'),(6708,NULL,NULL,'Buenos Aires'),(6712,NULL,NULL,'Buenos Aires'),(6720,NULL,NULL,'Buenos Aires'),(6721,NULL,NULL,'Buenos Aires'),(6723,NULL,NULL,'Buenos Aires'),(6725,NULL,NULL,'Buenos Aires'),(6727,NULL,NULL,'Buenos Aires'),(6734,NULL,NULL,'Buenos Aires'),(6740,NULL,NULL,'Buenos Aires'),(6743,NULL,NULL,'Buenos Aires'),(6746,NULL,NULL,'Buenos Aires'),(6748,NULL,NULL,'Buenos Aires'),(7000,NULL,NULL,'Buenos Aires'),(7001,NULL,NULL,'Buenos Aires'),(7003,NULL,NULL,'Buenos Aires'),(7005,NULL,NULL,'Buenos Aires'),(7007,NULL,NULL,'Buenos Aires'),(7009,NULL,NULL,'Buenos Aires'),(7011,NULL,NULL,'Buenos Aires'),(7013,NULL,NULL,'Buenos Aires'),(7020,NULL,NULL,'Buenos Aires'),(7021,NULL,NULL,'Buenos Aires'),(7100,NULL,NULL,'Buenos Aires'),(7101,NULL,NULL,'Buenos Aires'),(7103,NULL,NULL,'Buenos Aires'),(7105,NULL,NULL,'Buenos Aires'),(7106,NULL,NULL,'Buenos Aires'),(7107,NULL,NULL,'Buenos Aires'),(7108,NULL,NULL,'Buenos Aires'),(7109,NULL,NULL,'Buenos Aires'),(7111,NULL,NULL,'Buenos Aires'),(7112,NULL,NULL,'Buenos Aires'),(7113,NULL,NULL,'Buenos Aires'),(7114,NULL,NULL,'Buenos Aires'),(7116,NULL,NULL,'Buenos Aires'),(7118,NULL,NULL,'Buenos Aires'),(7119,NULL,NULL,'Buenos Aires'),(7130,NULL,NULL,'Buenos Aires'),(7135,NULL,NULL,'Buenos Aires'),(7136,NULL,NULL,'Buenos Aires'),(7150,NULL,NULL,'Buenos Aires'),(7151,NULL,NULL,'Buenos Aires'),(7153,NULL,NULL,'Buenos Aires'),(7160,NULL,NULL,'Buenos Aires'),(7161,NULL,NULL,'Buenos Aires'),(7163,NULL,NULL,'Buenos Aires'),(7165,NULL,NULL,'Buenos Aires'),(7167,NULL,NULL,'Buenos Aires'),(7169,NULL,NULL,'Buenos Aires'),(7172,NULL,NULL,'Buenos Aires'),(7174,NULL,NULL,'Buenos Aires'),(7200,NULL,NULL,'Buenos Aires'),(7201,NULL,NULL,'Buenos Aires'),(7203,NULL,NULL,'Buenos Aires'),(7205,NULL,NULL,'Buenos Aires'),(7207,NULL,NULL,'Buenos Aires'),(7208,NULL,NULL,'Buenos Aires'),(7212,NULL,NULL,'Buenos Aires'),(7214,NULL,NULL,'Buenos Aires'),(7220,NULL,NULL,'Buenos Aires'),(7221,NULL,NULL,'Buenos Aires'),(7223,NULL,NULL,'Buenos Aires'),(7225,NULL,NULL,'Buenos Aires'),(7226,NULL,NULL,'Buenos Aires'),(7228,NULL,NULL,'Buenos Aires'),(7240,NULL,NULL,'Buenos Aires'),(7241,NULL,NULL,'Buenos Aires'),(7243,NULL,NULL,'Buenos Aires'),(7245,NULL,NULL,'Buenos Aires'),(7247,NULL,NULL,'Buenos Aires'),(7249,NULL,NULL,'Buenos Aires'),(7260,NULL,NULL,'Buenos Aires'),(7261,NULL,NULL,'Buenos Aires'),(7263,NULL,NULL,'Buenos Aires'),(7265,NULL,NULL,'Buenos Aires'),(7267,NULL,NULL,'Buenos Aires'),(7300,NULL,NULL,'Buenos Aires'),(7301,NULL,NULL,'Buenos Aires'),(7303,NULL,NULL,'Buenos Aires'),(7305,NULL,NULL,'Buenos Aires'),(7307,NULL,NULL,'Buenos Aires'),(7311,NULL,NULL,'Buenos Aires'),(7313,NULL,NULL,'Buenos Aires'),(7316,NULL,NULL,'Buenos Aires'),(7318,NULL,NULL,'Buenos Aires'),(7400,NULL,NULL,'Buenos Aires'),(7401,NULL,NULL,'Buenos Aires'),(7403,NULL,NULL,'Buenos Aires'),(7404,NULL,NULL,'Buenos Aires'),(7406,NULL,NULL,'Buenos Aires'),(7407,NULL,NULL,'Buenos Aires'),(7408,NULL,NULL,'Buenos Aires'),(7412,NULL,NULL,'Buenos Aires'),(7414,NULL,NULL,'Buenos Aires'),(7500,NULL,NULL,'Buenos Aires'),(7501,NULL,NULL,'Buenos Aires'),(7503,NULL,NULL,'Buenos Aires'),(7505,NULL,NULL,'Buenos Aires'),(7507,NULL,NULL,'Buenos Aires'),(7509,NULL,NULL,'Buenos Aires'),(7511,NULL,NULL,'Buenos Aires'),(7513,NULL,NULL,'Buenos Aires'),(7515,NULL,NULL,'Buenos Aires'),(7517,NULL,NULL,'Buenos Aires'),(7519,NULL,NULL,'Buenos Aires'),(7521,NULL,NULL,'Buenos Aires'),(7530,NULL,NULL,'Buenos Aires'),(7531,NULL,NULL,'Buenos Aires'),(7533,NULL,NULL,'Buenos Aires'),(7535,NULL,NULL,'Buenos Aires'),(7536,NULL,NULL,'Buenos Aires'),(7540,NULL,NULL,'Buenos Aires'),(7541,NULL,NULL,'Buenos Aires'),(7543,NULL,NULL,'Buenos Aires'),(7545,NULL,NULL,'Buenos Aires'),(7547,NULL,NULL,'Buenos Aires'),(7548,NULL,NULL,'Buenos Aires'),(7600,NULL,NULL,'Buenos Aires'),(7601,NULL,NULL,'Buenos Aires'),(7603,NULL,NULL,'Buenos Aires'),(7605,NULL,NULL,'Buenos Aires'),(7607,NULL,NULL,'Buenos Aires'),(7609,NULL,NULL,'Buenos Aires'),(7612,NULL,NULL,'Buenos Aires'),(7613,NULL,NULL,'Buenos Aires'),(7620,NULL,NULL,'Buenos Aires'),(7621,NULL,NULL,'Buenos Aires'),(7623,NULL,NULL,'Buenos Aires'),(7630,NULL,NULL,'Buenos Aires'),(7631,NULL,NULL,'Buenos Aires'),(7633,NULL,NULL,'Buenos Aires'),(7635,NULL,NULL,'Buenos Aires'),(7637,NULL,NULL,'Buenos Aires'),(7639,NULL,NULL,'Buenos Aires'),(7641,NULL,NULL,'Buenos Aires'),(8000,NULL,NULL,'Buenos Aires'),(8101,NULL,NULL,'Buenos Aires'),(8103,NULL,NULL,'Buenos Aires'),(8105,NULL,NULL,'Buenos Aires'),(8107,NULL,NULL,'Buenos Aires'),(8109,NULL,NULL,'Buenos Aires'),(8111,NULL,NULL,'Buenos Aires'),(8113,NULL,NULL,'Buenos Aires'),(8115,NULL,NULL,'Buenos Aires'),(8117,NULL,NULL,'Buenos Aires'),(8118,NULL,NULL,'Buenos Aires'),(8122,NULL,NULL,'Buenos Aires'),(8124,NULL,NULL,'Buenos Aires'),(8126,NULL,NULL,'Buenos Aires'),(8127,NULL,NULL,'Buenos Aires'),(8129,NULL,NULL,'Buenos Aires'),(8132,NULL,NULL,'Buenos Aires'),(8134,NULL,NULL,'Buenos Aires'),(8136,NULL,NULL,'Buenos Aires'),(8138,NULL,NULL,'La Pampa'),(8142,NULL,NULL,'Buenos Aires'),(8144,NULL,NULL,'Buenos Aires'),(8146,NULL,NULL,'Buenos Aires'),(8148,NULL,NULL,'Buenos Aires'),(8150,NULL,NULL,'Buenos Aires'),(8151,NULL,NULL,'Buenos Aires'),(8153,NULL,NULL,'Buenos Aires'),(8154,NULL,NULL,'Buenos Aires'),(8156,NULL,NULL,'Buenos Aires'),(8158,NULL,NULL,'Buenos Aires'),(8160,NULL,NULL,'Buenos Aires'),(8162,NULL,NULL,'Buenos Aires'),(8164,NULL,NULL,'Buenos Aires'),(8166,NULL,NULL,'Buenos Aires'),(8168,NULL,NULL,'Buenos Aires'),(8170,NULL,NULL,'Buenos Aires'),(8171,NULL,NULL,'Buenos Aires'),(8172,NULL,NULL,'Buenos Aires'),(8174,NULL,NULL,'Buenos Aires'),(8175,NULL,NULL,'Buenos Aires'),(8180,NULL,NULL,'Buenos Aires'),(8181,NULL,NULL,'Buenos Aires'),(8183,NULL,NULL,'Buenos Aires'),(8185,NULL,NULL,'Buenos Aires'),(8187,NULL,NULL,'Buenos Aires'),(8200,NULL,NULL,'La Pampa'),(8201,NULL,NULL,'La Pampa'),(8203,NULL,NULL,'La Pampa'),(8204,NULL,NULL,'La Pampa'),(8206,NULL,NULL,'La Pampa'),(8208,NULL,NULL,'La Pampa'),(8212,NULL,NULL,'La Pampa'),(8214,NULL,NULL,'La Pampa'),(8300,NULL,NULL,'Neuquén'),(8301,NULL,NULL,'Neuquén'),(8303,NULL,NULL,'Río Negro'),(8305,NULL,NULL,'Neuquén'),(8307,NULL,NULL,'La Pampa'),(8309,NULL,NULL,'Neuquén'),(8311,NULL,NULL,'Neuquén'),(8313,NULL,NULL,'Neuquén'),(8315,NULL,NULL,'Neuquén'),(8316,NULL,NULL,'Neuquén'),(8318,NULL,NULL,'Neuquén'),(8319,NULL,NULL,'Neuquén'),(8322,NULL,NULL,'Neuquén'),(8324,NULL,NULL,'Río Negro'),(8326,NULL,NULL,'Río Negro'),(8328,NULL,NULL,'Río Negro'),(8332,NULL,NULL,'Río Negro'),(8333,NULL,NULL,'Río Negro'),(8334,NULL,NULL,'Río Negro'),(8336,NULL,NULL,'La Pampa'),(8340,NULL,NULL,'Neuquén'),(8341,NULL,NULL,'Neuquén'),(8345,NULL,NULL,'Neuquén'),(8347,NULL,NULL,'Neuquén'),(8349,NULL,NULL,'Neuquén'),(8351,NULL,NULL,'Neuquén'),(8353,NULL,NULL,'Neuquén'),(8360,NULL,NULL,'Río Negro'),(8361,NULL,NULL,'Río Negro'),(8363,NULL,NULL,'Río Negro'),(8364,NULL,NULL,'Río Negro'),(8366,NULL,NULL,'Río Negro'),(8370,NULL,NULL,'Neuquén'),(8371,NULL,NULL,'Neuquén'),(8373,NULL,NULL,'Neuquén'),(8375,NULL,NULL,'Neuquén'),(8400,NULL,NULL,'Neuquén'),(8401,NULL,NULL,'Neuquén'),(8403,NULL,NULL,'Neuquén'),(8407,NULL,NULL,'Neuquén'),(8409,NULL,NULL,'Río Negro'),(8411,NULL,NULL,'Río Negro'),(8412,NULL,NULL,'Río Negro'),(8415,NULL,NULL,'Chubut'),(8416,NULL,NULL,'Río Negro'),(8417,NULL,NULL,'Río Negro'),(8418,NULL,NULL,'Río Negro'),(8422,NULL,NULL,'Río Negro'),(8424,NULL,NULL,'Río Negro'),(8430,NULL,NULL,'Chubut'),(8431,NULL,NULL,'Chubut'),(8500,NULL,NULL,'Río Negro'),(8501,NULL,NULL,'Río Negro'),(8503,NULL,NULL,'Río Negro'),(8504,NULL,NULL,'Buenos Aires'),(8505,NULL,NULL,'Río Negro'),(8506,NULL,NULL,'Buenos Aires'),(8508,NULL,NULL,'Buenos Aires'),(8512,NULL,NULL,'Buenos Aires'),(8514,NULL,NULL,'Río Negro'),(8520,NULL,NULL,'Río Negro'),(8521,NULL,NULL,'Río Negro'),(8532,NULL,NULL,'Chubut'),(8534,NULL,NULL,'Río Negro'),(8536,NULL,NULL,'Río Negro'),(9000,NULL,NULL,'Chubut'),(9001,NULL,NULL,'Chubut'),(9003,NULL,NULL,'Chubut'),(9005,NULL,NULL,'Chubut'),(9007,NULL,NULL,'Chubut'),(9009,NULL,NULL,'Chubut'),(9011,NULL,NULL,'Santa Cruz'),(9013,NULL,NULL,'Chubut'),(9015,NULL,NULL,'Santa Cruz'),(9017,NULL,NULL,'Santa Cruz'),(9019,NULL,NULL,'Santa Cruz'),(9020,NULL,NULL,'Chubut'),(9021,NULL,NULL,'Chubut'),(9023,NULL,NULL,'Chubut'),(9030,NULL,NULL,'Chubut'),(9031,NULL,NULL,'Chubut'),(9033,NULL,NULL,'Chubut'),(9035,NULL,NULL,'Chubut'),(9037,NULL,NULL,'Chubut'),(9039,NULL,NULL,'Chubut'),(9040,NULL,NULL,'Santa Cruz'),(9041,NULL,NULL,'Santa Cruz'),(9050,NULL,NULL,'Santa Cruz'),(9051,NULL,NULL,'Santa Cruz'),(9053,NULL,NULL,'Santa Cruz'),(9100,NULL,NULL,'Chubut'),(9101,NULL,NULL,'Chubut'),(9103,NULL,NULL,'Chubut'),(9105,NULL,NULL,'Chubut'),(9107,NULL,NULL,'Chubut'),(9111,NULL,NULL,'Chubut'),(9120,NULL,NULL,'Chubut'),(9121,NULL,NULL,'Chubut'),(9200,NULL,NULL,'Chubut'),(9201,NULL,NULL,'Chubut'),(9203,NULL,NULL,'Chubut'),(9207,NULL,NULL,'Chubut'),(9210,NULL,NULL,'Chubut'),(9211,NULL,NULL,'Chubut'),(9213,NULL,NULL,'Chubut'),(9217,NULL,NULL,'Chubut'),(9220,NULL,NULL,'Chubut'),(9221,NULL,NULL,'Chubut'),(9223,NULL,NULL,'Chubut'),(9225,NULL,NULL,'Chubut'),(9227,NULL,NULL,'Chubut'),(9300,NULL,NULL,'Santa Cruz'),(9301,NULL,NULL,'Santa Cruz'),(9303,NULL,NULL,'Santa Cruz'),(9310,NULL,NULL,'Santa Cruz'),(9311,NULL,NULL,'Santa Cruz'),(9313,NULL,NULL,'Santa Cruz'),(9315,NULL,NULL,'Santa Cruz'),(9400,NULL,NULL,'Santa Cruz'),(9401,NULL,NULL,'Santa Cruz'),(9405,NULL,NULL,'Santa Cruz'),(9407,NULL,NULL,'Santa Cruz'),(9408,NULL,NULL,'Santa Cruz'),(9409,NULL,NULL,'Tierra del Fuego'),(9410,NULL,NULL,'Tierra del Fuego'),(9411,NULL,NULL,'Tierra del Fuego'),(9412,NULL,NULL,'Tierra del Fuego'),(9420,NULL,NULL,'Tierra del Fuego');
+/*!40000 ALTER TABLE `lugar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pago`
+--
+
+DROP TABLE IF EXISTS `pago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pago` (
+  `IDPAGO` int(11) NOT NULL AUTO_INCREMENT,
+  `IDCLIENTE` int(11) DEFAULT NULL,
+  `MONTOPAGO` float DEFAULT NULL,
+  `FECHAPAGO` date DEFAULT NULL,
+  `TIPOPAGO` int(11) DEFAULT NULL,
+  `FECHABAJA` date DEFAULT NULL,
+  PRIMARY KEY (`IDPAGO`),
+  UNIQUE KEY `PAGO_PK` (`IDPAGO`),
+  KEY `RELATION_656_FK` (`IDCLIENTE`),
+  CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`IDCLIENTE`) REFERENCES `cliente` (`IDCLIENTE`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pago`
+--
+
+LOCK TABLES `pago` WRITE;
+/*!40000 ALTER TABLE `pago` DISABLE KEYS */;
+INSERT INTO `pago` VALUES (1,1,6.1,'2013-04-05',1,NULL),(2,1,2.15,'2013-06-09',2,NULL),(3,1,17,'2014-05-10',1,NULL),(4,1,10.15,'2014-04-10',1,NULL),(5,7,10.5,'2014-01-15',1,NULL),(6,7,30.3,'2014-02-20',1,NULL),(7,7,12.2,'2014-03-21',1,NULL),(8,1,22.15,'2014-07-25',1,NULL),(9,1,6.29,'2014-07-25',1,NULL),(10,8,22.38,'2014-07-25',1,NULL),(11,14,11.19,'2014-07-25',1,NULL),(12,14,22.38,'2014-07-25',1,NULL),(13,14,6.29,'2014-07-25',1,NULL),(14,14,10,'2014-07-25',1,NULL),(15,14,66.18,'2014-07-25',1,NULL),(16,4,12.55,'2014-07-25',1,NULL),(17,11,84.94,'2014-07-25',1,NULL),(18,10,16.16,'2014-07-25',1,NULL),(19,14,10,'2014-07-25',1,NULL),(20,14,19,'2014-07-25',1,NULL),(21,9,0.61,'2014-07-25',1,NULL),(22,6,0.33,'2014-07-25',1,NULL),(23,7,28.51,'2014-07-25',1,NULL),(24,7,13.1,'2014-07-25',1,NULL),(25,7,7.73,'2014-07-25',1,NULL),(26,7,15.2,'2014-07-25',1,NULL),(27,7,0.79,'2014-07-25',1,NULL),(28,1,0.35,'2014-07-25',1,NULL),(29,7,5,'2014-07-25',1,NULL),(30,5,12,'2014-07-25',1,NULL),(31,5,10,'2014-07-29',1,NULL);
+/*!40000 ALTER TABLE `pago` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `presupuesto`
+--
+
+DROP TABLE IF EXISTS `presupuesto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `presupuesto` (
+  `IDPRESUPUESTO` int(11) NOT NULL AUTO_INCREMENT,
+  `IDCLIENTE` int(11) DEFAULT NULL,
+  `IDUSU` int(11) DEFAULT NULL,
+  `IDVENTA` int(11) DEFAULT NULL,
+  `FECHADESDE` date DEFAULT NULL,
+  `FECHAHASTA` date DEFAULT NULL,
+  PRIMARY KEY (`IDPRESUPUESTO`),
+  UNIQUE KEY `PRESUPUESTO_PK` (`IDPRESUPUESTO`),
+  KEY `RELATION_478_FK` (`IDCLIENTE`),
+  KEY `RELATION_480_FK` (`IDUSU`),
+  KEY `RELATION_482_FK` (`IDVENTA`),
+  CONSTRAINT `presupuesto_ibfk_1` FOREIGN KEY (`IDCLIENTE`) REFERENCES `cliente` (`IDCLIENTE`),
+  CONSTRAINT `presupuesto_ibfk_2` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`),
+  CONSTRAINT `presupuesto_ibfk_3` FOREIGN KEY (`IDVENTA`) REFERENCES `venta` (`IDVENTA`),
+  CONSTRAINT `presupuesto_ibfk_4` FOREIGN KEY (`IDVENTA`) REFERENCES `venta` (`IDVENTA`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `presupuesto`
+--
+
+LOCK TABLES `presupuesto` WRITE;
+/*!40000 ALTER TABLE `presupuesto` DISABLE KEYS */;
+INSERT INTO `presupuesto` VALUES (1,1,1,1,'2014-03-14',NULL),(2,2,1,3,'2013-02-16',NULL),(3,1,1,2,'2014-01-01',NULL),(4,7,1,4,'2014-02-15',NULL),(5,5,1,5,'2013-06-12',NULL),(6,6,1,6,'2013-07-27',NULL),(20,NULL,NULL,NULL,'2014-08-22',NULL),(21,6,NULL,NULL,'2014-08-22',NULL),(22,NULL,NULL,NULL,'2014-08-22',NULL),(23,1,NULL,NULL,'2014-08-22',NULL),(24,5,NULL,NULL,'2014-08-22',NULL),(25,13,NULL,NULL,'2014-08-22',NULL),(26,NULL,NULL,NULL,'2014-08-22',NULL),(27,NULL,NULL,NULL,'2014-08-22',NULL),(29,NULL,NULL,NULL,'2014-08-22',NULL),(30,NULL,NULL,NULL,'2014-08-22',NULL),(31,14,NULL,NULL,'2014-08-22',NULL),(32,NULL,NULL,NULL,'2014-08-22',NULL),(33,NULL,NULL,NULL,'2014-08-22',NULL),(34,NULL,NULL,NULL,'2014-08-22',NULL),(35,NULL,NULL,NULL,'2014-08-22',NULL),(36,7,NULL,NULL,'2014-08-23',NULL),(37,NULL,NULL,NULL,'2014-08-23',NULL),(38,NULL,NULL,7,'2014-08-23',NULL),(39,NULL,NULL,8,'2014-08-23',NULL),(40,NULL,NULL,9,'2014-08-23',NULL),(41,NULL,NULL,NULL,'2014-08-23',NULL),(42,1,NULL,NULL,'2014-08-23',NULL),(43,NULL,NULL,10,'2014-08-23',NULL),(44,NULL,NULL,NULL,'2014-08-24',NULL),(45,NULL,NULL,NULL,'2014-08-24',NULL),(46,14,NULL,13,'2014-08-24',NULL),(47,NULL,NULL,14,'2014-08-24',NULL),(48,8,NULL,15,'2014-08-24',NULL),(49,2,NULL,NULL,'2014-08-24',NULL),(50,9,NULL,17,'2014-08-24',NULL),(51,9,NULL,18,'2014-08-24',NULL),(52,9,NULL,19,'2014-08-24',NULL),(53,9,NULL,20,'2014-08-24',NULL),(54,9,NULL,21,'2014-08-24',NULL),(55,4,NULL,22,'2014-08-24',NULL),(56,11,NULL,23,'2014-08-24',NULL),(57,10,NULL,24,'2014-08-24',NULL);
+/*!40000 ALTER TABLE `presupuesto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `privilegio`
+--
+
+DROP TABLE IF EXISTS `privilegio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `privilegio` (
+  `IDPRIVILEGIO` int(11) NOT NULL AUTO_INCREMENT,
+  `DESCPRIVILEGIO` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`IDPRIVILEGIO`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `privilegio`
+--
+
+LOCK TABLES `privilegio` WRITE;
+/*!40000 ALTER TABLE `privilegio` DISABLE KEYS */;
+INSERT INTO `privilegio` VALUES (1,'Gestion Presupuesto'),(2,'Gestion Usuario'),(3,'Operaciones Diarias'),(4,'Gestion Producto'),(5,'BackUp');
+/*!40000 ALTER TABLE `privilegio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `producto`
+--
+
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `producto` (
+  `IDPRODUCTO` int(11) NOT NULL AUTO_INCREMENT,
+  `CODIGO` int(11) NOT NULL,
+  `NOMPRODUCTO` varchar(50) DEFAULT NULL,
+  `STOCK` int(11) DEFAULT NULL,
+  `PRECIOUNITARIO` float DEFAULT NULL,
+  `PRECIOCONTADO` float DEFAULT NULL,
+  `PRECIODEBITO` float DEFAULT NULL,
+  `PRECIOCREDITO` float DEFAULT NULL,
+  `FECHABAJA` date DEFAULT NULL,
+  PRIMARY KEY (`IDPRODUCTO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `producto`
+--
+
+LOCK TABLES `producto` WRITE;
+/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `proveedor`
+--
+
+DROP TABLE IF EXISTS `proveedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `proveedor` (
+  `IDPROVEEDOR` int(11) NOT NULL AUTO_INCREMENT,
+  `CUIT` int(11) DEFAULT NULL,
+  `RAZONSOCIAL` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`IDPROVEEDOR`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `proveedor`
+--
+
+LOCK TABLES `proveedor` WRITE;
+/*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `relation_168`
+--
+
+DROP TABLE IF EXISTS `relation_168`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `relation_168` (
+  `IDPRESUPUESTO` int(11) NOT NULL,
+  `IDPRODUCTO` int(11) NOT NULL,
+  `CANTIDAD` int(11) DEFAULT NULL,
+  `PRECIOVENTA` float DEFAULT NULL,
+  PRIMARY KEY (`IDPRESUPUESTO`,`IDPRODUCTO`),
+  UNIQUE KEY `RELATION_168_PK` (`IDPRESUPUESTO`,`IDPRODUCTO`),
+  KEY `RELATION_1682_FK` (`IDPRESUPUESTO`),
+  KEY `relation_168_ibfk_2_idx` (`IDPRODUCTO`),
+  CONSTRAINT `relation_168_ibfk_1` FOREIGN KEY (`IDPRESUPUESTO`) REFERENCES `presupuesto` (`IDPRESUPUESTO`),
+  CONSTRAINT `relation_168_ibfk_2` FOREIGN KEY (`IDPRODUCTO`) REFERENCES `producto` (`IDPRODUCTO`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `relation_168`
+--
+
+LOCK TABLES `relation_168` WRITE;
+/*!40000 ALTER TABLE `relation_168` DISABLE KEYS */;
+/*!40000 ALTER TABLE `relation_168` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `relation_582`
+--
+
+DROP TABLE IF EXISTS `relation_582`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `relation_582` (
+  `IDUSU` int(11) NOT NULL,
+  `IDPRIVILEGIO` int(11) NOT NULL,
+  PRIMARY KEY (`IDUSU`,`IDPRIVILEGIO`),
+  UNIQUE KEY `RELATION_582_PK` (`IDUSU`,`IDPRIVILEGIO`),
+  KEY `RELATION_5822_FK` (`IDUSU`),
+  KEY `RELATION_582_FK` (`IDPRIVILEGIO`),
+  CONSTRAINT `relation_582_ibfk_1` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`),
+  CONSTRAINT `relation_582_ibfk_2` FOREIGN KEY (`IDPRIVILEGIO`) REFERENCES `privilegio` (`IDPRIVILEGIO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `relation_582`
+--
+
+LOCK TABLES `relation_582` WRITE;
+/*!40000 ALTER TABLE `relation_582` DISABLE KEYS */;
+INSERT INTO `relation_582` VALUES (1,1),(1,4),(1,5),(2,2),(2,4),(3,1),(3,4),(3,5);
+/*!40000 ALTER TABLE `relation_582` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `relation_80`
+--
+
+DROP TABLE IF EXISTS `relation_80`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `relation_80` (
+  `IDCOMPRA` int(11) NOT NULL,
+  `IDPRODUCTO` int(11) NOT NULL,
+  UNIQUE KEY `RELATION_80_PK` (`IDCOMPRA`,`IDPRODUCTO`),
+  KEY `RELATION_802_FK` (`IDCOMPRA`),
+  KEY `relation_80_ibfk_2_idx` (`IDPRODUCTO`),
+  CONSTRAINT `relation_80_ibfk_1` FOREIGN KEY (`IDCOMPRA`) REFERENCES `compra` (`IDCOMPRA`),
+  CONSTRAINT `relation_80_ibfk_2` FOREIGN KEY (`IDPRODUCTO`) REFERENCES `producto` (`IDPRODUCTO`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `relation_80`
+--
+
+LOCK TABLES `relation_80` WRITE;
+/*!40000 ALTER TABLE `relation_80` DISABLE KEYS */;
+/*!40000 ALTER TABLE `relation_80` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reserva`
+--
+
+DROP TABLE IF EXISTS `reserva`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reserva` (
+  `IDRESERVA` int(11) NOT NULL AUTO_INCREMENT,
+  `IDCLIENTE` int(11) DEFAULT NULL,
+  `IDUSU` int(11) DEFAULT NULL,
+  `IDVENTA` int(11) DEFAULT NULL,
+  `FECHAEVENTO` date DEFAULT NULL,
+  PRIMARY KEY (`IDRESERVA`),
+  UNIQUE KEY `RESERVA_PK` (`IDRESERVA`),
+  KEY `RELATION_477_FK` (`IDCLIENTE`),
+  KEY `RELATION_479_FK` (`IDUSU`),
+  KEY `RELATION_481_FK` (`IDVENTA`),
+  CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`IDCLIENTE`) REFERENCES `cliente` (`IDCLIENTE`),
+  CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`IDUSU`) REFERENCES `usuario` (`IDUSU`),
+  CONSTRAINT `reserva_ibfk_3` FOREIGN KEY (`IDVENTA`) REFERENCES `venta` (`IDVENTA`),
+  CONSTRAINT `reserva_ibfk_4` FOREIGN KEY (`IDVENTA`) REFERENCES `venta` (`IDVENTA`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reserva`
+--
+
+LOCK TABLES `reserva` WRITE;
+/*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `IDUSU` int(11) NOT NULL AUTO_INCREMENT,
+  `NOMUSUARIO` char(30) DEFAULT NULL,
+  `PASSUSUARIO` char(8) DEFAULT NULL,
+  `FECHACREACION` date DEFAULT NULL,
+  PRIMARY KEY (`IDUSU`),
+  UNIQUE KEY `USUARIO_PK` (`IDUSU`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Pablo','12345','2014-06-26'),(2,'German','911911','2014-06-26'),(3,'Emanuel','12345','2014-06-26');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `venta`
+--
+
+DROP TABLE IF EXISTS `venta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `venta` (
+  `IDVENTA` int(11) NOT NULL AUTO_INCREMENT,
+  `IDRESERVA` int(11) DEFAULT NULL,
+  `IDPRESUPUESTO` int(11) DEFAULT NULL,
+  `FECHAVENTA` datetime DEFAULT NULL,
+  `MONTOVENTA` float DEFAULT NULL,
+  PRIMARY KEY (`IDVENTA`),
+  UNIQUE KEY `VENTA_PK` (`IDVENTA`),
+  KEY `RELATION_4812_FK` (`IDRESERVA`),
+  KEY `RELATION_4822_FK` (`IDPRESUPUESTO`),
+  CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`IDRESERVA`) REFERENCES `reserva` (`IDRESERVA`),
+  CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`IDRESERVA`) REFERENCES `reserva` (`IDRESERVA`),
+  CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`IDPRESUPUESTO`) REFERENCES `presupuesto` (`IDPRESUPUESTO`),
+  CONSTRAINT `venta_ibfk_4` FOREIGN KEY (`IDPRESUPUESTO`) REFERENCES `presupuesto` (`IDPRESUPUESTO`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `venta`
+--
+
+LOCK TABLES `venta` WRITE;
+/*!40000 ALTER TABLE `venta` DISABLE KEYS */;
+INSERT INTO `venta` VALUES (1,NULL,1,'2014-03-14 00:00:00',14.15),(2,NULL,3,'2014-05-22 00:00:00',28.33),(3,NULL,2,'2014-07-08 00:00:00',33.18),(4,NULL,4,'2013-12-24 00:00:00',602.33),(5,NULL,5,'2014-07-23 00:00:00',90.1),(6,NULL,6,'2014-07-24 08:46:17',108.33),(7,NULL,38,'2014-07-24 10:27:44',9.86),(8,NULL,39,'2014-07-24 10:46:13',10.46),(9,NULL,40,'2014-07-24 11:05:10',34.6),(10,NULL,43,'2014-07-24 14:21:56',35.33),(11,NULL,44,'2014-07-25 08:43:41',72.47),(12,NULL,45,'2014-07-25 08:51:57',12.58),(13,NULL,46,'2014-07-25 08:54:01',6.29),(14,NULL,47,'2014-07-25 08:57:40',6.29),(15,NULL,48,'2014-07-25 09:14:23',22.38),(16,NULL,49,'2014-07-25 09:22:55',33.57),(17,NULL,50,'2014-07-25 09:24:53',11.19),(18,NULL,51,'2014-07-25 09:39:05',22.38),(19,NULL,52,'2014-07-25 09:42:44',6.29),(20,NULL,53,'2014-07-25 09:43:38',33.57),(21,NULL,54,'2014-07-25 09:54:38',66.18),(22,NULL,55,'2014-07-25 09:55:39',70.78),(23,NULL,56,'2014-07-25 10:04:22',84.94),(24,NULL,57,'2014-07-25 10:07:10',75.26);
+/*!40000 ALTER TABLE `venta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Current Database: `osg`
+--
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `osg` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
@@ -29,10 +554,10 @@ DROP TABLE IF EXISTS `caja`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `caja` (
   `IDCAJA` int(11) NOT NULL AUTO_INCREMENT,
-  `IMPORTEARQUEO` float DEFAULT NULL,
+  `IMPORTEARQUEO` float NOT NULL,
   `IMPORTECIERRE` float DEFAULT NULL,
-  `FECHAAPERTURA` date DEFAULT NULL,
-  `FECHACIERRE` date DEFAULT NULL,
+  `FECHAAPERTURA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FECHACIERRE` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
   `usuario_IDUSUARIO` int(11) NOT NULL,
   PRIMARY KEY (`IDCAJA`),
@@ -61,7 +586,7 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `IDCLIENTE` int(11) NOT NULL AUTO_INCREMENT,
   `DNI_CLIENTE` int(11) NOT NULL,
-  `SEXO_CLIENTE` char(2) DEFAULT NULL,
+  `SEXO_CLIENTE` varchar(10) NOT NULL,
   `NOMBRE_CLIENTE` varchar(25) NOT NULL,
   `APELLIDO_CLIENTE` varchar(25) NOT NULL,
   `FECHANACIMIENTO_CLIENTE` date DEFAULT NULL,
@@ -75,7 +600,7 @@ CREATE TABLE `cliente` (
   UNIQUE KEY `CLIENTE_PK` (`IDCLIENTE`),
   KEY `fk_cliente_localidad1_idx` (`localidad_IDLOCALIDAD`),
   CONSTRAINT `fk_cliente_localidad1` FOREIGN KEY (`localidad_IDLOCALIDAD`) REFERENCES `localidad` (`IDLOCALIDAD`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,6 +609,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,36589618,'Masculino','EMauepdopam','onadsoindoansio','2016-12-08','oasndioasiod','onasdonioad',1234567890,'2016-12-18 19:42:23','2016-12-18',16489),(2,36589618,'Masculino','William Emanuel','Seiguer','2016-12-08','calle falsa 123','ema_seiguer@hotmail.com',3437607581,'2016-12-18 19:55:04',NULL,16489);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,13 +803,13 @@ DROP TABLE IF EXISTS `movimiento`;
 CREATE TABLE `movimiento` (
   `IDMOVIMIENTO` int(11) NOT NULL AUTO_INCREMENT,
   `DESCMOVIMIENTO` varchar(45) DEFAULT NULL,
-  `MONTOMOVIMIENTO` float DEFAULT NULL,
+  `MONTOMOVIMIENTO` double DEFAULT NULL,
   `FECHAMOVIMIENTO` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
-  `caja_IDCAJA` int(11) NOT NULL,
-  `venta_IDVENTA` int(11) NOT NULL,
-  `compra_IDCOMPRA` int(11) NOT NULL,
-  `gasto_IDGASTO` int(11) NOT NULL,
+  `caja_IDCAJA` int(11) DEFAULT NULL,
+  `venta_IDVENTA` int(11) DEFAULT NULL,
+  `compra_IDCOMPRA` int(11) DEFAULT NULL,
+  `gasto_IDGASTO` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDMOVIMIENTO`),
   KEY `movimiento_venta_idx` (`venta_IDVENTA`),
   KEY `movimiento_compra_idx` (`compra_IDCOMPRA`),
@@ -351,17 +877,17 @@ DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `IDPRODUCTO` int(11) NOT NULL AUTO_INCREMENT,
   `CODIGOBARRA` bigint(30) DEFAULT NULL,
-  `NOMBREPRODUCTO` varchar(20) DEFAULT NULL,
-  `DESCRIPCIONPRODUCTO` varchar(30) DEFAULT NULL,
+  `NOMBREPRODUCTO` varchar(255) DEFAULT NULL,
+  `DESCRIPCIONPRODUCTO` varchar(255) DEFAULT NULL,
   `FECHAVENCIMIENTO` date DEFAULT NULL,
   `PRECIOUNITARIO` double DEFAULT NULL,
   `ALICUOTA` int(10) DEFAULT NULL,
   `STOCK` int(11) DEFAULT NULL,
-  `FECHALTA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FECHAALTA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
   PRIMARY KEY (`IDPRODUCTO`),
   UNIQUE KEY `PRODUCTO_PK` (`IDPRODUCTO`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +896,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,123781237812783,'Papas Lays','Papas Lays x 80g','2018-12-18',45,10,5,'2016-12-18 03:20:34',NULL),(2,123124124124,'Yerba Mate Playadito','Yerba Mate Playadito x 1kg','2017-12-18',50,10,10,'2016-12-18 03:25:30',NULL);
+INSERT INTO `producto` VALUES (1,123781237812783,'Papas Lays','Papas Lays x 80g','2018-12-18',45,10,5,'2016-12-18 03:20:34',NULL),(2,123124124124,'Yerba Mate Playadito','Yerba Mate Playadito x 1kg','2017-12-18',50,10,10,'2016-12-18 03:25:30',NULL),(3,124124124,'Papel Higenico Higenilo','Papel Higenico Higenilo x4u x30mts','2017-12-09',35,10,4,'2016-12-18 18:45:04',NULL),(4,12312412412,'aguante boca','aguante bocaasdnioaisndoni','2019-12-20',10,5,1,'2016-12-18 18:47:15','2016-12-18');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -425,7 +951,7 @@ CREATE TABLE `proveedor` (
   UNIQUE KEY `PROVEEDOR_PK` (`IDPROVEEDOR`),
   KEY `fk_proveedor_localidad1_idx` (`localidad_IDLOCALIDAD`),
   CONSTRAINT `fk_proveedor_localidad1` FOREIGN KEY (`localidad_IDLOCALIDAD`) REFERENCES `localidad` (`IDLOCALIDAD`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,7 +960,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES (1,20365896187,'Emanuel Seiguer','sanduba','Eva Peron 2700',342155475224,'ema_seiguer@hotmai.com','2016-12-17 20:05:03',NULL,16391),(2,20354667801,'German Araoz','mac donals','aosidnioasndionas',343715607581,'oaisndioasnodinasio@oanidoians.com','2016-12-17 20:10:09','2016-12-17',16391);
+INSERT INTO `proveedor` VALUES (1,20365896187,'aonsdionaosdnioaisd','sanduba','Eva Peron 2700',342155475224,'ema_seiguer@hotmai.com','2016-12-17 20:05:03','2016-12-18',16489),(2,20354667801,'German Araoz','mac donals','aosidnioasndionas',343715607581,'oaisndioasnodinasio@oanidoians.com','2016-12-17 20:10:09','2016-12-17',16391),(3,12345567891,'Perez Perez','sanguchito','oainsdioaniosd',3437607861,'aipnsdionaoidsnid','2016-12-18 20:00:40',NULL,16391),(4,20365896187,'pepito','sanduba','Eva Peron 2700',342155475224,'ema_seiguer@hotmai.com','2016-12-18 20:01:24',NULL,16489);
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -660,4 +1186,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-18  2:02:14
+-- Dump completed on 2016-12-18 19:20:40

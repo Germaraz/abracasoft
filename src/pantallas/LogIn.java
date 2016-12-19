@@ -8,7 +8,9 @@ package pantallas;
 
 import entidades.Privilegio;
 import entidades.Usuario;
+import gestores.Logs;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +22,8 @@ import javax.swing.JOptionPane;
  * @author Ema
  */
 public class LogIn extends javax.swing.JFrame {
+
+    String user;
 
     /**
      * Creates new form LogIn
@@ -225,6 +229,10 @@ public class LogIn extends javax.swing.JFrame {
         }
         return estado;
     }
+    
+    public String usuarioConectado(){
+        return user;
+    }
 
     private void ingresar() {
         Usuario usuario = new Usuario();
@@ -233,6 +241,7 @@ public class LogIn extends javax.swing.JFrame {
         try {
             usuario = new Usuario().login(usuario);
             if (usuario != null) {
+                
                 VentanaPrincipal ventana = new VentanaPrincipal();
                 ArrayList<Privilegio> privilegios = new Privilegio().obtenerPrivilegios(usuario.getRol());
                 if (!privilegios.isEmpty()) {
@@ -267,11 +276,18 @@ public class LogIn extends javax.swing.JFrame {
                                 break;
                         }
                     }
-                }
+                }         
                 ventana.NombreUsuariojLabel.setText(usuario.getNombreUsuario());
                 ventana.UsuarioIDjLabel.setText(Integer.toString(usuario.getIdUsuario()));
+                Logs log = new Logs();
+                log.user = usuario.getNombreUsuario();
                 this.dispose();
                 ventana.setVisible(true);
+                try {
+                    log.crearLog("iniciado sesión");
+                } catch (IOException ex) {
+                    Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario inexistente");
             }
@@ -279,6 +295,9 @@ public class LogIn extends javax.swing.JFrame {
             Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al intentar loguearse: " + ex.getMessage());
         }
+        
     }
+    
+    
 
 }
