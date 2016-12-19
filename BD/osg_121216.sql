@@ -1,8 +1,10 @@
+CREATE DATABASE  IF NOT EXISTS `osg` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `osg`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: osg
 -- ------------------------------------------------------
--- Server version	5.7.13-log
+-- Server version	5.7.17-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,11 +17,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `osg` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `osg`;
-
 --
 -- Table structure for table `caja`
 --
@@ -29,10 +26,10 @@ DROP TABLE IF EXISTS `caja`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `caja` (
   `IDCAJA` int(11) NOT NULL AUTO_INCREMENT,
-  `IMPORTEARQUEO` float DEFAULT NULL,
+  `IMPORTEARQUEO` float NOT NULL,
   `IMPORTECIERRE` float DEFAULT NULL,
-  `FECHAAPERTURA` date DEFAULT NULL,
-  `FECHACIERRE` date DEFAULT NULL,
+  `FECHAAPERTURA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FECHACIERRE` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
   `usuario_IDUSUARIO` int(11) NOT NULL,
   PRIMARY KEY (`IDCAJA`),
@@ -61,7 +58,7 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `IDCLIENTE` int(11) NOT NULL AUTO_INCREMENT,
   `DNI_CLIENTE` int(11) NOT NULL,
-  `SEXO_CLIENTE` char(2) DEFAULT NULL,
+  `SEXO_CLIENTE` varchar(10) NOT NULL,
   `NOMBRE_CLIENTE` varchar(25) NOT NULL,
   `APELLIDO_CLIENTE` varchar(25) NOT NULL,
   `FECHANACIMIENTO_CLIENTE` date DEFAULT NULL,
@@ -75,7 +72,7 @@ CREATE TABLE `cliente` (
   UNIQUE KEY `CLIENTE_PK` (`IDCLIENTE`),
   KEY `fk_cliente_localidad1_idx` (`localidad_IDLOCALIDAD`),
   CONSTRAINT `fk_cliente_localidad1` FOREIGN KEY (`localidad_IDLOCALIDAD`) REFERENCES `localidad` (`IDLOCALIDAD`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,6 +81,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,36589618,'Masculino','EMauepdopam','onadsoindoansio','2016-12-08','oasndioasiod','onasdonioad',1234567890,'2016-12-18 19:42:23','2016-12-18',16489),(2,36589618,'Masculino','William Emanuel','Seiguer','2016-12-08','calle falsa 123','ema_seiguer@hotmail.com',3437607581,'2016-12-18 19:55:04',NULL,16489);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,13 +275,13 @@ DROP TABLE IF EXISTS `movimiento`;
 CREATE TABLE `movimiento` (
   `IDMOVIMIENTO` int(11) NOT NULL AUTO_INCREMENT,
   `DESCMOVIMIENTO` varchar(45) DEFAULT NULL,
-  `MONTOMOVIMIENTO` float DEFAULT NULL,
+  `MONTOMOVIMIENTO` double DEFAULT NULL,
   `FECHAMOVIMIENTO` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
-  `caja_IDCAJA` int(11) NOT NULL,
-  `venta_IDVENTA` int(11) NOT NULL,
-  `compra_IDCOMPRA` int(11) NOT NULL,
-  `gasto_IDGASTO` int(11) NOT NULL,
+  `caja_IDCAJA` int(11) DEFAULT NULL,
+  `venta_IDVENTA` int(11) DEFAULT NULL,
+  `compra_IDCOMPRA` int(11) DEFAULT NULL,
+  `gasto_IDGASTO` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDMOVIMIENTO`),
   KEY `movimiento_venta_idx` (`venta_IDVENTA`),
   KEY `movimiento_compra_idx` (`compra_IDCOMPRA`),
@@ -351,17 +349,17 @@ DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `IDPRODUCTO` int(11) NOT NULL AUTO_INCREMENT,
   `CODIGOBARRA` bigint(30) DEFAULT NULL,
-  `NOMBREPRODUCTO` varchar(20) DEFAULT NULL,
-  `DESCRIPCIONPRODUCTO` varchar(30) DEFAULT NULL,
+  `NOMBREPRODUCTO` varchar(255) DEFAULT NULL,
+  `DESCRIPCIONPRODUCTO` varchar(255) DEFAULT NULL,
   `FECHAVENCIMIENTO` date DEFAULT NULL,
   `PRECIOUNITARIO` double DEFAULT NULL,
   `ALICUOTA` int(10) DEFAULT NULL,
   `STOCK` int(11) DEFAULT NULL,
-  `FECHALTA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `FECHAALTA` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `FECHABAJA` date DEFAULT NULL,
   PRIMARY KEY (`IDPRODUCTO`),
   UNIQUE KEY `PRODUCTO_PK` (`IDPRODUCTO`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +368,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,123781237812783,'Papas Lays','Papas Lays x 80g','2018-12-18',45,10,5,'2016-12-18 03:20:34',NULL),(2,123124124124,'Yerba Mate Playadito','Yerba Mate Playadito x 1kg','2017-12-18',50,10,10,'2016-12-18 03:25:30',NULL);
+INSERT INTO `producto` VALUES (1,123781237812783,'Papas Lays','Papas Lays x 80g','2018-12-18',45,10,5,'2016-12-18 03:20:34',NULL),(2,123124124124,'Yerba Mate Playadito','Yerba Mate Playadito x 1kg','2017-12-18',50,10,10,'2016-12-18 03:25:30',NULL),(3,124124124,'Papel Higenico Higenilo','Papel Higenico Higenilo x4u x30mts','2017-12-09',35,10,4,'2016-12-18 18:45:04',NULL),(4,12312412412,'aguante boca','aguante bocaasdnioaisndoni','2019-12-20',10,5,1,'2016-12-18 18:47:15','2016-12-18');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -425,7 +423,7 @@ CREATE TABLE `proveedor` (
   UNIQUE KEY `PROVEEDOR_PK` (`IDPROVEEDOR`),
   KEY `fk_proveedor_localidad1_idx` (`localidad_IDLOCALIDAD`),
   CONSTRAINT `fk_proveedor_localidad1` FOREIGN KEY (`localidad_IDLOCALIDAD`) REFERENCES `localidad` (`IDLOCALIDAD`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,7 +432,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES (1,20365896187,'Emanuel Seiguer','sanduba','Eva Peron 2700',342155475224,'ema_seiguer@hotmai.com','2016-12-17 20:05:03',NULL,16391),(2,20354667801,'German Araoz','mac donals','aosidnioasndionas',343715607581,'oaisndioasnodinasio@oanidoians.com','2016-12-17 20:10:09','2016-12-17',16391);
+INSERT INTO `proveedor` VALUES (1,20365896187,'aonsdionaosdnioaisd','sanduba','Eva Peron 2700',342155475224,'ema_seiguer@hotmai.com','2016-12-17 20:05:03','2016-12-18',16489),(2,20354667801,'German Araoz','mac donals','aosidnioasndionas',343715607581,'oaisndioasnodinasio@oanidoians.com','2016-12-17 20:10:09','2016-12-17',16391),(3,12345567891,'Perez Perez','sanguchito','oainsdioaniosd',3437607861,'aipnsdionaoidsnid','2016-12-18 20:00:40',NULL,16391),(4,20365896187,'pepito','sanduba','Eva Peron 2700',342155475224,'ema_seiguer@hotmai.com','2016-12-18 20:01:24',NULL,16489);
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -660,4 +658,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-18  2:02:14
+-- Dump completed on 2016-12-18 21:21:41
