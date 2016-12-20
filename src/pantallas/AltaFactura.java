@@ -6,6 +6,8 @@
 package pantallas;
 
 import entidades.Factura;
+import gestores.Logs;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -364,6 +366,13 @@ public class AltaFactura extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        try {
+            Logs log = new Logs();
+            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
+            log.crearLog("ha creado/actualizado un tipo de factura");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
     private void darDeBajaTipoDeFactura() {

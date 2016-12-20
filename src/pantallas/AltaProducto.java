@@ -26,7 +26,7 @@ import java.util.Calendar;
 public class AltaProducto extends javax.swing.JFrame {
     
     private int bandera = 0;
-
+    String nombreUsuario;
     /**
      * Creates new form AltaProducto
      */
@@ -467,6 +467,7 @@ public class AltaProducto extends javax.swing.JFrame {
     private void guardarOActualizarProducto() {
         try {
             Logs log = new Logs();
+            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
             log.crearLog("ha creado/actualizado un producto");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);

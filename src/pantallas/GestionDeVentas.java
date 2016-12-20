@@ -32,6 +32,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
 
     private ArrayList<ArrayList<Producto>> productos = new ArrayList<>();
     int idUsuario;
+    String nombreUsuario;
 
     /**
      * Creates new form GestionPresupuesto
@@ -125,14 +126,18 @@ public class GestionDeVentas extends javax.swing.JFrame {
             }
         });
 
+        HastajCalendar.setDateFormatString("dd-MM-yyyy");
         HastajCalendar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         HastajCalendar.setMinimumSize(new java.awt.Dimension(27, 25));
         HastajCalendar.setName("HastajCalendar"); // NOI18N
+        HastajCalendar.setDate(new Date());
         HastajCalendar.setPreferredSize(new java.awt.Dimension(87, 18));
 
+        DesdejCalendar.setDateFormatString("dd-MM-yyyy");
         DesdejCalendar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DesdejCalendar.setMinimumSize(new java.awt.Dimension(27, 25));
         DesdejCalendar.setName("DesdejCalendar"); // NOI18N
+        DesdejCalendar.setDate(new Date());
 
         VentasjTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         VentasjTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -263,8 +268,8 @@ public class GestionDeVentas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        HastajCalendar.getAccessibleContext().setAccessibleName("CSpresupuestoRangoHasta");
-        DesdejCalendar.getAccessibleContext().setAccessibleName("CSpresupuestoRangoDesde");
+        HastajCalendar.getAccessibleContext().setAccessibleName("");
+        DesdejCalendar.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,6 +309,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
         // TODO add your handling code here:
         AltaVenta nuevaVenta = new AltaVenta();
         nuevaVenta.idUsuario = this.idUsuario;
+        nuevaVenta.nombreUsuario = nombreUsuario;
         nuevaVenta.validarCajaAbierta();
         nuevaVenta.cargarTiposPagos();
         nuevaVenta.cargarTipoFactura();
@@ -504,6 +510,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
         }
         try {
             Logs log = new Logs();
+            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
             log.crearLog("ha dado de baja una venta realizada a un cliente");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);

@@ -28,6 +28,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Ema
  */
 public class AltaDeUsuario extends javax.swing.JFrame {
+    
+    String nombreUsuario;
 
     /**
      * Creates new form AltaDeUsuario
@@ -510,6 +512,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
         }
         try {
             Logs log = new Logs();
+            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
             log.crearLog("ha creado/actualizado un usuario");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);

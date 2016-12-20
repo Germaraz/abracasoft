@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
  * @author German
  */
 public class AltaProveedor extends javax.swing.JFrame {
+    
+    String nombreUsuario;
 
     /**
      * Creates new form AltaCliente
@@ -449,6 +451,7 @@ public class AltaProveedor extends javax.swing.JFrame {
         }
         try {
             Logs log = new Logs();
+            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
             log.crearLog("ha creado/actualizado un proveedor");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);

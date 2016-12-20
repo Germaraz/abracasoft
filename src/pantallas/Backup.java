@@ -13,11 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -28,7 +24,8 @@ import javax.swing.JOptionPane;
  * @author German
  */
 public class Backup extends javax.swing.JFrame {
-
+    
+    String nombreUsuario;
     /**
      * Creates new form Backup
      */
@@ -121,6 +118,7 @@ public class Backup extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(null, "Backup creado correctamente en 'C:\\OSG\\backup\\'");
     try {
             Logs log = new Logs();
+            log.user = nombreUsuario;
             log.crearLog("ha creador un backup");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);

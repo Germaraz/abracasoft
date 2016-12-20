@@ -8,10 +8,11 @@ package pantallas;
 import entidades.Compra;
 import entidades.Pago;
 import entidades.Proveedor;
-import java.awt.Component;
+import gestores.Logs;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,11 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -35,6 +32,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
 
     private ArrayList<ArrayList<Compra>> compras = new ArrayList<>();
     private TableRowSorter trsFiltro;
+    String nombreUsuario;
 
     /**
      * Creates new form GestinonCliente
@@ -64,10 +62,11 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         PagoComprajButton = new javax.swing.JButton();
         NuevoProveedorjButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        FiltrojComboBox = new javax.swing.JComboBox<String>();
+        FiltrojComboBox = new javax.swing.JComboBox<>();
         FiltrojTextField = new javax.swing.JTextField();
         EditarProveedorjButton = new javax.swing.JButton();
         imprimirjButton = new javax.swing.JButton();
+        BuscarjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de clientes");
@@ -152,10 +151,13 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Buscar por:");
 
-        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre de fantasia", "Razon social" }));
+        FiltrojComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre de fantasia", "Razon social" }));
 
+        FiltrojTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         FiltrojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 FiltrojTextFieldKeyTyped(evt);
@@ -169,6 +171,13 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         imprimirjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imprimirjButtonActionPerformed(evt);
+            }
+        });
+
+        BuscarjButton.setText("Buscar");
+        BuscarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarjButtonActionPerformed(evt);
             }
         });
 
@@ -195,7 +204,9 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                         .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 574, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BuscarjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 503, Short.MAX_VALUE)
                         .addComponent(PagoComprajButton)))
                 .addContainerGap())
         );
@@ -207,11 +218,12 @@ public class GestionDeProveedores extends javax.swing.JFrame {
                     .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(PagoComprajButton))
+                    .addComponent(PagoComprajButton)
+                    .addComponent(BuscarjButton))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -241,6 +253,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         AltaProveedor nuProveVent = new AltaProveedor();
+        nuProveVent.nombreUsuario = nombreUsuario;
         nuProveVent.setTitle("Nuevo Proveedor");
         nuProveVent.setVisible(true);
     }//GEN-LAST:event_NuevoProveedorjButtonActionPerformed
@@ -268,6 +281,11 @@ public class GestionDeProveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
         imprimir();
     }//GEN-LAST:event_imprimirjButtonActionPerformed
+
+    private void BuscarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarjButtonActionPerformed
+        // TODO add your handling code here:
+        agregarProveedoresATabla();
+    }//GEN-LAST:event_BuscarjButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,6 +326,7 @@ public class GestionDeProveedores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuscarjButton;
     private javax.swing.JTable ComprasjTable;
     private javax.swing.JButton DarBajajButton;
     private javax.swing.JButton EditarProveedorjButton;
@@ -448,6 +467,13 @@ public class GestionDeProveedores extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
+        }
+        try {
+            Logs log = new Logs();
+            log.user = nombreUsuario;
+            log.crearLog("dado de baja" + resultados + " proveedor/es");
+        } catch (IOException ex) {
+            Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

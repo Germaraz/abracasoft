@@ -6,9 +6,6 @@
 package pantallas;
 
 import gestores.Logs;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,8 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
-
-;
 
 /**
  *
@@ -37,6 +32,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         JBNNuevaVenta.setMnemonic(KeyEvent.VK_V);
         BackupjButton.setMnemonic(KeyEvent.VK_F10);
         setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
@@ -46,7 +42,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             Logs log = new Logs();
             log.user = NombreUsuariojLabel.getText();
-            log.crearLog("ha cerrado sesión");
+            log.crearLog("ha cerrado sesion");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,7 +103,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OSG - Otro Sistema de Gestión");
         setAutoRequestFocus(false);
-        setExtendedState(6);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -356,6 +352,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void JBProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProductosActionPerformed
         GestionDeProductos gestionproducto = new GestionDeProductos();
         if (señalProd == 0) {
+            gestionproducto.nombreUsuario = NombreUsuariojLabel.getText();
             jTabbedPane1.addTab("Gestión de productos", gestionproducto.getContentPane());
             señalProd = 1;
         }
@@ -364,6 +361,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void JBClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBClientesActionPerformed
         GestionDeCliente gestioncliente = new GestionDeCliente();
         if (señalClie == 0) {
+            gestioncliente.nombreUsuario = NombreUsuariojLabel.getText();
             jTabbedPane1.addTab("Gestión de clientes", gestioncliente.getContentPane());
             señalClie = 1;
         }
@@ -414,6 +412,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GestionDeCaja gesCaja = new GestionDeCaja();
         if (!UsuarioIDjLabel.getText().isEmpty()) {
             gesCaja.idusuario = Integer.parseInt(UsuarioIDjLabel.getText());
+            gesCaja.nombreUsuario = NombreUsuariojLabel.getText();
             if (señalOpDia == 0) {
                 gesCaja.validarCajaAbierta();
                 gesCaja.importeDeCajaEnVivo();
@@ -424,11 +423,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JBCajasActionPerformed
 
     private void JBNNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNNuevaVentaActionPerformed
-        AltaVenta nuevaventa = new AltaVenta();
+        AltaVenta nuevaVenta = new AltaVenta();
         if (señalVenta == 0) {
-            jTabbedPane1.addTab("Nueva venta", nuevaventa.getContentPane());
+            nuevaVenta.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+            nuevaVenta.nombreUsuario = NombreUsuariojLabel.getText();
+            nuevaVenta.validarCajaAbierta();
+            nuevaVenta.cargarTiposPagos();
+            nuevaVenta.cargarTipoFactura();
+            nuevaVenta.cargarTablaClientes();
+            jTabbedPane1.addTab("Nueva venta", nuevaVenta.getContentPane());
             señalVenta = 1;
         }
+
     }//GEN-LAST:event_JBNNuevaVentaActionPerformed
 
     private void btnAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAyudaActionPerformed
@@ -470,6 +476,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void JBProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBProveedoresActionPerformed
         GestionDeProveedores gestProv = new GestionDeProveedores();
         if (señalProv == 0) {
+            gestProv.nombreUsuario = NombreUsuariojLabel.getText();
             jTabbedPane1.addTab("Gestión de proveedores", gestProv.getContentPane());
             señalProv = 1;
         }
@@ -480,6 +487,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GestionDeCompras gesComp = new GestionDeCompras();
         if (!UsuarioIDjLabel.getText().isEmpty()) {
             gesComp.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+            gesComp.nombreUsuario = NombreUsuariojLabel.getText();
             if (señalCompra == 0) {
                 jTabbedPane1.addTab("Gestión de compras", gesComp.getContentPane());
                 señalCompra = 1;
@@ -492,6 +500,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GestionDeVentas gesVenta = new GestionDeVentas();
         if (!UsuarioIDjLabel.getText().isEmpty()) {
             gesVenta.idUsuario = Integer.parseInt(UsuarioIDjLabel.getText());
+            gesVenta.nombreUsuario = NombreUsuariojLabel.getText();
             if (señalVenta == 0) {
                 jTabbedPane1.addTab("Gestión de ventas", gesVenta.getContentPane());
                 señalVenta = 1;
@@ -503,6 +512,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void JBUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBUsuariosActionPerformed
         GestionDeUsuarios gesUsu = new GestionDeUsuarios();
         if (señalUsu == 0) {
+            gesUsu.nombreUsuario = NombreUsuariojLabel.getText();
             jTabbedPane1.addTab("Gestión de usuarios", gesUsu.getContentPane());
             señalUsu = 1;
         }
@@ -510,6 +520,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void BackupjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackupjButtonActionPerformed
         Backup backup = new Backup();
+        backup.nombreUsuario = NombreUsuariojLabel.getText();
         backup.setVisible(true);
         setLocationRelativeTo(null);
     }//GEN-LAST:event_BackupjButtonActionPerformed
@@ -549,8 +560,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     javax.swing.JButton BackupjButton;
@@ -564,7 +574,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     javax.swing.JButton JBProveedores;
     javax.swing.JButton JBUsuarios;
     javax.swing.JButton JBVentas;
-    javax.swing.JLabel NombreUsuariojLabel;
+    public javax.swing.JLabel NombreUsuariojLabel;
     javax.swing.JLabel UsuarioIDjLabel;
     javax.swing.JButton btnAyuda;
     javax.swing.JButton btnExit;

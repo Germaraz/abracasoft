@@ -29,10 +29,11 @@ import javax.swing.table.TableRowSorter;
  * @author German
  */
 public class GestionDeCliente extends javax.swing.JFrame {
-    
+
     private ArrayList<ArrayList<Venta>> ventas = new ArrayList<>();
     private ArrayList<Pago> pagos = new ArrayList<>();
     private TableRowSorter trsFiltro;
+    String nombreUsuario;
 
     /**
      * Creates new form GestinonCliente
@@ -61,13 +62,20 @@ public class GestionDeCliente extends javax.swing.JFrame {
         CuentaCorrientejTable = new javax.swing.JTable();
         NuevoClientejButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        FiltrojComboBox = new javax.swing.JComboBox<String>();
+        FiltrojComboBox = new javax.swing.JComboBox<>();
         FiltrojTextField = new javax.swing.JTextField();
-        ImprimirDetallejButton = new javax.swing.JButton();
+        BuscarjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de clientes - OSG");
         setMinimumSize(new java.awt.Dimension(713, 510));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         EditajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         EditajButton.setText("Editar cliente");
@@ -118,8 +126,6 @@ public class GestionDeCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(ClientesjTable);
         if (ClientesjTable.getColumnModel().getColumnCount() > 0) {
             ClientesjTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-            ClientesjTable.getColumnModel().getColumn(6).setPreferredWidth(50);
-            ClientesjTable.getColumnModel().getColumn(9).setPreferredWidth(90);
         }
 
         CuentaCorrientejTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -127,7 +133,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Venta", "Fecha", "Importe total", "Pago", "Saldo"
+                "Venta", "Fecha", "Importe Total", "Pago", "Saldo"
             }
         ) {
             Class[] types = new Class [] {
@@ -156,20 +162,23 @@ public class GestionDeCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Buscar por:");
 
-        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Apellido y Nombre", "Nro de Documento" }));
+        FiltrojComboBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        FiltrojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Apellido y Nombre", "Nro de Documento" }));
 
+        FiltrojTextField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         FiltrojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 FiltrojTextFieldKeyTyped(evt);
             }
         });
 
-        ImprimirDetallejButton.setText("Imprimir");
-        ImprimirDetallejButton.addActionListener(new java.awt.event.ActionListener() {
+        BuscarjButton.setText("Buscar");
+        BuscarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImprimirDetallejButtonActionPerformed(evt);
+                BuscarjButtonActionPerformed(evt);
             }
         });
 
@@ -177,26 +186,28 @@ public class GestionDeCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(NuevoClientejButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(EditajButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(DarDeBajaClijButton))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 448, Short.MAX_VALUE)))
+                                .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BuscarjButton)))
+                        .addGap(0, 648, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -206,17 +217,17 @@ public class GestionDeCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FiltrojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FiltrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(BuscarjButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevoClientejButton)
                     .addComponent(EditajButton)
-                    .addComponent(DarDeBajaClijButton)
-                    .addComponent(ImprimirDetallejButton))
+                    .addComponent(DarDeBajaClijButton))
                 .addContainerGap())
         );
 
@@ -226,6 +237,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
     private void NuevoClientejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoClientejButtonActionPerformed
         // TODO add your handling code here:
         AltaCliente altacliente = new AltaCliente();
+        altacliente.nombreUsuario = nombreUsuario;
         altacliente.setTitle("Nuevo Cliente");
         altacliente.setVisible(true);
     }//GEN-LAST:event_NuevoClientejButtonActionPerformed
@@ -258,14 +270,20 @@ public class GestionDeCliente extends javax.swing.JFrame {
         ClientesjTable.setRowSorter(trsFiltro);
     }//GEN-LAST:event_FiltrojTextFieldKeyTyped
 
-    private void ImprimirDetallejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirDetallejButtonActionPerformed
-        imprimir();
-    }//GEN-LAST:event_ImprimirDetallejButtonActionPerformed
-
     private void DarDeBajaClijButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarDeBajaClijButtonActionPerformed
         // TODO add your handling code here:
         darDeBajaClientes();
     }//GEN-LAST:event_DarDeBajaClijButtonActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        agregarClientesATabla();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void BuscarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarjButtonActionPerformed
+        // TODO add your handling code here:
+        agregarClientesATabla();
+    }//GEN-LAST:event_BuscarjButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,13 +322,13 @@ public class GestionDeCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuscarjButton;
     private javax.swing.JTable ClientesjTable;
     private javax.swing.JTable CuentaCorrientejTable;
     private javax.swing.JButton DarDeBajaClijButton;
     private javax.swing.JButton EditajButton;
     private javax.swing.JComboBox<String> FiltrojComboBox;
     private javax.swing.JTextField FiltrojTextField;
-    private javax.swing.JButton ImprimirDetallejButton;
     private javax.swing.JButton NuevoClientejButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -326,12 +344,13 @@ public class GestionDeCliente extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void agregarClientesATabla() {
         ArrayList<Cliente> clientes;
         try {
             clientes = new Cliente().listarClientes();
             if (!clientes.isEmpty()) {
+                limpiarTabla(ClientesjTable);
                 DefaultTableModel tabla = (DefaultTableModel) ClientesjTable.getModel();
                 Object[] columnas = new Object[10];
                 for (int i = 0; i < clientes.size(); i++) {
@@ -356,7 +375,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
     }
-    
+
     private void filtro() {
         int columnaABuscar = 0;
         if ("Apellido y Nombre".equals(FiltrojComboBox.getSelectedItem().toString())) {
@@ -367,7 +386,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
         }
         trsFiltro.setRowFilter(RowFilter.regexFilter(FiltrojTextField.getText(), columnaABuscar));
     }
-    
+
     private void agregarVentasPorCliente() {
         limpiarTabla(CuentaCorrientejTable);
         try {
@@ -399,7 +418,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     private void abrirEditarCliente() {
         if (ClientesjTable.getSelectedRow() != -1) {
             int fila = ClientesjTable.getSelectedRow();
@@ -436,7 +455,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe selecionar al menos una fila de la tabla para poder editar");
         }
     }
-    
+
     private void darDeBajaClientes() {
         int resultados = 0;
         if (ClientesjTable.getSelectedRowCount() > 0) {
@@ -461,6 +480,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
                 new GestionDeCliente().setVisible(true);
                 try {
                     Logs log = new Logs();
+                    log.user = nombreUsuario;
                     log.crearLog("ha dado de baja" + resultados + "cliente/s");
                 } catch (IOException ex) {
                     Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -470,7 +490,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
         }
     }
-    
+
     private void imprimir() {
         int fila = ClientesjTable.getSelectedRow();
         if (fila != -1) {
@@ -494,5 +514,5 @@ public class GestionDeCliente extends javax.swing.JFrame {
             }
         }
     }
-    
+
 }

@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GestionDeProductos extends javax.swing.JFrame {
 
+    String nombreUsuario;
     /**
      * Creates new form MenuDeGestionDeProductos
      */
@@ -270,6 +271,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
     private void AltaProdjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaProdjButtonActionPerformed
         // TODO add your handling code here:
         AltaProducto altaproducto = new AltaProducto();
+        altaproducto.nombreUsuario = nombreUsuario;
         altaproducto.setTitle("Nuevo Producto");
         altaproducto.setVisible(true);
     }//GEN-LAST:event_AltaProdjButtonActionPerformed
@@ -496,7 +498,8 @@ public class GestionDeProductos extends javax.swing.JFrame {
         }
         try {
             Logs log = new Logs();
-            log.crearLog("ha dado de baja un producto");
+            log.user = nombreUsuario;
+            log.crearLog("ha dado de baja un producto");            
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }

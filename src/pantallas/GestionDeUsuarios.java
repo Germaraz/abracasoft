@@ -30,6 +30,7 @@ import javax.swing.table.TableRowSorter;
 public class GestionDeUsuarios extends javax.swing.JFrame {
 
     private TableRowSorter trsFiltro;
+    String nombreUsuario;
 
     /**
      * Creates new form GestionDeUsuarios
@@ -60,6 +61,7 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
         DarDeBajajButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        BuscarjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de usuarios - OSG");
@@ -137,6 +139,13 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
             }
         });
 
+        BuscarjButton.setText("Buscar");
+        BuscarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -151,6 +160,8 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
                         .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BuscarjButton)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(NuevoUsuariojButton)
@@ -169,9 +180,10 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(BuscarjButton))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevoUsuariojButton)
@@ -218,6 +230,7 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
     private void NuevoUsuariojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoUsuariojButtonActionPerformed
         // TODO add your handling code here:
         AltaDeUsuario altaUsu = new AltaDeUsuario();
+        altaUsu.nombreUsuario = nombreUsuario;
         altaUsu.setTitle("Nuevo Usuario");
         altaUsu.setVisible(true);
         this.dispose();
@@ -279,6 +292,7 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
         }
         try {
             Logs log = new Logs();
+            log.user = nombreUsuario;
             log.crearLog("ha dado de baja" + banderas + "usuario/s");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -289,6 +303,11 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         imprimir();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void BuscarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarjButtonActionPerformed
+        // TODO add your handling code here:
+        cargarTablaUsuarios();
+    }//GEN-LAST:event_BuscarjButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,6 +345,7 @@ public class GestionDeUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuscarjButton;
     private javax.swing.JButton DarDeBajajButton;
     private javax.swing.JButton NuevoUsuariojButton;
     private javax.swing.JComboBox<String> comboFiltro;
