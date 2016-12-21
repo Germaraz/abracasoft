@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class GestorUsuario extends PoolDeConexiones {
         this.pedirConexion();
     }
 
-    public int altaUsuario(Usuario usuario) throws Exception {
+    public int altaUsuario(Usuario usuario) throws Exception, SQLException {
         int resultado = 0;
         String sql = "INSERT INTO usuario (APELLIDO, NOMBRE, NOMBREUSUARIO, EMAIL, PASSUSUARIO, rol_IDROL) "
                 + "VALUES (?,?,?,?,?,?)";

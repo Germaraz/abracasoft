@@ -435,6 +435,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 Date fechaCajaCierre = caja.getFechaCierre();
                 if (fechaCajaCierre == null && fechaCajaApertura != null) {
                     if (fechaCajaApertura.toString().equals(fecha)) {
+                        FecAperturajTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(fechaCajaApertura));
                         ImpArqueojTextField.setText(Double.toString(Math.round(importeApertura)));
                         AperturajButton.setEnabled(false);
                         ImpArqueojTextField.setEditable(false);
@@ -444,7 +445,16 @@ public class GestionDeCaja extends javax.swing.JFrame {
                         ImpCierrejTextField.setEditable(true);
                         CierrejButton.setEnabled(true);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Usted tiene una caja abierta pero no es del dia de la fecha. Por favor Comuniquese con el administrador");
+                        FecAperturajTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(fechaCajaApertura));
+                        ImpArqueojTextField.setText(Double.toString(Math.round(caja.getImporteArqueo())));
+                        AperturajButton.setEnabled(false);
+                        ImpArqueojTextField.setEditable(false);
+                        NroCajajLabel.setVisible(true);
+                        IDCajajTextField.setText(Integer.toString(caja.getIdCaja()));
+                        IDCajajTextField.setVisible(true);
+                        ImpCierrejTextField.setEditable(true);
+                        CierrejButton.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "Usted tiene una caja abierta pero no es del dia de la fecha. Por favor cierre la caja para poder continuar");
                     }
                 }
             }
@@ -559,6 +569,9 @@ public class GestionDeCaja extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        limpiarTabla(CajasjTable);
+        limpiarTabla(DetalleCajajTable);
+        agregarCajasATabla();
     }
 
     private void cerrarCaja() {
@@ -574,6 +587,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                 mov.setDescripcionMovimiento("ARQUEO CAJA: " + resultado);
                 mov.setMontoMovimiento(importeApertura);
                 if (mov.altaMovimiento(mov) != 0) {
+                    FecAperturajTextField.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
                     ImpArqueojTextField.setText("0.00");
                     AperturajButton.setEnabled(true);
                     ImpArqueojTextField.setEditable(true);
@@ -596,6 +610,9 @@ public class GestionDeCaja extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        limpiarTabla(CajasjTable);
+        limpiarTabla(DetalleCajajTable);
+        agregarCajasATabla();
     }
 
     protected void importeDeCajaEnVivo() {
@@ -608,7 +625,7 @@ public class GestionDeCaja extends javax.swing.JFrame {
                     for (int i = 0; i < movimientos.size(); i++) {
                         totalEnCaja = totalEnCaja + movimientos.get(i).getMontoMovimiento();
                     }
-                    MontoToTalCajajTextField.setText(Double.toString(Math.round(totalEnCaja*100.0)/100.0));
+                    MontoToTalCajajTextField.setText(Double.toString(Math.round(totalEnCaja * 100.0) / 100.0));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(GestionDeCaja.class.getName()).log(Level.SEVERE, null, ex);

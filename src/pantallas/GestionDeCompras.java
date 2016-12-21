@@ -6,10 +6,12 @@
 package pantallas;
 
 import entidades.Compra;
+import entidades.Pago;
 import entidades.Producto;
 import gestores.Logs;
 import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,7 +61,9 @@ public class GestionDeCompras extends javax.swing.JFrame {
         BuscarjButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         ImprimirDetallejButton = new javax.swing.JButton();
+        EditarComprajButton1 = new javax.swing.JButton();
         NuevaComprajButton = new javax.swing.JButton();
+        DarDeBajaComprajButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de presupuestos");
@@ -153,6 +157,16 @@ public class GestionDeCompras extends javax.swing.JFrame {
 
         ImprimirDetallejButton.setText("Imprimir");
 
+        EditarComprajButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        EditarComprajButton1.setText("Editar compra");
+        EditarComprajButton1.setMaximumSize(new java.awt.Dimension(41, 41));
+        EditarComprajButton1.setMinimumSize(new java.awt.Dimension(41, 41));
+        EditarComprajButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarComprajButton1ActionPerformed(evt);
+            }
+        });
+
         NuevaComprajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         NuevaComprajButton.setText("Nueva compra");
         NuevaComprajButton.setMaximumSize(new java.awt.Dimension(41, 41));
@@ -160,6 +174,16 @@ public class GestionDeCompras extends javax.swing.JFrame {
         NuevaComprajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NuevaComprajButtonActionPerformed(evt);
+            }
+        });
+
+        DarDeBajaComprajButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        DarDeBajaComprajButton2.setText("Dar de baja compra/s");
+        DarDeBajaComprajButton2.setMaximumSize(new java.awt.Dimension(41, 41));
+        DarDeBajaComprajButton2.setMinimumSize(new java.awt.Dimension(41, 41));
+        DarDeBajaComprajButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DarDeBajaComprajButton2ActionPerformed(evt);
             }
         });
 
@@ -172,42 +196,49 @@ public class GestionDeCompras extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(EditarComprajButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DarDeBajaComprajButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ImprimirDetallejButton))
                     .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-                    .addComponent(SPpresupuesto, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(HastajCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
                         .addComponent(DesdejCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(HastajCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addComponent(BuscarjButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(SPpresupuesto))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(HastajCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DesdejCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BuscarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DesdejCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BuscarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                    .addComponent(HastajCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(SPpresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addComponent(SPpresupuestoArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ImprimirDetallejButton)
-                    .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EditarComprajButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NuevaComprajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DarDeBajaComprajButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -247,6 +278,8 @@ public class GestionDeCompras extends javax.swing.JFrame {
             if (ComprasjTable.getSelectedRow() > -1) {
                 agregarDetalleCompra();
             }
+        } else if (evt.getClickCount() == 2) {
+            abrirEditarCompra();
         }
     }//GEN-LAST:event_ComprasjTableMouseClicked
 
@@ -256,15 +289,25 @@ public class GestionDeCompras extends javax.swing.JFrame {
         nuevaCompra.idUsuario = this.idUsuario;
         nuevaCompra.nombreUsuario = nombreUsuario;
         if (nuevaCompra.validarCajaAbierta()) {
-            nuevaCompra.buscarProveedor();
+            nuevaCompra.cargarProveedores();
             nuevaCompra.setTitle("Nueva Compra");
             nuevaCompra.setVisible(true);
         }
     }//GEN-LAST:event_NuevaComprajButtonActionPerformed
 
     private void EditarComprajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarComprajButtonActionPerformed
-        abrirEditarCompra();
+
     }//GEN-LAST:event_EditarComprajButtonActionPerformed
+
+    private void EditarComprajButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarComprajButton1ActionPerformed
+        // TODO add your handling code here:
+        abrirEditarCompra();
+    }//GEN-LAST:event_EditarComprajButton1ActionPerformed
+
+    private void DarDeBajaComprajButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarDeBajaComprajButton2ActionPerformed
+        // TODO add your handling code here:
+        darDeBajaCompras();
+    }//GEN-LAST:event_DarDeBajaComprajButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,8 +348,10 @@ public class GestionDeCompras extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BuscarjButton;
     private javax.swing.JTable ComprasjTable;
+    private javax.swing.JButton DarDeBajaComprajButton2;
     private com.toedter.calendar.JDateChooser DesdejCalendar;
     private javax.swing.JTable DetalleComprasjTable;
+    private javax.swing.JButton EditarComprajButton1;
     private com.toedter.calendar.JDateChooser HastajCalendar;
     private javax.swing.JButton ImprimirDetallejButton;
     private javax.swing.JButton NuevaComprajButton;
@@ -330,7 +375,7 @@ public class GestionDeCompras extends javax.swing.JFrame {
     private void agregarComprasTabla() {
         limpiarTabla(ComprasjTable);
         DefaultTableModel tabla = (DefaultTableModel) ComprasjTable.getModel();
-        ArrayList<Compra> compras = new ArrayList<>();
+        ArrayList<Compra> compras;
         Object[] columnas = new Object[6];
         try {
             compras = new Compra().listaCompras(DesdejCalendar.getDate(), HastajCalendar.getDate());
@@ -404,8 +449,14 @@ public class GestionDeCompras extends javax.swing.JFrame {
                 }
                 modCompra.SubtotaljTextField.setText(Double.toString(compra.getMontoCompra()));
                 modCompra.IVAjTextField.setText(Double.toString(compra.getIvaCompra()));
-                Double total = compra.getMontoCompra() + compra.getIvaCompra();
+                Double total = new BigDecimal(compra.getMontoCompra() + compra.getIvaCompra()).setScale(BigDecimal.ROUND_UP).doubleValue();
                 modCompra.totaljTextField.setText(total.toString());
+                modCompra.ProveedorjComboBox.setEnabled(false);
+                modCompra.NuevoProvjButton.setEnabled(false);
+                modCompra.agregarProdjButton.setEnabled(false);
+                modCompra.cantidadjTextField.setEditable(false);
+                modCompra.codigoBarrajTextField.setEditable(false);
+                modCompra.eliminarProductoTablajButton.setEnabled(false);
                 modCompra.setTitle("Modificar Compra");
                 modCompra.setVisible(true);
             } catch (Exception e) {
@@ -423,11 +474,42 @@ public class GestionDeCompras extends javax.swing.JFrame {
             for (int i = 0; i < filas.length; i++) {
                 int idCompra = (int) ComprasjTable.getValueAt(i, 0);
                 try {
-                    Compra compra = new Compra();
-                    compra.setIdCompra(idCompra);
-                    compra.setFechaBajaCompra(new Date());
-                    if (compra.darDeBajaCompra(compra) != 0) {
-                        resultados++;
+                    ArrayList<Producto> productos2 = new Compra().obtenerCompra(idCompra).getProductos();
+                    if (!productos2.isEmpty()) {
+                        int modificados = 0;
+                        for (int j = 0; j < productos2.size(); j++) {
+                            productos2.get(j).setStock(productos2.get(j).getStock() - 1);
+                            if (productos2.get(j).modificarProducto(productos2.get(j)) != 0) {
+                                modificados++;
+                                productos2 = new Compra().obtenerCompra(idCompra).getProductos();
+                            }
+                        }
+                        if (modificados == productos2.size()) {
+                            ArrayList<Pago> pagos = new Pago().obtenerPagosCompra(idCompra);
+                            if (pagos.isEmpty()) {
+                                Compra compra = new Compra();
+                                compra.setIdCompra(idCompra);
+                                compra.setFechaBajaCompra(new Date());
+                                if (compra.darDeBajaCompra(compra) != 0) {
+                                    resultados++;
+                                }
+                            } else {
+                                for (int h = 0; h < pagos.size(); h++) {
+                                    if (pagos.get(h).dardeBajaCompra(idCompra) != 1) {
+                                        Compra compra = new Compra();
+                                        compra.setIdCompra(idCompra);
+                                        compra.setFechaBajaCompra(new Date());
+                                        if (compra.darDeBajaCompra(compra) != 0) {
+                                            resultados++;
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Ocurrio un error al dar de baja los pagos por compra");
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Existe una compra sin productos por favor comuniquese con el administrador");
                     }
                 } catch (Exception e) {
                     Logger.getLogger(GestionDeProveedores.class.getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -436,8 +518,6 @@ public class GestionDeCompras extends javax.swing.JFrame {
             }
             if (resultados == filas.length) {
                 JOptionPane.showMessageDialog(null, "Se han dado de baja " + resultados + " compras");
-                this.dispose();
-                new GestionDeProveedores().setVisible(true);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una fila de la tabla para dar de baja");
@@ -445,10 +525,13 @@ public class GestionDeCompras extends javax.swing.JFrame {
         try {
             Logs log = new Logs();
             log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
-            log.crearLog("ha dado de baja una compra realizada a proveedor");
+            log.crearLog("ha dado de baja " + resultados + " compra/s realizada a proveedor");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        limpiarTabla(ComprasjTable);
+        limpiarTabla(DetalleComprasjTable);
+        agregarComprasTabla();
     }
 
     private void imprimir() {

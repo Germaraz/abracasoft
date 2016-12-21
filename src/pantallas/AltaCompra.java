@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -94,6 +95,12 @@ public class AltaCompra extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
         detalleComprajTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -118,6 +125,11 @@ public class AltaCompra extends javax.swing.JFrame {
             }
         });
         detalleComprajTable.getTableHeader().setReorderingAllowed(false);
+        detalleComprajTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                detalleComprajTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(detalleComprajTable);
         if (detalleComprajTable.getColumnModel().getColumnCount() > 0) {
             detalleComprajTable.getColumnModel().getColumn(0).setMinWidth(200);
@@ -202,12 +214,17 @@ public class AltaCompra extends javax.swing.JFrame {
                 ProveedorjComboBoxItemStateChanged(evt);
             }
         });
+        ProveedorjComboBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ProveedorjComboBoxKeyReleased(evt);
+            }
+        });
 
         CompraIDjTextField.setEditable(false);
         CompraIDjTextField.setVisible(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("IVA");
+        jLabel2.setText("IVA($)");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Subtotal");
@@ -260,7 +277,7 @@ public class AltaCompra extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(eliminarProductoTablajButton)
                             .addComponent(CompraIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -404,6 +421,22 @@ public class AltaCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_IVAjTextFieldKeyTyped
 
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane2MouseClicked
+
+    private void detalleComprajTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detalleComprajTableMouseClicked
+        // TODO add your handling code here:
+        if (evt.getButton() == evt.BUTTON3) {
+            borrarFila(detalleComprajTable);
+        }
+    }//GEN-LAST:event_detalleComprajTableMouseClicked
+
+    private void ProveedorjComboBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ProveedorjComboBoxKeyReleased
+        // TODO add your handling code here:
+        buscarProveedor();
+    }//GEN-LAST:event_ProveedorjComboBoxKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -451,14 +484,14 @@ public class AltaCompra extends javax.swing.JFrame {
     protected javax.swing.JTextField CompraIDjTextField;
     private javax.swing.JButton GuardarjButton;
     protected javax.swing.JTextField IVAjTextField;
-    private javax.swing.JButton NuevoProvjButton;
+    protected javax.swing.JButton NuevoProvjButton;
     protected javax.swing.JComboBox<String> ProveedorjComboBox;
     protected javax.swing.JTextField SubtotaljTextField;
-    private javax.swing.JButton agregarProdjButton;
-    private javax.swing.JTextField cantidadjTextField;
-    private javax.swing.JTextField codigoBarrajTextField;
+    protected javax.swing.JButton agregarProdjButton;
+    protected javax.swing.JTextField cantidadjTextField;
+    protected javax.swing.JTextField codigoBarrajTextField;
     protected javax.swing.JTable detalleComprajTable;
-    private javax.swing.JButton eliminarProductoTablajButton;
+    protected javax.swing.JButton eliminarProductoTablajButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -501,6 +534,18 @@ public class AltaCompra extends javax.swing.JFrame {
         return resultado;
     }
 
+    private void borrarFila(JTable tabla) {
+        if (tabla.getRowCount() > 0) {
+            int fila = tabla.getSelectedRow();
+            if (fila != -1) {
+                DefaultTableModel tabla2 = (DefaultTableModel) tabla.getModel();
+                tabla2.removeRow(fila);
+            } else {
+                JOptionPane.showMessageDialog(null, "Primero debe seleccionar una fila con el boton izquierdo del mouse y luego click derecho para borrar");
+            }
+        }
+    }
+
     private boolean validar() {
         boolean valido = true;
         if (ProveedorjComboBox.getSelectedItem().toString().isEmpty()) {
@@ -515,7 +560,7 @@ public class AltaCompra extends javax.swing.JFrame {
         return valido;
     }
 
-    protected void buscarProveedor() {
+    protected void cargarProveedores() {
         ArrayList<Proveedor> proveedores;
         try {
             proveedores = new Proveedor().obtenerProveedores();
@@ -529,6 +574,24 @@ public class AltaCompra extends javax.swing.JFrame {
             AutoCompleteDecorator.decorate(ProveedorjComboBox);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void buscarProveedor() {
+        ArrayList<Proveedor> proveedores;
+        if (!ProveedorjComboBox.getSelectedItem().toString().isEmpty()) {
+            try {
+                proveedores = new Proveedor().obtenerProveedoresNombreFantasia(ProveedorjComboBox.getSelectedItem().toString());
+                if (!proveedores.isEmpty()) {
+                    for (int i = 0; i < proveedores.size(); i++) {
+                        ProveedorjComboBox.addItem(proveedores.get(i).getNombreFantasia());
+                    }
+                }
+                AutoCompleteDecorator.decorate(ProveedorjComboBox);
+            } catch (Exception ex) {
+                Logger.getLogger(AltaCompra.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }
 

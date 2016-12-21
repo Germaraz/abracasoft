@@ -5,14 +5,18 @@
  */
 package pantallas;
 
-import java.awt.Component;
-import java.io.BufferedReader;
+import entidades.Compra;
+import entidades.ReporteEstructura;
+import reportes.Reporte;
+import entidades.Venta;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -44,6 +48,12 @@ public class GestionDeInformes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         visorjTextArea = new javax.swing.JTextArea(llamarTexto());
+        ReportejComboBox = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        DesdejDateChooser = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        HastajDateChooser = new com.toedter.calendar.JDateChooser();
+        GenerarjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Informes - OSG");
@@ -55,12 +65,30 @@ public class GestionDeInformes extends javax.swing.JFrame {
         jLabel5.setText("Generador de informes");
 
         jButton1.setText("Imprimir eventos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         visorjTextArea.setEditable(false);
         visorjTextArea.setColumns(20);
         visorjTextArea.setLineWrap(true);
         visorjTextArea.setRows(5);
         jScrollPane2.setViewportView(visorjTextArea);
+
+        ReportejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas", "Compras" }));
+
+        jLabel1.setText("Desde");
+
+        jLabel2.setText("Hasta");
+
+        GenerarjButton.setText("Generar reporte");
+        GenerarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GenerarjButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,16 +99,25 @@ public class GestionDeInformes extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton1)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(ReportejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DesdejDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(HastajDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GenerarjButton))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,12 +125,23 @@ public class GestionDeInformes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel5)
-                .addGap(52, 52, 52))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ReportejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(DesdejDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(HastajDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(GenerarjButton))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,6 +161,24 @@ public class GestionDeInformes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void GenerarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarjButtonActionPerformed
+        // TODO add your handling code here:
+        switch (ReportejComboBox.getSelectedItem().toString()) {
+            case "Ventas":
+                informeVentasPorRango();
+                break;
+            case "Compras":
+                informeComprasPorRango();
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_GenerarjButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,11 +216,11 @@ public class GestionDeInformes extends javax.swing.JFrame {
         });
     }
     
-private String llamarTexto(){
-    File file = new File("log.txt");
-    FileInputStream fis = null;
-    String texto = "";
-
+    private String llamarTexto() {
+        File file = new File("log.txt");
+        FileInputStream fis = null;
+        String texto = "";
+        
         try {
             fis = new FileInputStream(file);
             int content;
@@ -173,15 +239,77 @@ private String llamarTexto(){
             }
         }
         return texto;
-}
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser DesdejDateChooser;
+    private javax.swing.JButton GenerarjButton;
+    private com.toedter.calendar.JDateChooser HastajDateChooser;
+    private javax.swing.JComboBox<String> ReportejComboBox;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea visorjTextArea;
     // End of variables declaration//GEN-END:variables
+
+    private void informeVentasPorRango() {
+        ArrayList<Venta> ventas;
+        ArrayList<ReporteEstructura> reportes = new ArrayList<>();
+        try {
+            ventas = new Venta().listarVentas(DesdejDateChooser.getDate(), HastajDateChooser.getDate());
+            for (int i = 0; i < ventas.size(); i++) {
+                ReporteEstructura reporteEstructura = new ReporteEstructura();
+                reporteEstructura.setFecha(new SimpleDateFormat("dd-MM-yyyy").format(ventas.get(i).getFechaVenta()));
+                reporteEstructura.setEntidad(ventas.get(i).getCliente().getApellidoCliente() + " " + ventas.get(i).getCliente().getNombreCliente());
+                reporteEstructura.setUsuario(ventas.get(i).getUsuario().getNombreUsuario());
+                double monto = Math.round(((ventas.get(i).getMontoVenta() + ventas.get(i).getIvaVenta()) * 100.0) / 100.0);
+                reporteEstructura.setMonto(monto);
+                reportes.add(reporteEstructura);
+            }
+            Reporte reporte = new Reporte("reporte_ventas_xmes.jasper");
+            JFileChooser selector = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF(*.pdf)", "pdf");
+            selector.setFileFilter(filter);
+            int seleccion = selector.showSaveDialog(GenerarjButton);
+            if (seleccion == selector.APPROVE_OPTION) {
+                String pathArchivo = selector.getSelectedFile().getPath();
+                reporte.generarReporte(pathArchivo, null, reportes);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void informeComprasPorRango() {
+        ArrayList<Compra> compras;
+        ArrayList<ReporteEstructura> reportes = new ArrayList<>();
+        try {
+            compras = new Compra().listaCompras(DesdejDateChooser.getDate(), HastajDateChooser.getDate());
+            for (int i = 0; i < compras.size(); i++) {
+                ReporteEstructura reporteEstructura = new ReporteEstructura();
+                reporteEstructura.setFecha(new SimpleDateFormat("dd-MM-yyyy").format(compras.get(i).getFechaCompra()));
+                reporteEstructura.setEntidad(compras.get(i).getProveedor().getRazonSocial()+ "(" + compras.get(i).getProveedor().getNombreFantasia()+ ")");
+                reporteEstructura.setUsuario(compras.get(i).getUsuario().getNombreUsuario());
+                double monto = Math.round(((compras.get(i).getMontoCompra() + compras.get(i).getIvaCompra()) * 100.0) / 100.0);
+                reporteEstructura.setMonto(monto);
+                reportes.add(reporteEstructura);
+            }
+            Reporte reporte = new Reporte("reporte_compras_xmes.jasper");
+            JFileChooser selector = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF(*.pdf)", "pdf");
+            selector.setFileFilter(filter);
+            int seleccion = selector.showSaveDialog(GenerarjButton);
+            if (seleccion == selector.APPROVE_OPTION) {
+                String pathArchivo = selector.getSelectedFile().getPath();
+                reporte.generarReporte(pathArchivo, null, reportes);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 }

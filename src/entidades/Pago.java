@@ -94,12 +94,20 @@ public class Pago {
         return new GestorPago().darDeBajaPagoCompra(idcompra);
     }
 
+    public int dardeBajaVenta(int idventa) throws Exception {
+        return new GestorPago().darDeBajaPagoVenta(idventa);
+    }
+
     public Pago obtenerPago(int idPago) throws Exception {
         return new GestorPago().obtenerPago(idPago);
     }
 
     public Pago obtenerPagoCompra(int idCompra) throws Exception {
         return new GestorPago().obtenerPagoCompra(idCompra);
+    }
+
+    public ArrayList<Pago> obtenerPagosCompra(int idCompra) throws Exception {
+        return new GestorPago().obtenerPagosCompra(idCompra);
     }
 
     public ArrayList<Pago> obtenerPagosVenta(int idVenta) throws Exception {

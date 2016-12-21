@@ -11,6 +11,7 @@ import entidades.Provincia;
 import gestores.Logs;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author German
  */
 public class AltaProveedor extends javax.swing.JFrame {
-    
+
     String nombreUsuario;
 
     /**
@@ -272,7 +273,7 @@ public class AltaProveedor extends javax.swing.JFrame {
     private void GuardarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarjButtonActionPerformed
         // TODO add your handling code here:
         if (validar()) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar proveedor?");
+            int respuesta = JOptionPane.showConfirmDialog(null, "Guardar proveedor?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 guardarOActualizarProveedor();
                 this.dispose();
@@ -446,12 +447,17 @@ public class AltaProveedor extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "El proveedor no pudo guardarse");
             }
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                JOptionPane.showMessageDialog(null, "El proveedor ingresado ya existe");
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
             Logs log = new Logs();
-            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
+            log.user = nombreUsuario;
             log.crearLog("ha creado/actualizado un proveedor");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorProducto;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -109,7 +110,7 @@ public class Producto {
         this.fechaBajaProducto = fechaBajaProducto;
     }
 
-    public int altaProducto(Producto producto) throws Exception {
+    public int altaProducto(Producto producto) throws Exception, SQLException {
         return new GestorProducto().altaProducto(producto);
     }
 
@@ -125,7 +126,7 @@ public class Producto {
         return new GestorProducto().obtenerProducto(idProducto);
     }
 
-    public ArrayList<Producto> obtenerProductosCodBarra(int codigobarra) throws Exception {
+    public ArrayList<Producto> obtenerProductosCodBarra(long codigobarra) throws Exception {
         return new GestorProducto().obtenerProductosCodBarra(codigobarra);
     }
 

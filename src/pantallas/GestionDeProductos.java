@@ -7,6 +7,7 @@ package pantallas;
 
 import entidades.Producto;
 import gestores.Logs;
+import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -24,8 +25,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Ema
  */
 public class GestionDeProductos extends javax.swing.JFrame {
-
+    
     String nombreUsuario;
+
     /**
      * Creates new form MenuDeGestionDeProductos
      */
@@ -33,6 +35,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
         AparienciaPantalla apa = new AparienciaPantalla();
         apa.cambiarApariencia("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         initComponents();
+        CodigoBarraProdjTextField.requestFocus();
     }
 
     /**
@@ -71,14 +74,23 @@ public class GestionDeProductos extends javax.swing.JFrame {
         jLabel1.setText("Descripción");
 
         DescripcionProdjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                DescripcionProdjTextFieldKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                DescripcionProdjTextFieldKeyReleased(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Código");
+
+        CodigoBarraProdjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CodigoBarraProdjTextFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CodigoBarraProdjTextFieldKeyTyped(evt);
+            }
+        });
 
         BuscarProductojButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         BuscarProductojButton.setText("Buscar");
@@ -251,6 +263,8 @@ public class GestionDeProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             abrirEditarProducto();
+        } else if (evt.getButton() == evt.BUTTON3) {
+            borrarFila(ProductosjTable);
         }
     }//GEN-LAST:event_ProductosjTableMouseClicked
 
@@ -278,19 +292,44 @@ public class GestionDeProductos extends javax.swing.JFrame {
 
     private void BuscarProductojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarProductojButtonActionPerformed
         // TODO add your handling code here:
-        if (!CodigoBarraProdjTextField.getText().isEmpty()) {
+        if (!CodigoBarraProdjTextField.getText().isEmpty() && DescripcionProdjTextField.getText().isEmpty()) {
             buscarPorCodigoDeBarra();
-        } else if (!DescripcionProdjTextField.getText().isEmpty()) {
+        } else if (!DescripcionProdjTextField.getText().isEmpty() && CodigoBarraProdjTextField.getText().isEmpty()) {
             buscarPorDescripcion();
+        } else if (!CodigoBarraProdjTextField.getText().isEmpty() && !DescripcionProdjTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se pueden realizar busquedas con ambos campos con datos");
         } else {
             agregarProductosATabla();
         }
     }//GEN-LAST:event_BuscarProductojButtonActionPerformed
 
-    private void DescripcionProdjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionProdjTextFieldKeyTyped
+    private void CodigoBarraProdjTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoBarraProdjTextFieldKeyPressed
         // TODO add your handling code here:
-        buscarPorDescripcion();
-    }//GEN-LAST:event_DescripcionProdjTextFieldKeyTyped
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!CodigoBarraProdjTextField.getText().isEmpty() && DescripcionProdjTextField.getText().isEmpty()) {
+                buscarPorCodigoDeBarra();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pueden realizar busquedas con ambos campos con datos");
+            }
+        }
+    }//GEN-LAST:event_CodigoBarraProdjTextFieldKeyPressed
+
+    private void CodigoBarraProdjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoBarraProdjTextFieldKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_CodigoBarraProdjTextFieldKeyTyped
+
+    private void DescripcionProdjTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionProdjTextFieldKeyReleased
+        // TODO add your handling code here:
+        if (!DescripcionProdjTextField.getText().isEmpty() && CodigoBarraProdjTextField.getText().isEmpty()) {
+            buscarPorDescripcion();
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pueden realizar busquedas con ambos campos con datos");
+        }
+    }//GEN-LAST:event_DescripcionProdjTextFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -352,7 +391,19 @@ public class GestionDeProductos extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    private void borrarFila(JTable tabla) {
+        if (tabla.getRowCount() > 0) {
+            int fila = tabla.getSelectedRow();
+            if (fila != -1) {
+                DefaultTableModel tabla2 = (DefaultTableModel) tabla.getModel();
+                tabla2.removeRow(fila);
+            } else {
+                JOptionPane.showMessageDialog(null, "Primero debe seleccionar una fila con el boton izquierdo del mouse y luego click derecho para borrar");
+            }
+        }
+    }
+    
     private void agregarProductosATabla() {
         ArrayList<Producto> productos;
         try {
@@ -368,9 +419,9 @@ public class GestionDeProductos extends javax.swing.JFrame {
                     columnas[3] = productos.get(i).getStock();
                     columnas[4] = productos.get(i).getPrecioUnitario();
                     columnas[5] = productos.get(i).getAlicuota();
-                    double ganancia = productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota();
+                    double ganancia = (productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota()) / 100;
                     double precioVenta = productos.get(i).getPrecioUnitario() + ganancia;
-                    columnas[6] = precioVenta;
+                    columnas[6] = Math.round((precioVenta * 100) / 100);
                     columnas[7] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaVencimientoProducto());
                     columnas[8] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaAltaProducto());
                     tabla.addRow(columnas);
@@ -383,14 +434,14 @@ public class GestionDeProductos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
+    
     private void buscarPorCodigoDeBarra() {
         if (!CodigoBarraProdjTextField.getText().isEmpty()) {
-            int codigobarra = Integer.parseInt(CodigoBarraProdjTextField.getText());
+            long codigobarra = Long.parseLong(CodigoBarraProdjTextField.getText());
             try {
                 ArrayList<Producto> productos = new Producto().obtenerProductosCodBarra(codigobarra);
                 if (!productos.isEmpty()) {
-                    limpiarTabla(ProductosjTable);
+                    //limpiarTabla(ProductosjTable);
                     DefaultTableModel tabla = (DefaultTableModel) ProductosjTable.getModel();
                     Object[] columnas = new Object[9];
                     for (int i = 0; i < productos.size(); i++) {
@@ -400,29 +451,36 @@ public class GestionDeProductos extends javax.swing.JFrame {
                         columnas[3] = productos.get(i).getStock();
                         columnas[4] = productos.get(i).getPrecioUnitario();
                         columnas[5] = productos.get(i).getAlicuota();
-                        double ganancia = productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota();
+                        double ganancia = (productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota()) / 100;
                         double precioVenta = productos.get(i).getPrecioUnitario() + ganancia;
-                        columnas[6] = precioVenta;
+                        columnas[6] = Math.round((precioVenta * 100) / 100);
                         columnas[7] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaVencimientoProducto());
                         columnas[8] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaAltaProducto());
                         tabla.addRow(columnas);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Producto inexistente");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(GestionDeProductos.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
+            CodigoBarraProdjTextField.setText("");
         }
     }
-
+    
     private void buscarPorDescripcion() {
         if (!DescripcionProdjTextField.getText().isEmpty()) {
+            int filas = ProductosjTable.getRowCount();
+            DefaultTableModel tabla = (DefaultTableModel) ProductosjTable.getModel();
+            for (int i = filas; i >= 1; i--) {
+                tabla.removeRow(i);
+            }
             String descripcion = DescripcionProdjTextField.getText();
             try {
                 ArrayList<Producto> productos = new Producto().obtenerProductosDescripcion(descripcion);
                 if (!productos.isEmpty()) {
-                    limpiarTabla(ProductosjTable);
-                    DefaultTableModel tabla = (DefaultTableModel) ProductosjTable.getModel();
+                    //limpiarTabla(ProductosjTable);
                     Object[] columnas = new Object[9];
                     for (int i = 0; i < productos.size(); i++) {
                         columnas[0] = productos.get(i).getIdProducto();
@@ -431,9 +489,9 @@ public class GestionDeProductos extends javax.swing.JFrame {
                         columnas[3] = productos.get(i).getStock();
                         columnas[4] = productos.get(i).getPrecioUnitario();
                         columnas[5] = productos.get(i).getAlicuota();
-                        double ganancia = productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota();
+                        double ganancia = (productos.get(i).getPrecioUnitario() * productos.get(i).getAlicuota()) / 100;
                         double precioVenta = productos.get(i).getPrecioUnitario() + ganancia;
-                        columnas[6] = precioVenta;
+                        columnas[6] = Math.round((precioVenta * 100) / 100);
                         columnas[7] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaVencimientoProducto());
                         columnas[8] = new SimpleDateFormat("dd-MM-yyyy").format(productos.get(i).getFechaAltaProducto());
                         tabla.addRow(columnas);
@@ -445,7 +503,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void abrirEditarProducto() {
         if (ProductosjTable.getSelectedRow() != -1) {
             int fila = ProductosjTable.getSelectedRow();
@@ -471,7 +529,7 @@ public class GestionDeProductos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe selecionar al menos una fila de la tabla para poder editar");
         }
     }
-
+    
     private void darDeBajaProductos() {
         int resultados = 0;
         if (ProductosjTable.getSelectedRowCount() > 0) {
@@ -499,12 +557,12 @@ public class GestionDeProductos extends javax.swing.JFrame {
         try {
             Logs log = new Logs();
             log.user = nombreUsuario;
-            log.crearLog("ha dado de baja un producto");            
+            log.crearLog("ha dado de baja un producto");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void imprimir() {
         int filas = ProductosjTable.getRowCount();
         if (filas > 0) {

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +23,7 @@ public class GestorProducto extends PoolDeConexiones {
         this.pedirConexion();
     }
 
-    public int altaProducto(Producto producto) throws Exception {
+    public int altaProducto(Producto producto) throws Exception, SQLException {
         int resultado = 0;
         String sql = "INSERT INTO producto (CODIGOBARRA, NOMBREPRODUCTO, DESCRIPCIONPRODUCTO, "
                 + "FECHAVENCIMIENTO, PRECIOUNITARIO, ALICUOTA, STOCK) VALUES (?,?,?,?,?,?,?)";
@@ -113,14 +114,14 @@ public class GestorProducto extends PoolDeConexiones {
         return producto;
     }
 
-    public ArrayList<Producto> obtenerProductosCodBarra(int codigobarra) throws Exception {
+    public ArrayList<Producto> obtenerProductosCodBarra(long codigobarra) throws Exception {
         ArrayList<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM producto WHERE producto.FECHABAJA IS NULL "
                 + "AND producto.CODIGOBARRA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);
-            pst.setInt(1, codigobarra);
+            pst.setLong(1, codigobarra);
             ResultSet resultado = pst.executeQuery();
             conexion.commit();
             while (resultado.next()) {

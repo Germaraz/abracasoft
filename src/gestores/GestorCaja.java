@@ -43,7 +43,7 @@ public class GestorCaja extends PoolDeConexiones {
 
     public int cerrarCaja(Caja caja) throws Exception {
         int resultado = 0;
-        String sql = "UPDATE caja SET IMPORTECIERRE = ?, FECHACIERRRE = NOW() WHERE caja.IDCAJA = ?";
+        String sql = "UPDATE caja SET IMPORTECIERRE = ?, FECHACIERRE = NOW() WHERE caja.IDCAJA = ?";
         try {
             conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement pst = conexion.prepareStatement(sql);

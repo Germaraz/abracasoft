@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorUsuario;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -100,7 +101,7 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public int altaUsuario(Usuario usuario) throws Exception {
+    public int altaUsuario(Usuario usuario) throws Exception, SQLException{
         return new GestorUsuario().altaUsuario(usuario);
     }
 

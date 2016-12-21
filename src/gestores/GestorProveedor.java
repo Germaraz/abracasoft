@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class GestorProveedor extends PoolDeConexiones {
         this.pedirConexion();
     }
 
-    public int altaProveedor(Proveedor proveedor) throws Exception {
+    public int altaProveedor(Proveedor proveedor) throws Exception, SQLException {
         int resultado = 0;
         String sql = "INSERT INTO proveedor (CUIT, RAZONSOCIAL, NOMBREFANTASIA, DIRECCION_PROVEEDOR, TELEFONO_PROVEEDOR, "
                 + "MAIL_PROVEEDOR, localidad_IDLOCALIDAD) VALUES (?,?,?,?,?,?,?)";

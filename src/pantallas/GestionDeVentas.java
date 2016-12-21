@@ -5,13 +5,13 @@
  */
 package pantallas;
 
-import entidades.Compra;
 import entidades.Pago;
 import entidades.Producto;
 import entidades.Venta;
 import gestores.Logs;
 import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,8 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,17 +54,17 @@ public class GestionDeVentas extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         SPpresupuestoArticulos = new javax.swing.JScrollPane();
         DetalleVentasjTable = new javax.swing.JTable();
-        EditarVentajButton = new javax.swing.JButton();
         NuevaVentajButton = new javax.swing.JButton();
         HastajCalendar = new com.toedter.calendar.JDateChooser();
         DesdejCalendar = new com.toedter.calendar.JDateChooser();
         SPpresupuesto = new javax.swing.JScrollPane();
         VentasjTable = new javax.swing.JTable();
-        BajaVentajButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         BuscarjButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         ImprimirDetallejButton = new javax.swing.JButton();
+        EditarVentajButton = new javax.swing.JButton();
+        DarDeBajajButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion de ventas - OSG");
@@ -105,16 +103,6 @@ public class GestionDeVentas extends javax.swing.JFrame {
         });
         DetalleVentasjTable.getTableHeader().setReorderingAllowed(false);
         SPpresupuestoArticulos.setViewportView(DetalleVentasjTable);
-
-        EditarVentajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        EditarVentajButton.setText("Editar venta");
-        EditarVentajButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        EditarVentajButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        EditarVentajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarVentajButtonActionPerformed(evt);
-            }
-        });
 
         NuevaVentajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         NuevaVentajButton.setText("Nueva venta");
@@ -177,16 +165,6 @@ public class GestionDeVentas extends javax.swing.JFrame {
             VentasjTable.getColumnModel().getColumn(0).setMaxWidth(90);
         }
 
-        BajaVentajButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BajaVentajButton.setText("Dar de baja venta");
-        BajaVentajButton.setMaximumSize(new java.awt.Dimension(41, 41));
-        BajaVentajButton.setMinimumSize(new java.awt.Dimension(41, 41));
-        BajaVentajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BajaVentajButtonActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Desde");
@@ -210,23 +188,27 @@ public class GestionDeVentas extends javax.swing.JFrame {
             }
         });
 
+        EditarVentajButton.setText("Editar venta");
+        EditarVentajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarVentajButtonActionPerformed(evt);
+            }
+        });
+
+        DarDeBajajButton.setText("Dar de baja venta/s");
+        DarDeBajajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DarDeBajajButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(905, Short.MAX_VALUE)
-                .addComponent(ImprimirDetallejButton)
-                .addGap(10, 10, 10))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(NuevaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(EditarVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BajaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -237,10 +219,18 @@ public class GestionDeVentas extends javax.swing.JFrame {
                         .addComponent(HastajCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BuscarjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
                         .addComponent(jButton3))
                     .addComponent(SPpresupuesto)
-                    .addComponent(SPpresupuestoArticulos))
+                    .addComponent(SPpresupuestoArticulos)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(NuevaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(EditarVentajButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(DarDeBajajButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ImprimirDetallejButton)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -262,9 +252,9 @@ public class GestionDeVentas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EditarVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BajaVentajButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ImprimirDetallejButton))
+                    .addComponent(ImprimirDetallejButton)
+                    .addComponent(EditarVentajButton)
+                    .addComponent(DarDeBajajButton))
                 .addContainerGap())
         );
 
@@ -297,7 +287,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
                 agregarDetalleVenta();
             }
         } else if (evt.getClickCount() == 2) {
-            abrirEditarCompra();
+            abrirEditarVenta();
         }
     }//GEN-LAST:event_VentasjTableMouseClicked
 
@@ -310,12 +300,13 @@ public class GestionDeVentas extends javax.swing.JFrame {
         AltaVenta nuevaVenta = new AltaVenta();
         nuevaVenta.idUsuario = this.idUsuario;
         nuevaVenta.nombreUsuario = nombreUsuario;
-        nuevaVenta.validarCajaAbierta();
-        nuevaVenta.cargarTiposPagos();
-        nuevaVenta.cargarTipoFactura();
-        nuevaVenta.cargarTablaClientes();
-        nuevaVenta.setLocationRelativeTo(null);
-        nuevaVenta.setVisible(true);
+        if (nuevaVenta.validarCajaAbierta()) {
+            nuevaVenta.cargarTiposPagos();
+            nuevaVenta.cargarTipoFactura();
+            nuevaVenta.cargarTablaClientes();
+            nuevaVenta.setLocationRelativeTo(null);
+            nuevaVenta.setVisible(true);
+        }
     }//GEN-LAST:event_NuevaVentajButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -323,14 +314,15 @@ public class GestionDeVentas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void BajaVentajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaVentajButtonActionPerformed
-        darDeBajaVentas();
-    }//GEN-LAST:event_BajaVentajButtonActionPerformed
-
     private void EditarVentajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarVentajButtonActionPerformed
-        abrirEditarCompra();
-        setLocationRelativeTo(null);
+        // TODO add your handling code here:
+        abrirEditarVenta();
     }//GEN-LAST:event_EditarVentajButtonActionPerformed
+
+    private void DarDeBajajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DarDeBajajButtonActionPerformed
+        // TODO add your handling code here:
+        darDeBajaVentas();
+    }//GEN-LAST:event_DarDeBajajButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,8 +363,8 @@ public class GestionDeVentas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BajaVentajButton;
     private javax.swing.JButton BuscarjButton;
+    private javax.swing.JButton DarDeBajajButton;
     private com.toedter.calendar.JDateChooser DesdejCalendar;
     private javax.swing.JTable DetalleVentasjTable;
     private javax.swing.JButton EditarVentajButton;
@@ -390,10 +382,10 @@ public class GestionDeVentas extends javax.swing.JFrame {
 
     private void limpiarTabla(JTable tabla) {
         int filas = tabla.getRowCount();
-        if (filas != -1) {
+        if (filas > 0) {
             DefaultTableModel defaultTabla = (DefaultTableModel) tabla.getModel();
-            for (int i = filas; i >= -1; i--) {
-                defaultTabla.removeRow(i);
+            for (int i = 0; filas > i; i++) {
+                defaultTabla.removeRow(0);
             }
         }
     }
@@ -432,18 +424,20 @@ public class GestionDeVentas extends javax.swing.JFrame {
         DefaultTableModel tabla = (DefaultTableModel) DetalleVentasjTable.getModel();
         Object[] columnas = new Object[4];
         try {
-            int fila = DetalleVentasjTable.getSelectedRow();
-            if (!this.productos.isEmpty()) {
-                if (!this.productos.get(fila).isEmpty()) {
-                    for (int j = 0; j < this.productos.get(fila).size(); j++) {
-                        columnas[0] = this.productos.get(fila).get(j).getCodigoBarra();
-                        columnas[1] = this.productos.get(fila).get(j).getDescripcionProducto();
-                        columnas[2] = this.productos.get(fila).get(j).getStock();
-                        columnas[3] = this.productos.get(fila).get(j).getPrecioUnitario();
-                        tabla.addRow(columnas);
+            int fila = VentasjTable.getSelectedRow();
+            if (fila != -1) {
+                if (!this.productos.isEmpty()) {
+                    if (!this.productos.get(fila).isEmpty()) {
+                        for (int j = 0; j < this.productos.get(fila).size(); j++) {
+                            columnas[0] = this.productos.get(fila).get(j).getCodigoBarra();
+                            columnas[1] = this.productos.get(fila).get(j).getDescripcionProducto();
+                            columnas[2] = this.productos.get(fila).get(j).getStock();
+                            columnas[3] = this.productos.get(fila).get(j).getPrecioUnitario();
+                            tabla.addRow(columnas);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar los productos de las compras");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar los productos de las compras");
                 }
             }
         } catch (Exception e) {
@@ -451,7 +445,7 @@ public class GestionDeVentas extends javax.swing.JFrame {
         }
     }
 
-    private void abrirEditarCompra() {
+    private void abrirEditarVenta() {
         if (VentasjTable.getSelectedRow() != -1) {
             int fila = VentasjTable.getSelectedRow();
             int idVenta = (int) VentasjTable.getValueAt(fila, 0);
@@ -469,7 +463,10 @@ public class GestionDeVentas extends javax.swing.JFrame {
                     }
                 }
                 double total = venta.getMontoVenta() + venta.getIvaVenta();
-                modVenta.TotaljTextField.setText(Double.toString(total));
+                modVenta.TotaljTextField.setText(Double.toString(new BigDecimal(total).setScale(BigDecimal.ROUND_UP).doubleValue()));
+                modVenta.FiltrojComboBox.setEnabled(false);
+                modVenta.FiltrojTextField.setEditable(false);
+                modVenta.Filtro2jTextField.setEditable(false);
                 modVenta.setVisible(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -486,14 +483,42 @@ public class GestionDeVentas extends javax.swing.JFrame {
             for (int i = 0; i < filas.length; i++) {
                 int idVenta = (int) VentasjTable.getValueAt(filas[i], 0);
                 try {
-                    ArrayList<Pago> pagos = new Pago().obtenerPagosVenta(idVenta);
-                    if (pagos.isEmpty()) {
-                        Venta venta = new Venta();
-                        venta.setIdVenta(idVenta);
-                        venta.setFechaBajaVenta(new Date());
-                        if (venta.darDeBajaVenta(venta) != 0) {
-                            resultados++;
+                    ArrayList<Producto> productos2 = new Venta().obtenerVenta(idVenta).getProductos();
+                    if (!productos2.isEmpty()) {
+                        int modificados = 0;
+                        for (int j = 0; j < productos2.size(); j++) {
+                            productos2.get(j).setStock(productos2.get(j).getStock() + 1);
+                            if (productos2.get(j).modificarProducto(productos2.get(j)) != 0) {
+                                modificados++;
+                                productos2 = new Venta().obtenerVenta(idVenta).getProductos();
+                            }
                         }
+                        if (modificados == productos2.size()) {
+                            ArrayList<Pago> pagos = new Pago().obtenerPagosVenta(idVenta);
+                            if (pagos.isEmpty()) {
+                                Venta venta = new Venta();
+                                venta.setIdVenta(idVenta);
+                                venta.setFechaBajaVenta(new Date());
+                                if (venta.darDeBajaVenta(venta) != 0) {
+                                    resultados++;
+                                }
+                            } else {
+                                for (int h = 0; h < pagos.size(); h++) {
+                                    if (pagos.get(h).dardeBajaVenta(idVenta) != 1) {
+                                        Venta venta = new Venta();
+                                        venta.setIdVenta(idVenta);
+                                        venta.setFechaBajaVenta(new Date());
+                                        if (venta.darDeBajaVenta(venta) != 0) {
+                                            resultados++;
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Ocurrio un error al dar de baja los pagos por venta");
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Existe una venta sin productos por favor comuniquese con el administrador");
                     }
                 } catch (Exception e) {
                     Logger.getLogger(GestionDeVentas.class.getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -511,10 +536,13 @@ public class GestionDeVentas extends javax.swing.JFrame {
         try {
             Logs log = new Logs();
             log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
-            log.crearLog("ha dado de baja una venta realizada a un cliente");
+            log.crearLog("ha dado de baja " + resultados + " venta/s realizada a un cliente");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        limpiarTabla(VentasjTable);
+        limpiarTabla(DetalleVentasjTable);
+        agregarVentasTabla();
     }
 
     private void imprimir() {

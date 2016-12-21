@@ -13,6 +13,7 @@ import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Ema
  */
 public class AltaDeUsuario extends javax.swing.JFrame {
-    
+
     String nombreUsuario;
 
     /**
@@ -300,7 +301,7 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Guardar usuario?");
             if (respuesta == JOptionPane.YES_OPTION) {
                 guardarOActualizarUsuario();
-                 this.dispose();
+                this.dispose();
             }
         }
     }//GEN-LAST:event_GuardarjButtonActionPerformed
@@ -386,7 +387,6 @@ public class AltaDeUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    
     private void ponLaAyuda() {
         try {
             // Carga el fichero de ayuda
@@ -401,12 +401,12 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             // principal y secundaria.
             hb.enableHelpOnButton(btnAyuda, "aplicacion", helpset);
             hb.enableHelpKey(getRootPane(), "", helpset);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     private void agregarRolesACombo() {
         Rol rol = new Rol();
         try {
@@ -507,12 +507,17 @@ public class AltaDeUsuario extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "El usuario no pudo guardarse");
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                JOptionPane.showMessageDialog(null, "El nombre de usuario ya existe por favor ingrese otro");
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         try {
             Logs log = new Logs();
-            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
+            log.user = nombreUsuario;
             log.crearLog("ha creado/actualizado un usuario");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);

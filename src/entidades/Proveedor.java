@@ -6,6 +6,7 @@
 package entidades;
 
 import gestores.GestorProveedor;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -109,7 +110,7 @@ public class Proveedor {
         this.localidad = localidad;
     }
 
-    public int altaProveedor(Proveedor proveedor) throws Exception {
+    public int altaProveedor(Proveedor proveedor) throws Exception, SQLException {
         return new GestorProveedor().altaProveedor(proveedor);
     }
 

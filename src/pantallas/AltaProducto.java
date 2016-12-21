@@ -16,17 +16,17 @@ import javax.imageio.ImageIO;
 import net.sourceforge.jbarcodebean.JBarcodeBean;
 import net.sourceforge.jbarcodebean.model.Interleaved25;
 import gestores.Logs;
-import java.io.FileWriter;
-import java.util.Calendar;
+import java.sql.SQLException;
 
 /**
  *
  * @author German
  */
 public class AltaProducto extends javax.swing.JFrame {
-    
+
     private int bandera = 0;
     String nombreUsuario;
+
     /**
      * Creates new form AltaProducto
      */
@@ -338,9 +338,9 @@ public class AltaProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
         DescripcionProductojTextField.setText(NombreProdJTextField.getText());
     }//GEN-LAST:event_NombreProdJTextFieldFocusLost
-    
+
     private void TestBarCode() {
-        
+
         JBarcodeBean barcode = new JBarcodeBean();
 
         // nuestro tipo de codigo de barra
@@ -350,7 +350,7 @@ public class AltaProducto extends javax.swing.JFrame {
         // nuestro valor a codificar y algunas configuraciones mas
         barcode.setCode(CodigoProductoJTextField.getText());
         barcode.setCheckDigit(true);
-        
+
         BufferedImage bufferedImage = barcode.draw(new BufferedImage(400, 400, BufferedImage.TYPE_INT_RGB));
 
         // guardar en disco como png
@@ -463,11 +463,11 @@ public class AltaProducto extends javax.swing.JFrame {
         }
         return valido;
     }
-    
+
     private void guardarOActualizarProducto() {
         try {
             Logs log = new Logs();
-            log.user = new VentanaPrincipal().NombreUsuariojLabel.getText();
+            log.user = nombreUsuario;
             log.crearLog("ha creado/actualizado un producto");
         } catch (IOException ex) {
             Logger.getLogger(AltaProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -493,8 +493,12 @@ public class AltaProducto extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al ingresar el producto");
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                JOptionPane.showMessageDialog(null, "El producto ingresado ya existe");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

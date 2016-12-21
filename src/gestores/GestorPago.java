@@ -117,6 +117,22 @@ public class GestorPago extends PoolDeConexiones {
         return resultado;
     }
 
+    public int darDeBajaPagoVenta(int idVenta) throws Exception {
+        int resultado = 0;
+        String sql = "UPDATE pago FECHABAJA = CURDATE() WHERE pago.venta_IDVENTA = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idVenta);
+            resultado = pst.executeUpdate();
+            conexion.commit();
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return resultado;
+    }
+
     public Pago obtenerPago(int idPago) throws Exception {
         Pago pago = new Pago();
         String sql = "SELECT * FROM pago WHERE pago.FECHABAJA IS NULL AND pago.IDPAGO = ?";
@@ -163,6 +179,31 @@ public class GestorPago extends PoolDeConexiones {
             throw new Exception(e.getMessage());
         }
         return pago;
+    }
+
+    public ArrayList<Pago> obtenerPagosCompra(int idCompra) throws Exception {
+        ArrayList<Pago> pagos = new ArrayList<>();
+        String sql = "SELECT * FROM pago WHERE pago.FECHABAJA IS NULL AND pago.compra_IDCOMPRA = ?";
+        try {
+            conexion.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            PreparedStatement pst = conexion.prepareStatement(sql);
+            pst.setInt(1, idCompra);
+            ResultSet resultado = pst.executeQuery();
+            conexion.commit();
+            while (resultado.next()) {
+                Pago pago = new Pago();
+                pago.setIdPago(resultado.getInt("IDPAGO"));
+                pago.setMontoPago(resultado.getDouble("MONTOPAGO"));
+                pago.setFechaPago(resultado.getDate("FECHAPAGO"));
+                pago.setTipoPago(new TipoPago().obtenerTipoPago(resultado.getInt("tipo_pago_IDTIPOPAGO")));
+                pago.setVenta(new Venta().obtenerVenta(resultado.getInt("venta_IDVENTA")));
+                pago.setCompra(new Compra().obtenerCompra(resultado.getInt("compra_IDCOMPRA")));
+            }
+        } catch (Exception e) {
+            conexion.rollback();
+            throw new Exception(e.getMessage());
+        }
+        return pagos;
     }
 
     public ArrayList<Pago> obtenerPagosVenta(int idVenta) throws Exception {

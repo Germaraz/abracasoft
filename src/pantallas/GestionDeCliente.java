@@ -86,7 +86,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
         });
 
         DarDeBajaClijButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        DarDeBajaClijButton.setText("Eliminar cliente");
+        DarDeBajaClijButton.setText("Dar de baja cliente/s ");
         DarDeBajaClijButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DarDeBajaClijButtonActionPerformed(evt);
@@ -345,7 +345,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
         }
     }
 
-    private void agregarClientesATabla() {
+    public  void agregarClientesATabla() {
         ArrayList<Cliente> clientes;
         try {
             clientes = new Cliente().listarClientes();
@@ -355,7 +355,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
                 Object[] columnas = new Object[10];
                 for (int i = 0; i < clientes.size(); i++) {
                     columnas[0] = clientes.get(i).getIdCliente();
-                    columnas[1] = clientes.get(i).getApellidoCliente() + clientes.get(i).getNombreCliente();
+                    columnas[1] = clientes.get(i).getApellidoCliente() + " " + clientes.get(i).getNombreCliente();
                     columnas[2] = clientes.get(i).getDniCliente();
                     columnas[3] = clientes.get(i).getSexo();
                     columnas[4] = clientes.get(i).getLocalidad().getProvincia().getNombreProvincia();
@@ -444,7 +444,7 @@ public class GestionDeCliente extends javax.swing.JFrame {
                 modCliente.ClienteEmailjTextField.setText(cliente.getMailCliente());
                 modCliente.ClienteTelefonojTextField.setText(Long.toString(cliente.getTelefonoCliente()));
                 modCliente.ClienteIDjTextField.setText(Integer.toString(cliente.getIdCliente()));
-                modCliente.setTitle("Modificar Cliente");
+                modCliente.setTitle("Modificar cliente");
                 modCliente.setVisible(true);
                 this.dispose();
             } catch (Exception e) {
